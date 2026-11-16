@@ -131,14 +131,13 @@
     }
 
     .brand-mark-link {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
       text-decoration: none;
       color: #FFFFFF;
       opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(-8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .brand-mark-link.visible {
@@ -147,16 +146,15 @@
     }
 
     .brand-mark-img {
-      height: 22px;
+      height: clamp(28px, 2.4vw, 32px);
       width: auto;
+      display: block;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
     }
 
-    .brand-mark-sub {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--c-orange);
+    .brand-mark-link:hover .brand-mark-img {
+      transform: scale(1.05);
+      opacity: 0.9;
     }
 
     /* Right Side: Section Scroller Pills + Wave Hamburger */
@@ -424,6 +422,25 @@
       z-index: 1;
       will-change: transform;
       pointer-events: none;
+      background: var(--bg-black);
+    }
+
+    /* Safari WebKit Video Autoplay & Controls Suppression */
+    .hero-bg-media::-webkit-media-controls,
+    .hero-bg-media::-webkit-media-controls-panel,
+    .hero-bg-media::-webkit-media-controls-enclosure,
+    .hero-bg-media::-webkit-media-controls-overlay-play-button,
+    .hero-bg-media::-webkit-media-controls-start-playback-button,
+    .wave-strap-media::-webkit-media-controls,
+    .wave-strap-media::-webkit-media-controls-panel,
+    .wave-strap-media::-webkit-media-controls-enclosure,
+    .wave-strap-media::-webkit-media-controls-overlay-play-button,
+    .wave-strap-media::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
     }
 
     .hero-content {
@@ -666,8 +683,8 @@
     /* SECTION: BRAND PHILOSOPHY (Minimalist Editorial Match) */
     .section-philosophy-minimal {
       text-align: center;
-      padding: clamp(6rem, 12vh, 9rem) 1.5rem;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: clamp(6rem, 12vh, 9rem) 1.5rem clamp(4rem, 8vh, 6rem);
+      border-bottom: none;
     }
 
     .philosophy-minimal-content {
@@ -723,6 +740,140 @@
       color: #000000;
       transform: scale(1.06);
       box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
+    }
+
+    /* =========================================================
+       WAVE ANIMATION SECTION SEPARATOR (3x Repeating Ribbon Strap)
+       ========================================================= */
+    .wave-video-strap {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      height: clamp(80px, 11vh, 130px);
+      overflow: hidden;
+      background: var(--bg-black);
+      border: none;
+      display: block;
+    }
+
+    .wave-strap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
+      gap: 0;
+    }
+
+    .wave-strap-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-black);
+    }
+
+    .wave-strap-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .wave-strap-item:last-child::after {
+      display: none;
+    }
+
+    .wave-strap-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.92) contrast(1.12);
+      pointer-events: none;
+      display: block;
+    }
+
+    .wave-strap-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.55) 0%,
+        rgba(7, 7, 7, 0.12) 20%,
+        rgba(7, 7, 7, 0) 50%,
+        rgba(7, 7, 7, 0.12) 80%,
+        rgba(7, 7, 7, 0.55) 100%
+      );
+    }
+
+    /* =========================================================
+       EVENT FULL-WIDTH PARALLAX BANNER (assets/Event-bg.jpg)
+       ========================================================= */
+    .event-parallax-banner {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      margin-top: 0;
+      margin-bottom: 0;
+      height: 80vh;
+      min-height: 520px;
+      overflow: hidden;
+      background: var(--bg-black);
+      display: block;
+    }
+
+    .event-parallax-media-wrap {
+      position: absolute;
+      top: -20%;
+      left: 0;
+      width: 100%;
+      height: 140%;
+      overflow: hidden;
+    }
+
+    .event-parallax-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.85) contrast(1.08);
+      will-change: transform;
+      pointer-events: none;
+      display: block;
+    }
+
+    .event-parallax-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.5) 0%,
+        rgba(7, 7, 7, 0) 22%,
+        rgba(7, 7, 7, 0) 78%,
+        rgba(7, 7, 7, 0.55) 100%
+      );
+    }
+
+    @media (max-width: 768px) {
+      .event-parallax-banner {
+        height: 80vh;
+        min-height: 400px;
+      }
     }
 
     /* SECTION: WHAT'S ON (Weekly Programming) */
@@ -1258,9 +1409,8 @@
   <header class="site-header">
     <div class="header-left">
       <!-- Appears when scrolling away from hero -->
-      <a href="#hero" class="brand-mark-link" id="headerBrandMark">
+      <a href="#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
-        <span class="brand-mark-sub">HI-FI</span>
       </a>
     </div>
 
@@ -1359,11 +1509,11 @@
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
         <h4>HOURS</h4>
-        <p>Wed – Sun: 17:00 – Late<br>Listening Sessions: 20:30 Onwards</p>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
       <div class="drawer-info-col">
         <h4>LOCATION</h4>
-        <p>142 Acoustic Lane<br>Amsterdam, Netherlands</p>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
       <div class="drawer-info-col">
         <h4>COMMUNITY</h4>
@@ -1380,8 +1530,8 @@
        HERO ENTRANCE (Exact Reference Match: Center Big Logo)
        ========================================================= -->
   <section id="hero" class="hero-entrance">
-    <!-- Looping Vinyl Video Background -->
-    <video class="hero-bg-media" autoplay muted loop playsinline preload="auto" poster="./assets/hero-ref.jpg">
+    <!-- Looping Vinyl Video Background (Safari-Optimized, Audio-Free, Zero Ghost Logo) -->
+    <video class="hero-bg-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
       <source src="./assets/vinyl-loop.mp4" type="video/mp4">
     </video>
 
@@ -1579,6 +1729,36 @@
         <a href="#space" class="btn-our-story">OUR STORY</a>
       </div>
     </section>
+
+    <!-- 3X REPEATING WAVE VIDEO STRAP SEPARATOR (assets/wave-anim.mp4) -->
+    <div class="wave-video-strap" aria-hidden="true">
+      <div class="wave-strap-grid">
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="wave-strap-overlay"></div>
+    </div>
+
+    <!-- FULL-WIDTH EVENT ATMOSPHERE BANNER (assets/Event-bg.jpg) WITH SUBTLE PARALLAX -->
+    <div class="event-parallax-banner" id="eventParallaxBanner" aria-hidden="true">
+      <div class="event-parallax-media-wrap">
+        <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space" class="event-parallax-img" id="eventParallaxImg">
+      </div>
+      <div class="event-parallax-overlay"></div>
+    </div>
 
     <!-- 02. WHAT'S ON (WEEKLY PROGRAMMING) -->
     <section id="programming" class="section-block">
@@ -1989,16 +2169,14 @@
 
       <div class="footer-col">
         <h5>HOURS</h5>
-        <p>Wednesday – Thursday<br>17:00 – 00:00</p>
-        <p>Friday – Saturday<br>17:00 – 02:00</p>
-        <p>Sunday<br>16:00 – 23:00</p>
+        <p>Wednesday – Sunday<br>7:00 PM – Late</p>
+        <p>Listening Sessions<br>8:30 PM Onwards</p>
       </div>
 
       <div class="footer-col">
         <h5>LOCATION & CONTACT</h5>
-        <p>142 Acoustic Lane<br>Amsterdam, Netherlands</p>
-        <p>info@nami-bar.nl</p>
-        <p>+31 20 555 4400</p>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
+        <p>experience@nami.in</p>
       </div>
 
       <div class="footer-col">
@@ -2022,6 +2200,60 @@
        JAVASCRIPT LOGIC
        ========================================================= -->
   <script>
+    // 0. Safari / WebKit Video Autoplay & Muted State Enforcer
+    function initVideoAutoplay() {
+      const allVideos = document.querySelectorAll('video[autoplay]');
+      allVideos.forEach(v => {
+        v.muted = true;
+        v.defaultMuted = true;
+        v.playsInline = true;
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+
+        const triggerPlayback = () => {
+          const promise = v.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              // If Safari blocked it initially, trigger on earliest interaction
+              const unlock = () => {
+                v.play().catch(() => {});
+                window.removeEventListener('click', unlock);
+                window.removeEventListener('touchstart', unlock);
+                window.removeEventListener('scroll', unlock);
+              };
+              window.addEventListener('click', unlock, { once: true, passive: true });
+              window.addEventListener('touchstart', unlock, { once: true, passive: true });
+              window.addEventListener('scroll', unlock, { once: true, passive: true });
+            });
+          }
+        };
+
+        if (v.readyState >= 2) {
+          triggerPlayback();
+        } else {
+          v.addEventListener('loadedmetadata', triggerPlayback, { once: true });
+          v.addEventListener('canplay', triggerPlayback, { once: true });
+        }
+        triggerPlayback();
+      });
+
+      // Resume on tab visibility return
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          allVideos.forEach(v => {
+            if (v.paused) v.play().catch(() => {});
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoAutoplay);
+    } else {
+      initVideoAutoplay();
+    }
+
     // 1. Toast Notification Utility
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -2045,6 +2277,8 @@
     const scrollerButtons = document.querySelectorAll('.scroller-btn');
     const sections = ['hero', 'philosophy', 'space', 'menu', 'reserve'];
     const brandMark = document.getElementById('headerBrandMark');
+    const eventBanner = document.getElementById('eventParallaxBanner');
+    const eventImg = document.getElementById('eventParallaxImg');
 
     let ticking = false;
 
@@ -2070,6 +2304,16 @@
           heroScrollCue.style.opacity = cueOpacity;
           heroScrollCue.style.transform = `translate3d(-50%, ${scrollY * 0.45}px, 0)`;
           heroScrollCue.style.pointerEvents = cueOpacity <= 0.05 ? 'none' : 'auto';
+        }
+      }
+
+      // Subtle Parallax on Full-Width Event Banner
+      if (eventBanner && eventImg) {
+        const rect = eventBanner.getBoundingClientRect();
+        if (rect.top < winHeight && rect.bottom > 0) {
+          const progress = (rect.top - winHeight / 2) / (winHeight / 2 + rect.height / 2);
+          const translateY = progress * 50;
+          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
         }
       }
 
@@ -2108,6 +2352,9 @@
         ticking = true;
       }
     }, { passive: true });
+
+    // Initial calculation on load
+    handleScrollEffects();
 
     // 4. Menu Tabs (Food / Cocktails / Desserts)
     function switchMenuTab(tab) {
@@ -2217,6 +2464,34 @@
         } catch(e) {}
       }
     }
+
+    // Synchronize the 3-panel wave strap video loop
+    (function initWaveStrapSync() {
+      const strapVideos = document.querySelectorAll('.wave-strap-media');
+      if (strapVideos.length <= 1) return;
+
+      const lead = strapVideos[0];
+      const followers = Array.from(strapVideos).slice(1);
+
+      function alignPlayback() {
+        const targetTime = lead.currentTime;
+        followers.forEach(v => {
+          if (Math.abs(v.currentTime - targetTime) > 0.08) {
+            try {
+              v.currentTime = targetTime;
+            } catch(e) {}
+          }
+        });
+      }
+
+      lead.addEventListener('timeupdate', alignPlayback);
+      lead.addEventListener('play', () => {
+        followers.forEach(v => {
+          try { v.play(); } catch(e) {}
+        });
+      });
+      lead.addEventListener('seeked', alignPlayback);
+    })();
   </script>
 </body>
 </html>
