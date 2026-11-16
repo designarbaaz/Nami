@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMI — Hi-Fi Listening Room & Dining Experience</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <!-- Adobe Typekit: Savate -->
+  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
+
+  <!-- Google Fonts: Chivo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: "savate", sans-serif;
+      --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-black: #070707;
+      --bg-surface: rgba(18, 18, 18, 0.85);
+      --bg-surface-elevated: rgba(26, 26, 26, 0.92);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(232, 66, 67, 0.45);
+      --text-primary: #FFFFFF;
+      --text-secondary: #A6A6A6;
+      --text-muted: #6C6C6C;
+      
+      /* Approved Nami Palette */
+      --c-red: #E84243;
+      --c-amber-red: #E65500;
+      --c-orange: #F48F24;
+      --c-pink: #FFAABD;
+      --c-blue: #004F9D;
+
+      /* Approved Gradients */
+      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
+      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
+      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.16) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+
+      /* Official Noise Texture Tiled directly on body */
+      background-image: 
+        var(--grad-nocturnal-glow),
+        url('./assets/Noise-texture.png');
+      background-repeat: no-repeat, repeat;
+      background-position: center top, center top;
+      background-size: 100% 1000px, 100% auto;
+      background-attachment: scroll, scroll;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-heading,
+    .archetype-title,
+    .drawer-nav-item,
+    .event-artist,
+    .item-name,
+    .faq-question {
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+
+    /* Fixed Viewport Noise Overlay */
+    #noise-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+      opacity: 0.95;
+      mix-blend-mode: screen;
+    }
+
+    /* Subtle Analog Tube Warmth Overlay */
+    #warmth-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(circle at 50% 50%, rgba(180, 95, 30, 0.05) 0%, rgba(0, 0, 0, 0.35) 90%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+    }
+
+    /* =========================================================
+       FIXED TOP NAVIGATION & SECTION SCROLLER (Reference Match)
+       ========================================================= */
+    header.site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 500;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .header-left {
+      pointer-events: auto;
+    }
+
+    .brand-mark-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #FFFFFF;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .brand-mark-link.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .brand-mark-img {
+      height: 22px;
+      width: auto;
+    }
+
+    .brand-mark-sub {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-orange);
+    }
+
+    /* Right Side: Section Scroller Pills + Wave Hamburger */
+    .header-nav-wrap {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      pointer-events: auto;
+    }
+
+    /* Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) */
+    .section-scroller {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      gap: 0;
+    }
+
+    .scroller-node {
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .scroller-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.45);
+      border: 1.5px solid #FFFFFF;
+      color: #FFFFFF;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroller-btn:hover {
+      border-color: var(--c-orange);
+      color: var(--c-orange);
+      transform: scale(1.08);
+    }
+
+    .scroller-btn.active {
+      background: var(--c-orange);
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+      box-shadow: 0 0 16px rgba(230, 85, 0, 0.6);
+      transform: scale(1.08);
+    }
+
+    /* Wave Separator between buttons (wave-1.svg and wave-2.svg) */
+    .scroller-wave-sep {
+      width: 28px;
+      height: 12px;
+      margin: 0 -2px;
+      display: block;
+      flex-shrink: 0;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Tooltip on hover */
+    .scroller-btn .tooltip {
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #111111;
+      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    .scroller-btn:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Wave Hamburger Button (Outer-border removed) */
+    .btn-wave-hamburger {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .btn-wave-hamburger:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-menu-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .btn-wave-hamburger:hover .btn-menu-icon {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    /* =========================================================
+       SLIDE-OUT / FULL-SCREEN MENU DRAWER
+       ========================================================= */
+    #menuDrawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 6, 6, 0.96);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 4rem;
+    }
+
+    #menuDrawer.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-drawer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-close-drawer:hover {
+      border-color: var(--c-red);
+      color: var(--c-red);
+      transform: rotate(90deg);
+    }
+
+    .drawer-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .drawer-nav-item {
+      color: #FFFFFF;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.25s, color 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .drawer-nav-item:hover {
+      color: var(--c-orange);
+      transform: translateX(12px);
+    }
+
+    .drawer-nav-num {
+      font-family: 'Chivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .drawer-bottom-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+    }
+
+    .drawer-info-col h4 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .drawer-info-col p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       HERO ENTRANCE (Exact Reference Match: Center Huge Logo)
+       ========================================================= */
+    section.hero-entrance {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* Atmospheric Dim Lighting Background Image / Video */
+    .hero-bg-media {
+      position: absolute;
+      top: -10%;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.65) contrast(1.1);
+      z-index: 1;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform, opacity;
+    }
+
+    /* Big Huge Logo in Dead Center */
+    .hero-big-logo {
+      width: clamp(320px, 68vw, 1024px);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.85));
+      animation: logoFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes logoFadeIn {
+      0% { opacity: 0; transform: scale(0.94); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-welcome-strap {
+      margin-top: 1.5rem;
+      font-size: clamp(0.75rem, 1.05vw, 0.95rem);
+      font-family: 'Chivo', sans-serif;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Scroll Down Cue */
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      will-change: transform, opacity;
+    }
+
+    .hero-scroll-cue:hover {
+      color: #FFFFFF;
+    }
+
+    .cue-wave-arrow {
+      width: 22px;
+      height: auto;
+      display: block;
+      animation: bounceWave 2s infinite ease-in-out;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+    }
+
+    @keyframes bounceWave {
+      0%, 100% { transform: translateY(0); opacity: 0.75; }
+      50% { transform: translateY(5px); opacity: 1; }
+    }
+
+    /* =========================================================
+       BOTTOM RIGHT: NOW PLAYING AUDIO WIDGET (Reference Match)
+       ========================================================= */
+    .now-playing-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2.5rem;
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      background: rgba(14, 14, 14, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 0.5rem 0.85rem 0.5rem 1.25rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .now-playing-widget:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .now-playing-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .track-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    .track-artist {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-family: 'Chivo', sans-serif;
+    }
+
+    .btn-audio-toggle {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem;
+      transition: color 0.2s;
+    }
+
+    .btn-audio-toggle:hover {
+      color: var(--c-orange);
+    }
+
+    .audio-badge-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .waveform-bars {
+      display: flex;
+      align-items: center;
+      gap: 2.5px;
+      height: 14px;
+    }
+
+    .waveform-bar {
+      width: 2px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      height: 4px;
+      transition: height 0.2s;
+    }
+
+    .waveform-bars.playing .waveform-bar:nth-child(1) { animation: soundWave 0.8s infinite ease-in-out alternate; }
+    .waveform-bars.playing .waveform-bar:nth-child(2) { animation: soundWave 1.2s infinite ease-in-out alternate 0.2s; }
+    .waveform-bars.playing .waveform-bar:nth-child(3) { animation: soundWave 0.7s infinite ease-in-out alternate 0.4s; }
+    .waveform-bars.playing .waveform-bar:nth-child(4) { animation: soundWave 1.0s infinite ease-in-out alternate 0.1s; }
+
+    @keyframes soundWave {
+      0% { height: 3px; background: #FFFFFF; }
+      100% { height: 14px; background: var(--c-orange); }
+    }
+
+    /* =========================================================
+       PAGE CONTENT SECTIONS (Sitemap Implementation)
+       ========================================================= */
+    .page-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 4rem 2rem 8rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-block {
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      scroll-margin-top: 5rem;
+    }
+
+    .section-block:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-eyebrow {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-red);
+      display: inline-block;
+      box-shadow: 0 0 10px var(--c-red);
+    }
+
+    .section-heading {
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-heading span.grad-accent {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .section-body {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    /* SECTION: BRAND PHILOSOPHY (Minimalist Editorial Match) */
+    .section-philosophy-minimal {
+      text-align: center;
+      padding: clamp(6rem, 12vh, 9rem) 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .philosophy-minimal-content {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .philosophy-minimal-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5.8vw, 4.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 0 0 2rem 0;
+      text-wrap: balance;
+    }
+
+    .philosophy-minimal-desc {
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.65;
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-our-story {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-our-story:hover {
+      background: #F0F0F0;
+      color: #000000;
+      transform: scale(1.06);
+      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
+    }
+
+    /* SECTION: WHAT'S ON (Weekly Programming) */
+    .events-schedule {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .event-row {
+      display: grid;
+      grid-template-columns: 100px 1.5fr 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      text-decoration: none;
+      color: #FFFFFF;
+      transition: background 0.2s, padding-left 0.2s;
+    }
+
+    .event-row:hover {
+      padding-left: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .event-date {
+      font-family: 'Chivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--c-orange);
+    }
+
+    .event-artist {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .event-meta {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .event-tag-badge {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--c-pink);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .event-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
+
+    /* SECTION: THE RESONANCE MENU */
+    .menu-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .menu-tab-btn {
+      background: #141414;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .menu-tab-btn.active,
+    .menu-tab-btn:hover {
+      background: rgba(232, 66, 67, 0.15);
+      border-color: var(--c-red);
+      color: #FFFFFF;
+    }
+
+    .menu-items-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 800px) {
+      .menu-items-grid { grid-template-columns: 1fr; }
+    }
+
+    .menu-item-card {
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .menu-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+    }
+
+    .item-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .item-price {
+      font-family: 'Chivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .item-ingredients {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+
+    .item-sonic-descriptor {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--c-pink);
+    }
+
+    /* =========================================================
+       SECTION: THE SPACE (Spin Bar Style Full-Bleed 3-Col Gallery)
+       ========================================================= */
+    .space-section {
+      padding: 6rem 0 7rem;
+      border-bottom: 1px solid var(--border-subtle);
+      scroll-margin-top: 5rem;
+    }
+
+    .space-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .space-header-left {
+      max-width: 620px;
+    }
+
+    .space-header-right {
+      max-width: 440px;
+      text-align: right;
+    }
+
+    .space-header-quote {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .space-fine-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--border-subtle);
+      margin-bottom: 3rem;
+    }
+
+    /* Full-bleed 3-column breakout grid matching Spin Bar Amsterdam */
+    .spin-gallery-fullbleed {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+
+    .spin-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--bg-black);
+    }
+
+    .spin-gallery-cell {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: #0a0a0a;
+    }
+
+    .spin-gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+      filter: brightness(0.96) contrast(1.04);
+    }
+
+    .spin-gallery-cell:hover .spin-gallery-img {
+      transform: scale(1.04);
+      filter: brightness(1.08) contrast(1.08);
+    }
+
+    /* Acoustic Specs Bottom Bar */
+    .space-specs-strip {
+      margin-top: 3.5rem;
+      padding: 2.25rem 2.75rem;
+      background: rgba(14, 14, 14, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .space-specs-title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.35rem;
+    }
+
+    .space-specs-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 650px;
+    }
+
+    @media (max-width: 900px) {
+      .space-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+      .space-header-right {
+        text-align: left;
+        max-width: 100%;
+      }
+      .spin-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .space-specs-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .spin-gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .spin-gallery-cell {
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    /* SECTION: FAQS ACCORDION */
+    .faq-list {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1.5rem 0;
+      text-align: left;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'Chivo', sans-serif;
+    }
+
+    .faq-toggle-icon {
+      font-size: 1.5rem;
+      color: var(--c-orange);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 1.5rem;
+    }
+
+    /* SECTION: RESERVE A TABLE (On-Domain Booking Engine) */
+    .reservation-card {
+      background: rgba(14, 14, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 3.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reservation-glow {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 66, 67, 0.3) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .booking-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: uppercase;
+    }
+
+    .form-input, .form-select {
+      background: #0d0d0d;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: #fff;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--c-red);
+    }
+
+    .btn-submit-booking {
+      background: var(--grad-primary);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      margin-top: 2rem;
+      width: 100%;
+      box-shadow: 0 4px 25px rgba(232, 66, 67, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-submit-booking:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 35px rgba(232, 66, 67, 0.6);
+    }
+
+    /* FOOTER */
+    footer.site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 5rem 2.5rem 3rem;
+      background: #050505;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 800px) {
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .footer-container { grid-template-columns: 1fr; }
+    }
+
+    .footer-logo {
+      height: 24px;
+      width: auto;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col h5 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col p, .footer-col a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    .btn-whatsapp-footer {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-whatsapp-footer:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom-bar {
+      max-width: 1180px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 2.5rem;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      z-index: 10000;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 650px) {
+      header.site-header { padding: 1rem 1.25rem; }
+      .now-playing-widget { bottom: 1rem; right: 1rem; }
+      .section-block { padding: 4rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Official Noise Texture Overlay -->
+  <div id="noise-layer"></div>
+
+  <!-- Warm Analog Tube Glow -->
+  <div id="warmth-layer"></div>
+
+  <!-- =========================================================
+       FIXED TOP NAVIGATION (Exact Match to User Reference)
+       ========================================================= -->
+  <header class="site-header">
+    <div class="header-left">
+      <!-- Appears when scrolling away from hero -->
+      <a href="#hero" class="brand-mark-link" id="headerBrandMark">
+        <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
+        <span class="brand-mark-sub">HI-FI</span>
+      </a>
+    </div>
+
+    <div class="header-nav-wrap">
+      <!-- Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) -->
+      <nav class="section-scroller" aria-label="Section scroller">
+        <!-- Node I: Intro / Hero -->
+        <div class="scroller-node">
+          <a href="#hero" class="scroller-btn active" data-section="hero" aria-label="Intro">
+            I
+            <span class="tooltip">Intro</span>
+          </a>
+        </div>
+
+        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
+
+        <!-- Node P: Philosophy -->
+        <div class="scroller-node">
+          <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Philosophy">
+            P
+            <span class="tooltip">Philosophy</span>
+          </a>
+        </div>
+
+        <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
+
+        <!-- Node S: Space -->
+        <div class="scroller-node">
+          <a href="#space" class="scroller-btn" data-section="space" aria-label="Space">
+            S
+            <span class="tooltip">Space</span>
+          </a>
+        </div>
+
+        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
+
+        <!-- Node M: Menu -->
+        <div class="scroller-node">
+          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Menu">
+            M
+            <span class="tooltip">Menu</span>
+          </a>
+        </div>
+
+        <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
+
+        <!-- Node R: Reserve -->
+        <div class="scroller-node">
+          <a href="#reserve" class="scroller-btn" data-section="reserve" aria-label="Reserve a Table">
+            R
+            <span class="tooltip">Reserve</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Waveform Hamburger Menu Icon (Menu-io.svg) -->
+      <button class="btn-wave-hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMenuDrawer()">
+        <img src="./assets/Menu-io.svg" alt="Menu" class="btn-menu-icon">
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       FULL-SCREEN SLIDE-OUT MENU DRAWER
+       ========================================================= -->
+  <div id="menuDrawer" role="dialog" aria-modal="true">
+    <div class="menu-drawer-top">
+      <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+    </div>
+
+    <nav class="drawer-nav-links">
+      <a href="#hero" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">01</span> Intro & Welcome
+      </a>
+      <a href="#philosophy" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">02</span> The Philosophy
+      </a>
+      <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">03</span> What’s On (Schedule)
+      </a>
+      <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">04</span> Resonance Menu
+      </a>
+      <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">05</span> The Space & Sound Setup
+      </a>
+      <a href="#faqs" class="drawer-nav-item" onclick="toggleMenuDrawer()">
+        <span class="drawer-nav-num">06</span> FAQs & Etiquette
+      </a>
+      <a href="#reserve" class="drawer-nav-item" onclick="toggleMenuDrawer()" style="color: var(--c-orange);">
+        <span class="drawer-nav-num" style="color: var(--c-orange);">07</span> Reserve a Table
+      </a>
+    </nav>
+
+    <div class="drawer-bottom-info">
+      <div class="drawer-info-col">
+        <h4>HOURS</h4>
+        <p>Wed – Sun: 17:00 – Late<br>Listening Sessions: 20:30 Onwards</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>LOCATION</h4>
+        <p>142 Acoustic Lane<br>Amsterdam, Netherlands</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>COMMUNITY</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline;">Join WhatsApp Group →</a>
+      </div>
+      <div class="drawer-info-col">
+        <h4>INSTAGRAM</h4>
+        <a href="https://instagram.com/" target="_blank" style="color: #fff;">@nami.hifi</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       HERO ENTRANCE (Exact Reference Match: Center Big Logo)
+       ========================================================= -->
+  <section id="hero" class="hero-entrance">
+    <!-- Looping Vinyl Video Background -->
+    <video class="hero-bg-media" autoplay muted loop playsinline preload="auto" poster="./assets/hero-ref.jpg">
+      <source src="./assets/vinyl-loop.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+      <!-- Huge Big Center Logo (Max 1024px) -->
+      <img src="./assets/Main-logo.svg" alt="NAMI" class="hero-big-logo">
+
+      <!-- Short Subtitle Uppercase -->
+      <p class="hero-welcome-strap">
+        LISTENING BAR · DRINKS · FOOD
+      </p>
+    </div>
+
+    <!-- Scroll down indicator with custom wave arrow -->
+    <a href="#philosophy" class="hero-scroll-cue">
+      <span>SCROLL TO EXPLORE</span>
+      <img src="./assets/down-arrow-flat.svg" alt="Scroll Down" class="cue-wave-arrow">
+    </a>
+  </section>
+
+  <!-- =========================================================
+       BOTTOM RIGHT: NOW PLAYING AUDIO WIDGET (Reference Match)
+       ========================================================= -->
+  <div class="now-playing-widget">
+    <div class="now-playing-text">
+      <span class="track-title">On & On</span>
+      <span class="track-artist">Erykah Badu</span>
+    </div>
+
+    <!-- Play/Pause Button -->
+    <button class="btn-audio-toggle" id="audioToggleBtn" onclick="toggleAudio()" aria-label="Play/Pause track">
+      <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <!-- Animated Equalizer Badge -->
+    <div class="audio-badge-circle" title="Horn Sound System Active">
+      <div class="waveform-bars" id="eqBars">
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PAGE CONTENT (Sitemap Sections)
+       ========================================================= -->
+  <main class="page-wrap">
+
+    <!-- 01. BRAND PHILOSOPHY / STORY (Minimalist Editorial Reference Match) -->
+    <section id="philosophy" class="section-philosophy-minimal">
+      <div class="philosophy-minimal-content">
+        <h2 class="philosophy-minimal-title">
+          We Don't Host Nights.<br>
+          We Compose Them.
+        </h2>
+        <p class="philosophy-minimal-desc">
+          It is curious, expressive and slightly unconventional. It does not simply serve food, drinks or music — it creates an environment where these things collide, overlap and influence one another.
+        </p>
+        <a href="#space" class="btn-our-story">OUR STORY</a>
+      </div>
+    </section>
+
+    <!-- 02. WHAT'S ON (WEEKLY PROGRAMMING) -->
+    <section id="programming" class="section-block">
+      <div class="section-eyebrow">Sound Schedule</div>
+      <h2 class="section-heading">Weekly <span class="grad-accent">Programming</span></h2>
+      <p class="section-body">
+        Curated vinyl selectors, ambient selectors, and experimental electronic producers playing exclusively through our custom horn-loaded acoustic system.
+      </p>
+
+      <div class="events-schedule">
+        <!-- Event 1 -->
+        <div class="event-row">
+          <div class="event-date">09 / 02</div>
+          <div class="event-artist">Atushi Maeda</div>
+          <div class="event-meta">20:30 Onwards · Japanese Ambient & Jazz</div>
+          <div class="event-tag-badge">440 Hz Root</div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-row">
+          <div class="event-date">14 / 02</div>
+          <div class="event-artist">Mogasu</div>
+          <div class="event-meta">18:00 Onwards · Vinyl Soul & Rare Groove</div>
+          <div class="event-tag-badge">Warm Frequencies</div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-row">
+          <div class="event-date">15 / 02</div>
+          <div class="event-artist">Jerrau</div>
+          <div class="event-meta">20:30 Onwards · Leftfield Disco & Dub</div>
+          <div class="event-tag-badge">980 Hz Harmonic</div>
+        </div>
+
+        <!-- Event 4: Headline -->
+        <div class="event-row" style="background: rgba(232, 66, 67, 0.05); border-left: 3px solid var(--c-red); padding-left: 1rem;">
+          <div class="event-date">20 / 02</div>
+          <div class="event-artist" style="color: #fff;">Yousuke Yukimatsu</div>
+          <div class="event-meta">20:30 Onwards · Tokyo Avant-Garde & Deep Bass</div>
+          <div class="event-tag-badge" style="background: var(--c-red); color: #fff;">3968 Hz Special</div>
+        </div>
+
+        <!-- Event 5 -->
+        <div class="event-row">
+          <div class="event-date">23 / 02</div>
+          <div class="event-artist">Occa</div>
+          <div class="event-meta">20:30 Onwards · Deep Hypnotic Soundscapes</div>
+          <div class="event-tag-badge">Resonant Node</div>
+        </div>
+
+        <!-- Event 6 -->
+        <div class="event-row">
+          <div class="event-date">28 / 02</div>
+          <div class="event-artist">Suze Ijo</div>
+          <div class="event-meta">19:00 Onwards · Afro-Cuban & Electronic Rhythms</div>
+          <div class="event-tag-badge">Electric Pulse</div>
+        </div>
+
+        <!-- Event 7 -->
+        <div class="event-row">
+          <div class="event-date">29 / 02</div>
+          <div class="event-artist">Sunju Hargun</div>
+          <div class="event-meta">19:00 Onwards · Bangkok Nightclub Selector</div>
+          <div class="event-tag-badge">Nocturnal Set</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. THE RESONANCE MENU -->
+    <section id="menu" class="section-block">
+      <div class="section-eyebrow">Culinary & Mixology</div>
+      <h2 class="section-heading">The <span class="grad-accent">Resonance</span> Menu</h2>
+      <p class="section-body">
+        Progressive Japanese and Asian-influenced culinary dishes and sound-mapped cocktails. 
+        Each selection carries its own sonic and textural profile.
+      </p>
+
+      <div class="menu-tabs">
+        <button class="menu-tab-btn active" onclick="switchMenuTab('food')">Dishes</button>
+        <button class="menu-tab-btn" onclick="switchMenuTab('cocktails')">Cocktails [Hz]</button>
+        <button class="menu-tab-btn" onclick="switchMenuTab('desserts')">Desserts</button>
+      </div>
+
+      <!-- Food Menu Tab -->
+      <div id="menuFood" class="menu-items-grid">
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Charred Koji-Glazed Root Vegetables</span>
+            <span class="item-price">700</span>
+          </div>
+          <div class="item-ingredients">Smoked carrot, black garlic, fermented chili oil, toasted sesame</div>
+          <div class="item-sonic-descriptor">Grounded · Warm · Resonant</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Aged Hamachi Crudo</span>
+            <span class="item-price">1500</span>
+          </div>
+          <div class="item-ingredients">Yuzu kosho, preserved citrus, kombu oil, shaved fennel</div>
+          <div class="item-sonic-descriptor">Textural · Umami · Expansive</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Miso-Butter Scallop</span>
+            <span class="item-price">1750</span>
+          </div>
+          <div class="item-ingredients">Sweet corn purée, brown butter dashi, chili threads</div>
+          <div class="item-sonic-descriptor">Balanced · Rhythmic · Expressive</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Charcoal-Grilled Duck Breast</span>
+            <span class="item-price">2100</span>
+          </div>
+          <div class="item-ingredients">Tamarind glaze, sour cherry, smoked tea jus</div>
+          <div class="item-sonic-descriptor">Bright · Electric · Forward</div>
+        </div>
+      </div>
+
+      <!-- Cocktails Menu Tab -->
+      <div id="menuCocktails" class="menu-items-grid" style="display:none;">
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Gin - Tonic - Cherry</span>
+            <span class="item-price">800</span>
+          </div>
+          <div class="item-ingredients">Botanical gin, artisanal tonic, fermented sour cherry infusion</div>
+          <div class="item-sonic-descriptor">[ 440 Hz ] · Root Frequency · Crisp</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">White Rum - Yuzu - Bubble Gum Syrup</span>
+            <span class="item-price">850</span>
+          </div>
+          <div class="item-ingredients">Aged white rum, fresh yuzu, craft bubblegum botanical cordial</div>
+          <div class="item-sonic-descriptor">[ 980 Hz ] · Playful Harmonic · Effervescent</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Smoked Mezcal - Oolong - Plum</span>
+            <span class="item-price">900</span>
+          </div>
+          <div class="item-ingredients">Artisanal mezcal, roasted Taiwanese oolong, salted umeboshi</div>
+          <div class="item-sonic-descriptor">[ 1760 Hz ] · Resonant Smoke · Velvet Depth</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Whisky Highball - Shiso - Soda</span>
+            <span class="item-price">850</span>
+          </div>
+          <div class="item-ingredients">Single malt Japanese whisky, red shiso leaf, crystal mountain soda</div>
+          <div class="item-sonic-descriptor">[ 3968 Hz ] · High Harmonic · Nocturnal</div>
+        </div>
+      </div>
+
+      <!-- Desserts Menu Tab -->
+      <div id="menuDesserts" class="menu-items-grid" style="display:none;">
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Dark Chocolate & Black Sesame Crémeux</span>
+            <span class="item-price">950</span>
+          </div>
+          <div class="item-ingredients">Malted barley crumble, honeycomb, sea salt</div>
+          <div class="item-sonic-descriptor">Lingering · Warm · Satisfying</div>
+        </div>
+
+        <div class="menu-item-card">
+          <div class="menu-item-top">
+            <span class="item-name">Miso Caramel & Roasted Hojicha Tart</span>
+            <span class="item-price">850</span>
+          </div>
+          <div class="item-ingredients">Roasted tea ganache, smoked sea salt caramel, buckwheat crust</div>
+          <div class="item-sonic-descriptor">Earth · Bass Tone · Grounded</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; text-align: center;">
+        <button class="btn-whatsapp-footer" onclick="showToast('Downloading Nami Menu PDF...')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download Resonance Menu (PDF)
+        </button>
+      </div>
+    </section>
+
+    <!-- 04. THE SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
+    <section id="space" class="space-section">
+      <div class="space-header-row">
+        <div class="space-header-left">
+          <div class="section-eyebrow">The Space & Sound</div>
+          <h2 class="section-heading">Architectural <span class="grad-accent">Intimacy</span></h2>
+          <p class="section-body" style="margin-bottom: 0;">
+            An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
+          </p>
+        </div>
+        <div class="space-header-right">
+          <p class="space-header-quote">
+            "Expect thoughtful selections, easy rhythms and the occasional shift up in tempo, with DJs given the freedom to play the records they don’t always get to play elsewhere."
+          </p>
+        </div>
+      </div>
+
+      <div class="space-fine-rule"></div>
+
+      <!-- Edge-to-Edge 3-Column Photography Grid (Spin Bar Reference) -->
+      <div class="spin-gallery-fullbleed">
+        <div class="spin-gallery-grid">
+          <!-- Row 1 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-1.jpg" alt="Listening Room & Bar Tables" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-2.jpg" alt="Warm Amber Pool Table & Cue" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-3.jpg" alt="Rotary DJ Booth & Vinyl Wall" class="spin-gallery-img" loading="lazy">
+          </div>
+
+          <!-- Row 2 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Disco Ball & Beams" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-5.jpg" alt="Vinyl Artwork & Sconce Illumination" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-6.jpg" alt="Culinary Small Plates & Dining" class="spin-gallery-img" loading="lazy">
+          </div>
+
+          <!-- Row 3 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails on Counter" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-8.jpg" alt="Listening Room Corner & Horn Acoustics" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-9.jpg" alt="Private Lounge Seating & Vinyl Vault" class="spin-gallery-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Acoustic Specs Integration -->
+      <div class="space-specs-strip">
+        <div>
+          <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--c-orange); margin-bottom: 0.35rem; text-transform: uppercase;">
+            ACOUSTIC SPECIFICATION
+          </div>
+          <div class="space-specs-title">The Sound System</div>
+        </div>
+        <div class="space-specs-desc">
+          Two custom 15-inch horn-loaded bass enclosures, wooden mid-horns, and compression drivers powered by Class-A tube amplification. Rotary DJ mixer with pure analog signal path.
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. FAQS & ETIQUETTE -->
+    <section id="faqs" class="section-block">
+      <div class="section-eyebrow">Good to Know</div>
+      <h2 class="section-heading">Frequently <span class="grad-accent">Asked</span></h2>
+      <p class="section-body">
+        A few essential guidelines to help you get the most out of your visit to Nami.
+      </p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Do you accept walk-ins or are reservations required?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We highly recommend booking through our official website to secure listening room tables during peak evening hours (20:00 – Late). However, we always hold space at our cocktail bar counter for walk-ins on a first-come, first-served basis.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>What is the listening room policy?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Nami is conversational, not silent like a library. However, during dedicated listening sessions (after 20:30), we ask guests to keep conversation at a respectful level so everyone can appreciate the nuances of the sound system.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I book for groups larger than 6 guests?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes. For groups of 7 or more or private venue buyouts, please select "Private Event" in the reservation form or connect with us directly via our WhatsApp Community link.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>What is the FAM Loyalty Program?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              FAM is our private community of regular guests and music lovers. Members receive priority table bookings, access to secret listening sessions, limited vinyl pressings, and invites to test menu experiments.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. RESERVE A TABLE (On-Domain Booking Engine) -->
+    <section id="reserve" class="section-block">
+      <div class="section-eyebrow">Direct Booking</div>
+      <h2 class="section-heading">Reserve a <span class="grad-accent">Table</span></h2>
+      <p class="section-body">
+        Book directly on our domain. We hold seats for dinner, cocktails, and immersive listening sessions.
+      </p>
+
+      <div class="reservation-card">
+        <div class="reservation-glow"></div>
+
+        <div style="position: relative; z-index: 2;">
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">Select Your Frequency</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 500px;">
+            Choose your date, party size, and preferred seating zone. Instant confirmation sent via WhatsApp / Email.
+          </p>
+
+          <form id="reservationForm" onsubmit="handleReservationSubmit(event)">
+            <div class="booking-form-grid">
+              <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" class="form-input" required id="bookDate" value="2026-11-20">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Time</label>
+                <select class="form-select" id="bookTime" required>
+                  <option value="17:30">17:30 — Early Dinner</option>
+                  <option value="19:00">19:00 — Sunset Session</option>
+                  <option value="20:30" selected>20:30 — Hi-Fi Listening</option>
+                  <option value="22:00">22:00 — Late Nocturnal</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Guests</label>
+                <select class="form-select" id="bookGuests" required>
+                  <option value="1">1 Guest</option>
+                  <option value="2" selected>2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="5">5 Guests</option>
+                  <option value="6">6 Guests</option>
+                  <option value="7+">7+ (Group / FAM)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Seating Zone</label>
+                <select class="form-select" id="bookZone" required>
+                  <option value="listening" selected>Horn Listening Room</option>
+                  <option value="counter">Bar Counter & Turntables</option>
+                  <option value="dining">Intimate Dining Booth</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit-booking">
+              Confirm Reservation →
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div>
+        <img src="./assets/Main-logo.svg" alt="NAMI" class="footer-logo">
+        <p style="max-width: 340px; color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          A sensory provocateur in sound, dining, and nocturnal culture. 
+          Part listening room, part bar, part cultural gathering.
+        </p>
+
+        <!-- WhatsApp Community Link (Replaces Newsletter) -->
+        <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.882 3.183 0 5.769-2.587 5.77-5.767 0-3.181-2.587-5.768-5.77-5.768zm0 10.375c-.911 0-1.637-.251-2.457-.75l-.176-.107-1.579.414.421-1.54-.117-.186c-.544-.863-.834-1.572-.833-2.44 0-2.541 2.067-4.608 4.609-4.608 2.541 0 4.609 2.067 4.609 4.608 0 2.541-2.068 4.609-4.609 4.609z"/>
+          </svg>
+          Join WhatsApp Community
+        </a>
+      </div>
+
+      <div class="footer-col">
+        <h5>HOURS</h5>
+        <p>Wednesday – Thursday<br>17:00 – 00:00</p>
+        <p>Friday – Saturday<br>17:00 – 02:00</p>
+        <p>Sunday<br>16:00 – 23:00</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>LOCATION & CONTACT</h5>
+        <p>142 Acoustic Lane<br>Amsterdam, Netherlands</p>
+        <p>info@nami-bar.nl</p>
+        <p>+31 20 555 4400</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>SOCIAL & GROUP</h5>
+        <a href="https://instagram.com/" target="_blank">Instagram (@nami.hifi)</a>
+        <a href="#programming">Resident Advisor</a>
+        <a href="https://abnah.com/" target="_blank" style="margin-top: 1rem; color: var(--c-orange);">ABNAH Group →</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
+      <span>DESIGNED FOR SENSORY PROVOCATION</span>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast">Copied to clipboard</div>
+
+  <!-- =========================================================
+       JAVASCRIPT LOGIC
+       ========================================================= -->
+  <script>
+    // 1. Toast Notification Utility
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    // 2. Menu Drawer Toggle
+    function toggleMenuDrawer() {
+      const drawer = document.getElementById('menuDrawer');
+      drawer.classList.toggle('open');
+    }
+
+    // 3. First-Fold Parallax & ScrollSpy Execution
+    const heroBg = document.querySelector('.hero-bg-media');
+    const heroContent = document.querySelector('.hero-content');
+    const heroScrollCue = document.querySelector('.hero-scroll-cue');
+    const scrollerButtons = document.querySelectorAll('.scroller-btn');
+    const sections = ['hero', 'philosophy', 'space', 'menu', 'reserve'];
+    const brandMark = document.getElementById('headerBrandMark');
+
+    let ticking = false;
+
+    function handleScrollEffects() {
+      const scrollY = window.scrollY;
+      const winHeight = window.innerHeight;
+
+      // Parallax on First-Fold Banner
+      if (scrollY <= winHeight * 1.3) {
+        // Background video moves down at 0.35x speed + gentle cinematic depth scale
+        if (heroBg) {
+          heroBg.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0) scale(${1 + scrollY * 0.00015})`;
+        }
+        // Center content floats at 0.18x speed with smooth dissolution
+        if (heroContent) {
+          const contentOpacity = Math.max(0, 1 - (scrollY / (winHeight * 0.72)));
+          heroContent.style.transform = `translate3d(0, ${scrollY * 0.18}px, 0)`;
+          heroContent.style.opacity = contentOpacity;
+        }
+        // Bottom cue fades out quickly on scroll
+        if (heroScrollCue) {
+          const cueOpacity = Math.max(0, 1 - (scrollY / 180));
+          heroScrollCue.style.opacity = cueOpacity;
+          heroScrollCue.style.transform = `translate3d(-50%, ${scrollY * 0.45}px, 0)`;
+          heroScrollCue.style.pointerEvents = cueOpacity <= 0.05 ? 'none' : 'auto';
+        }
+      }
+
+      // ScrollSpy for Top-Right Nav
+      let currentSection = 'hero';
+      const scrollPos = scrollY + winHeight / 3;
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && scrollPos >= el.offsetTop) {
+          currentSection = id;
+        }
+      });
+
+      scrollerButtons.forEach(btn => {
+        if (btn.getAttribute('data-section') === currentSection) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Show small brand mark in top-left when scrolling past hero
+      if (scrollY > 400) {
+        brandMark.classList.add('visible');
+      } else {
+        brandMark.classList.remove('visible');
+      }
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScrollEffects);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // 4. Menu Tabs (Food / Cocktails / Desserts)
+    function switchMenuTab(tab) {
+      document.querySelectorAll('.menu-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.getElementById('menuFood').style.display = (tab === 'food') ? 'grid' : 'none';
+      document.getElementById('menuCocktails').style.display = (tab === 'cocktails') ? 'grid' : 'none';
+      document.getElementById('menuDesserts').style.display = (tab === 'desserts') ? 'grid' : 'none';
+    }
+
+    // 5. FAQ Accordions
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('active');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+
+    // 6. Direct Reservation Handler
+    function handleReservationSubmit(e) {
+      e.preventDefault();
+      const date = document.getElementById('bookDate').value;
+      const time = document.getElementById('bookTime').value;
+      const guests = document.getElementById('bookGuests').value;
+      const zone = document.getElementById('bookZone').value;
+
+      showToast(`Reservation requested for ${guests} guests on ${date} at ${time}!`);
+    }
+
+    // 7. Interactive Audio Player (Web Audio API Synthesizer)
+    let isPlaying = false;
+    let audioCtx = null;
+    let vinylNoiseNode = null;
+    let osc1 = null;
+
+    function toggleAudio() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('playIcon');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const eqBars = document.getElementById('eqBars');
+
+      if (isPlaying) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        eqBars.classList.add('playing');
+        startSyntheticWarmAudio();
+        showToast('Now Playing: On & On — Erykah Badu');
+      } else {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        eqBars.classList.remove('playing');
+        stopSyntheticWarmAudio();
+        showToast('Playback Paused');
+      }
+    }
+
+    function startSyntheticWarmAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        // Generate warm analog vinyl dust crackle & gentle chord
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.015; // subtle tape hiss
+        }
+
+        vinylNoiseNode = audioCtx.createBufferSource();
+        vinylNoiseNode.buffer = noiseBuffer;
+        vinylNoiseNode.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 800; // warm analog cut
+
+        vinylNoiseNode.connect(filter);
+        filter.connect(audioCtx.destination);
+        vinylNoiseNode.start();
+
+      } catch (e) {
+        console.log('Audio init prevented:', e);
+      }
+    }
+
+    function stopSyntheticWarmAudio() {
+      if (vinylNoiseNode) {
+        try {
+          vinylNoiseNode.stop();
+          vinylNoiseNode.disconnect();
+        } catch(e) {}
+      }
+    }
+  </script>
+</body>
+</html>

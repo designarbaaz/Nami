@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMI — Brand Style Guide & Design System</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <!-- Adobe Typekit: Savate -->
+  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
+
+  <!-- Google Fonts: Chivo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: "savate", sans-serif;
+      --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-black: #070707;
+      --bg-surface: rgba(18, 18, 18, 0.82);
+      --bg-surface-elevated: rgba(28, 28, 28, 0.9);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(232, 66, 67, 0.4);
+      --text-primary: #FFFFFF;
+      --text-secondary: #A8A8A8;
+      --text-muted: #6E6E6E;
+      
+      /* Approved Brand Palette */
+      --c-red: #E84243;
+      --c-amber-red: #E65500;
+      --c-orange: #F48F24;
+      --c-pink: #FFAABD;
+      --c-blue: #004F9D;
+
+      /* Approved Brand Gradients */
+      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
+      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
+      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.15) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Tactile Dark Background with Noise-texture.png */
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      
+      /* Official Noise-texture.png applied to body */
+      background-image: 
+        var(--grad-nocturnal-glow),
+        url('./assets/Noise-texture.png');
+      background-repeat: no-repeat, repeat;
+      background-position: center top, center top;
+      background-size: 100% 900px, 100% auto;
+      background-attachment: scroll, scroll;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-title,
+    .hero-headline,
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+
+    /* High-Res Viewport Noise Overlay using Noise-texture.png */
+    #noise-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+      opacity: 1;
+      mix-blend-mode: screen;
+      transition: opacity 0.3s ease, mix-blend-mode 0.3s ease;
+    }
+
+    /* Analog Tube Warmth Overlay */
+    #warmth-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(circle at 50% 50%, rgba(180, 95, 30, 0.05) 0%, rgba(0, 0, 0, 0.35) 90%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(7, 7, 7, 0.88);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1.15rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      height: 24px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+
+    .brand-badge {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    nav.header-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    nav.header-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s ease;
+    }
+
+    nav.header-nav a:hover {
+      color: #FFFFFF;
+    }
+
+    .btn-reserve-header {
+      background: var(--grad-primary);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      padding: 0.55rem 1.35rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(232, 66, 67, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-reserve-header:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(232, 66, 67, 0.5);
+    }
+
+    /* Container & Sections */
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      margin-bottom: 6rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .section-eyebrow {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-red);
+      display: inline-block;
+      box-shadow: 0 0 10px var(--c-red);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    /* Live Controls Bar */
+    .controls-bar {
+      background: rgba(18, 18, 18, 0.88);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.25rem 1.75rem;
+      margin-bottom: 3.5rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .control-label {
+      font-size: 0.8rem;
+      font-family: 'Chivo', sans-serif;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .control-slider {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #252525;
+      height: 5px;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .control-slider::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--c-orange);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--c-orange);
+    }
+
+    .control-switch {
+      background: #202020;
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: 'Chivo', sans-serif;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .control-switch.active {
+      background: rgba(232, 66, 67, 0.2);
+      border-color: var(--c-red);
+      color: #fff;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      padding: 5rem 3.5rem;
+      margin-bottom: 5rem;
+      background: rgba(14, 14, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 500px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-wave-canvas {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.75;
+      background: radial-gradient(circle at 85% 30%, rgba(232, 66, 67, 0.35) 0%, rgba(230, 85, 0, 0.2) 35%, rgba(0, 79, 157, 0.15) 70%, transparent 85%);
+      mix-blend-mode: screen;
+    }
+
+    .hero-vector-art {
+      position: absolute;
+      right: 6%;
+      top: -20%;
+      height: 140%;
+      opacity: 0.65;
+      pointer-events: none;
+      filter: drop-shadow(0 0 50px rgba(232, 66, 67, 0.45));
+      animation: floatSlow 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-30px) rotate(3deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-logo-display {
+      height: 48px;
+      width: auto;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .hero-tagline {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--c-pink);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline span.grad-text {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-sub {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .hero-pill {
+      font-size: 0.75rem;
+      font-family: 'Chivo', sans-serif;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      color: #ddd;
+    }
+
+    /* SECTION: LOGO & BRAND ASSETS */
+    .logo-showcase-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .logo-showcase-grid { grid-template-columns: 1fr; }
+    }
+
+    .logo-card-display {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .logo-safe-box {
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-safe-box.inverse {
+      background: #FFFFFF;
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .logo-safe-box.inverse img {
+      filter: invert(1);
+    }
+
+    .logo-safe-box-tag {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .favicon-showcase-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .favicon-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .favicon-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #000;
+      border: 2px solid var(--c-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(244, 143, 36, 0.35);
+    }
+
+    .favicon-circle img {
+      width: 44px;
+      height: auto;
+    }
+
+    .favicon-square {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #141414;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .favicon-square img {
+      width: 36px;
+      height: auto;
+    }
+
+    /* SECTION: NOISE TEXTURE SPOTLIGHT */
+    .texture-spotlight-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-top: 2rem;
+      background: rgba(14, 14, 14, 0.75);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .texture-spotlight-box { grid-template-columns: 1fr; }
+    }
+
+    .texture-spec-card {
+      background: #080808;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .texture-spec-sample {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: url('./assets/Noise-texture.png') repeat center top;
+      background-size: 100% auto;
+      opacity: 1;
+      mix-blend-mode: screen;
+    }
+
+    .texture-code-block {
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.78rem;
+      color: #e0e0e0;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    /* Rule Alert Card */
+    .rule-callout {
+      border: 1px solid rgba(232, 66, 67, 0.4);
+      background: rgba(232, 66, 67, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .rule-icon {
+      font-size: 1.3rem;
+      color: var(--c-red);
+      flex-shrink: 0;
+    }
+
+    .rule-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .rule-desc {
+      font-size: 0.9rem;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    /* Color Grid */
+    .color-section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .color-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .color-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .color-swatch-box {
+      height: 140px;
+      width: 100%;
+      position: relative;
+    }
+
+    .color-meta {
+      padding: 1.25rem;
+    }
+
+    .color-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .color-role {
+      font-size: 0.75rem;
+      font-family: 'Chivo', sans-serif;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .color-values {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.65rem;
+    }
+
+    .copy-hint {
+      font-size: 0.65rem;
+      color: var(--c-orange);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .color-card:hover .copy-hint {
+      opacity: 1;
+    }
+
+    /* Gradients Showcase */
+    .gradients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .gradient-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gradient-preview {
+      height: 180px;
+      width: 100%;
+      position: relative;
+    }
+
+    .gradient-info {
+      padding: 1.5rem;
+    }
+
+    .gradient-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .gradient-code {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.72rem;
+      background: #000;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      color: #ddd;
+      word-break: break-all;
+      margin-top: 0.75rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gradient-code:hover::after {
+      content: "Click to copy";
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      font-size: 0.65rem;
+      color: var(--c-pink);
+    }
+
+    /* Typography Table */
+    .typo-spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background: var(--bg-surface);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .typo-spec-table th,
+    .typo-spec-table td {
+      padding: 1.25rem 1.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .typo-spec-table th {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: #141414;
+    }
+
+    .typo-role {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      color: var(--c-orange);
+      white-space: nowrap;
+    }
+
+    .typo-meta {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .typo-sample {
+      color: #FFFFFF;
+    }
+
+    /* Interactive Type Tester */
+    .type-tester-box {
+      margin-top: 3rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.25rem;
+    }
+
+    .type-tester-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .type-tester-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #FFFFFF;
+      font-family: 'Chivo', sans-serif;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      resize: none;
+      min-height: 120px;
+    }
+
+    /* Custom Wave Font Showcase */
+    .wave-font-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .wave-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .wave-cell {
+      aspect-ratio: 1;
+      background: #0b0b0b;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .wave-cell:hover {
+      border-color: var(--c-red);
+      transform: scale(1.05);
+      background: #161616;
+    }
+
+    .wave-glyph-svg {
+      width: 48px;
+      height: 48px;
+      fill: #FFFFFF;
+      transition: fill 0.2s ease;
+    }
+
+    .wave-cell:hover .wave-glyph-svg {
+      fill: var(--c-orange);
+    }
+
+    .wave-char-label {
+      position: absolute;
+      bottom: 4px;
+      left: 6px;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+
+    /* Cymatics & Wave Patterns */
+    .cymatic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .cymatic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .cymatic-card:hover {
+      border-color: var(--c-pink);
+      transform: translateY(-4px);
+    }
+
+    .cymatic-svg {
+      width: 110px;
+      height: 110px;
+      stroke: #FFFFFF;
+      fill: none;
+      margin-bottom: 1.25rem;
+      transition: transform 0.4s ease;
+    }
+
+    .cymatic-card:hover .cymatic-svg {
+      transform: rotate(45deg) scale(1.05);
+      stroke: var(--c-orange);
+    }
+
+    .cymatic-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .cymatic-sub {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* Infinite Pattern Banner */
+    .pattern-showcase {
+      margin-top: 2rem;
+      background: #000000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pattern-track {
+      display: flex;
+      gap: 0;
+      width: 200%;
+      animation: waveScroll 25s linear infinite;
+    }
+
+    @keyframes waveScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .pattern-segment {
+      width: 50%;
+      flex-shrink: 0;
+    }
+
+    /* UI Component Mockups */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .mockup-grid { grid-template-columns: 1fr; }
+    }
+
+    .menu-card-preview {
+      background: rgba(14, 14, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .menu-card-wave-bg {
+      position: absolute;
+      right: -20px;
+      top: -30px;
+      bottom: -30px;
+      width: 140px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .menu-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .menu-freq-tag {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      color: var(--c-orange);
+    }
+
+    .menu-item {
+      margin-bottom: 1.75rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+    }
+
+    .menu-item-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .menu-item-price {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .menu-item-desc {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+
+    .menu-item-sonic {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.72rem;
+      color: var(--c-pink);
+    }
+
+    .event-card-preview {
+      background: rgba(14, 14, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .event-glow {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230, 85, 0, 0.4) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .event-date-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.8rem;
+      color: var(--c-orange);
+      margin-bottom: 1.5rem;
+    }
+
+    .event-artist-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-tags {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .event-tag {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .event-cta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-reserve-full {
+      background: var(--grad-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      padding: 0.8rem 1.75rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(232, 66, 67, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-reserve-full:hover {
+      box-shadow: 0 8px 30px rgba(232, 66, 67, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.75rem 1.35rem;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .btn-whatsapp-pill:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.8rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      z-index: 10000;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      header.site-header { padding: 1rem 1.5rem; }
+      nav.header-nav { display: none; }
+      .container { padding: 2rem 1.25rem 4rem; }
+      .section-title { font-size: 2rem; }
+      .hero-banner { padding: 3rem 1.75rem; }
+      .hero-headline { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- High-Res Viewport Noise Layer using Noise-texture.png -->
+  <div id="noise-layer"></div>
+
+  <!-- Warm Sepia Tone Analog Overlay -->
+  <div id="warmth-layer"></div>
+
+  <!-- Header with Official Main-logo.svg -->
+  <header class="site-header">
+    <a href="#hero" class="brand-logo-wrap">
+      <img src="./assets/Main-logo.svg" alt="Nami Logo" class="brand-logo-img">
+      <span class="brand-badge">BRAND ASSETS ACTIVE</span>
+    </a>
+
+    <nav class="header-nav">
+      <a href="#logo">Logo & Mark</a>
+      <a href="#textures">Noise Texture</a>
+      <a href="#colors">Colors</a>
+      <a href="#gradients">Gradients</a>
+      <a href="#typography">Typography</a>
+      <a href="#wavefont">Waveform Font</a>
+      <a href="#cymatics">Cymatics</a>
+      <a href="#components">UI Preview</a>
+    </nav>
+
+    <a href="#components" class="btn-reserve-header">Preview Mode</a>
+  </header>
+
+  <div class="container">
+
+    <!-- Interactive Atmosphere Bar -->
+    <div class="controls-bar">
+      <div class="control-group">
+        <span class="control-label">Noise Opacity:</span>
+        <input type="range" id="grainSlider" class="control-slider" min="0" max="100" value="100" oninput="updateNoiseTexture(this.value)">
+        <span id="grainVal" class="control-label" style="color:#fff; min-width: 38px;">100%</span>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">Blend Mode:</span>
+        <select id="blendSelect" class="control-switch" onchange="updateBlendMode(this.value)">
+          <option value="screen" selected>Screen</option>
+          <option value="overlay">Overlay</option>
+          <option value="normal">Normal</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">Sepia Warmth:</span>
+        <input type="range" id="sepiaSlider" class="control-slider" min="0" max="80" value="50" oninput="updateWarmth(this.value)">
+        <span id="sepiaVal" class="control-label" style="color:#fff; min-width: 32px;">50%</span>
+      </div>
+
+      <div class="control-group">
+        <button id="toggleBgBtn" class="control-switch active" onclick="toggleCanvasPitch()">Pitch: #070707</button>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <section id="hero" class="hero-banner">
+      <div class="hero-wave-canvas"></div>
+      
+      <!-- Vector Wave Asset from ./assets/Vector.png -->
+      <img src="./assets/Vector.png" alt="Nami Vector Wave" class="hero-vector-art" onerror="this.style.display='none'">
+
+      <div class="hero-content">
+        <!-- Official Main-logo.svg in Hero -->
+        <img src="./assets/Main-logo.svg" alt="NAMI" class="hero-logo-display">
+
+        <div class="hero-tagline">Sensory Provocateur · Hi-Fi Listening Venue</div>
+        <h1 class="hero-headline">Every ripple has a <span class="grad-text">rhythm</span>.<br>Every rhythm has a <span class="grad-text">flavour</span>.</h1>
+        <p class="hero-sub">
+          Nami is an immersive environment where high-fidelity sound, experimental culinary craft, and nocturnal culture collide. 
+          Sophisticated without being formal, experimental without being intimidating, and energetic without being loud for the sake of it.
+        </p>
+
+        <div class="hero-pills">
+          <span class="hero-pill">01 / CURIOUS</span>
+          <span class="hero-pill">02 / SENSUAL</span>
+          <span class="hero-pill">03 / ELECTRIC</span>
+          <span class="hero-pill">04 / SOPHISTICATED</span>
+          <span class="hero-pill">05 / PLAYFUL</span>
+          <span class="hero-pill">06 / INCLUSIVE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: MAIN LOGO & FAVICON SYSTEM -->
+    <section id="logo">
+      <div class="section-eyebrow">Identity System · 01</div>
+      <h2 class="section-title">Main Logo & Brand Mark</h2>
+      <p class="section-desc">
+        The official vector assets <strong>Main-logo.svg</strong> and <strong>favicon.svg</strong> define Nami’s visual equilibrium. 
+        The logo operates strictly in Black & White with mandatory protective breathing space.
+      </p>
+
+      <div class="logo-showcase-grid">
+
+        <!-- Main Logo Card -->
+        <div class="logo-card-display">
+          <div>
+            <div style="font-family: 'Chivo', sans-serif; font-size: 0.72rem; color: var(--c-orange); margin-bottom: 0.4rem;">PRIMARY WORDMARK</div>
+            <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;">Main-logo.svg (White on Black)</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">
+              The custom lettering acts as an acoustic soundwave. It must never be skewed, outlined, or distorted.
+            </p>
+          </div>
+
+          <div class="logo-safe-box">
+            <span class="logo-safe-box-tag">PROTECTED CLEARANCE ZONE</span>
+            <img src="./assets/Main-logo.svg" alt="Nami Main Logo" style="max-width: 80%; height: auto;">
+          </div>
+
+          <div class="logo-safe-box inverse">
+            <span class="logo-safe-box-tag" style="color: #666;">INVERSE (BLACK ON WHITE)</span>
+            <img src="./assets/Main-logo.svg" alt="Nami Main Logo Inverse" style="max-width: 80%; height: auto;">
+          </div>
+
+          <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+            <span>Asset: Main-logo.svg</span>
+            <span style="color: var(--c-orange); cursor: pointer;" onclick="copyToClipboard('./assets/Main-logo.svg', 'Copied Main-logo.svg path')">Click to copy path</span>
+          </div>
+        </div>
+
+        <!-- Favicon & Brand Mark Card -->
+        <div class="favicon-showcase-box">
+          <div>
+            <div style="font-family: 'Chivo', sans-serif; font-size: 0.72rem; color: var(--c-orange); margin-bottom: 0.4rem;">BRAND MARK & ICON</div>
+            <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;">favicon.svg</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+              The mirrored acoustic waveform mark functions as the browser favicon, mobile app icon, cocktail garnish stamp, and social avatar.
+            </p>
+          </div>
+
+          <div class="favicon-avatar-row">
+            <!-- Circular Avatar with Glow -->
+            <div class="favicon-circle" title="Social Avatar / Coaster Mark">
+              <img src="./assets/favicon.svg" alt="Nami Favicon">
+            </div>
+
+            <!-- Square App Icon -->
+            <div class="favicon-square" title="App Icon / Favicon">
+              <img src="./assets/favicon.svg" alt="Nami Favicon">
+            </div>
+
+            <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--text-secondary);">
+              <div>• Browser Favicon</div>
+              <div>• Wax Seal / Stamp</div>
+              <div>• Social Avatar</div>
+            </div>
+          </div>
+
+          <div class="texture-code-block" style="margin-top: 1rem;">
+&lt;!-- Browser Favicon Integration --&gt;
+&lt;link rel="icon" type="image/svg+xml" href="./assets/favicon.svg"&gt;
+          </div>
+
+          <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; margin-top: 1.5rem;">
+            <span>Asset: favicon.svg</span>
+            <span style="color: var(--c-orange); cursor: pointer;" onclick="copyToClipboard('./assets/favicon.svg', 'Copied favicon.svg path')">Click to copy path</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: NOISE TEXTURE SPOTLIGHT -->
+    <section id="textures">
+      <div class="section-eyebrow">Tactile Foundation · 02</div>
+      <h2 class="section-title">Background Noise Texture</h2>
+      <p class="section-desc">
+        Coated with the official <strong>Noise-texture.png</strong> (2268 × 7239 px) asset, providing genuine analog vinyl grain across the dark nocturnal canvas.
+      </p>
+
+      <div class="texture-spotlight-box">
+        <div class="texture-spec-card">
+          <div class="texture-spec-sample" id="specSample"></div>
+          <div>
+            <div style="font-family: 'Chivo', sans-serif; font-size: 0.72rem; color: var(--c-orange); margin-bottom: 0.4rem;">OFFICIAL ASSET SPEC</div>
+            <div style="font-size: 1.35rem; font-weight: 700;">Noise-texture.png</div>
+          </div>
+          <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--text-secondary); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+            Resolution: 2268 × 7239 px · Format: 8-bit RGBA PNG
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem;">CSS Implementation:</div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5;">
+            Applied both to the root <code>body</code> background and as a fixed viewport overlay with <code>mix-blend-mode: screen</code> to deliver uninterrupted grain texture from the top to bottom of the page.
+          </p>
+          <div class="texture-code-block">
+/* Applied Noise-texture.png on Dark Canvas */
+body {
+  background-color: #070707;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.15), transparent 75%),
+    url('./assets/Noise-texture.png');
+  background-repeat: no-repeat, repeat;
+  background-position: center top, center top;
+  background-size: 100% 900px, 100% auto;
+}
+
+#noise-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: url('./assets/Noise-texture.png') repeat center top;
+  background-size: 100% auto;
+  mix-blend-mode: screen;
+}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: COLOR PALETTE -->
+    <section id="colors">
+      <div class="section-eyebrow">Visual Foundation · 03</div>
+      <h2 class="section-title">Color Palette</h2>
+      <p class="section-desc">
+        The Nami palette operates as a nocturnal canvas punctuated by vivid bursts of frequency and energy. 
+        Focus is primarily on the first three fiery colors, with pink and cobalt reserved for resonance highlights.
+      </p>
+
+      <div class="rule-callout">
+        <div class="rule-icon">⚠️</div>
+        <div>
+          <div class="rule-title">STRICT BRAND USAGE RULE</div>
+          <div class="rule-desc">
+            <strong>Do not use flat colors.</strong> Stick strictly to approved gradients blending across these hex coordinates against nocturnal black backgrounds.
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Swatches Grid -->
+      <div class="color-section-grid">
+
+        <div class="color-card" onclick="copyToClipboard('#E84243', 'Hex #E84243')">
+          <div class="color-swatch-box" style="background-color: #E84243;"></div>
+          <div class="color-meta">
+            <div class="color-name">Hi-Fi Coral Red</div>
+            <div class="color-role">Primary Wave 01</div>
+            <div class="color-values">
+              <span>#E84243</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card" onclick="copyToClipboard('#E65500', 'Hex #E65500')">
+          <div class="color-swatch-box" style="background-color: #E65500;"></div>
+          <div class="color-meta">
+            <div class="color-name">Pulse Amber-Red</div>
+            <div class="color-role">Primary Wave 02</div>
+            <div class="color-values">
+              <span>#E65500</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card" onclick="copyToClipboard('#F48F24', 'Hex #F48F24')">
+          <div class="color-swatch-box" style="background-color: #F48F24;"></div>
+          <div class="color-meta">
+            <div class="color-name">Frequency Orange</div>
+            <div class="color-role">Primary Wave 03</div>
+            <div class="color-values">
+              <span>#F48F24</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card" onclick="copyToClipboard('#FFAABD', 'Hex #FFAABD')">
+          <div class="color-swatch-box" style="background-color: #FFAABD;"></div>
+          <div class="color-meta">
+            <div class="color-name">Resonance Pink</div>
+            <div class="color-role">Highlight Accent 04</div>
+            <div class="color-values">
+              <span>#FFAABD</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card" onclick="copyToClipboard('#004F9D', 'Hex #004F9D')">
+          <div class="color-swatch-box" style="background-color: #004F9D;"></div>
+          <div class="color-meta">
+            <div class="color-name">Soundwave Cobalt</div>
+            <div class="color-role">Highlight Accent 05</div>
+            <div class="color-values">
+              <span>#004F9D</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card" onclick="copyToClipboard('#070707', 'Hex #070707')">
+          <div class="color-swatch-box" style="background-color: #070707; border-bottom: 1px solid var(--border-subtle);"></div>
+          <div class="color-meta">
+            <div class="color-name">Nocturnal Pitch</div>
+            <div class="color-role">Canvas Foundation</div>
+            <div class="color-values">
+              <span>#070707</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: GRADIENTS -->
+    <section id="gradients">
+      <div class="section-eyebrow">Fluid Dynamics · 04</div>
+      <h2 class="section-title">Brand Gradients</h2>
+      <p class="section-desc">
+        Gradients simulate sound vibrations and organic thermal waves. They move seamlessly between hues without sharp stepped breaks.
+      </p>
+
+      <div class="gradients-grid">
+
+        <div class="gradient-card">
+          <div class="gradient-preview" style="background: var(--grad-primary);"></div>
+          <div class="gradient-info">
+            <div class="gradient-name">Signature Nami Flare</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              Primary gradient for CTAs, hero typography, and active highlights.
+            </div>
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%)
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-card">
+          <div class="gradient-preview" style="background: var(--grad-resonance);"></div>
+          <div class="gradient-info">
+            <div class="gradient-name">Harmonic Resonance</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              Sound-reactive gradient for album artwork, flyers, and nocturnal glows.
+            </div>
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%)
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-card">
+          <div class="gradient-preview" style="background: var(--grad-flare);"></div>
+          <div class="gradient-info">
+            <div class="gradient-name">Atmospheric Frequency</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              Used for fluid backdrop ribbons and lighting washes.
+            </div>
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%)
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: TYPOGRAPHY -->
+    <section id="typography">
+      <div class="section-eyebrow">Language & Rhythm · 05</div>
+      <h2 class="section-title">Brand Typography: Savate & Chivo</h2>
+      <p class="section-desc">
+        Nami operates on a complementary two-typeface system: <strong>Savate</strong> defines the poetic, editorial voice of all headings, titles, and artist spotlights, while <strong>Chivo</strong> provides functional clarity across body text, menu descriptions, forms, and metadata.
+      </p>
+
+      <!-- Sub-section: Headings (Savate) -->
+      <div style="margin-top: 2.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #FFFFFF;">
+            Primary Headings Typeface: Savate
+          </h3>
+          <span style="font-family: var(--font-body); font-size: 0.75rem; color: var(--c-orange); font-weight: 700;">
+            Adobe Typekit: "savate", sans-serif
+          </span>
+        </div>
+        
+        <table class="typo-spec-table">
+          <thead>
+            <tr>
+              <th>Role / Level</th>
+              <th>Style & Weight</th>
+              <th>Sample Rendering</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="typo-role">Display / Hero H1</td>
+              <td class="typo-meta">Savate 700 Bold · 48px</td>
+              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 2.4rem; font-weight: 700; color: #FFFFFF;">
+                A Sensory Provocateur
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Editorial Accent</td>
+              <td class="typo-meta">Savate 700 Bold Italic · 36px</td>
+              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 2rem; font-weight: 700; font-style: italic; color: var(--c-pink);">
+                Where sound & nocturnal culture collide
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Section Headings</td>
+              <td class="typo-meta">Savate 400 Regular · 30px</td>
+              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.75rem; font-weight: 400; color: #FFFFFF;">
+                Weekly Programming & Resonance Menu
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Sonic / Tasting Notes</td>
+              <td class="typo-meta">Savate 400 Regular Italic · 22px</td>
+              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--c-orange);">
+                Aged Hamachi Crudo · Paired with Ambient Dub Techno
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Atmospheric Display</td>
+              <td class="typo-meta">Savate 300 Light · 24px</td>
+              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.45rem; font-weight: 300; color: #E0E0E0;">
+                Every ripple has a rhythm. Every rhythm has a flavour.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sub-section: Body & System (Chivo) -->
+      <div style="margin-top: 3.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #FFFFFF;">
+            Body & Interface Typeface: Chivo
+          </h3>
+          <span style="font-family: var(--font-body); font-size: 0.75rem; color: var(--c-orange); font-weight: 700;">
+            Google Fonts: 'Chivo', sans-serif
+          </span>
+        </div>
+
+        <table class="typo-spec-table">
+          <thead>
+            <tr>
+              <th>Role / Level</th>
+              <th>Style & Weight</th>
+              <th>Sample Rendering</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="typo-role">Lead Narrative / Subtitle</td>
+              <td class="typo-meta">Chivo 500 Medium · 18px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 1.1rem; font-weight: 500; color: #E0E0E0;">
+                Part listening room, part cocktail bar, part dining experience, part cultural gathering.
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Body Copy</td>
+              <td class="typo-meta">Chivo 300 Light · 15px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #B0B0B0;">
+                Nami feels like a place with its own frequency. It does not simply serve food, drinks or music; it creates an environment where these elements collide, overlap and influence one another.
+              </td>
+            </tr>
+            <tr>
+              <td class="typo-role">Navigation / UI Tags</td>
+              <td class="typo-meta">Chivo 700 Bold · 13px (Caps)</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--c-orange); text-transform: uppercase;">
+                [ 440 HZ ] · 20:30 ONWARDS · STEREO HORN HI-FI
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Interactive Type Tester -->
+      <div class="type-tester-box" style="margin-top: 3rem;">
+        <div class="type-tester-controls">
+          <span class="control-label">Live Type Previewer:</span>
+          
+          <select id="fontFamilySelect" class="control-switch" onchange="updateTypeFamily(this.value)">
+            <option value="'savate', sans-serif" selected>Savate (Headings)</option>
+            <option value="'Chivo', sans-serif">Chivo (Body)</option>
+          </select>
+
+          <select id="weightSelect" class="control-switch" onchange="updateTypeStyle(this.value)">
+            <option value="700_normal" selected>700 Bold</option>
+            <option value="700_italic">700 Bold Italic</option>
+            <option value="400_normal">400 Regular</option>
+            <option value="400_italic">400 Regular Italic</option>
+            <option value="300_normal">300 Light</option>
+          </select>
+
+          <input type="range" min="18" max="72" value="38" class="control-slider" oninput="updateTypeSize(this.value)">
+          <span id="typeSizeVal" class="control-label" style="color:#fff;">38px</span>
+        </div>
+
+        <textarea id="liveTypeInput" class="type-tester-input" spellcheck="false" style="font-family: 'savate', sans-serif; font-weight: 700;">Every ripple has a rhythm. Every rhythm has a flavour.</textarea>
+      </div>
+    </section>
+
+    <!-- SECTION: CUSTOM WAVEFORM FONT -->
+    <section id="wavefont">
+      <div class="section-eyebrow">Acoustic Orthography · 06</div>
+      <h2 class="section-title">Custom Waveform Font</h2>
+      <p class="section-desc">
+        Operating on fundamental acoustic laws, each letter vibrates along the X and Y axes. 
+        Its fundamental use is for <strong>aesthetic expression and texture</strong> rather than purely functional legibility.
+      </p>
+
+      <div class="wave-font-container">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700;">Lower Case Wave Glyphs (A – Z)</h3>
+          <span style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--text-muted);">Symmetric Wave Distribution</span>
+        </div>
+
+        <div class="wave-grid" id="waveGlyphsContainer">
+          <!-- Dynamically populated glyphs -->
+        </div>
+
+        <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
+          <div style="max-width: 480px;">
+            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; color: #fff;">Baseline Axis Rule</div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+              Glyphs must align along the central horizontal equilibrium axis (red baseline). 
+              Stretching, skewing, or misaligning letterforms breaks the physical wave equation.
+            </p>
+          </div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="padding: 0.75rem 1.25rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+              <span style="font-family: 'Chivo', sans-serif; font-size: 0.7rem; color: #4ade80;">✓ CORRECT: Centered Equilibrium</span>
+            </div>
+            <div style="padding: 0.75rem 1.25rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+              <span style="font-family: 'Chivo', sans-serif; font-size: 0.7rem; color: #f87171;">✕ INCORRECT: Skewed Wave Baseline</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CYMATICS & BRAND ICONS -->
+    <section id="cymatics">
+      <div class="section-eyebrow">Sonic Geometry · 07</div>
+      <h2 class="section-title">Cymatic Shapes & Brand Icons</h2>
+      <p class="section-desc">
+        Visualizing acoustic frequencies made physical. These sacred resonance patterns represent pure sound harmonics captured on matter.
+      </p>
+
+      <div class="cymatic-grid">
+
+        <div class="cymatic-card">
+          <svg class="cymatic-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" stroke-width="1.8"/>
+            <circle cx="50" cy="50" r="26" stroke-width="1.2" stroke-dasharray="2 3"/>
+            <path d="M 50 12 C 55 25, 75 25, 75 50 C 75 75, 55 75, 50 88 C 45 75, 25 75, 25 50 C 25 25, 45 25, 50 12 Z" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="4" fill="#FFF"/>
+          </svg>
+          <div class="cymatic-title">Harmonic 01</div>
+          <div class="cymatic-sub">440 Hz · Grounded Root</div>
+        </div>
+
+        <div class="cymatic-card">
+          <svg class="cymatic-svg" viewBox="0 0 100 100">
+            <path d="M 50 8 C 65 35, 92 50, 92 50 C 92 50, 65 65, 50 92 C 35 65, 8 50, 8 50 C 8 50, 35 35, 50 8 Z" stroke-width="1.8"/>
+            <path d="M 22 22 C 38 38, 62 38, 78 22 C 62 38, 62 62, 78 78 C 62 62, 38 62, 22 78 C 38 62, 38 38, 22 22 Z" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="3" fill="#FFF"/>
+          </svg>
+          <div class="cymatic-title">Harmonic 02</div>
+          <div class="cymatic-sub">528 Hz · Mirrored Ripple</div>
+        </div>
+
+        <div class="cymatic-card">
+          <svg class="cymatic-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="34" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="22" stroke-width="1.8"/>
+            <path d="M 15 50 Q 50 15, 85 50 Q 50 85, 15 50 Z" stroke-width="1.2"/>
+            <path d="M 50 15 Q 85 50, 50 85 Q 15 50, 50 15 Z" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="3" fill="#FFF"/>
+          </svg>
+          <div class="cymatic-title">Harmonic 03</div>
+          <div class="cymatic-sub">980 Hz · Resonant Node</div>
+        </div>
+
+        <div class="cymatic-card">
+          <svg class="cymatic-svg" viewBox="0 0 100 100">
+            <path d="M 20 20 Q 50 35, 80 20 Q 65 50, 80 80 Q 50 65, 20 80 Q 35 50, 20 20 Z" stroke-width="1.6"/>
+            <circle cx="50" cy="50" r="16" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="3" fill="#FFF"/>
+          </svg>
+          <div class="cymatic-title">Harmonic 04</div>
+          <div class="cymatic-sub">1760 Hz · Expansive Wave</div>
+        </div>
+
+        <div class="cymatic-card">
+          <svg class="cymatic-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <path d="M 50 15 L 85 50 L 50 85 L 15 50 Z" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="28" stroke-width="1.2"/>
+            <circle cx="50" cy="50" r="5" fill="none" stroke-width="1.5"/>
+          </svg>
+          <div class="cymatic-title">Harmonic 05</div>
+          <div class="cymatic-sub">3968 Hz · Nocturnal Zenith</div>
+        </div>
+
+      </div>
+
+      <!-- Infinite Logo Wave Pattern -->
+      <div class="pattern-showcase">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <span style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; color: var(--c-orange);">INFINITE WAVE PATTERN</span>
+          <span style="font-family: 'Chivo', sans-serif; font-size: 0.7rem; color: var(--text-muted);">Tessellating Brand Monogram</span>
+        </div>
+
+        <div class="pattern-track">
+          <div class="pattern-segment">
+            <svg viewBox="0 0 800 120" style="width: 100%; height: auto; stroke: #FFFFFF; fill: none; stroke-width: 3.5; stroke-linecap: round;">
+              <path d="M 0 60 C 25 20, 50 20, 75 60 C 100 100, 125 100, 150 60 C 175 20, 200 20, 225 60 C 250 100, 275 100, 300 60 C 325 20, 350 20, 375 60 C 400 100, 425 100, 450 60 C 475 20, 500 20, 525 60 C 550 100, 575 100, 600 60 C 625 20, 650 20, 675 60 C 700 100, 725 100, 750 60 C 775 20, 800 20, 825 60"/>
+              <path d="M 0 60 C 25 100, 50 100, 75 60 C 100 20, 125 20, 150 60 C 175 100, 200 100, 225 60 C 250 20, 275 20, 300 60 C 325 100, 350 100, 375 60 C 400 20, 425 20, 450 60 C 475 100, 500 100, 525 60 C 550 20, 575 20, 600 60 C 625 100, 650 100, 675 60 C 700 20, 725 20, 750 60 C 775 100, 800 100, 825 60" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="pattern-segment">
+            <svg viewBox="0 0 800 120" style="width: 100%; height: auto; stroke: #FFFFFF; fill: none; stroke-width: 3.5; stroke-linecap: round;">
+              <path d="M 0 60 C 25 20, 50 20, 75 60 C 100 100, 125 100, 150 60 C 175 20, 200 20, 225 60 C 250 100, 275 100, 300 60 C 325 20, 350 20, 375 60 C 400 100, 425 100, 450 60 C 475 20, 500 20, 525 60 C 550 100, 575 100, 600 60 C 625 20, 650 20, 675 60 C 700 100, 725 100, 750 60 C 775 20, 800 20, 825 60"/>
+              <path d="M 0 60 C 25 100, 50 100, 75 60 C 100 20, 125 20, 150 60 C 175 100, 200 100, 225 60 C 250 20, 275 20, 300 60 C 325 100, 350 100, 375 60 C 400 20, 425 20, 450 60 C 475 100, 500 100, 525 60 C 550 20, 575 20, 600 60 C 625 100, 650 100, 675 60 C 700 20, 725 20, 750 60 C 775 100, 800 100, 825 60" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: UI COMPONENT PREVIEWS -->
+    <section id="components">
+      <div class="section-eyebrow">Practical Application · 08</div>
+      <h2 class="section-title">UI Component Implementation</h2>
+      <p class="section-desc">
+        How brand elements integrate in real web components: the Resonance Menu item card and the What’s On event ticket.
+      </p>
+
+      <div class="mockup-grid">
+
+        <!-- Mockup 1: Resonance Menu Card -->
+        <div class="menu-card-preview">
+          <img src="./assets/Vector.png" alt="Wave Gradient Accent" class="menu-card-wave-bg" onerror="this.style.display='none'">
+
+          <div class="menu-header">
+            <div>
+              <div class="menu-title">The Resonance Menu</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">Food · Cocktails · Frequencies</div>
+            </div>
+            <div class="menu-freq-tag">CHEVRON 01</div>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Charred Koji-Glazed Root Vegetables</span>
+              <span class="menu-item-price">700</span>
+            </div>
+            <div class="menu-item-desc">Smoked carrot, black garlic, fermented chili oil, toasted sesame</div>
+            <div class="menu-item-sonic">Grounded · Warm · Resonant</div>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Aged Hamachi Crudo</span>
+              <span class="menu-item-price">1500</span>
+            </div>
+            <div class="menu-item-desc">Yuzu kosho, preserved citrus, kombu oil, shaved fennel</div>
+            <div class="menu-item-sonic">Textural · Umami · Expansive</div>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Charcoal-Grilled Duck Breast</span>
+              <span class="menu-item-price">2100</span>
+            </div>
+            <div class="menu-item-desc">Tamarind glaze, sour cherry, smoked tea jus</div>
+            <div class="menu-item-sonic">Bright · Electric · Forward</div>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Dark Chocolate & Black Sesame Crémeux</span>
+              <span class="menu-item-price">950</span>
+            </div>
+            <div class="menu-item-desc">Malted barley crumble, honeycomb, sea salt</div>
+            <div class="menu-item-sonic">Lingering · Warm · Satisfying</div>
+          </div>
+        </div>
+
+        <!-- Mockup 2: What's On Event Ticket -->
+        <div class="event-card-preview">
+          <div class="event-glow"></div>
+
+          <div>
+            <div class="event-date-row">
+              <span>FRIDAY · 20 JAN 2026</span>
+              <span>3968 HZ · BPM 126</span>
+            </div>
+
+            <div class="event-artist-name">Yousuke<br>Yukimatsu</div>
+
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem;">
+              Tokyo underground selector bridging avant-garde techno, noise textures, and cinematic bass frequencies through Nami’s custom horn sound system.
+            </p>
+
+            <div class="event-tags">
+              <span class="event-tag">HI-FI LISTENING</span>
+              <span class="event-tag">20:30 ONWARDS</span>
+              <span class="event-tag">EXCLUSIVE TASTE</span>
+            </div>
+          </div>
+
+          <div class="event-cta-row">
+            <button class="btn-reserve-full" onclick="showToast('Table Reservation Drawer Opened')">
+              Reserve a Table
+            </button>
+
+            <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.882 3.183 0 5.769-2.587 5.77-5.767 0-3.181-2.587-5.768-5.77-5.768zm0 10.375c-.911 0-1.637-.251-2.457-.75l-.176-.107-1.579.414.421-1.54-.117-.186c-.544-.863-.834-1.572-.833-2.44 0-2.541 2.067-4.608 4.609-4.608 2.541 0 4.609 2.067 4.609 4.608 0 2.541-2.068 4.609-4.609 4.609z"/>
+              </svg>
+              WhatsApp Community
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Copied to clipboard</div>
+
+  <script>
+    // Copy to Clipboard Utility
+    function copyToClipboard(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(message || 'Copied to clipboard!');
+      }).catch(() => {
+        showToast('Copied: ' + text);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    // Live Controls for Noise-texture.png
+    function updateNoiseTexture(val) {
+      const layer = document.getElementById('noise-layer');
+      layer.style.opacity = val / 100;
+      document.getElementById('grainVal').textContent = val + '%';
+    }
+
+    function updateBlendMode(mode) {
+      const layer = document.getElementById('noise-layer');
+      layer.style.mixBlendMode = mode;
+      const spec = document.getElementById('specSample');
+      if (spec) spec.style.mixBlendMode = mode;
+      showToast('Blend mode: ' + mode);
+    }
+
+    function updateWarmth(val) {
+      document.getElementById('warmth-layer').style.opacity = val / 100;
+      document.getElementById('sepiaVal').textContent = val + '%';
+    }
+
+    let pitchActive = true;
+    function toggleCanvasPitch() {
+      pitchActive = !pitchActive;
+      const btn = document.getElementById('toggleBgBtn');
+      if (pitchActive) {
+        document.body.style.backgroundColor = '#070707';
+        btn.classList.add('active');
+        btn.textContent = 'Pitch: #070707';
+      } else {
+        document.body.style.backgroundColor = '#121212';
+        btn.classList.remove('active');
+        btn.textContent = 'Pitch: #121212';
+      }
+    }
+
+    // Type Tester Controls
+    function updateTypeFamily(family) {
+      const input = document.getElementById('liveTypeInput');
+      input.style.fontFamily = family;
+      const weightSelect = document.getElementById('weightSelect');
+      if (family.includes('savate')) {
+        weightSelect.innerHTML = `
+          <option value="700_normal" selected>700 Bold</option>
+          <option value="700_italic">700 Bold Italic</option>
+          <option value="400_normal">400 Regular</option>
+          <option value="400_italic">400 Regular Italic</option>
+          <option value="300_normal">300 Light</option>
+        `;
+        updateTypeStyle('700_normal');
+      } else {
+        weightSelect.innerHTML = `
+          <option value="900_normal">900 Black</option>
+          <option value="700_normal" selected>700 Bold</option>
+          <option value="600_normal">600 SemiBold</option>
+          <option value="400_normal">400 Regular</option>
+          <option value="300_normal">300 Light</option>
+        `;
+        updateTypeStyle('700_normal');
+      }
+    }
+
+    function updateTypeStyle(val) {
+      const parts = val.split('_');
+      const input = document.getElementById('liveTypeInput');
+      input.style.fontWeight = parts[0];
+      input.style.fontStyle = parts[1] || 'normal';
+    }
+
+    function updateTypeSize(size) {
+      document.getElementById('liveTypeInput').style.fontSize = size + 'px';
+      document.getElementById('typeSizeVal').textContent = size + 'px';
+    }
+
+    // Populate Waveform Custom Font Glyphs
+    const waveLetters = [
+      { char: 'a', d: 'M 4 28 Q 24 6, 44 28' },
+      { char: 'b', d: 'M 4 18 Q 24 4, 44 18 Q 24 38, 4 18 Z' },
+      { char: 'c', d: 'M 44 14 Q 20 6, 10 24 Q 20 42, 44 34' },
+      { char: 'd', d: 'M 10 14 Q 24 4, 40 24 Q 24 44, 10 34 Z' },
+      { char: 'e', d: 'M 6 24 Q 24 10, 42 24 Q 24 38, 6 24 Z' },
+      { char: 'f', d: 'M 10 40 Q 24 24, 24 8 Q 38 8, 40 20' },
+      { char: 'g', d: 'M 40 10 Q 24 24, 24 40 Q 10 40, 8 28' },
+      { char: 'h', d: 'M 6 8 Q 12 36, 24 20 Q 36 20, 42 40' },
+      { char: 'i', d: 'M 24 16 L 24 40 M 24 8 A 2 2 0 1 0 24 12 A 2 2 0 1 0 24 8' },
+      { char: 'j', d: 'M 30 16 L 30 36 Q 20 46, 10 38 M 30 8 A 2 2 0 1 0 30 12' },
+      { char: 'k', d: 'M 8 8 L 8 40 M 36 12 Q 20 24, 10 24 Q 22 26, 38 40' },
+      { char: 'l', d: 'M 24 6 L 24 38 Q 30 42, 38 38' },
+      { char: 'm', d: 'M 4 36 Q 14 12, 24 24 Q 34 12, 44 36' },
+      { char: 'n', d: 'M 6 36 Q 24 10, 42 36' },
+      { char: 'o', d: 'M 6 24 Q 24 8, 42 24 Q 24 40, 6 24 Z' },
+      { char: 'p', d: 'M 8 16 L 8 46 M 8 18 Q 24 6, 40 22 Q 24 36, 8 26' },
+      { char: 'q', d: 'M 40 16 L 40 46 M 40 18 Q 24 6, 8 22 Q 24 36, 40 26' },
+      { char: 'r', d: 'M 8 38 L 8 18 Q 20 12, 38 18' },
+      { char: 's', d: 'M 38 14 Q 24 8, 12 20 Q 24 26, 36 32 Q 24 42, 10 36' },
+      { char: 't', d: 'M 24 6 L 24 38 Q 28 42, 38 38 M 12 18 L 36 18' },
+      { char: 'u', d: 'M 6 12 Q 24 38, 42 12' },
+      { char: 'v', d: 'M 4 14 L 24 38 L 44 14' },
+      { char: 'w', d: 'M 4 14 Q 14 38, 24 24 Q 34 38, 44 14' },
+      { char: 'x', d: 'M 6 10 Q 24 24, 42 38 M 42 10 Q 24 24, 6 38' },
+      { char: 'y', d: 'M 6 12 Q 24 36, 42 12 M 24 28 L 12 46' },
+      { char: 'z', d: 'M 8 12 L 40 12 L 8 38 L 40 38' }
+    ];
+
+    const container = document.getElementById('waveGlyphsContainer');
+    waveLetters.forEach(item => {
+      const cell = document.createElement('div');
+      cell.className = 'wave-cell';
+      cell.innerHTML = `
+        <svg class="wave-glyph-svg" viewBox="0 0 48 48">
+          <path d="${item.d}" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="wave-char-label">${item.char.toUpperCase()}</span>
+      `;
+      container.appendChild(cell);
+    });
+  </script>
+</body>
+</html>
