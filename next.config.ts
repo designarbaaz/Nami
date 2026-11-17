@@ -52,8 +52,8 @@ const nextConfig: NextConfig = {
       "object-src 'none'",
       "img-src 'self' data: blob: https:",
       "media-src 'self' blob:",
-      "font-src 'self' https://use.typekit.net https://fonts.gstatic.com data:",
-      "style-src 'self' 'unsafe-inline' https://use.typekit.net https://fonts.googleapis.com",
+      "font-src 'self' https://use.typekit.net https://p.typekit.net https://fonts.gstatic.com data:",
+      "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net https://fonts.googleapis.com",
       "script-src 'self' 'unsafe-inline'" + (isDev ? " 'unsafe-eval'" : ""),
       cspConnectSrcFromEnv(),
     ];
