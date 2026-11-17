@@ -826,7 +826,7 @@
       margin-top: 0;
       margin-bottom: 0;
       min-height: 80vh;
-      padding: clamp(4rem, 8vh, 6.5rem) 1.5rem;
+      padding: 120px 1.5rem;
       overflow: hidden;
       background: var(--bg-black);
       display: flex;
@@ -838,12 +838,13 @@
 
     .event-parallax-media-wrap {
       position: absolute;
-      top: -20%;
+      top: -25%;
       left: 0;
       width: 100%;
-      height: 140%;
+      height: 150%;
       overflow: hidden;
       z-index: 1;
+      pointer-events: none;
     }
 
     .event-parallax-img {
@@ -855,6 +856,7 @@
       will-change: transform;
       pointer-events: none;
       display: block;
+      transform: translate3d(0, 0, 0) scale(1.08);
     }
 
     .event-parallax-overlay {
@@ -932,6 +934,7 @@
     .cal-days-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
+      grid-auto-rows: 1fr;
       position: relative;
     }
 
@@ -1112,7 +1115,7 @@
       width: 0;
       height: 0;
       background: #0B0B0B;
-      border: 1.5px solid var(--c-orange);
+      border: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
       z-index: 80;
@@ -1197,7 +1200,7 @@
     .col-popup-media {
       position: relative;
       width: 100%;
-      height: 155px;
+      height: 135px;
       overflow: hidden;
       flex-shrink: 0;
       background: #000000;
@@ -1227,7 +1230,7 @@
     }
 
     .col-popup-info {
-      padding: 1rem 1.25rem 1.25rem;
+      padding: 0.95rem 1.15rem 1.15rem;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -1236,7 +1239,7 @@
     }
 
     .col-popup-badge-wrap {
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
     }
 
     .col-popup-hz {
@@ -1256,83 +1259,28 @@
 
     .col-popup-title {
       font-family: var(--font-heading);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #FFFFFF;
-      line-height: 1.18;
-      margin: 0 0 0.2rem;
+      line-height: 1.16;
+      margin: 0 0 0.3rem;
       letter-spacing: 0;
     }
 
     .col-popup-genre {
       font-family: var(--font-body);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--c-orange);
-      margin-bottom: 0.8rem;
-      line-height: 1.3;
-    }
-
-    .col-popup-meta-block {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0 !important;
-      padding: 0.7rem 0.9rem;
-      margin-bottom: 0.8rem;
-      box-shadow: none !important;
-    }
-
-    @media (max-width: 520px) {
-      .col-popup-meta-block {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .col-popup-meta-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.55rem;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.3;
-    }
-
-    .col-popup-meta-row svg {
-      stroke: var(--c-orange);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .col-popup-meta-row div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .col-popup-meta-row .meta-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-    }
-
-    .col-popup-meta-row .meta-val {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #FFFFFF;
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
     }
 
     .col-popup-desc {
       font-family: var(--font-body);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: rgba(255, 255, 255, 0.78);
-      line-height: 1.5;
+      line-height: 1.48;
       margin: 0 0 1rem;
     }
 
@@ -1368,26 +1316,48 @@
 
     @media (max-width: 768px) {
       .event-calendar-section {
-        padding: 3.5rem 1rem;
+        padding: clamp(3.5rem, 6vh, 80px) 1rem;
       }
       .cal-scroll-hint {
         display: block;
       }
       .cal-grid-table {
-        min-width: 640px;
+        min-width: 780px;
       }
       .cal-cell {
-        min-height: 94px;
-        padding: 0.5rem 0.45rem;
+        min-height: 108px;
+        padding: 0.65rem 0.5rem;
       }
       .cal-cell-num {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       .cal-event-artist {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
       }
       .cal-event-meta {
-        font-size: 0.65rem;
+        font-size: 0.68rem;
+      }
+      .col-popup-media {
+        height: 115px;
+      }
+      .col-popup-info {
+        padding: 0.75rem 0.85rem 0.85rem;
+      }
+      .col-popup-title {
+        font-size: 1.15rem;
+      }
+      .col-popup-genre {
+        font-size: 0.72rem;
+        margin-bottom: 0.5rem;
+      }
+      .col-popup-desc {
+        font-size: 0.74rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+      }
+      .btn-col-popup-book {
+        font-size: 0.78rem;
+        padding: 0.6rem 1rem;
       }
     }
 
@@ -2301,17 +2271,9 @@
               </a>
 
               <!-- ROW 3: Days 15 to 21 -->
-              <!-- Event Day 15: Jerrau (Column 1) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="15" onclick="openEventPopup('15', event)" aria-label="Feb 15: Jerrau">
-                <div class="cal-cell-top">
-                  <span class="cal-cell-num">15</span>
-                  <span class="cal-badge">980 Hz</span>
-                </div>
-                <div class="cal-event-body">
-                  <div class="cal-event-artist">Jerrau</div>
-                  <div class="cal-event-meta">20:30 · Leftfield Dub</div>
-                </div>
-              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">15</span></div>
+              </div>
               <div class="cal-cell">
                 <div class="cal-cell-top"><span class="cal-cell-num">16</span></div>
               </div>
@@ -2390,17 +2352,9 @@
                   <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
                 </div>
               </a>
-              <!-- Event Day 30: Vinyl Archives (Column 2) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="30" onclick="openEventPopup('30', event)" aria-label="Feb 30: Vinyl Archives">
-                <div class="cal-cell-top">
-                  <span class="cal-cell-num">30</span>
-                  <span class="cal-badge">Deep Listening</span>
-                </div>
-                <div class="cal-event-body">
-                  <div class="cal-event-artist">Vinyl Archives</div>
-                  <div class="cal-event-meta">19:00 · Open Decks Session</div>
-                </div>
-              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">30</span></div>
+              </div>
               <!-- 5 empty cells matching reference layout -->
               <div class="cal-cell is-empty" aria-hidden="true"></div>
               <div class="cal-cell is-empty" aria-hidden="true"></div>
@@ -2431,35 +2385,10 @@
                       <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
                     </div>
                     <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
-                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient & Jazz</div>
-
-                    <div class="col-popup-meta-block">
-                      <div class="col-popup-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        <div>
-                          <span class="meta-label">Timing</span>
-                          <span class="meta-val" id="colPopupTiming">20:30 (Doors 19:00)</span>
-                        </div>
-                      </div>
-                      <div class="col-popup-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="9" cy="7" r="4"></circle>
-                          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        <div>
-                          <span class="meta-label">Attendees & Guests</span>
-                          <span class="meta-val" id="colPopupAttendees">38 Confirmed</span>
-                        </div>
-                      </div>
-                    </div>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient · Spiritual Jazz · 20:30 (Doors 19:00)</div>
 
                     <p class="col-popup-desc" id="colPopupDesc">
-                      Curated vinyl selections & experimental electronic producers playing exclusively through our custom horn-loaded acoustic system.
+                      Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
                     </p>
 
                     <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
@@ -2943,9 +2872,8 @@
         hzTag: '440 Hz Root',
         artist: 'Atushi Maeda',
         title: 'Atushi Maeda · Ambient & Jazz',
-        genre: 'Japanese Ambient · Spiritual Jazz · Tokyo Archives',
-        timing: '20:30 Onwards (Doors open 19:00)',
-        attendees: '38 Guests Attending · Counter Seats Available',
+        genre: 'Japanese Ambient · Spiritual Jazz',
+        timing: '20:30 (Doors 19:00)',
         poster: './assets/spin-gallery-1.jpg',
         desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
         dateStr: '2026-02-09'
@@ -2956,25 +2884,11 @@
         hzTag: 'Warm Frequencies',
         artist: 'Mogasu',
         title: 'Mogasu · Vinyl Soul & Rare Groove',
-        genre: 'Vintage Soul · Slow-Tempo Lovers Rock · Rare Groove',
-        timing: '18:00 Onwards (Golden Hour Session)',
-        attendees: '56 Guests Attending · High Demand',
+        genre: 'Vintage Soul · Rare Groove',
+        timing: '18:00 Onwards',
         poster: './assets/spin-gallery-2.jpg',
         desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
         dateStr: '2026-02-14'
-      },
-      '15': {
-        dateNum: '15',
-        dateTag: 'MON · FEB 15',
-        hzTag: '980 Hz Harmonic',
-        artist: 'Jerrau',
-        title: 'Jerrau · Leftfield Disco & Dub',
-        genre: 'Dub Reggae · Leftfield Disco · Post-Punk Funk',
-        timing: '20:30 Onwards',
-        attendees: '44 Guests Attending · Booths Available',
-        poster: './assets/spin-gallery-3.jpg',
-        desc: 'Amsterdam selector Jerrau brings hypnotic Jamaican dub plates, leftfield disco excursions, and driving polyrhythmic grooves calibrated to our sub-bass manifold.',
-        dateStr: '2026-02-15'
       },
       '20': {
         dateNum: '20',
@@ -2982,9 +2896,8 @@
         hzTag: '3968 Hz Special · Headline',
         artist: 'Yousuke Yukimatsu',
         title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
-        genre: 'Tokyo Avant-Garde · Sub-Bass Manifold · Experimental',
-        timing: '20:30 Onwards (Headline Showcase)',
-        attendees: '72 Guests Attending · Selling Fast',
+        genre: 'Tokyo Avant-Garde & Bass',
+        timing: '20:30 Onwards',
         poster: './assets/spin-gallery-6.jpg',
         desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
         dateStr: '2026-02-20'
@@ -2995,9 +2908,8 @@
         hzTag: 'Resonant Node',
         artist: 'Occa',
         title: 'Occa · Deep Hypnotic Soundscapes',
-        genre: 'Hypnotic Techno · Deep Ambient · Subterranean Waves',
+        genre: 'Hypnotic Soundscapes & Ambient',
         timing: '20:30 Onwards',
-        attendees: '35 Guests Attending · Listening Tables Open',
         poster: './assets/spin-gallery-4.jpg',
         desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
         dateStr: '2026-02-23'
@@ -3008,9 +2920,8 @@
         hzTag: 'Electric Pulse',
         artist: 'Suze Ijo',
         title: 'Suze Ijo · Afro-Cuban & Electronic',
-        genre: 'Afro-Cuban Percussion · Deep House · Global Groove',
+        genre: 'Afro-Cuban Beats & Deep House',
         timing: '19:00 Onwards',
-        attendees: '48 Guests Attending · Limited Counter Left',
         poster: './assets/spin-gallery-7.jpg',
         desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
         dateStr: '2026-02-28'
@@ -3021,25 +2932,11 @@
         hzTag: 'Nocturnal Set',
         artist: 'Sunju Hargun',
         title: 'Sunju Hargun · Bangkok Nightclub Selector',
-        genre: 'Cosmic Techno · Asian Synth · Psychedelic Dub',
-        timing: '19:00 Onwards (Leap Night Special)',
-        attendees: '52 Guests Attending · Special Event',
+        genre: 'Cosmic Techno & Asian Synth',
+        timing: '19:00 Onwards',
         poster: './assets/spin-gallery-8.jpg',
         desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
         dateStr: '2026-02-29'
-      },
-      '30': {
-        dateNum: '30',
-        dateTag: 'TUE · FEB 30',
-        hzTag: 'Deep Listening',
-        artist: 'Vinyl Archives',
-        title: 'Deep Listening · Open Decks Session',
-        genre: 'Archival Vinyl · Private Pressings · Audiophile Social',
-        timing: '19:00 Onwards (Community Social)',
-        attendees: '29 Guests Attending · Open Seating',
-        poster: './assets/spin-gallery-9.jpg',
-        desc: 'Our weekly communal listening session. Guests and resident collectors share rare test pressings, unreleased white labels, and archival vinyl on our reference turntable system.',
-        dateStr: '2026-02-30'
       }
     };
 
@@ -3082,8 +2979,6 @@
       const hzEl = document.getElementById('colPopupHz');
       const titleEl = document.getElementById('colPopupTitle');
       const genreEl = document.getElementById('colPopupGenre');
-      const timingEl = document.getElementById('colPopupTiming');
-      const attendeesEl = document.getElementById('colPopupAttendees');
       const descEl = document.getElementById('colPopupDesc');
 
       if (dateEl) dateEl.textContent = ev.dateTag;
@@ -3093,24 +2988,29 @@
       }
       if (hzEl) hzEl.textContent = ev.hzTag;
       if (titleEl) titleEl.textContent = ev.artist;
-      if (genreEl) genreEl.textContent = ev.genre;
-      if (timingEl) timingEl.textContent = ev.timing;
-      if (attendeesEl) attendeesEl.textContent = ev.attendees;
+      if (genreEl) {
+        genreEl.textContent = ev.genre + (ev.timing ? ' · ' + ev.timing : '');
+      }
       if (descEl) descEl.textContent = ev.desc;
 
-      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Zero Floating / Architectural Grid Snap)
-      const colWidth = targetCell.offsetWidth;
-      const cellHeight = targetCell.offsetHeight;
+      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Covers exactly 6 boxes: 3 rows × 2 columns)
       const totalCols = 7;
       const totalRows = 5;
+      const colSpan = 2;
+      const rowSpan = 3;
 
-      // Identify column (0..6) and row (0..4) of the clicked cell:
-      const colIndex = Math.round(targetCell.offsetLeft / colWidth);
-      const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
+      const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+      const cellIndex = cells.indexOf(targetCell);
 
-      // Card spans 3 calendar columns (or 2 if screen width is narrow):
-      const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
-      const rowSpan = 3; // Spans exactly 3 calendar rows
+      let colIndex = 0;
+      let rowIndex = 0;
+      if (cellIndex !== -1) {
+        colIndex = cellIndex % totalCols;
+        rowIndex = Math.floor(cellIndex / totalCols);
+      } else {
+        colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+        rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+      }
 
       // Adjust column start so card never overflows the 7 columns:
       let startCol = colIndex;
@@ -3126,11 +3026,26 @@
       }
       if (startRow < 0) startRow = 0;
 
-      // Exact pixel snap to the calendar block grid lines:
-      const left = startCol * colWidth;
-      const top = startRow * cellHeight;
-      const width = colSpan * colWidth;
-      const height = rowSpan * cellHeight;
+      // Query real top-left and bottom-right cells in the DOM for 100% exact boundary alignment:
+      const topLeftIndex = startRow * totalCols + startCol;
+      const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+      const topLeftCell = cells[topLeftIndex];
+      const bottomRightCell = cells[bottomRightIndex];
+
+      let left, top, width, height;
+      if (topLeftCell && bottomRightCell) {
+        left = topLeftCell.offsetLeft;
+        top = topLeftCell.offsetTop;
+        width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+        height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+      } else {
+        const colWidth = targetCell.offsetWidth;
+        const cellHeight = targetCell.offsetHeight;
+        left = startCol * colWidth;
+        top = startRow * cellHeight;
+        width = colSpan * colWidth;
+        height = rowSpan * cellHeight;
+      }
 
       popup.style.left = left + 'px';
       popup.style.top = top + 'px';
@@ -3146,9 +3061,9 @@
         const wrapLeft = scrollWrap.scrollLeft;
         const wrapWidth = scrollWrap.clientWidth;
         if (left < wrapLeft) {
-          scrollWrap.scrollTo({ left: left - 20, behavior: 'smooth' });
-        } else if (left + popupWidth > wrapLeft + wrapWidth) {
-          scrollWrap.scrollTo({ left: left + popupWidth - wrapWidth + 20, behavior: 'smooth' });
+          scrollWrap.scrollTo({ left: Math.max(0, left - 16), behavior: 'smooth' });
+        } else if (left + width > wrapLeft + wrapWidth) {
+          scrollWrap.scrollTo({ left: left + width - wrapWidth + 16, behavior: 'smooth' });
         }
       }
     }
@@ -3208,16 +3123,23 @@
       const popup = document.getElementById('calColumnPopup');
       const targetCell = document.querySelector(`.cal-cell.has-event[data-day="${activePopupDayKey}"]`);
       if (grid && popup && targetCell) {
-        const colWidth = targetCell.offsetWidth;
-        const cellHeight = targetCell.offsetHeight;
         const totalCols = 7;
         const totalRows = 5;
-
-        const colIndex = Math.round(targetCell.offsetLeft / colWidth);
-        const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
-
-        const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
+        const colSpan = 2;
         const rowSpan = 3;
+
+        const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+        const cellIndex = cells.indexOf(targetCell);
+
+        let colIndex = 0;
+        let rowIndex = 0;
+        if (cellIndex !== -1) {
+          colIndex = cellIndex % totalCols;
+          rowIndex = Math.floor(cellIndex / totalCols);
+        } else {
+          colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+          rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+        }
 
         let startCol = colIndex;
         if (startCol + colSpan > totalCols) {
@@ -3231,10 +3153,30 @@
         }
         if (startRow < 0) startRow = 0;
 
-        popup.style.left = (startCol * colWidth) + 'px';
-        popup.style.top = (startRow * cellHeight) + 'px';
-        popup.style.width = (colSpan * colWidth) + 'px';
-        popup.style.height = (rowSpan * cellHeight) + 'px';
+        const topLeftIndex = startRow * totalCols + startCol;
+        const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+        const topLeftCell = cells[topLeftIndex];
+        const bottomRightCell = cells[bottomRightIndex];
+
+        let left, top, width, height;
+        if (topLeftCell && bottomRightCell) {
+          left = topLeftCell.offsetLeft;
+          top = topLeftCell.offsetTop;
+          width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+          height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+        } else {
+          const colWidth = targetCell.offsetWidth;
+          const cellHeight = targetCell.offsetHeight;
+          left = startCol * colWidth;
+          top = startRow * cellHeight;
+          width = colSpan * colWidth;
+          height = rowSpan * cellHeight;
+        }
+
+        popup.style.left = left + 'px';
+        popup.style.top = top + 'px';
+        popup.style.width = width + 'px';
+        popup.style.height = height + 'px';
       }
     });
 
@@ -3284,13 +3226,15 @@
         }
       }
 
-      // Subtle Parallax on Full-Width Event Banner
+      // Deep Cinematic Parallax on Full-Width Event Calendar Section
       if (eventBanner && eventImg) {
         const rect = eventBanner.getBoundingClientRect();
         if (rect.top < winHeight && rect.bottom > 0) {
-          const progress = (rect.top - winHeight / 2) / (winHeight / 2 + rect.height / 2);
-          const translateY = progress * 50;
-          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+          const sectionCenter = rect.top + rect.height / 2;
+          const screenCenter = winHeight / 2;
+          const diffFromCenter = sectionCenter - screenCenter;
+          const translateY = diffFromCenter * -0.22;
+          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(1.08)`;
         }
       }
 
