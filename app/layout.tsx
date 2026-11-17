@@ -1,0 +1,123 @@
+import type { Metadata, Viewport } from "next";
+import { siteConfig, absoluteUrl } from "@/lib/site";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [
+    "NAMI",
+    "hi-fi listening room",
+    "Mumbai",
+    "Bandra",
+    "vinyl",
+    "cocktail bar",
+    "dining",
+    "listening session",
+  ],
+  authors: [{ name: "NAMI" }],
+  creator: "NAMI",
+  publisher: "NAMI",
+  category: "entertainment",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: absoluteUrl("/"),
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/assets/hero-ref.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NAMI hi-fi listening room",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: ["/assets/hero-ref.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: [{ url: "/assets/favicon.svg", type: "image/svg+xml" }],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#070707",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    email: siteConfig.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Bandra West",
+      addressLocality: "Mumbai",
+      addressRegion: "Maharashtra",
+      postalCode: "400050",
+      addressCountry: "IN",
+    },
+    servesCuisine: ["Listening Room", "Cocktails", "Dining"],
+  };
+
+  return (
+    <html lang="en">
+      <head>
+        {/* Adobe Typekit: Savate */}
+        <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css" />
+        {/* Google Fonts: Chivo */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
+    </html>
+  );
+}

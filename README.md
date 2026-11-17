@@ -1,36 +1,85 @@
-# NAMI — Hi-Fi Listening Room & Dining Experience
+# NAMI — Next.js Frontend
 
-> Part listening room, part cocktail bar, part dining experience. An intimate sanctuary where sound, flavour, and nocturnal culture collide on their own frequency.
+Hi-Fi listening room & dining experience site. Frontend-only for now; Strapi backend can plug in later.
 
-Benchmark: [Spin Bar (Amsterdam)](https://www.spin-bar.nl/)
+## Stack
 
----
+- **Next.js 15** (App Router)
+- **React 19** + TypeScript
+- Vanilla CSS (existing brand styles)
+- SEO: metadata, Open Graph, JSON-LD, `sitemap.xml`, `robots.txt`
+- Security headers + lightweight middleware
 
-## 🎧 Features & Deliverables
-- **Homepage (`index.html`)**:
-  - Centerpiece `Main-logo.svg` hero entrance with looping turntable video background (`assets/vinyl-loop.mp4`).
-  - Hardware-accelerated multi-plane parallax scroll effect (`requestAnimationFrame` & `translate3d`).
-  - Top-right circular section scroller `( I )` ~ `( P )` ~ `( S )` ~ `( M )` ~ `( R )` with 1.5px border and fluid wave connectors (`wave-1.svg` & `wave-2.svg`).
-  - 42px borderless wave hamburger menu trigger (`assets/Menu-io.svg`) with full-screen slide-out drawer.
-  - Minimalist brand story fold: *"We Don't Host Nights. We Compose Them."* with `OUR STORY` pill action.
-  - Full-bleed 3-column photography gallery matching Spin Bar Amsterdam with integrated horn loudspeaker acoustic specifications.
-  - Interactive Web Audio API vinyl warmth synthesizer and live sound system status.
-- **Brand Style Guide (`styleguide.html`)**:
-  - Complete design system with color palette, typography hierarchy, UI components, and brand tokens.
+## Project structure
 
----
+```
+app/                 # Routes + SEO (layout, sitemap, robots)
+components/          # Home + style guide UI
+lib/site.ts          # Site config (URL, SEO copy) — Strapi-ready
+public/assets/       # Images, video, SVG
+middleware.ts        # Probe blocking + request id
+next.config.ts       # Security headers, image/cache config
+```
 
-## 🔤 Typography
-- **Headings**: Adobe Typekit **Savate** (`font-family: "savate", sans-serif;`)
-- **Body & Interface**: Google Fonts **Chivo** (`font-family: 'Chivo', sans-serif;`)
+## Local setup (`nami.localhost`)
 
----
+### 1. Hosts file (one-time, Admin)
 
-## 🚀 Live Demo on GitHub Pages
-To enable GitHub Pages:
-1. Go to repository **Settings** → **Pages**.
-2. Under **Build and deployment** → **Source**, select `Deploy from a branch`.
-3. Choose branch `main` and folder `/ (root)`. Click **Save**.
-4. The live site will be accessible at:
-   - **Homepage**: `https://<your-username>.github.io/<repo-name>/`
-   - **Style Guide**: `https://<your-username>.github.io/<repo-name>/styleguide.html`
+```bash
+npm run setup:hosts
+```
+
+Or add this line manually to `C:\Windows\System32\drivers\etc\hosts`:
+
+```
+127.0.0.1   nami.localhost
+```
+
+### 2. Install & run
+
+```bash
+npm install
+npm run dev
+```
+
+Open: **http://nami.localhost:3000** (or http://127.0.0.1:3000 before hosts is set)
+
+Style guide: **http://nami.localhost:3000/styleguide**
+
+## Environment
+
+One file only: **`.env`** (gitignored). Create/edit it locally; on staging/production upload or set the same keys in the host panel.
+
+```bash
+NEXT_PUBLIC_SITE_URL=http://nami.localhost:3000
+```
+
+## Staging
+
+On the server, set `.env` (or host env vars) then:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-staging-host.example.com
+npm run build
+npm start
+```
+
+## Scripts
+
+| Command        | Purpose                |
+|----------------|------------------------|
+| `npm run dev`  | Local on nami.localhost |
+| `npm run build`| Production build       |
+| `npm start`    | Serve production build |
+| `npm run lint` | ESLint                 |
+
+## Strapi later
+
+Add these to the same `.env` when the backend is ready:
+
+```bash
+NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
+STRAPI_API_TOKEN=
+```
+
+No Strapi wiring yet — frontend is self-contained.
