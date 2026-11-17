@@ -13,13 +13,17 @@ Hi-Fi listening room & dining experience site. Frontend-only for now; Strapi bac
 ## Project structure
 
 ```
-app/                 # Routes + SEO (layout, sitemap, robots)
-components/          # Home + style guide UI
-lib/site.ts          # Site config (URL, SEO copy) — Strapi-ready
-public/assets/       # Images, video, SVG
-middleware.ts        # Probe blocking + request id
-next.config.ts       # Security headers, image/cache config
+app/                      # Routes + SEO
+components/home/          # Homepage shell + interactions
+components/home/sections/ # One file per page block
+content/home.ts           # Editable events/data
+styles/home.css           # Homepage styles
+lib/                      # env + site config
+public/assets/            # Media
+_legacy/                  # Drop incoming HTML here
 ```
+
+See **[DEVELOPERS.md](./DEVELOPERS.md)** for simple customize steps.
 
 ## Local setup (`nami.localhost`)
 

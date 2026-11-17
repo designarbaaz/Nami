@@ -46,7 +46,7 @@
       /* Official Noise Texture Tiled directly on body */
       background-image: 
         var(--grad-nocturnal-glow),
-        url('/assets/Noise-texture.png');
+        url('/assets/noise-tile.png');
       background-repeat: no-repeat, repeat;
       background-position: center top, center top;
       background-size: 100% 1000px, 100% auto;
@@ -73,7 +73,7 @@
       height: 100vh;
       pointer-events: none;
       z-index: 9999;
-      background-image: url('/assets/Noise-texture.png');
+      background-image: url('/assets/noise-tile.png');
       background-repeat: repeat;
       background-position: center top;
       background-size: 100% auto;

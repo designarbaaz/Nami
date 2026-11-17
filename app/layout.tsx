@@ -97,15 +97,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Adobe Typekit: Savate */}
-        <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css" />
-        {/* Google Fonts: Chivo */}
+        <link rel="preconnect" href="https://use.typekit.net" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Adobe Typekit: Savate */}
+        <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css" />
+        {/* Google Fonts: Chivo — display=swap avoids render block */}
         <link
           href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
