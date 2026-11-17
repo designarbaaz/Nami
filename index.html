@@ -475,7 +475,6 @@
       font-weight: 600;
       color: rgba(255, 255, 255, 0.85);
       text-transform: uppercase;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
     }
 
     /* Scroll Down Cue */
@@ -732,14 +731,12 @@
       border: none;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 22px rgba(244, 143, 36, 0.28);
     }
 
     .btn-our-story:hover {
       background: var(--grad-flare);
       filter: brightness(1.12);
       transform: scale(1.06);
-      box-shadow: 0 6px 30px rgba(244, 143, 36, 0.45);
     }
 
     /* =========================================================
@@ -817,9 +814,9 @@
     }
 
     /* =========================================================
-       EVENT FULL-WIDTH PARALLAX BANNER (assets/Event-bg.jpg)
+       02. EVENT CALENDAR OVERLAY ON EVENT-BG.JPG (WEEKLY PROGRAMMING)
        ========================================================= */
-    .event-parallax-banner {
+    .event-calendar-section {
       width: 100vw;
       position: relative;
       left: 50%;
@@ -828,11 +825,15 @@
       margin-right: -50vw;
       margin-top: 0;
       margin-bottom: 0;
-      height: 80vh;
-      min-height: 520px;
+      min-height: 80vh;
+      padding: clamp(4rem, 8vh, 6.5rem) 1.5rem;
       overflow: hidden;
       background: var(--bg-black);
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
     }
 
     .event-parallax-media-wrap {
@@ -842,6 +843,7 @@
       width: 100%;
       height: 140%;
       overflow: hidden;
+      z-index: 1;
     }
 
     .event-parallax-img {
@@ -849,7 +851,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(0.85) contrast(1.08);
+      filter: brightness(0.82) contrast(1.08);
       will-change: transform;
       pointer-events: none;
       display: block;
@@ -862,76 +864,530 @@
       z-index: 2;
       background: linear-gradient(
         180deg,
-        rgba(7, 7, 7, 0.5) 0%,
-        rgba(7, 7, 7, 0) 22%,
-        rgba(7, 7, 7, 0) 78%,
-        rgba(7, 7, 7, 0.55) 100%
+        rgba(7, 7, 7, 0.7) 0%,
+        rgba(0, 0, 0, 0.52) 15%,
+        rgba(0, 0, 0, 0.52) 85%,
+        rgba(7, 7, 7, 0.75) 100%
       );
     }
 
-    @media (max-width: 768px) {
-      .event-parallax-banner {
-        height: 80vh;
-        min-height: 400px;
+    .event-calendar-container {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Calendar Header Block */
+    .cal-header-block {
+      max-width: 780px;
+      margin-bottom: 2.25rem;
+    }
+
+    /* 7-Column Calendar Grid Wrapper */
+    .cal-grid-scroll-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+
+    .cal-grid-table {
+      min-width: 860px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(10, 10, 10, 0.25);
+    }
+
+    /* Day of Week Header Row */
+    .cal-dow-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .cal-dow-col {
+      padding: 1.15rem 0.6rem;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #FFFFFF;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      user-select: none;
+    }
+
+    .cal-dow-col:last-child {
+      border-right: none;
+    }
+
+    /* 35 Calendar Cells Grid (5 rows of 7 cols) - Increased Box Size */
+    .cal-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      position: relative;
+    }
+
+    .cal-cell {
+      position: relative;
+      min-height: clamp(140px, 16vh, 168px);
+      padding: 1.15rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: transparent;
+      transition: background 0.22s ease, transform 0.22s ease;
+      text-decoration: none;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    /* Remove right border on 7th column of each row */
+    .cal-cell:nth-child(7n) {
+      border-right: none;
+    }
+
+    /* Remove bottom border on 5th row (cells 29 to 35) */
+    .cal-cell:nth-child(n+29) {
+      border-bottom: none;
+    }
+
+    /* Non-event cells hover */
+    .cal-cell:not(.has-event):not(.is-empty):hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cal-cell-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .cal-cell-num {
+      font-family: var(--font-body);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .cal-cell:not(.has-event) .cal-cell-num {
+      opacity: 0.95;
+    }
+
+    /* Event Days (Rich radiant color block, zero blur, increased size) */
+    .cal-cell.has-event {
+      background: linear-gradient(135deg, rgba(232, 66, 67, 0.85) 0%, rgba(244, 143, 36, 0.85) 100%);
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .cal-cell.has-event:hover {
+      background: linear-gradient(135deg, rgba(232, 66, 67, 0.98) 0%, rgba(244, 143, 36, 0.98) 100%);
+      transform: translateY(-2px);
+      z-index: 5;
+    }
+
+    /* Headline Event (Day 20 Yousuke Yukimatsu) */
+    .cal-cell.has-event.is-headline {
+      background: linear-gradient(135deg, rgba(232, 66, 67, 0.92) 0%, rgba(230, 85, 0, 0.92) 100%);
+      outline: 1.5px solid rgba(255, 255, 255, 0.9);
+      outline-offset: -2px;
+    }
+
+    .cal-cell.has-event.is-headline:hover {
+      background: linear-gradient(135deg, rgba(232, 66, 67, 1) 0%, rgba(230, 85, 0, 1) 100%);
+    }
+
+    .cal-badge {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.45);
+      border: none;
+      color: #FFFFFF;
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing: 0;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .badge-headline {
+      background: rgba(255, 255, 255, 0.28);
+      border: none;
+      color: #FFFFFF;
+    }
+
+    .cal-event-body {
+      margin-top: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .cal-event-artist {
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .cal-event-meta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .cal-cell.is-empty {
+      background: transparent;
+      pointer-events: none;
+    }
+
+    /* Scroll Hint for Mobile */
+    .cal-scroll-hint {
+      display: none;
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer CTA Block */
+    .cal-footer-block {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .btn-cal-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 0.95rem 2.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-cal-action:hover {
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       CALENDAR BLOCK-ALIGNED EXPANDED EVENT CARD (ZERO ROUNDNESS, ZERO SHADOW)
+       ========================================================= */
+    .cal-column-popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      background: #0B0B0B;
+      border: 1.5px solid var(--c-orange);
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .cal-column-popup.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .col-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.75rem 1.15rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      flex-shrink: 0;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-date {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+    }
+
+    .col-popup-close {
+      width: 26px;
+      height: 26px;
+      border-radius: 0 !important;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      padding: 0;
+      box-shadow: none !important;
+    }
+
+    .col-popup-close:hover {
+      background: var(--c-red);
+      border-color: var(--c-red);
+    }
+
+    .col-popup-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(244, 143, 36, 0.4) transparent;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .col-popup-body::-webkit-scrollbar-thumb {
+      background: rgba(244, 143, 36, 0.4);
+      border-radius: 0;
+    }
+
+    .col-popup-media {
+      position: relative;
+      width: 100%;
+      height: 155px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000000;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.06) brightness(0.92);
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-media:hover .col-popup-img {
+      transform: scale(1.02);
+    }
+
+    .col-popup-img-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,11,11,0.88) 90%, #0B0B0B 100%);
+      pointer-events: none;
+    }
+
+    .col-popup-info {
+      padding: 1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: left;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-badge-wrap {
+      margin-bottom: 0.45rem;
+    }
+
+    .col-popup-hz {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: var(--grad-primary);
+      border: none;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+
+    .col-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.18;
+      margin: 0 0 0.2rem;
+      letter-spacing: 0;
+    }
+
+    .col-popup-genre {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--c-orange);
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .col-popup-meta-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0 !important;
+      padding: 0.7rem 0.9rem;
+      margin-bottom: 0.8rem;
+      box-shadow: none !important;
+    }
+
+    @media (max-width: 520px) {
+      .col-popup-meta-block {
+        grid-template-columns: 1fr;
       }
     }
 
-    /* SECTION: WHAT'S ON (Weekly Programming) */
-    .events-schedule {
-      margin-top: 2.5rem;
-      border-top: 1px solid var(--border-subtle);
+    .col-popup-meta-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.3;
     }
 
-    .event-row {
-      display: grid;
-      grid-template-columns: 100px 1.5fr 1fr auto;
-      gap: 1.5rem;
-      align-items: center;
-      padding: 1.75rem 0;
-      border-bottom: 1px solid var(--border-subtle);
-      text-decoration: none;
-      color: #FFFFFF;
-      transition: background 0.2s, padding-left 0.2s;
+    .col-popup-meta-row svg {
+      stroke: var(--c-orange);
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .event-row:hover {
-      padding-left: 0.75rem;
-      background: rgba(255, 255, 255, 0.02);
+    .col-popup-meta-row div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
     }
 
-    .event-date {
-      font-family: 'Chivo', sans-serif;
-      font-size: 1rem;
+    .col-popup-meta-row .meta-label {
+      font-size: 0.65rem;
       font-weight: 700;
-      color: var(--c-orange);
-    }
-
-    .event-artist {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .event-meta {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--text-muted);
     }
 
-    .event-tag-badge {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.72rem;
+    .col-popup-meta-row .meta-val {
+      font-size: 0.8rem;
       font-weight: 600;
-      color: var(--c-pink);
-      padding: 0.35rem 0.75rem;
-      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+    }
+
+    .col-popup-desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.5;
+      margin: 0 0 1rem;
+    }
+
+    .btn-col-popup-book {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      padding: 0.75rem 1.4rem;
       border-radius: 999px;
-      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: transform 0.18s ease;
+      margin-top: auto;
+    }
+
+    .btn-col-popup-book:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Active clicked cell highlight */
+    .cal-cell.is-active-event {
+      outline: 2px solid #FFFFFF !important;
+      outline-offset: -2px;
     }
 
     @media (max-width: 768px) {
-      .event-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+      .event-calendar-section {
+        padding: 3.5rem 1rem;
+      }
+      .cal-scroll-hint {
+        display: block;
+      }
+      .cal-grid-table {
+        min-width: 640px;
+      }
+      .cal-cell {
+        min-height: 94px;
+        padding: 0.5rem 0.45rem;
+      }
+      .cal-cell-num {
+        font-size: 1rem;
+      }
+      .cal-event-artist {
+        font-size: 0.9rem;
+      }
+      .cal-event-meta {
+        font-size: 0.65rem;
       }
     }
 
@@ -1268,13 +1724,11 @@
       cursor: pointer;
       margin-top: 2rem;
       width: 100%;
-      box-shadow: 0 4px 25px rgba(232, 66, 67, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s;
     }
 
     .btn-submit-booking:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 35px rgba(232, 66, 67, 0.6);
     }
 
     /* FOOTER */
@@ -1752,77 +2206,288 @@
       <div class="wave-strap-overlay"></div>
     </div>
 
-    <!-- FULL-WIDTH EVENT ATMOSPHERE BANNER (assets/Event-bg.jpg) WITH SUBTLE PARALLAX -->
-    <div class="event-parallax-banner" id="eventParallaxBanner" aria-hidden="true">
+    <!-- 02. WHAT'S ON / EVENT CALENDAR OVERLAY (assets/Event-bg.jpg) -->
+    <section id="programming" class="event-calendar-section" aria-label="Sound Schedule and Events Calendar">
+      <!-- Background Media Wrap with Subtle Parallax -->
       <div class="event-parallax-media-wrap">
-        <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space" class="event-parallax-img" id="eventParallaxImg">
+        <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
       </div>
+      <!-- Atmospheric film overlay -->
       <div class="event-parallax-overlay"></div>
-    </div>
 
-    <!-- 02. WHAT'S ON (WEEKLY PROGRAMMING) -->
-    <section id="programming" class="section-block">
-      <div class="section-eyebrow">Sound Schedule</div>
-      <h2 class="section-heading">Weekly <span class="grad-accent">Programming</span></h2>
-      <p class="section-body">
-        Curated vinyl selectors, ambient selectors, and experimental electronic producers playing exclusively through our custom horn-loaded acoustic system.
-      </p>
-
-      <div class="events-schedule">
-        <!-- Event 1 -->
-        <div class="event-row">
-          <div class="event-date">09 / 02</div>
-          <div class="event-artist">Atushi Maeda</div>
-          <div class="event-meta">20:30 Onwards · Japanese Ambient & Jazz</div>
-          <div class="event-tag-badge">440 Hz Root</div>
+      <!-- Transparent Calendar Container Over Image -->
+      <div class="event-calendar-container">
+        <!-- Section Heading -->
+        <div class="cal-header-block">
+          <h2 class="section-heading" style="margin: 0;">Weekly <span class="grad-accent">Programming</span></h2>
         </div>
 
-        <!-- Event 2 -->
-        <div class="event-row">
-          <div class="event-date">14 / 02</div>
-          <div class="event-artist">Mogasu</div>
-          <div class="event-meta">18:00 Onwards · Vinyl Soul & Rare Groove</div>
-          <div class="event-tag-badge">Warm Frequencies</div>
+        <!-- 7-Column Calendar Grid Wrapper -->
+        <div class="cal-grid-scroll-wrap">
+          <div class="cal-grid-table">
+            <!-- Day of Week Header Row -->
+            <div class="cal-dow-row">
+              <div class="cal-dow-col">MON</div>
+              <div class="cal-dow-col">TUE</div>
+              <div class="cal-dow-col">WED</div>
+              <div class="cal-dow-col">THU</div>
+              <div class="cal-dow-col">FRI</div>
+              <div class="cal-dow-col">SAT</div>
+              <div class="cal-dow-col">SUN</div>
+            </div>
+
+            <!-- Calendar Days (35 Blocks: 5 rows x 7 cols) -->
+            <div class="cal-days-grid" id="calDaysGrid">
+              <!-- ROW 1: Days 1 to 7 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">1</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">2</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">3</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">4</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">5</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">6</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">7</span></div>
+              </div>
+
+              <!-- ROW 2: Days 8 to 14 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">8</span></div>
+              </div>
+              <!-- Event Day 9: Atushi Maeda (Column 2) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">9</span>
+                  <span class="cal-badge">440 Hz</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Atushi Maeda</div>
+                  <div class="cal-event-meta">20:30 · Ambient & Jazz</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">10</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">11</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">12</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">13</span></div>
+              </div>
+              <!-- Event Day 14: Mogasu (Column 7) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">14</span>
+                  <span class="cal-badge">Warm Freq</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Mogasu</div>
+                  <div class="cal-event-meta">18:00 · Vinyl Soul</div>
+                </div>
+              </a>
+
+              <!-- ROW 3: Days 15 to 21 -->
+              <!-- Event Day 15: Jerrau (Column 1) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="15" onclick="openEventPopup('15', event)" aria-label="Feb 15: Jerrau">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">15</span>
+                  <span class="cal-badge">980 Hz</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Jerrau</div>
+                  <div class="cal-event-meta">20:30 · Leftfield Dub</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">16</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">17</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">18</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">19</span></div>
+              </div>
+              <!-- Event Day 20: Yousuke Yukimatsu (Headline - Column 6) -->
+              <a href="#reserve" class="cal-cell has-event is-headline" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">20</span>
+                  <span class="cal-badge badge-headline">3968 Hz Special</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Yousuke Yukimatsu</div>
+                  <div class="cal-event-meta">20:30 · Avant-Garde & Bass</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">21</span></div>
+              </div>
+
+              <!-- ROW 4: Days 22 to 28 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">22</span></div>
+              </div>
+              <!-- Event Day 23: Occa (Column 2) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">23</span>
+                  <span class="cal-badge">Resonant</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Occa</div>
+                  <div class="cal-event-meta">20:30 · Hypnotic Sound</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">24</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">25</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">26</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">27</span></div>
+              </div>
+              <!-- Event Day 28: Suze Ijo (Column 7) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">28</span>
+                  <span class="cal-badge">Electric</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Suze Ijo</div>
+                  <div class="cal-event-meta">19:00 · Afro-Cuban Beats</div>
+                </div>
+              </a>
+
+              <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
+              <!-- Event Day 29: Sunju Hargun (Column 1) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">29</span>
+                  <span class="cal-badge">Nocturnal</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Sunju Hargun</div>
+                  <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
+                </div>
+              </a>
+              <!-- Event Day 30: Vinyl Archives (Column 2) -->
+              <a href="#reserve" class="cal-cell has-event" data-day="30" onclick="openEventPopup('30', event)" aria-label="Feb 30: Vinyl Archives">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">30</span>
+                  <span class="cal-badge">Deep Listening</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Vinyl Archives</div>
+                  <div class="cal-event-meta">19:00 · Open Decks Session</div>
+                </div>
+              </a>
+              <!-- 5 empty cells matching reference layout -->
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+
+              <!-- IN-PLACE COLUMN EXPANDED EVENT POPUP (NO BACKGROUND BLUR) -->
+              <div class="cal-column-popup" id="calColumnPopup" aria-hidden="true">
+                <div class="col-popup-header">
+                  <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                  <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-popup-body">
+                  <div class="col-popup-media">
+                    <img src="./assets/spin-gallery-1.jpg" alt="Event Poster" class="col-popup-img" id="colPopupImg">
+                    <div class="col-popup-img-grad"></div>
+                  </div>
+
+                  <div class="col-popup-info">
+                    <div class="col-popup-badge-wrap">
+                      <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
+                    </div>
+                    <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient & Jazz</div>
+
+                    <div class="col-popup-meta-block">
+                      <div class="col-popup-meta-row">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <div>
+                          <span class="meta-label">Timing</span>
+                          <span class="meta-val" id="colPopupTiming">20:30 (Doors 19:00)</span>
+                        </div>
+                      </div>
+                      <div class="col-popup-meta-row">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <div>
+                          <span class="meta-label">Attendees & Guests</span>
+                          <span class="meta-val" id="colPopupAttendees">38 Confirmed</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p class="col-popup-desc" id="colPopupDesc">
+                      Curated vinyl selections & experimental electronic producers playing exclusively through our custom horn-loaded acoustic system.
+                    </p>
+
+                    <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
+                      <span>Book Tickets</span>
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Event 3 -->
-        <div class="event-row">
-          <div class="event-date">15 / 02</div>
-          <div class="event-artist">Jerrau</div>
-          <div class="event-meta">20:30 Onwards · Leftfield Disco & Dub</div>
-          <div class="event-tag-badge">980 Hz Harmonic</div>
+        <!-- Mobile scroll swipe hint -->
+        <div class="cal-scroll-hint" aria-hidden="true">
+          <span>← Swipe to explore full calendar →</span>
         </div>
 
-        <!-- Event 4: Headline -->
-        <div class="event-row" style="background: rgba(232, 66, 67, 0.05); border-left: 3px solid var(--c-red); padding-left: 1rem;">
-          <div class="event-date">20 / 02</div>
-          <div class="event-artist" style="color: #fff;">Yousuke Yukimatsu</div>
-          <div class="event-meta">20:30 Onwards · Tokyo Avant-Garde & Deep Bass</div>
-          <div class="event-tag-badge" style="background: var(--c-red); color: #fff;">3968 Hz Special</div>
-        </div>
-
-        <!-- Event 5 -->
-        <div class="event-row">
-          <div class="event-date">23 / 02</div>
-          <div class="event-artist">Occa</div>
-          <div class="event-meta">20:30 Onwards · Deep Hypnotic Soundscapes</div>
-          <div class="event-tag-badge">Resonant Node</div>
-        </div>
-
-        <!-- Event 6 -->
-        <div class="event-row">
-          <div class="event-date">28 / 02</div>
-          <div class="event-artist">Suze Ijo</div>
-          <div class="event-meta">19:00 Onwards · Afro-Cuban & Electronic Rhythms</div>
-          <div class="event-tag-badge">Electric Pulse</div>
-        </div>
-
-        <!-- Event 7 -->
-        <div class="event-row">
-          <div class="event-date">29 / 02</div>
-          <div class="event-artist">Sunju Hargun</div>
-          <div class="event-meta">19:00 Onwards · Bangkok Nightclub Selector</div>
-          <div class="event-tag-badge">Nocturnal Set</div>
+        <!-- Reserve CTA -->
+        <div class="cal-footer-block">
+          <a href="#reserve" class="btn-cal-action">
+            <span>Reserve A Table</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </section>
@@ -2270,6 +2935,318 @@
       drawer.classList.toggle('open');
     }
 
+    // Event Details Data & Popup Modal System
+    const EVENTS_DATA = {
+      '9': {
+        dateNum: '09',
+        dateTag: 'TUE · FEB 09',
+        hzTag: '440 Hz Root',
+        artist: 'Atushi Maeda',
+        title: 'Atushi Maeda · Ambient & Jazz',
+        genre: 'Japanese Ambient · Spiritual Jazz · Tokyo Archives',
+        timing: '20:30 Onwards (Doors open 19:00)',
+        attendees: '38 Guests Attending · Counter Seats Available',
+        poster: './assets/spin-gallery-1.jpg',
+        desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
+        dateStr: '2026-02-09'
+      },
+      '14': {
+        dateNum: '14',
+        dateTag: 'SUN · FEB 14',
+        hzTag: 'Warm Frequencies',
+        artist: 'Mogasu',
+        title: 'Mogasu · Vinyl Soul & Rare Groove',
+        genre: 'Vintage Soul · Slow-Tempo Lovers Rock · Rare Groove',
+        timing: '18:00 Onwards (Golden Hour Session)',
+        attendees: '56 Guests Attending · High Demand',
+        poster: './assets/spin-gallery-2.jpg',
+        desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
+        dateStr: '2026-02-14'
+      },
+      '15': {
+        dateNum: '15',
+        dateTag: 'MON · FEB 15',
+        hzTag: '980 Hz Harmonic',
+        artist: 'Jerrau',
+        title: 'Jerrau · Leftfield Disco & Dub',
+        genre: 'Dub Reggae · Leftfield Disco · Post-Punk Funk',
+        timing: '20:30 Onwards',
+        attendees: '44 Guests Attending · Booths Available',
+        poster: './assets/spin-gallery-3.jpg',
+        desc: 'Amsterdam selector Jerrau brings hypnotic Jamaican dub plates, leftfield disco excursions, and driving polyrhythmic grooves calibrated to our sub-bass manifold.',
+        dateStr: '2026-02-15'
+      },
+      '20': {
+        dateNum: '20',
+        dateTag: 'SAT · FEB 20',
+        hzTag: '3968 Hz Special · Headline',
+        artist: 'Yousuke Yukimatsu',
+        title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
+        genre: 'Tokyo Avant-Garde · Sub-Bass Manifold · Experimental',
+        timing: '20:30 Onwards (Headline Showcase)',
+        attendees: '72 Guests Attending · Selling Fast',
+        poster: './assets/spin-gallery-6.jpg',
+        desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
+        dateStr: '2026-02-20'
+      },
+      '23': {
+        dateNum: '23',
+        dateTag: 'TUE · FEB 23',
+        hzTag: 'Resonant Node',
+        artist: 'Occa',
+        title: 'Occa · Deep Hypnotic Soundscapes',
+        genre: 'Hypnotic Techno · Deep Ambient · Subterranean Waves',
+        timing: '20:30 Onwards',
+        attendees: '35 Guests Attending · Listening Tables Open',
+        poster: './assets/spin-gallery-4.jpg',
+        desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
+        dateStr: '2026-02-23'
+      },
+      '28': {
+        dateNum: '28',
+        dateTag: 'SUN · FEB 28',
+        hzTag: 'Electric Pulse',
+        artist: 'Suze Ijo',
+        title: 'Suze Ijo · Afro-Cuban & Electronic',
+        genre: 'Afro-Cuban Percussion · Deep House · Global Groove',
+        timing: '19:00 Onwards',
+        attendees: '48 Guests Attending · Limited Counter Left',
+        poster: './assets/spin-gallery-7.jpg',
+        desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
+        dateStr: '2026-02-28'
+      },
+      '29': {
+        dateNum: '29',
+        dateTag: 'MON · FEB 29',
+        hzTag: 'Nocturnal Set',
+        artist: 'Sunju Hargun',
+        title: 'Sunju Hargun · Bangkok Nightclub Selector',
+        genre: 'Cosmic Techno · Asian Synth · Psychedelic Dub',
+        timing: '19:00 Onwards (Leap Night Special)',
+        attendees: '52 Guests Attending · Special Event',
+        poster: './assets/spin-gallery-8.jpg',
+        desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
+        dateStr: '2026-02-29'
+      },
+      '30': {
+        dateNum: '30',
+        dateTag: 'TUE · FEB 30',
+        hzTag: 'Deep Listening',
+        artist: 'Vinyl Archives',
+        title: 'Deep Listening · Open Decks Session',
+        genre: 'Archival Vinyl · Private Pressings · Audiophile Social',
+        timing: '19:00 Onwards (Community Social)',
+        attendees: '29 Guests Attending · Open Seating',
+        poster: './assets/spin-gallery-9.jpg',
+        desc: 'Our weekly communal listening session. Guests and resident collectors share rare test pressings, unreleased white labels, and archival vinyl on our reference turntable system.',
+        dateStr: '2026-02-30'
+      }
+    };
+
+    let activePopupEvent = null;
+    let activePopupDayKey = null;
+
+    function openEventPopup(dayKey, evt) {
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      const ev = EVENTS_DATA[dayKey];
+      if (!ev) return;
+
+      activePopupEvent = ev;
+      activePopupDayKey = dayKey;
+
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      if (!grid || !popup) return;
+
+      // Clear previous active cells
+      grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+
+      // Find target cell
+      let targetCell = null;
+      if (evt && evt.currentTarget) {
+        targetCell = evt.currentTarget.closest('.cal-cell');
+      }
+      if (!targetCell) {
+        targetCell = grid.querySelector(`[data-day="${dayKey}"]`);
+      }
+      if (targetCell) {
+        targetCell.classList.add('is-active-event');
+      }
+
+      // Populate data
+      const dateEl = document.getElementById('colPopupDate');
+      const imgEl = document.getElementById('colPopupImg');
+      const hzEl = document.getElementById('colPopupHz');
+      const titleEl = document.getElementById('colPopupTitle');
+      const genreEl = document.getElementById('colPopupGenre');
+      const timingEl = document.getElementById('colPopupTiming');
+      const attendeesEl = document.getElementById('colPopupAttendees');
+      const descEl = document.getElementById('colPopupDesc');
+
+      if (dateEl) dateEl.textContent = ev.dateTag;
+      if (imgEl) {
+        imgEl.src = ev.poster;
+        imgEl.alt = ev.artist;
+      }
+      if (hzEl) hzEl.textContent = ev.hzTag;
+      if (titleEl) titleEl.textContent = ev.artist;
+      if (genreEl) genreEl.textContent = ev.genre;
+      if (timingEl) timingEl.textContent = ev.timing;
+      if (attendeesEl) attendeesEl.textContent = ev.attendees;
+      if (descEl) descEl.textContent = ev.desc;
+
+      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Zero Floating / Architectural Grid Snap)
+      const colWidth = targetCell.offsetWidth;
+      const cellHeight = targetCell.offsetHeight;
+      const totalCols = 7;
+      const totalRows = 5;
+
+      // Identify column (0..6) and row (0..4) of the clicked cell:
+      const colIndex = Math.round(targetCell.offsetLeft / colWidth);
+      const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
+
+      // Card spans 3 calendar columns (or 2 if screen width is narrow):
+      const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
+      const rowSpan = 3; // Spans exactly 3 calendar rows
+
+      // Adjust column start so card never overflows the 7 columns:
+      let startCol = colIndex;
+      if (startCol + colSpan > totalCols) {
+        startCol = totalCols - colSpan;
+      }
+      if (startCol < 0) startCol = 0;
+
+      // Adjust row start so card never overflows the 5 rows:
+      let startRow = rowIndex;
+      if (startRow + rowSpan > totalRows) {
+        startRow = totalRows - rowSpan;
+      }
+      if (startRow < 0) startRow = 0;
+
+      // Exact pixel snap to the calendar block grid lines:
+      const left = startCol * colWidth;
+      const top = startRow * cellHeight;
+      const width = colSpan * colWidth;
+      const height = rowSpan * cellHeight;
+
+      popup.style.left = left + 'px';
+      popup.style.top = top + 'px';
+      popup.style.width = width + 'px';
+      popup.style.height = height + 'px';
+
+      popup.classList.add('open');
+      popup.setAttribute('aria-hidden', 'false');
+
+      // Scroll horizontal wrapper if needed so the open popup is in view
+      const scrollWrap = document.querySelector('.cal-grid-scroll-wrap');
+      if (scrollWrap) {
+        const wrapLeft = scrollWrap.scrollLeft;
+        const wrapWidth = scrollWrap.clientWidth;
+        if (left < wrapLeft) {
+          scrollWrap.scrollTo({ left: left - 20, behavior: 'smooth' });
+        } else if (left + popupWidth > wrapLeft + wrapWidth) {
+          scrollWrap.scrollTo({ left: left + popupWidth - wrapWidth + 20, behavior: 'smooth' });
+        }
+      }
+    }
+
+    function closeEventPopup() {
+      const popup = document.getElementById('calColumnPopup');
+      if (popup) {
+        popup.classList.remove('open');
+        popup.setAttribute('aria-hidden', 'true');
+      }
+      const grid = document.getElementById('calDaysGrid');
+      if (grid) {
+        grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+      }
+      activePopupEvent = null;
+      activePopupDayKey = null;
+    }
+
+    function bookFromPopup() {
+      if (!activePopupEvent) return;
+      const targetDate = activePopupEvent.dateStr;
+      const artist = activePopupEvent.artist;
+      closeEventPopup();
+
+      const bookDateInput = document.getElementById('bookDate');
+      if (bookDateInput) {
+        bookDateInput.value = targetDate;
+      }
+      showToast(`Selected ${artist} · Feb ${targetDate.split('-')[2]}`);
+
+      const reserveSec = document.getElementById('reserve');
+      if (reserveSec) {
+        reserveSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Dismiss popup on outside click (anywhere except inside the popup itself or on an event cell)
+    document.addEventListener('click', function(e) {
+      const popup = document.getElementById('calColumnPopup');
+      if (!popup || !popup.classList.contains('open')) return;
+      if (popup.contains(e.target)) return;
+      if (e.target.closest('.has-event')) return;
+      closeEventPopup();
+    });
+
+    // Keyboard support: Escape key closes in-place popup
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeEventPopup();
+      }
+    });
+
+    // Resize recalculation to keep popup perfectly aligned with calendar blocks
+    window.addEventListener('resize', () => {
+      if (!activePopupDayKey) return;
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      const targetCell = document.querySelector(`.cal-cell.has-event[data-day="${activePopupDayKey}"]`);
+      if (grid && popup && targetCell) {
+        const colWidth = targetCell.offsetWidth;
+        const cellHeight = targetCell.offsetHeight;
+        const totalCols = 7;
+        const totalRows = 5;
+
+        const colIndex = Math.round(targetCell.offsetLeft / colWidth);
+        const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
+
+        const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
+        const rowSpan = 3;
+
+        let startCol = colIndex;
+        if (startCol + colSpan > totalCols) {
+          startCol = totalCols - colSpan;
+        }
+        if (startCol < 0) startCol = 0;
+
+        let startRow = rowIndex;
+        if (startRow + rowSpan > totalRows) {
+          startRow = totalRows - rowSpan;
+        }
+        if (startRow < 0) startRow = 0;
+
+        popup.style.left = (startCol * colWidth) + 'px';
+        popup.style.top = (startRow * cellHeight) + 'px';
+        popup.style.width = (colSpan * colWidth) + 'px';
+        popup.style.height = (rowSpan * cellHeight) + 'px';
+      }
+    });
+
+    // Select Event Date from Calendar to Booking Form
+    function selectEventDate(dateStr, artistName) {
+      const bookDateInput = document.getElementById('bookDate');
+      if (bookDateInput) {
+        bookDateInput.value = dateStr;
+      }
+      showToast(`Selected ${artistName} · Feb ${dateStr.split('-')[2]}`);
+    }
+
     // 3. First-Fold Parallax & ScrollSpy Execution
     const heroBg = document.querySelector('.hero-bg-media');
     const heroContent = document.querySelector('.hero-content');
@@ -2277,7 +3254,7 @@
     const scrollerButtons = document.querySelectorAll('.scroller-btn');
     const sections = ['hero', 'philosophy', 'space', 'menu', 'reserve'];
     const brandMark = document.getElementById('headerBrandMark');
-    const eventBanner = document.getElementById('eventParallaxBanner');
+    const eventBanner = document.getElementById('programming') || document.getElementById('eventParallaxBanner');
     const eventImg = document.getElementById('eventParallaxImg');
 
     let ticking = false;
