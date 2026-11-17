@@ -1,21 +1,31 @@
 /**
- * Site config — frontend today, Strapi/CMS-ready tomorrow.
- * Prefer env vars so local / staging / production stay simple.
+ * Site config — brand constants in code; environment values only from `.env`.
+ * Uses publicEnv (static NEXT_PUBLIC_* access) so values work in the browser.
  */
+import { publicEnv, siteUrlFromEnv } from "@/lib/env";
+
 export const siteConfig = {
+  // Brand (same across envs unless you later move these to CMS/Strapi)
   name: "NAMI",
   tagline: "Hi-Fi Listening Room & Dining Experience",
   description:
     "Part listening room, part cocktail bar, part dining experience. An intimate sanctuary where sound, flavour, and nocturnal culture collide on their own frequency.",
   locale: "en_IN",
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "http://nami.localhost:3000",
-  email: "experience@nami.in",
-  location: "Bandra West, Mumbai, Maharashtra 400050",
+
+  // Environment-specific (.env → NEXT_PUBLIC_*)
+  url: siteUrlFromEnv(),
+  email: publicEnv.email,
+  location: publicEnv.location,
+  address: {
+    street: publicEnv.street,
+    locality: publicEnv.locality,
+    region: publicEnv.region,
+    postal: publicEnv.postal,
+    country: publicEnv.country,
+  },
   social: {
-    instagram: "https://instagram.com/",
-    whatsapp: "https://chat.whatsapp.com/",
+    instagram: publicEnv.instagram,
+    whatsapp: publicEnv.whatsapp,
   },
 } as const;
 

@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect } from "react";
+import { siteConfig } from "@/lib/site";
 import "./styleguide.css";
 
 export default function StyleGuidePage() {
@@ -874,7 +875,7 @@ export default function StyleGuidePage() {
                     Reserve a Table
                   </button>
 
-                  <a href="https://chat.whatsapp.com/" target="_blank" className="btn-whatsapp-pill">
+                  <a href={siteConfig.social.whatsapp} target="_blank" rel="noopener noreferrer" className="btn-whatsapp-pill">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.882 3.183 0 5.769-2.587 5.77-5.767 0-3.181-2.587-5.768-5.77-5.768zm0 10.375c-.911 0-1.637-.251-2.457-.75l-.176-.107-1.579.414.421-1.54-.117-.186c-.544-.863-.834-1.572-.833-2.44 0-2.541 2.067-4.608 4.609-4.608 2.541 0 4.609 2.067 4.609 4.608 0 2.541-2.068 4.609-4.609 4.609z"/>
                     </svg>

@@ -42,16 +42,53 @@ npm install
 npm run dev
 ```
 
-Open: **http://nami.localhost:3000** (or http://127.0.0.1:3000 before hosts is set)
+Nginx (port 80): **http://nami.localhost**  
+Direct Next: http://127.0.0.1:3000
 
-Style guide: **http://nami.localhost:3000/styleguide**
+Style guide: **http://nami.localhost/styleguide**
+
+Nginx conf: `C:\dev\nginx\sites\nami.conf` (reload nginx after changes).
+
+### How nginx finds this project (no `root`)
+
+PHP sites use `root C:/dev/sites/...`. Next.js does **not** — nginx only proxies by hostname → port:
+
+| Piece | Value |
+|-------|--------|
+| Browser URL | `http://nami.localhost` |
+| Nginx `server_name` | `nami.localhost` |
+| Nginx `proxy_pass` | `http://127.0.0.1:3000` |
+| App process | `npm run dev` inside `C:\dev\sites\Nami` |
+| App port | `3000` (`.env` `PORT` + `package.json`) |
+
+So “this is Nami” = **hostname + port + which folder you started Next from**.
+
+**Future Next.js project** (example):
+
+1. Hosts: `127.0.0.1  other.localhost`
+2. App: run on **PORT=3001** from `C:\dev\sites\other`
+3. Nginx: `server_name other.localhost;` → `proxy_pass http://127.0.0.1:3001;`
+
+Never reuse port `3000` for another local Next app while Nami is running.
 
 ## Environment
 
 One file only: **`.env`** (gitignored). Create/edit it locally; on staging/production upload or set the same keys in the host panel.
 
+All environment-specific values live in **`.env` only**. Protocol (`http` / `https`), CSP, HSTS, and origins are derived from `NEXT_PUBLIC_SITE_URL` — never hardcoded in `next.config.ts`.
+
+| Environment | `NEXT_PUBLIC_SITE_URL` | What code does |
+|-------------|------------------------|----------------|
+| Local | `http://nami.localhost` | CSP allows `http://…:*` + ws for HMR; no HSTS |
+| Staging | `https://staging…` | CSP `'self'` (+ extras); HSTS + upgrade-insecure |
+| Production | `https://…` | same as staging |
+
 ```bash
-NEXT_PUBLIC_SITE_URL=http://nami.localhost:3000
+NEXT_PUBLIC_SITE_URL=http://nami.localhost   # or https://… on servers
+PORT=3000
+NEXT_PUBLIC_SITE_EMAIL=experience@nami.in
+NEXT_PUBLIC_SOCIAL_INSTAGRAM=https://instagram.com/
+NEXT_PUBLIC_SOCIAL_WHATSAPP=https://chat.whatsapp.com/
 ```
 
 ## Staging
@@ -75,7 +112,7 @@ npm start
 
 ## Strapi later
 
-Add these to the same `.env` when the backend is ready:
+Uncomment in the same `.env` when the backend is ready:
 
 ```bash
 NEXT_PUBLIC_STRAPI_URL=http://localhost:1337

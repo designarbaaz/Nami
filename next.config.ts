@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
+import {
+  allowedDevOriginsFromEnv,
+  cspConnectSrcFromEnv,
+  isDevRuntime,
+  shouldEnableHsts,
+  shouldUpgradeInsecureRequests,
+} from "./lib/env";
 
-const isDev = process.env.NODE_ENV !== "production";
+const isDev = isDevRuntime();
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -11,8 +18,8 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
   },
-  // Local custom host + staging hostnames
-  allowedDevOrigins: ["nami.localhost", "http://nami.localhost:3000"],
+  // From ALLOWED_DEV_ORIGINS or NEXT_PUBLIC_SITE_URL + PORT
+  allowedDevOrigins: allowedDevOriginsFromEnv(),
   async headers() {
     const securityHeaders = [
       { key: "X-DNS-Prefetch-Control", value: "on" },
@@ -29,34 +36,35 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    if (!isDev) {
+    // Only when NEXT_PUBLIC_SITE_URL is https:// (staging/production)
+    if (shouldEnableHsts()) {
       securityHeaders.push({
         key: "Strict-Transport-Security",
         value: "max-age=63072000; includeSubDomains; preload",
       });
     }
 
-    // CSP kept practical for Typekit + Google Fonts + inline legacy page scripts
+    const cspParts = [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'self'",
+      "object-src 'none'",
+      "img-src 'self' data: blob: https:",
+      "media-src 'self' blob:",
+      "font-src 'self' https://use.typekit.net https://fonts.gstatic.com data:",
+      "style-src 'self' 'unsafe-inline' https://use.typekit.net https://fonts.googleapis.com",
+      "script-src 'self' 'unsafe-inline'" + (isDev ? " 'unsafe-eval'" : ""),
+      cspConnectSrcFromEnv(),
+    ];
+
+    if (shouldUpgradeInsecureRequests()) {
+      cspParts.push("upgrade-insecure-requests");
+    }
+
     securityHeaders.push({
       key: "Content-Security-Policy",
-      value: [
-        "default-src 'self'",
-        "base-uri 'self'",
-        "form-action 'self'",
-        "frame-ancestors 'self'",
-        "object-src 'none'",
-        "img-src 'self' data: blob: https:",
-        "media-src 'self' blob:",
-        "font-src 'self' https://use.typekit.net https://fonts.gstatic.com data:",
-        "style-src 'self' 'unsafe-inline' https://use.typekit.net https://fonts.googleapis.com",
-        "script-src 'self' 'unsafe-inline'" + (isDev ? " 'unsafe-eval'" : ""),
-        "connect-src 'self'" + (isDev ? " ws: wss: http://nami.localhost:*" : ""),
-        "upgrade-insecure-requests",
-      ]
-        .join("; ")
-        .replace(/upgrade-insecure-requests/, isDev ? "" : "upgrade-insecure-requests")
-        .replace(/; ;/g, ";")
-        .replace(/;\s*$/, ""),
+      value: cspParts.join("; "),
     });
 
     return [

@@ -85,11 +85,11 @@ export default function RootLayout({
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Bandra West",
-      addressLocality: "Mumbai",
-      addressRegion: "Maharashtra",
-      postalCode: "400050",
-      addressCountry: "IN",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.locality,
+      addressRegion: siteConfig.address.region,
+      postalCode: siteConfig.address.postal,
+      addressCountry: siteConfig.address.country,
     },
     servesCuisine: ["Listening Room", "Cocktails", "Dining"],
   };
