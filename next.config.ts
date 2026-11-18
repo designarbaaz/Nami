@@ -67,21 +67,31 @@ const nextConfig: NextConfig = {
       value: cspParts.join("; "),
     });
 
+    // CSS/JS are editable without hashed filenames — shorter cache so live updates apply
+    const editableAssetCache = isDev
+      ? "no-cache"
+      : "public, max-age=3600, must-revalidate";
+    // Images/video can be cached long (change filename when replacing)
+    const mediaAssetCache = isDev
+      ? "no-cache"
+      : "public, max-age=31536000, immutable";
+
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
       },
       {
+        source: "/assets/css/:path*",
+        headers: [{ key: "Cache-Control", value: editableAssetCache }],
+      },
+      {
+        source: "/assets/js/:path*",
+        headers: [{ key: "Cache-Control", value: editableAssetCache }],
+      },
+      {
         source: "/assets/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: isDev
-              ? "no-cache"
-              : "public, max-age=31536000, immutable",
-          },
-        ],
+        headers: [{ key: "Cache-Control", value: mediaAssetCache }],
       },
     ];
   },

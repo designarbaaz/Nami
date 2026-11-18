@@ -5,7 +5,16 @@ export default function Hero() {
     <>
       <section id="hero" className="hero-entrance">
           {/* Looping Vinyl Video Background (Safari-Optimized, Audio-Free, Zero Ghost Logo) */}
-          <video className="hero-bg-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+          {/* No poster attr — still posters caused a multi-second splash on reload */}
+          <video
+            className="hero-bg-media"
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            preload="auto"
+          >
             <source src="/assets/vinyl-loop.mp4" type="video/mp4" />
           </video>
       

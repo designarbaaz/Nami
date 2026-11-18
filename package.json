@@ -6,7 +6,9 @@
     "dev": "next dev --hostname 127.0.0.1",
     "setup:hosts": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-hosts.ps1",
     "build": "next build",
+    "build:live": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next build",
     "start": "next start --hostname 0.0.0.0",
+    "start:live": "node --max-old-space-size=2048 ./node_modules/next/dist/bin/next start --hostname 0.0.0.0",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },

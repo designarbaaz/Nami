@@ -488,6 +488,7 @@
       overflow: hidden;
       text-align: center;
       padding: 2rem;
+      background: var(--bg-black); /* no white/poster flash while video buffers */
     }
 
     /* Atmospheric Ambient Lighting Background Image / Video */
@@ -541,11 +542,12 @@
       margin: 0 auto;
       overflow: visible !important;
       filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.85));
-      animation: logoFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      /* Short fade — long fade felt like a splash screen on reload */
+      animation: logoFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes logoFadeIn {
-      0% { opacity: 0; transform: scale(0.94); }
+      0% { opacity: 0.35; transform: scale(0.985); }
       100% { opacity: 1; transform: scale(1); }
     }
 

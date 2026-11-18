@@ -144,3 +144,51 @@ import MySection from "@/components/common/MySection";
 
 1. `npm run dev`
 2. **http://nami.localhost**
+
+---
+
+## Live deploy checklist (SEO + speed + stability)
+
+Build from the start so live stays healthy. Strapi comes later — content already goes through `lib/cms.ts`.
+
+### Before upload
+
+| Rule | Why |
+|------|-----|
+| Do **not** upload `_legacy/` | Design reference only (~35MB) |
+| Set `NEXT_PUBLIC_SITE_URL=https://…` | SEO canonical, OG, sitemap, HSTS |
+| Staging: `NEXT_PUBLIC_SITE_INDEXING=false` | Keeps unfinished site out of Google |
+| Production: leave indexing unset/`true` | Allows crawl + sitemap |
+
+### Start commands (small VPS)
+
+```bash
+npm run build:live
+npm run start:live
+```
+
+(`build` / `start` also work on machines with enough RAM.)
+
+### Speed / no-flash foundations
+
+- Instant dark `html/body` in `globals.css` + inline critical CSS (no white FOUC)
+- Homepage noise uses small `noise-tile.png` (not 14MB texture)
+- Wave video loads only near viewport (`preload="none"` + `data-src`)
+- Hero video: `preload="auto"`, **no poster** (poster caused splash on reload)
+- Below-fold images use `loading="lazy"`
+- Site + styleguide CSS linked from layout `<head>` (not late in body)
+- Middleware skips `/assets` (Node not involved for every media hit)
+- CSS/JS cache is short + revalidate; images/video cache long
+
+### SEO foundations already in place
+
+- Metadata + Open Graph + Twitter cards
+- JSON-LD (Restaurant / Bar)
+- `sitemap.xml` + `robots.txt`
+- Canonical URLs from `.env`
+
+### Strapi later (not now)
+
+1. Set `NEXT_PUBLIC_STRAPI_URL` in `.env`
+2. Implement fetch inside `lib/cms.ts` only
+3. Keep pages/sections calling `getEvents()` / cms helpers — no markup rewrite

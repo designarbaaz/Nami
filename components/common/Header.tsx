@@ -95,12 +95,12 @@ export default function Header() {
             {/* Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) */}
             <div className="drawer-image-wrap">
               <div className="drawer-image-card">
-                <img src="/assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" className="drawer-preview-img active" id="drawerImgDefault" />
-                <img src="/assets/spin-gallery-2.jpg" alt="Concept" className="drawer-preview-img" id="drawerImgConcept" />
-                <img src="/assets/Event-bg.jpg" alt="What’s On" className="drawer-preview-img" id="drawerImgProgramming" />
-                <img src="/assets/spin-gallery-7.jpg" alt="Food & Drinks" className="drawer-preview-img" id="drawerImgMenu" />
-                <img src="/assets/spin-gallery-4.jpg" alt="Our Space" className="drawer-preview-img" id="drawerImgSpace" />
-                <img src="/assets/spin-gallery-6.jpg" alt="Reservation" className="drawer-preview-img" id="drawerImgReservation" />
+                <img src="/assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" className="drawer-preview-img active" id="drawerImgDefault" loading="lazy" decoding="async" />
+                <img src="/assets/spin-gallery-2.jpg" alt="Concept" className="drawer-preview-img" id="drawerImgConcept" loading="lazy" decoding="async" />
+                <img src="/assets/Event-bg.jpg" alt="What’s On" className="drawer-preview-img" id="drawerImgProgramming" loading="lazy" decoding="async" />
+                <img src="/assets/spin-gallery-7.jpg" alt="Food & Drinks" className="drawer-preview-img" id="drawerImgMenu" loading="lazy" decoding="async" />
+                <img src="/assets/spin-gallery-4.jpg" alt="Our Space" className="drawer-preview-img" id="drawerImgSpace" loading="lazy" decoding="async" />
+                <img src="/assets/spin-gallery-6.jpg" alt="Reservation" className="drawer-preview-img" id="drawerImgReservation" loading="lazy" decoding="async" />
       
                 <div className="drawer-image-caption">
                   <span className="drawer-caption-tag" id="drawerCaptionTag">NAMI HI-FI</span>

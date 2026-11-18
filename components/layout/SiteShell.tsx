@@ -12,7 +12,6 @@ import SiteScripts from "@/components/layout/SiteScripts";
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <link rel="stylesheet" href="/assets/css/custom.css" />
       <Overlays />
       <Header />
       {children}

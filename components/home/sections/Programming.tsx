@@ -6,7 +6,7 @@ export default function Programming() {
       <section id="programming" className="event-calendar-section" aria-label="What’s On at Nami">
             {/* Background Media Wrap with Subtle Parallax */}
             <div className="event-parallax-media-wrap">
-              <img src="/assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" className="event-parallax-img" id="eventParallaxImg" />
+              <img src="/assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" className="event-parallax-img" id="eventParallaxImg" loading="lazy" decoding="async" />
             </div>
             {/* Atmospheric film overlay */}
             <div className="event-parallax-overlay"></div>

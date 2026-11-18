@@ -155,7 +155,6 @@ export default function StyleGuidePage() {
 
   return (
     <>
-      <link rel="stylesheet" href="/assets/css/styleguide.css" />
       {/* High-Res Viewport Noise Layer using Noise-texture.png */}
         <div id="noise-layer"></div>
 

@@ -94,32 +94,38 @@ NEXT_PUBLIC_SOCIAL_INSTAGRAM=https://instagram.com/
 NEXT_PUBLIC_SOCIAL_WHATSAPP=https://chat.whatsapp.com/
 ```
 
-## Staging
+## Staging / production
 
 On the server, set `.env` (or host env vars) then:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-staging-host.example.com
-npm run build
-npm start
+NEXT_PUBLIC_SITE_URL=https://your-host.example.com
+# Staging while under development:
+# NEXT_PUBLIC_SITE_INDEXING=false
+
+npm run build:live
+npm run start:live
 ```
+
+Do not upload `_legacy/`. See **DEVELOPERS.md** for SEO/speed/live checklist.
 
 ## Scripts
 
-| Command        | Purpose                |
-|----------------|------------------------|
-| `npm run dev`  | Local on nami.localhost |
-| `npm run build`| Production build       |
-| `npm start`    | Serve production build |
-| `npm run lint` | ESLint                 |
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Local on nami.localhost |
+| `npm run build:live` | Production build (safer heap on small VPS) |
+| `npm run start:live` | Serve production build (safer heap) |
+| `npm run build` / `npm start` | Standard build/start |
+| `npm run lint` | ESLint |
 
 ## Strapi later
 
-Uncomment in the same `.env` when the backend is ready:
+Uncomment in `.env` when ready, then implement fetch only in `lib/cms.ts`:
 
 ```bash
 NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
 STRAPI_API_TOKEN=
 ```
 
-No Strapi wiring yet — frontend is self-contained.
+Pages/sections stay the same — CMS swap is isolated.

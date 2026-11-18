@@ -22,5 +22,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // Skip static assets so Node is not involved on every image/css/js/video hit (speed + stability on live)
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|assets/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|css|js|ico|woff2?)$).*)",
+  ],
 };

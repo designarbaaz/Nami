@@ -18,7 +18,7 @@ export default function MenuSection() {
                   </div>
                   <div className="menu-ed-frame-wrap">
                     <div className="menu-ed-frame">
-                      <img src="/assets/Food.png" alt="Hamachi Truffle Crudo & Robata Wagyu" className="menu-ed-img" loading="eager" />
+                      <img src="/assets/Food.png" alt="Hamachi Truffle Crudo & Robata Wagyu" className="menu-ed-img" loading="lazy" decoding="async" />
                     </div>
                   </div>
                   <div className="menu-ed-bottom">
@@ -37,7 +37,7 @@ export default function MenuSection() {
                   </div>
                   <div className="menu-ed-frame-wrap">
                     <div className="menu-ed-frame">
-                      <img src="/assets/Cocktail.png" alt="440Hz Clarified Milk Punch" className="menu-ed-img" loading="lazy" />
+                      <img src="/assets/Cocktail.png" alt="440Hz Clarified Milk Punch" className="menu-ed-img" loading="lazy" decoding="async" />
                     </div>
                   </div>
                   <div className="menu-ed-bottom">
@@ -56,7 +56,7 @@ export default function MenuSection() {
                   </div>
                   <div className="menu-ed-frame-wrap">
                     <div className="menu-ed-frame">
-                      <img src="/assets/Dessert.png" alt="Yuzu Miso Tart & Smoked Matcha Silk" className="menu-ed-img" loading="lazy" />
+                      <img src="/assets/Dessert.png" alt="Yuzu Miso Tart & Smoked Matcha Silk" className="menu-ed-img" loading="lazy" decoding="async" />
                     </div>
                   </div>
                   <div className="menu-ed-bottom">
@@ -75,17 +75,17 @@ export default function MenuSection() {
       
                 {/* Background Image 0: Food */}
                 <div className="menu-hero-slide active" data-phase="0">
-                  <img src="/assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" className="menu-hero-bg-img" />
+                  <img src="/assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" className="menu-hero-bg-img" loading="lazy" decoding="async" />
                 </div>
-      
+
                 {/* Background Image 1: Cocktails */}
                 <div className="menu-hero-slide" data-phase="1">
-                  <img src="/assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" className="menu-hero-bg-img" />
+                  <img src="/assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" className="menu-hero-bg-img" loading="lazy" decoding="async" />
                 </div>
-      
+
                 {/* Background Image 2: Dessert */}
                 <div className="menu-hero-slide" data-phase="2">
-                  <img src="/assets/Dessert.png" alt="Delicate Plated Desserts at Nami" className="menu-hero-bg-img" />
+                  <img src="/assets/Dessert.png" alt="Delicate Plated Desserts at Nami" className="menu-hero-bg-img" loading="lazy" decoding="async" />
                 </div>
       
               </div>

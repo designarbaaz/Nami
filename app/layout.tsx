@@ -78,11 +78,12 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": ["Restaurant", "BarOrPub"],
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     email: siteConfig.email,
+    image: absoluteUrl("/assets/hero-ref.jpg"),
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.street,
@@ -92,11 +93,21 @@ export default function RootLayout({
       addressCountry: siteConfig.address.country,
     },
     servesCuisine: ["Listening Room", "Cocktails", "Dining"],
+    sameAs: [siteConfig.social.instagram, siteConfig.social.whatsapp].filter(
+      Boolean
+    ),
   };
 
   return (
     <html lang="en">
       <head>
+        {/* Instant dark canvas — stops white flash before /assets/css/custom.css */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              "html,body{background:#070707;color:#fff;margin:0;}section.hero-entrance,.hero-bg-media{background:#070707;}",
+          }}
+        />
         <link rel="preconnect" href="https://use.typekit.net" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

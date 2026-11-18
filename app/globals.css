@@ -1,8 +1,11 @@
-/* Shared base — homepage styles live in custom/custom.css */
+/* Critical first-paint styles — prevent white flash before custom.css loads */
 html {
   scroll-behavior: smooth;
+  background-color: #070707;
 }
 
 body {
   margin: 0;
+  background-color: #070707;
+  color: #ffffff;
 }
