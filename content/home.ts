@@ -1,7 +1,6 @@
 /**
- * Editable homepage content.
- * Change copy/data here — section components stay markup-only.
- * When new HTML lands in `_legacy`, map fields into this file.
+ * Editable homepage content (events / section list).
+ * Styles → custom/custom.css | Behaviour → custom/custom.js
  */
 
 export type EventItem = {

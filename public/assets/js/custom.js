@@ -1,14 +1,15 @@
-// @ts-nocheck
-"use client";
+/**
+ * NAMI site interactions — edit this file for homepage behaviour.
+ * Loaded from /assets/js/custom.js
+ * Event data is injected as window.__NAMI_EVENTS__ from content/home.ts
+ */
+(function () {
+  function initNamiSite(EVENTS_DATA) {
+    if (!EVENTS_DATA) EVENTS_DATA = window.__NAMI_EVENTS__ || {};
+    if (window.__NAMI_SITE_INIT__) return;
+    window.__NAMI_SITE_INIT__ = true;
 
-import { useEffect } from "react";
-import { EVENTS_DATA } from "@/content/home";
-
-/** All homepage DOM interactions — keep handlers here, markup in sections/. */
-export function useHomeInteractions() {
-  useEffect(() => {
-
-    // 0. Safari / WebKit Video Autoplay & Muted State Enforcer
+// 0. Safari / WebKit Video Autoplay & Muted State Enforcer
     function initVideoAutoplay() {
       const allVideos = document.querySelectorAll('video[autoplay]');
       allVideos.forEach(v => {
@@ -873,38 +874,26 @@ export function useHomeInteractions() {
       io.observe(root);
     })();
 
-    (window as any).initVideoAutoplay = initVideoAutoplay;
-    (window as any).showToast = showToast;
-    (window as any).toggleMenuDrawer = toggleMenuDrawer;
-    (window as any).openEventPopup = openEventPopup;
-    (window as any).closeEventPopup = closeEventPopup;
-    (window as any).bookFromPopup = bookFromPopup;
-    (window as any).randomizeCalendarGradients = randomizeCalendarGradients;
-    (window as any).selectEventDate = selectEventDate;
-    (window as any).handleScrollEffects = handleScrollEffects;
-    (window as any).toggleAudio = toggleAudio;
-    (window as any).startSyntheticWarmAudio = startSyntheticWarmAudio;
-    (window as any).stopSyntheticWarmAudio = stopSyntheticWarmAudio;
-    (window as any).openReservationModal = openReservationModal;
-    (window as any).closeReservationModal = closeReservationModal;
-    (window as any).handleReservationSubmit = handleReservationSubmit;
-    return () => {
-      // best-effort cleanup of window bridges
-      try { delete (window as any).initVideoAutoplay; } catch (_) {}
-      try { delete (window as any).showToast; } catch (_) {}
-      try { delete (window as any).toggleMenuDrawer; } catch (_) {}
-      try { delete (window as any).openEventPopup; } catch (_) {}
-      try { delete (window as any).closeEventPopup; } catch (_) {}
-      try { delete (window as any).bookFromPopup; } catch (_) {}
-      try { delete (window as any).randomizeCalendarGradients; } catch (_) {}
-      try { delete (window as any).selectEventDate; } catch (_) {}
-      try { delete (window as any).handleScrollEffects; } catch (_) {}
-      try { delete (window as any).toggleAudio; } catch (_) {}
-      try { delete (window as any).startSyntheticWarmAudio; } catch (_) {}
-      try { delete (window as any).stopSyntheticWarmAudio; } catch (_) {}
-      try { delete (window as any).openReservationModal; } catch (_) {}
-      try { delete (window as any).closeReservationModal; } catch (_) {}
-      try { delete (window as any).handleReservationSubmit; } catch (_) {}
-    };
-  }, []);
-}
+    window.initVideoAutoplay = initVideoAutoplay;
+    window.showToast = showToast;
+    window.toggleMenuDrawer = toggleMenuDrawer;
+    window.openEventPopup = openEventPopup;
+    window.closeEventPopup = closeEventPopup;
+    window.bookFromPopup = bookFromPopup;
+    window.randomizeCalendarGradients = randomizeCalendarGradients;
+    window.selectEventDate = selectEventDate;
+    window.handleScrollEffects = handleScrollEffects;
+    window.toggleAudio = toggleAudio;
+    window.startSyntheticWarmAudio = startSyntheticWarmAudio;
+    window.stopSyntheticWarmAudio = stopSyntheticWarmAudio;
+    window.openReservationModal = openReservationModal;
+    window.closeReservationModal = closeReservationModal;
+    window.handleReservationSubmit = handleReservationSubmit;
+  }
+
+  window.initNamiSite = initNamiSite;
+
+  if (window.__NAMI_EVENTS__) {
+    initNamiSite(window.__NAMI_EVENTS__);
+  }
+})();

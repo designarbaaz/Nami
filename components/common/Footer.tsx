@@ -1,4 +1,6 @@
 // @ts-nocheck
+"use client";
+
 import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
@@ -27,10 +29,10 @@ export default function Footer() {
               <div className="footer-links-col">
                 <span className="footer-col-label">navigate</span>
                 <ul className="footer-nav-list">
-                  <li><a href="#philosophy">about</a></li>
-                  <li><a href="#programming">what’s on</a></li>
-                  <li><a href="#menu">food & drinks</a></li>
-                  <li><a href="#space">our space</a></li>
+                  <li><a href="/#philosophy">about</a></li>
+                  <li><a href="/#programming">what’s on</a></li>
+                  <li><a href="/#menu">food & drinks</a></li>
+                  <li><a href="/#space">our space</a></li>
                   <li><a href="javascript:void(0)" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>reservation</a></li>
                 </ul>
               </div>
@@ -51,7 +53,7 @@ export default function Footer() {
                 <span className="footer-col-label">connect</span>
                 <ul className="footer-nav-list">
                   <li><a href={siteConfig.social.instagram} target="_blank" rel="noreferrer">instagram (@nami.hifi)</a></li>
-                  <li><a href="#programming">resident advisor</a></li>
+                  <li><a href="/#programming">resident advisor</a></li>
                   <li><a href="https://abnah.com/" target="_blank">abnah group ↗</a></li>
                 </ul>
               </div>
@@ -88,3 +90,4 @@ export default function Footer() {
     </>
   );
 }
+

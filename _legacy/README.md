@@ -10,10 +10,9 @@ Current source mirrored from `Documents/projectdata/nami/Nami`:
 
 ## Port into Next.js
 
-```bash
-node _convert/port-legacy-home.js
-```
+1. Copy matching markup into `components/common/` or `components/home/sections/…`
+2. Add styles to `public/assets/css/custom.css`
+3. Add behaviour to `public/assets/js/custom.js`
+4. Update event data in `content/home.ts` if needed
 
-That regenerates `styles/home.css`, `content/home.ts`, `components/home/sections/*`, and `useHomeInteractions.ts`.
-
-Or edit section files by hand (see `DEVELOPERS.md`).
+See `DEVELOPERS.md`.

@@ -1,56 +1,146 @@
-# NAMI — developer guide (keep it simple)
+# NAMI — developer guide
 
-Site is **under development**. New HTML may land in `_legacy/` — port into the matching section file below.
+## Customize look & behaviour (start here)
+
+| Goal | File |
+|------|------|
+| Homepage / site styles | **`public/assets/css/custom.css`** |
+| Homepage / site interactions | **`public/assets/js/custom.js`** |
+| Styleguide styles | **`public/assets/css/styleguide.css`** |
+| Calendar event copy | **`content/home.ts`** |
+| URL, email, social, port | **`.env`** |
+| Homepage section order | **`components/home/HomePage.tsx`** |
+
+Edit CSS/JS directly under `public/assets/` — hard-refresh the browser after changes.
+
+---
 
 ## Folder map
 
 ```
-app/page.tsx                 → route only
-components/home/
-  HomePage.tsx               → section order (edit here to reorder)
-  useHomeInteractions.ts     → clicks, scroll, audio, calendar JS
-  sections/                  → one file per page block
-content/home.ts              → events + editable data
-styles/home.css              → homepage styles
-lib/site.ts + lib/env.ts     → brand + .env-driven config
-public/assets/               → images / video
-_legacy/                     → drop incoming HTML here (reference only)
+public/assets/
+  css/custom.css          ← site styles (single file)
+  css/styleguide.css      ← styleguide styles
+  js/custom.js            ← site interactions (single file)
+  …images / video…
+
+components/
+  common/                 ← shared (Header, Footer, Overlays, Modals, …)
+  home/HomePage.tsx       ← homepage section order
+  home/sections/          ← homepage-only blocks
+  layout/SiteShell.tsx    ← global chrome (header/footer/css/js)
+
+app/
+  (site)/layout.tsx       ← wraps all site pages with SiteShell
+  (site)/page.tsx         ← route /
+  (site)/…                ← add more site pages here
+  styleguide/page.tsx     ← outside SiteShell (own layout)
 ```
 
-## How to change things
+---
 
-| Goal | Where |
+## Header & Footer (global)
+
+Already global for every page under `app/(site)/` via `SiteShell`.
+
+- Edit markup: `components/common/Header.tsx` / `Footer.tsx`
+- Edit styles: `public/assets/css/custom.css`
+- Do **not** re-import Header/Footer inside individual pages
+
+Styleguide (`/styleguide`) does **not** use SiteShell, so it keeps its own chrome.
+
+---
+
+## Create a new page
+
+1. Add a folder under `app/(site)/`:
+
+```
+app/(site)/about/page.tsx
+```
+
+2. Example page:
+
+```tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
+
+export default function AboutPage() {
+  return (
+    <main className="page-wrap">
+      <section id="about" className="section-block">
+        <h1 className="section-heading">About NAMI</h1>
+        <p className="section-body">Your copy here.</p>
+      </section>
+    </main>
+  );
+}
+```
+
+3. Open **http://nami.localhost/about** — Header/Footer/CSS/JS are already applied.
+
+4. Optional: import a common section:
+
+```tsx
+import Philosophy from "@/components/home/sections/Philosophy";
+// or a shared one from @/components/common/...
+```
+
+---
+
+## Create a new section (page-specific)
+
+1. Add `components/home/sections/MySection.tsx` (or copy `components/common/SectionTemplate.tsx`)
+2. Import it in `components/home/HomePage.tsx` (or your new page)
+3. Add CSS rules to `public/assets/css/custom.css`
+4. Add JS (if needed) to `public/assets/js/custom.js`
+
+---
+
+## Create a common section (reuse on any page)
+
+1. Add `components/common/MySection.tsx`
+2. Export it from `components/common/index.ts` (optional but handy)
+3. Import anywhere:
+
+```tsx
+import { MySection } from "@/components/common";
+// or
+import MySection from "@/components/common/MySection";
+```
+
+4. Styles still go in `public/assets/css/custom.css` so one CSS file stays the source of truth.
+
+**Already common:** `Header`, `Footer`, `Overlays`, `Modals` (reserve + full menu).
+
+---
+
+## Homepage-only sections
+
+| File | Block |
 |------|--------|
-| Reorder / hide a block | `components/home/HomePage.tsx` |
-| Edit calendar event copy | `content/home.ts` → `EVENTS_DATA` |
-| Change hero / menu markup | `components/home/sections/Hero.tsx` (etc.) |
-| Fix click / scroll behaviour | `useHomeInteractions.ts` |
-| URL, email, social, port | `.env` only |
-| Incoming HTML from design | Save in `_legacy/`, then run `node _convert/port-legacy-home.js` (or port section by section) |
-
-## Section files
-
-| File | Page block |
-|------|------------|
-| `Header.tsx` | Top nav + drawer |
 | `Hero.tsx` | First fold |
-| `Philosophy.tsx` | Story + scatter cards + wave strap |
-| `Programming.tsx` | Calendar / What's On |
-| `MenuSection.tsx` | Editorial food/cocktails/dessert scroll |
-| `Space.tsx` | Gallery / space |
-| `Modals.tsx` | Floating reserve CTA + reservation + full menu |
-| `Footer.tsx` | Footer |
+| `Philosophy.tsx` | Story + scatter + wave |
+| `Programming.tsx` | What’s On calendar |
+| `MenuSection.tsx` | Food / cocktails / dessert |
+| `Space.tsx` | Gallery |
 | `AudioWidget.tsx` | Now playing |
-| `Overlays.tsx` | Noise / warmth / toast |
 
-## Performance notes
+---
 
-- Wave strap videos use `preload="none"` + `data-src` and load when near the viewport.
-- Hero video uses poster when present.
-- Keep heavy media out of the first fold when porting new HTML.
-- Prefer `Noise-texture.png` only if needed; large textures hurt LCP.
+## Incoming HTML from design
+
+1. Save in `_legacy/`
+2. Port markup into `components/common/` or `components/home/sections/`
+3. Put CSS into `public/assets/css/custom.css`
+4. Put behaviour into `public/assets/js/custom.js`
+
+---
 
 ## Local URL
 
-1. `npm run dev` (port from `.env` `PORT`)
-2. Nginx → **http://nami.localhost**
+1. `npm run dev`
+2. **http://nami.localhost**

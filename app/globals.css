@@ -1,4 +1,4 @@
-/* Shared base — page-specific styles live in components/*.css */
+/* Shared base — homepage styles live in custom/custom.css */
 html {
   scroll-behavior: smooth;
 }

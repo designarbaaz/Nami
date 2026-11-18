@@ -1,4 +1,6 @@
 // @ts-nocheck
+"use client";
+
 import { siteConfig } from "@/lib/site";
 
 export default function Header() {
@@ -7,7 +9,7 @@ export default function Header() {
       <header className="site-header">
           <div className="header-left">
             {/* Appears when scrolling away from hero */}
-            <a href="#hero" className="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+            <a href="/#hero" className="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
               <img src="/assets/Main-logo.svg" alt="NAMI" className="brand-mark-img" />
             </a>
           </div>
@@ -17,7 +19,7 @@ export default function Header() {
             <nav className="section-scroller" aria-label="Section scroller">
               {/* Node C: Concept */}
               <div className="scroller-node">
-                <a href="#philosophy" className="scroller-btn" data-section="philosophy" aria-label="Concept">
+                <a href="/#philosophy" className="scroller-btn" data-section="philosophy" aria-label="Concept">
                   C
                   <span className="tooltip">Concept</span>
                 </a>
@@ -27,7 +29,7 @@ export default function Header() {
       
               {/* Node W: What's On */}
               <div className="scroller-node">
-                <a href="#programming" className="scroller-btn" data-section="programming" aria-label="What’s On">
+                <a href="/#programming" className="scroller-btn" data-section="programming" aria-label="What’s On">
                   W
                   <span className="tooltip">What’s On</span>
                 </a>
@@ -37,7 +39,7 @@ export default function Header() {
       
               {/* Node F: Food & Drinks */}
               <div className="scroller-node">
-                <a href="#menu" className="scroller-btn" data-section="menu" aria-label="Food & Drinks">
+                <a href="/#menu" className="scroller-btn" data-section="menu" aria-label="Food & Drinks">
                   F
                   <span className="tooltip">Food & Drinks</span>
                 </a>
@@ -47,7 +49,7 @@ export default function Header() {
       
               {/* Node S: Our Space */}
               <div className="scroller-node">
-                <a href="#space" className="scroller-btn" data-section="space" aria-label="Our Space">
+                <a href="/#space" className="scroller-btn" data-section="space" aria-label="Our Space">
                   S
                   <span className="tooltip">Our Space</span>
                 </a>
@@ -73,19 +75,19 @@ export default function Header() {
           {/* Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) */}
           <div className="drawer-middle">
             <nav className="drawer-nav-links" id="drawerNavLinks">
-              <a href="#philosophy" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+              <a href="/#philosophy" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
                 <span className="drawer-nav-num">01</span> Concept
               </a>
-              <a href="#programming" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
+              <a href="/#programming" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
                 <span className="drawer-nav-num">02</span> What’s On
               </a>
-              <a href="#menu" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+              <a href="/#menu" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
                 <span className="drawer-nav-num">03</span> Food & Drinks
               </a>
-              <a href="#space" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+              <a href="/#space" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.() }} data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
                 <span className="drawer-nav-num">04</span> Our Space
               </a>
-              <a href="#reservation" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.(); (window as any).openReservationModal?.(event); }} data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+              <a href="/#reservation" className="drawer-nav-item" onClick={(e) => { const event = e; (window as any).toggleMenuDrawer?.(); (window as any).openReservationModal?.(event); }} data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
                 <span className="drawer-nav-num">05</span> Reservation
               </a>
             </nav>
@@ -133,3 +135,4 @@ export default function Header() {
     </>
   );
 }
+

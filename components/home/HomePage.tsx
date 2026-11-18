@@ -1,35 +1,24 @@
-// @ts-nocheck
 "use client";
 
-import "@/styles/home.css";
-import { useHomeInteractions } from "./useHomeInteractions";
-import Overlays from "./sections/Overlays";
-import Header from "./sections/Header";
 import Hero from "./sections/Hero";
 import AudioWidget from "./sections/AudioWidget";
 import Philosophy from "./sections/Philosophy";
 import Programming from "./sections/Programming";
 import MenuSection from "./sections/MenuSection";
 import Space from "./sections/Space";
-import Modals from "./sections/Modals";
-import Footer from "./sections/Footer";
 
 /**
- * Homepage — change section order here.
+ * Homepage sections only.
+ * Header / Footer / Overlays / Modals are global via SiteShell.
  *
  * Customize:
- * - Markup → components/home/sections/*
- * - Behaviour → useHomeInteractions.ts
- * - Content/data → content/home.ts
- * - New HTML drops → put in _legacy/, then port into the matching section file
+ *   public/assets/css/custom.css
+ *   public/assets/js/custom.js
+ *   content/home.ts
  */
 export default function HomePage() {
-  useHomeInteractions();
-
   return (
     <>
-      <Overlays />
-      <Header />
       <Hero />
       <AudioWidget />
 
@@ -39,9 +28,6 @@ export default function HomePage() {
         <MenuSection />
         <Space />
       </main>
-
-      <Footer />
-      <Modals />
     </>
   );
 }
