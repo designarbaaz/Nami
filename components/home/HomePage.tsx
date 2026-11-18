@@ -11,8 +11,7 @@ import Philosophy from "./sections/Philosophy";
 import Programming from "./sections/Programming";
 import MenuSection from "./sections/MenuSection";
 import Space from "./sections/Space";
-import Faqs from "./sections/Faqs";
-import Reserve from "./sections/Reserve";
+import Modals from "./sections/Modals";
 import Footer from "./sections/Footer";
 
 /**
@@ -39,11 +38,10 @@ export default function HomePage() {
         <Programming />
         <MenuSection />
         <Space />
-        <Faqs />
-        <Reserve />
       </main>
 
       <Footer />
+      <Modals />
     </>
   );
 }

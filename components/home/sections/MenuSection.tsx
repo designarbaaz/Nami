@@ -2,125 +2,97 @@
 
 export default function MenuSection() {
   return (
-    <section id="menu" className="section-block">
-                <div className="section-eyebrow">Culinary & Mixology</div>
-                <h2 className="section-heading">The <span className="grad-accent">Resonance</span> Menu</h2>
-                <p className="section-body">
-                  Progressive Japanese and Asian-influenced culinary dishes and sound-mapped cocktails. 
-                  Each selection carries its own sonic and textural profile.
-                </p>
-
-                <div className="menu-tabs">
-                  <button className="menu-tab-btn active" onClick={(e) => { const event = e; (window as any).switchMenuTab?.('food') }}>Dishes</button>
-                  <button className="menu-tab-btn" onClick={(e) => { const event = e; (window as any).switchMenuTab?.('cocktails') }}>Cocktails [Hz]</button>
-                  <button className="menu-tab-btn" onClick={(e) => { const event = e; (window as any).switchMenuTab?.('desserts') }}>Desserts</button>
-                </div>
-
-                {/* Food Menu Tab */}
-                <div id="menuFood" className="menu-items-grid">
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Charred Koji-Glazed Root Vegetables</span>
-                      <span className="item-price">700</span>
-                    </div>
-                    <div className="item-ingredients">Smoked carrot, black garlic, fermented chili oil, toasted sesame</div>
-                    <div className="item-sonic-descriptor">Grounded · Warm · Resonant</div>
+    <>
+      <section id="menu" className="section-block menu-editorial-scroll-track" aria-label="The Resonance Menu">
+            
+            {/* Sticky Viewport Stage (pins in view as you scroll through the 280vh track) */}
+            <div className="menu-sticky-stage">
+      
+              {/* LEFT HALF: 50% Width Dark Nocturnal Editorial Canvas */}
+              <div className="menu-panel-editorial" id="menuPanelEditorial">
+      
+                {/* Phase 0: Food Content */}
+                <div className="menu-editorial-slide active" data-phase="0">
+                  <div className="menu-ed-top">
+                    <h3 className="menu-ed-title">food</h3>
                   </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Aged Hamachi Crudo</span>
-                      <span className="item-price">1500</span>
+                  <div className="menu-ed-frame-wrap">
+                    <div className="menu-ed-frame">
+                      <img src="/assets/Food.png" alt="Hamachi Truffle Crudo & Robata Wagyu" className="menu-ed-img" loading="eager" />
                     </div>
-                    <div className="item-ingredients">Yuzu kosho, preserved citrus, kombu oil, shaved fennel</div>
-                    <div className="item-sonic-descriptor">Textural · Umami · Expansive</div>
                   </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Miso-Butter Scallop</span>
-                      <span className="item-price">1750</span>
-                    </div>
-                    <div className="item-ingredients">Sweet corn purée, brown butter dashi, chili threads</div>
-                    <div className="item-sonic-descriptor">Balanced · Rhythmic · Expressive</div>
-                  </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Charcoal-Grilled Duck Breast</span>
-                      <span className="item-price">2100</span>
-                    </div>
-                    <div className="item-ingredients">Tamarind glaze, sour cherry, smoked tea jus</div>
-                    <div className="item-sonic-descriptor">Bright · Electric · Forward</div>
+                  <div className="menu-ed-bottom">
+                    <h4 className="menu-ed-item-name">Truffle Hamachi & Robata Wagyu</h4>
+                    <p className="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
+                    <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('food') }}>
+                      VIEW FULL MENU →
+                    </button>
                   </div>
                 </div>
-
-                {/* Cocktails Menu Tab */}
-                <div id="menuCocktails" className="menu-items-grid" style={{display: 'none'}}>
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Gin - Tonic - Cherry</span>
-                      <span className="item-price">800</span>
-                    </div>
-                    <div className="item-ingredients">Botanical gin, artisanal tonic, fermented sour cherry infusion</div>
-                    <div className="item-sonic-descriptor">[ 440 Hz ] · Root Frequency · Crisp</div>
+      
+                {/* Phase 1: Cocktails Content */}
+                <div className="menu-editorial-slide" data-phase="1">
+                  <div className="menu-ed-top">
+                    <h3 className="menu-ed-title">cocktails</h3>
                   </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">White Rum - Yuzu - Bubble Gum Syrup</span>
-                      <span className="item-price">850</span>
+                  <div className="menu-ed-frame-wrap">
+                    <div className="menu-ed-frame">
+                      <img src="/assets/Cocktail.png" alt="440Hz Clarified Milk Punch" className="menu-ed-img" loading="lazy" />
                     </div>
-                    <div className="item-ingredients">Aged white rum, fresh yuzu, craft bubblegum botanical cordial</div>
-                    <div className="item-sonic-descriptor">[ 980 Hz ] · Playful Harmonic · Effervescent</div>
                   </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Smoked Mezcal - Oolong - Plum</span>
-                      <span className="item-price">900</span>
-                    </div>
-                    <div className="item-ingredients">Artisanal mezcal, roasted Taiwanese oolong, salted umeboshi</div>
-                    <div className="item-sonic-descriptor">[ 1760 Hz ] · Resonant Smoke · Velvet Depth</div>
-                  </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Whisky Highball - Shiso - Soda</span>
-                      <span className="item-price">850</span>
-                    </div>
-                    <div className="item-ingredients">Single malt Japanese whisky, red shiso leaf, crystal mountain soda</div>
-                    <div className="item-sonic-descriptor">[ 3968 Hz ] · High Harmonic · Nocturnal</div>
+                  <div className="menu-ed-bottom">
+                    <h4 className="menu-ed-item-name">440Hz Clarified Milk Punch</h4>
+                    <p className="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
+                    <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('cocktails') }}>
+                      VIEW FULL MENU →
+                    </button>
                   </div>
                 </div>
-
-                {/* Desserts Menu Tab */}
-                <div id="menuDesserts" className="menu-items-grid" style={{display: 'none'}}>
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Dark Chocolate & Black Sesame Crémeux</span>
-                      <span className="item-price">950</span>
-                    </div>
-                    <div className="item-ingredients">Malted barley crumble, honeycomb, sea salt</div>
-                    <div className="item-sonic-descriptor">Lingering · Warm · Satisfying</div>
+      
+                {/* Phase 2: Dessert Content */}
+                <div className="menu-editorial-slide" data-phase="2">
+                  <div className="menu-ed-top">
+                    <h3 className="menu-ed-title">dessert</h3>
                   </div>
-
-                  <div className="menu-item-card">
-                    <div className="menu-item-top">
-                      <span className="item-name">Miso Caramel & Roasted Hojicha Tart</span>
-                      <span className="item-price">850</span>
+                  <div className="menu-ed-frame-wrap">
+                    <div className="menu-ed-frame">
+                      <img src="/assets/Dessert.png" alt="Yuzu Miso Tart & Smoked Matcha Silk" className="menu-ed-img" loading="lazy" />
                     </div>
-                    <div className="item-ingredients">Roasted tea ganache, smoked sea salt caramel, buckwheat crust</div>
-                    <div className="item-sonic-descriptor">Earth · Bass Tone · Grounded</div>
+                  </div>
+                  <div className="menu-ed-bottom">
+                    <h4 className="menu-ed-item-name">Yuzu Miso Tart & Matcha Silk</h4>
+                    <p className="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
+                    <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('dessert') }}>
+                      VIEW FULL MENU →
+                    </button>
                   </div>
                 </div>
-
-                <div style={{marginTop: '3rem', textAlign: 'center'}}>
-                  <button className="btn-whatsapp-footer" onClick={(e) => { const event = e; (window as any).showToast?.('Downloading Nami Menu PDF...') }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                    Download Resonance Menu (PDF)
-                  </button>
+      
+              </div>
+      
+              {/* RIGHT HALF: 50% Width Pure Full-Bleed Photography (Zero Text) */}
+              <div className="menu-panel-hero" id="menuPanelHero">
+      
+                {/* Background Image 0: Food */}
+                <div className="menu-hero-slide active" data-phase="0">
+                  <img src="/assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" className="menu-hero-bg-img" />
                 </div>
-              </section>
+      
+                {/* Background Image 1: Cocktails */}
+                <div className="menu-hero-slide" data-phase="1">
+                  <img src="/assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" className="menu-hero-bg-img" />
+                </div>
+      
+                {/* Background Image 2: Dessert */}
+                <div className="menu-hero-slide" data-phase="2">
+                  <img src="/assets/Dessert.png" alt="Delicate Plated Desserts at Nami" className="menu-hero-bg-img" />
+                </div>
+      
+              </div>
+      
+            </div>
+      
+          </section>
+    </>
   );
 }

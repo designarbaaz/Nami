@@ -24,9 +24,9 @@ _legacy/                     → drop incoming HTML here (reference only)
 | Reorder / hide a block | `components/home/HomePage.tsx` |
 | Edit calendar event copy | `content/home.ts` → `EVENTS_DATA` |
 | Change hero / menu markup | `components/home/sections/Hero.tsx` (etc.) |
-| Fix click / scroll behaviour | `components/home/useHomeInteractions.ts` |
+| Fix click / scroll behaviour | `useHomeInteractions.ts` |
 | URL, email, social, port | `.env` only |
-| Incoming HTML from design | Save in `_legacy/`, then copy the relevant `<section>` into the matching `sections/*.tsx` |
+| Incoming HTML from design | Save in `_legacy/`, then run `node _convert/port-legacy-home.js` (or port section by section) |
 
 ## Section files
 
@@ -34,22 +34,21 @@ _legacy/                     → drop incoming HTML here (reference only)
 |------|------------|
 | `Header.tsx` | Top nav + drawer |
 | `Hero.tsx` | First fold |
-| `Philosophy.tsx` | Story + wave strap |
-| `Programming.tsx` | Calendar |
-| `MenuSection.tsx` | Resonance menu |
+| `Philosophy.tsx` | Story + scatter cards + wave strap |
+| `Programming.tsx` | Calendar / What's On |
+| `MenuSection.tsx` | Editorial food/cocktails/dessert scroll |
 | `Space.tsx` | Gallery / space |
-| `Faqs.tsx` | FAQs |
-| `Reserve.tsx` | Booking form |
+| `Modals.tsx` | Floating reserve CTA + reservation + full menu |
 | `Footer.tsx` | Footer |
 | `AudioWidget.tsx` | Now playing |
-| `Overlays.tsx` | Noise / warmth layers |
+| `Overlays.tsx` | Noise / warmth / toast |
 
 ## Performance notes
 
-- Noise overlay uses `public/assets/noise-tile.png` (~40KB), not the 14MB original.
-- Wave strap videos use `preload="none"` and load when near the viewport.
-- Hero video uses `preload="metadata"` + poster.
+- Wave strap videos use `preload="none"` + `data-src` and load when near the viewport.
+- Hero video uses poster when present.
 - Keep heavy media out of the first fold when porting new HTML.
+- Prefer `Noise-texture.png` only if needed; large textures hurt LCP.
 
 ## Local URL
 

@@ -72,9 +72,7 @@
     .section-heading,
     .archetype-title,
     .drawer-nav-item,
-    .event-artist,
-    .item-name,
-    .faq-question {
+    .event-artist {
       font-family: var(--font-heading);
       font-weight: 700;
     }
@@ -305,7 +303,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 3rem 4rem;
+      padding: clamp(2rem, 3.5vh, 3.5rem) clamp(2.5rem, 5vw, 5.5rem);
+      box-sizing: border-box;
+      overflow-y: auto;
     }
 
     #menuDrawer.open {
@@ -317,6 +317,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
     }
 
     .btn-close-drawer {
@@ -340,22 +341,33 @@
       transform: rotate(90deg);
     }
 
+    /* Drawer Middle Layout: 2 Columns (Nav links on Left, Enlarged Image on Right) */
+    .drawer-middle {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr;
+      align-items: center;
+      gap: clamp(2rem, 5vw, 6rem);
+      margin: auto 0;
+      padding: 1.25rem 0;
+      width: 100%;
+    }
+
     .drawer-nav-links {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
-      margin: 2rem 0;
+      gap: clamp(1rem, 2vh, 1.6rem);
     }
 
     .drawer-nav-item {
       color: #FFFFFF;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 700;
       text-decoration: none;
       transition: transform 0.25s, color 0.25s;
       display: inline-flex;
       align-items: center;
       gap: 1.5rem;
+      cursor: pointer;
     }
 
     .drawer-nav-item:hover {
@@ -370,12 +382,96 @@
       color: var(--text-muted);
     }
 
+    /* Right Side Image Card inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) */
+    .drawer-image-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .drawer-image-card {
+      position: relative;
+      width: clamp(340px, 35vw, 560px);
+      max-height: calc(100vh - 200px);
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+      background: #111115;
+    }
+
+    .drawer-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(0.92) contrast(1.05);
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    .drawer-preview-img.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .drawer-image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.88) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: var(--font-body);
+      pointer-events: none;
+    }
+
+    .drawer-caption-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .drawer-caption-sub {
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
     .drawer-bottom-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
       border-top: 1px solid var(--border-subtle);
       padding-top: 2rem;
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .drawer-middle {
+        grid-template-columns: 1fr;
+      }
+      .drawer-image-wrap {
+        display: none;
+      }
     }
 
     .drawer-info-col h4 {
@@ -409,7 +505,7 @@
       padding: 2rem;
     }
 
-    /* Atmospheric Dim Lighting Background Image / Video */
+    /* Atmospheric Ambient Lighting Background Image / Video */
     .hero-bg-media {
       position: absolute;
       top: -10%;
@@ -418,7 +514,6 @@
       height: 120%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(0.65) contrast(1.1);
       z-index: 1;
       will-change: transform;
       pointer-events: none;
@@ -459,6 +554,7 @@
       height: auto;
       display: block;
       margin: 0 auto;
+      overflow: visible !important;
       filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.85));
       animation: logoFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -516,12 +612,12 @@
     }
 
     /* =========================================================
-       BOTTOM RIGHT: NOW PLAYING AUDIO WIDGET (Reference Match)
+       BOTTOM LEFT: NOW PLAYING AUDIO WIDGET (Moved to Left Side)
        ========================================================= */
     .now-playing-widget {
       position: fixed;
       bottom: 2rem;
-      right: 2.5rem;
+      left: 2.5rem;
       z-index: 400;
       display: flex;
       align-items: center;
@@ -529,7 +625,7 @@
       background: rgba(14, 14, 14, 0.75);
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
-      padding: 0.5rem 0.85rem 0.5rem 1.25rem;
+      padding: 0.5rem 1.15rem 0.5rem 0.85rem;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -544,8 +640,8 @@
     .now-playing-text {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .track-title {
@@ -615,14 +711,259 @@
     }
 
     /* =========================================================
+       ROUNDED RECTANGLE CTA BUTTONS (Pill Shape)
+       ========================================================= */
+    .btn-eye-shape,
+    .btn-peanut-shape {
+      border-radius: 9999px !important;
+      clip-path: none !important;
+      -webkit-clip-path: none !important;
+    }
+
+    /* =========================================================
+       BOTTOM RIGHT: RESERVATION FLOATING CTA (Rounded Rectangle)
+       ========================================================= */
+    .floating-reserve-cta {
+      position: fixed;
+      bottom: 2rem;
+      right: 2.5rem;
+      z-index: 400;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      padding: 0.75rem 1.65rem 0.75rem 1.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .floating-reserve-cta:hover {
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.12);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+    }
+
+    .reserve-cta-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.38);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .reserve-eat-logo {
+      height: 16px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      vertical-align: middle;
+      transition: transform 0.2s ease;
+    }
+
+    .floating-reserve-cta:hover .reserve-eat-logo {
+      transform: scale(1.06);
+    }
+
+    /* =========================================================
+       RESERVATION MODAL DIALOG (Zero Roundness Luxury Aesthetic)
+       ========================================================= */
+    .reservation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reservation-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 4, 6, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .reservation-modal-panel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      background: #0B0B0E;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 0;
+      padding: 2.25rem 2.25rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(244, 143, 36, 0.08);
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open .reservation-modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .reservation-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .reserve-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .reserve-modal-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+    }
+
+    .reserve-modal-close {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 0;
+      font-size: 1.05rem;
+      line-height: 1;
+      transition: all 0.2s;
+    }
+
+    .reserve-modal-close:hover {
+      border-color: var(--c-orange);
+      color: var(--c-orange);
+      background: rgba(244, 143, 36, 0.1);
+    }
+
+    .reserve-modal-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 1.6rem;
+    }
+
+    .reservation-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .res-input {
+      width: 100%;
+      background: #121216;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .res-input:focus {
+      border-color: var(--c-orange);
+      background: #16161B;
+    }
+
+    .btn-confirm-reserve {
+      width: 100%;
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-confirm-reserve:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+    }
+
+    /* =========================================================
        PAGE CONTENT SECTIONS (Sitemap Implementation)
        ========================================================= */
     .page-wrap {
-      max-width: 1180px;
+      width: 100%;
       margin: 0 auto;
-      padding: 0 2rem 8rem;
+      padding: 0;
       position: relative;
       z-index: 10;
+      box-sizing: border-box;
     }
 
     .section-block {
@@ -679,40 +1020,131 @@
       margin-bottom: 2.5rem;
     }
 
-    /* SECTION: BRAND PHILOSOPHY (Minimalist Editorial Match) */
+    /* =========================================================
+       SECTION: BRAND PHILOSOPHY (Exact Placement Reference Match)
+       ========================================================= */
     .section-philosophy-minimal {
-      text-align: center;
-      padding: clamp(6.5rem, 14vh, 180px) 1.5rem;
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+      min-height: 100vh;
+      max-height: 100vh;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
       border-bottom: none;
+      box-sizing: border-box;
     }
 
+    /* Floating Image Scatter Canvas */
+    .phil-scatter-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* Floating Image Box Card (Completely Straight, No Rotation, No Border-Radius, No Outline) */
+    .phil-card {
+      position: absolute;
+      pointer-events: auto;
+      cursor: pointer;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      transition: filter 0.3s ease;
+    }
+
+    .phil-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 0 !important;
+      overflow: hidden;
+      background: #141414;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78);
+      transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .phil-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+      filter: brightness(0.92) contrast(1.06);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Hover State on Floating Card */
+    .phil-card:hover {
+      z-index: 30 !important;
+    }
+
+    .phil-card:hover .phil-card-inner {
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.92);
+      border: none !important;
+      outline: none !important;
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .phil-card:hover .phil-card-img {
+      transform: scale(1.08);
+      filter: brightness(1.05) contrast(1.08);
+    }
+
+    /* Specific Card Sizes (Dynamic Editorial Randomized Proportions & Asymmetry) */
+    .phil-card-1 { width: 56px;  height: 76px; }  /* Top Center (Tiny Accent) */
+    .phil-card-2 { width: 138px; height: 178px; } /* Top Left (Large Anchor) */
+    .phil-card-3 { width: 84px;  height: 110px; } /* Mid Left (Small Indented) */
+    .phil-card-4 { width: 116px; height: 150px; } /* Bottom Left (Medium) */
+    .phil-card-5 { width: 130px; height: 168px; } /* Top Right (Large Anchor) */
+    .phil-card-6 { width: 76px;  height: 100px; } /* Mid Right (Small Indented) */
+    .phil-card-7 { width: 122px; height: 158px; } /* Bottom Right (Medium-Large) */
+    .phil-card-8 { width: 62px;  height: 82px; }  /* Bottom Center (Tiny Accent) */
+
+    /* Center Content Stage */
     .philosophy-minimal-content {
-      max-width: 860px;
+      position: relative;
+      z-index: 5;
+      max-width: 820px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      pointer-events: auto;
     }
 
     .philosophy-minimal-title {
       font-family: var(--font-heading);
-      font-size: clamp(2.5rem, 5.8vw, 4.6rem);
+      font-size: clamp(2.4rem, 5.2vw, 4.4rem);
       font-weight: 400;
       line-height: 1.15;
       color: #FFFFFF;
-      margin: 0 0 2rem 0;
+      margin: 0 0 1.5rem 0;
       text-wrap: balance;
+      position: relative;
     }
 
     .philosophy-minimal-desc {
       font-family: var(--font-body);
-      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
       font-weight: 400;
       color: rgba(255, 255, 255, 0.78);
       line-height: 1.65;
-      max-width: 720px;
-      margin: 0 auto 2.5rem;
+      max-width: 680px;
+      margin: 0 auto 2.2rem;
     }
 
     .btn-our-story {
@@ -725,18 +1157,21 @@
       font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       padding: 0.8rem 2.25rem;
-      border-radius: 9999px;
+      border-radius: 999px;
       text-decoration: none;
       border: none;
       cursor: pointer;
+      box-shadow: none !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-our-story:hover {
       background: var(--grad-flare);
       filter: brightness(1.12);
-      transform: scale(1.06);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: none !important;
     }
 
     /* =========================================================
@@ -826,7 +1261,7 @@
       margin-top: 0;
       margin-bottom: 0;
       min-height: 80vh;
-      padding: clamp(4rem, 8vh, 6.5rem) 1.5rem;
+      padding: 120px 1.5rem;
       overflow: hidden;
       background: var(--bg-black);
       display: flex;
@@ -838,12 +1273,13 @@
 
     .event-parallax-media-wrap {
       position: absolute;
-      top: -20%;
+      top: -25%;
       left: 0;
       width: 100%;
-      height: 140%;
+      height: 150%;
       overflow: hidden;
       z-index: 1;
+      pointer-events: none;
     }
 
     .event-parallax-img {
@@ -851,10 +1287,11 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(0.82) contrast(1.08);
+      filter: brightness(0.70) contrast(1.08);
       will-change: transform;
       pointer-events: none;
       display: block;
+      transform: translate3d(0, 0, 0) scale(1.08);
     }
 
     .event-parallax-overlay {
@@ -864,10 +1301,10 @@
       z-index: 2;
       background: linear-gradient(
         180deg,
-        rgba(7, 7, 7, 0.7) 0%,
-        rgba(0, 0, 0, 0.52) 15%,
-        rgba(0, 0, 0, 0.52) 85%,
-        rgba(7, 7, 7, 0.75) 100%
+        rgba(7, 7, 7, 0.90) 0%,
+        rgba(0, 0, 0, 0.76) 15%,
+        rgba(0, 0, 0, 0.76) 85%,
+        rgba(7, 7, 7, 0.92) 100%
       );
     }
 
@@ -875,7 +1312,7 @@
       position: relative;
       z-index: 3;
       width: 100%;
-      max-width: 1280px;
+      max-width: 1180px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -907,12 +1344,15 @@
     /* Day of Week Header Row */
     .cal-dow-row {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       border-bottom: 1px solid rgba(255, 255, 255, 0.38);
       background: rgba(255, 255, 255, 0.05);
+      width: 100%;
     }
 
     .cal-dow-col {
+      min-width: 0;
+      box-sizing: border-box;
       padding: 1.15rem 0.6rem;
       text-align: center;
       font-family: var(--font-body);
@@ -931,11 +1371,14 @@
     /* 35 Calendar Cells Grid (5 rows of 7 cols) - Increased Box Size */
     .cal-days-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
       position: relative;
+      width: 100%;
     }
 
     .cal-cell {
+      min-width: 0;
       position: relative;
       min-height: clamp(140px, 16vh, 168px);
       padding: 1.15rem 1rem;
@@ -950,6 +1393,7 @@
       color: #FFFFFF;
       box-sizing: border-box;
       text-align: left;
+      overflow: hidden;
     }
 
     /* Remove right border on 7th column of each row */
@@ -988,28 +1432,40 @@
       opacity: 0.95;
     }
 
-    /* Event Days (Rich radiant color block, zero blur, increased size) */
+    /* Event Days (Brand Gradients: var(--grad-primary), var(--grad-resonance), var(--grad-flare)) */
     .cal-cell.has-event {
-      background: linear-gradient(135deg, rgba(232, 66, 67, 0.85) 0%, rgba(244, 143, 36, 0.85) 100%);
+      background: var(--grad-primary);
       cursor: pointer;
       z-index: 2;
+      transition: filter 0.22s ease, transform 0.22s ease;
+    }
+
+    .cal-cell.has-event.grad-variant-primary {
+      background: var(--grad-primary) !important;
+    }
+
+    .cal-cell.has-event.grad-variant-resonance {
+      background: var(--grad-resonance) !important;
+    }
+
+    .cal-cell.has-event.grad-variant-flare {
+      background: var(--grad-flare) !important;
     }
 
     .cal-cell.has-event:hover {
-      background: linear-gradient(135deg, rgba(232, 66, 67, 0.98) 0%, rgba(244, 143, 36, 0.98) 100%);
+      filter: brightness(1.15);
       transform: translateY(-2px);
       z-index: 5;
     }
 
     /* Headline Event (Day 20 Yousuke Yukimatsu) */
     .cal-cell.has-event.is-headline {
-      background: linear-gradient(135deg, rgba(232, 66, 67, 0.92) 0%, rgba(230, 85, 0, 0.92) 100%);
       outline: 1.5px solid rgba(255, 255, 255, 0.9);
       outline-offset: -2px;
     }
 
     .cal-cell.has-event.is-headline:hover {
-      background: linear-gradient(135deg, rgba(232, 66, 67, 1) 0%, rgba(230, 85, 0, 1) 100%);
+      filter: brightness(1.2);
     }
 
     .cal-badge {
@@ -1038,6 +1494,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
+      min-width: 0;
     }
 
     .cal-event-artist {
@@ -1047,6 +1504,8 @@
       color: #FFFFFF;
       line-height: 1.15;
       letter-spacing: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .cal-event-meta {
@@ -1055,6 +1514,8 @@
       color: rgba(255, 255, 255, 0.95);
       line-height: 1.25;
       letter-spacing: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .cal-cell.is-empty {
@@ -1074,33 +1535,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* Footer CTA Block */
-    .cal-footer-block {
-      margin-top: 2.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    .btn-cal-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #FFFFFF;
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      font-weight: 700;
-      padding: 0.95rem 2.4rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-cal-action:hover {
-      transform: translateY(-2px);
-    }
 
     /* =========================================================
        CALENDAR BLOCK-ALIGNED EXPANDED EVENT CARD (ZERO ROUNDNESS, ZERO SHADOW)
@@ -1112,7 +1546,7 @@
       width: 0;
       height: 0;
       background: #0B0B0B;
-      border: 1.5px solid var(--c-orange);
+      border: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
       z-index: 80;
@@ -1131,47 +1565,59 @@
     }
 
     .col-popup-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
-      padding: 0.75rem 1.15rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.03);
+      padding: 0.85rem 1.15rem;
+      border-bottom: none !important;
+      background: transparent !important;
       flex-shrink: 0;
       border-radius: 0 !important;
+      pointer-events: none;
     }
 
     .col-popup-date {
       font-family: var(--font-body);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: var(--c-orange);
       text-transform: uppercase;
       letter-spacing: 0.06em;
       line-height: 1.2;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
+      pointer-events: auto;
     }
 
     .col-popup-close {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 0 !important;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       color: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       flex-shrink: 0;
-      transition: background 0.15s ease, border-color 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
       padding: 0;
-      box-shadow: none !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+      pointer-events: auto;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
     .col-popup-close:hover {
       background: var(--c-red);
       border-color: var(--c-red);
+      transform: scale(1.05);
     }
 
     .col-popup-body {
@@ -1209,7 +1655,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: contrast(1.06) brightness(0.92);
+      filter: contrast(1.06) brightness(0.95);
       display: block;
       transition: transform 0.3s ease;
       border-radius: 0 !important;
@@ -1219,15 +1665,27 @@
       transform: scale(1.02);
     }
 
+    .col-popup-top-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.32) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
     .col-popup-img-grad {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,11,11,0.88) 90%, #0B0B0B 100%);
+      background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 11, 0.85) 88%, #0B0B0B 100%);
       pointer-events: none;
+      z-index: 2;
     }
 
     .col-popup-info {
-      padding: 1rem 1.25rem 1.25rem;
+      padding: 0.95rem 1.15rem 1.15rem;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -1236,7 +1694,7 @@
     }
 
     .col-popup-badge-wrap {
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
     }
 
     .col-popup-hz {
@@ -1256,83 +1714,28 @@
 
     .col-popup-title {
       font-family: var(--font-heading);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #FFFFFF;
-      line-height: 1.18;
-      margin: 0 0 0.2rem;
+      line-height: 1.16;
+      margin: 0 0 0.3rem;
       letter-spacing: 0;
     }
 
     .col-popup-genre {
       font-family: var(--font-body);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--c-orange);
-      margin-bottom: 0.8rem;
-      line-height: 1.3;
-    }
-
-    .col-popup-meta-block {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0 !important;
-      padding: 0.7rem 0.9rem;
-      margin-bottom: 0.8rem;
-      box-shadow: none !important;
-    }
-
-    @media (max-width: 520px) {
-      .col-popup-meta-block {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .col-popup-meta-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.55rem;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.3;
-    }
-
-    .col-popup-meta-row svg {
-      stroke: var(--c-orange);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .col-popup-meta-row div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .col-popup-meta-row .meta-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-    }
-
-    .col-popup-meta-row .meta-val {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #FFFFFF;
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
     }
 
     .col-popup-desc {
       font-family: var(--font-body);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: rgba(255, 255, 255, 0.78);
-      line-height: 1.5;
+      line-height: 1.48;
       margin: 0 0 1rem;
     }
 
@@ -1351,13 +1754,15 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
-      transition: transform 0.18s ease;
+      box-shadow: 0 6px 20px rgba(244, 143, 36, 0.35);
+      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
       margin-top: auto;
     }
 
     .btn-col-popup-book:hover {
       transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: 0 10px 24px rgba(244, 143, 36, 0.55);
     }
 
     /* Active clicked cell highlight */
@@ -1368,135 +1773,600 @@
 
     @media (max-width: 768px) {
       .event-calendar-section {
-        padding: 3.5rem 1rem;
+        padding: clamp(3.5rem, 6vh, 80px) 1rem;
       }
       .cal-scroll-hint {
         display: block;
       }
       .cal-grid-table {
-        min-width: 640px;
+        min-width: 780px;
       }
       .cal-cell {
-        min-height: 94px;
-        padding: 0.5rem 0.45rem;
+        min-height: 108px;
+        padding: 0.65rem 0.5rem;
       }
       .cal-cell-num {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       .cal-event-artist {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
       }
       .cal-event-meta {
-        font-size: 0.65rem;
+        font-size: 0.68rem;
+      }
+      .col-popup-media {
+        height: 130px;
+      }
+      .col-popup-header {
+        padding: 0.65rem 0.85rem;
+      }
+      .col-popup-info {
+        padding: 0.75rem 0.85rem 0.85rem;
+      }
+      .col-popup-title {
+        font-size: 1.15rem;
+      }
+      .col-popup-genre {
+        font-size: 0.72rem;
+        margin-bottom: 0.5rem;
+      }
+      .col-popup-desc {
+        font-size: 0.74rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+      }
+      .btn-col-popup-book {
+        font-size: 0.78rem;
+        padding: 0.72rem 1.35rem;
+        min-height: 42px;
       }
     }
 
-    /* SECTION: THE RESONANCE MENU */
-    .menu-tabs {
+    /* =========================================================
+       SECTION: THE RESONANCE MENU (Full-Width 50-50 Nocturnal Scroll)
+       ========================================================= */
+    .menu-editorial-scroll-track {
+      position: relative;
+      width: 100%;
+      height: 280vh;
+      margin: 0;
+      padding: 0;
+      border-bottom: none;
+      box-sizing: border-box;
+      background: #070707;
+    }
+
+    .menu-sticky-stage {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      overflow: hidden;
+      box-sizing: border-box;
+      z-index: 15;
+      background: #070707;
+    }
+
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD) */
+    .menu-panel-editorial {
+      background-color: #E84243;
+      color: #FFFFFF;
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+      flex-direction: column;
+      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .menu-tab-btn {
-      background: #141414;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.5rem 1.25rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
+    /* Editorial Slides (Left Column - Clean Centered Layout) */
+    .menu-editorial-slide {
+      position: absolute;
+      inset: 0;
+      padding: clamp(2rem, 4vh, 3.5rem) clamp(1.8rem, 3.5vw, 3.6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
     }
 
-    .menu-tab-btn.active,
-    .menu-tab-btn:hover {
-      background: rgba(232, 66, 67, 0.15);
-      border-color: var(--c-red);
+    /* Category Specific Background Colors */
+    .menu-editorial-slide[data-phase="0"] {
+      background-color: #E84243;
       color: #FFFFFF;
     }
 
-    .menu-items-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+    .menu-editorial-slide[data-phase="1"] {
+      background-color: #004F9D;
+      color: #FFFFFF;
     }
 
-    @media (max-width: 800px) {
-      .menu-items-grid { grid-template-columns: 1fr; }
+    .menu-editorial-slide[data-phase="2"] {
+      background-color: #FFAABD;
+      color: #070707;
     }
 
-    .menu-item-card {
-      padding-bottom: 1.75rem;
-      border-bottom: 1px solid var(--border-subtle);
+    .menu-editorial-slide[data-phase="2"] .menu-ed-title {
+      color: #070707;
     }
 
-    .menu-item-top {
+    .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
+      color: #070707;
+    }
+
+    .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
+      color: rgba(7, 7, 7, 0.82);
+    }
+
+    .menu-editorial-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .menu-ed-top {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: clamp(1rem, 2.2vh, 1.6rem);
+    }
+
+    .menu-ed-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(3.2rem, 5.2vw, 5rem);
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin: 0;
+      text-transform: lowercase;
+      line-height: 1;
+    }
+
+    /* Centerpiece Photo (Zero Border, Zero Shadow, Clean Floating Image) */
+    .menu-ed-frame-wrap {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 clamp(1.1rem, 2.2vh, 1.6rem);
+      width: 100%;
+      box-shadow: none !important;
+    }
+
+    .menu-ed-frame {
+      width: clamp(170px, 16vw, 225px);
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: transparent;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    .menu-ed-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+      filter: brightness(0.96) contrast(1.04);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menu-editorial-slide.active .menu-ed-img {
+      transform: scale(1.03);
+    }
+
+    .menu-ed-bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .menu-ed-item-name {
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 0.35rem;
+      line-height: 1.25;
+    }
+
+    .menu-ed-item-desc {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 360px;
+      margin: 0 auto 1.15rem;
+      line-height: 1.5;
+    }
+
+    .btn-menu-view-full {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.8rem 2.2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-menu-view-full:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: none !important;
+    }
+
+    /* RIGHT PANE: 50% Width Pure Full-Bleed Photography (ZERO Text Overlay) */
+    .menu-panel-hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      background: #070707;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .menu-hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .menu-hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .menu-hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+
+    /* =========================================================
+       FULL MENU MODAL (Editorial Listening Room Menu)
+       ========================================================= */
+    .full-menu-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .full-menu-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .full-menu-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .full-menu-panel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 780px;
+      max-height: 88vh;
+      background: #0E0E12;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .full-menu-modal.open .full-menu-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .full-menu-header {
+      padding: 1.6rem 2rem 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .full-menu-eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 0.3rem;
+    }
+
+    .full-menu-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .full-menu-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .full-menu-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.08);
+    }
+
+    /* Modal Navigation Tabs */
+    .full-menu-tabs {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+
+    .full-menu-tab-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 1rem 0;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .full-menu-tab-btn:hover {
+      color: #FFFFFF;
+    }
+
+    .full-menu-tab-btn.active {
+      color: var(--c-orange);
+      border-bottom-color: var(--c-orange);
+    }
+
+    /* Modal Tab Content Area */
+    .full-menu-content {
+      padding: 1.8rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .full-menu-pane {
+      display: none;
+    }
+
+    .full-menu-pane.active {
+      display: block;
+      animation: menuFadeIn 0.3s ease forwards;
+    }
+
+    @keyframes menuFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-dish-group {
+      margin-bottom: 2rem;
+    }
+
+    .dish-group-title {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-dish-item {
+      margin-bottom: 1.25rem;
+    }
+
+    .dish-item-top {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.25rem;
     }
 
-    .item-name {
-      font-size: 1.15rem;
+    .dish-item-name {
+      font-family: var(--font-body);
+      font-size: 0.94rem;
       font-weight: 700;
+      color: #FFFFFF;
     }
 
-    .item-price {
-      font-family: 'Chivo', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .item-ingredients {
-      color: var(--text-secondary);
+    .dish-item-price {
+      font-family: var(--font-body);
       font-size: 0.88rem;
-      line-height: 1.4;
-      margin-bottom: 0.4rem;
+      font-weight: 700;
+      color: var(--c-orange);
     }
 
-    .item-sonic-descriptor {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--c-pink);
+    .dish-item-desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .full-menu-footer {
+      padding: 1.2rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .full-menu-note {
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+
+    .btn-reserve-from-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.8rem 2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: filter 0.2s, transform 0.2s;
+    }
+
+    .btn-reserve-from-menu:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: none !important;
+    }
+
+    /* Mobile Breakpoints */
+    @media (max-width: 768px) {
+      .menu-sticky-stage {
+        grid-template-columns: 1fr;
+      }
+      .menu-panel-hero {
+        display: none;
+      }
+      .menu-panel-editorial {
+        width: 100%;
+        border-right: none;
+      }
+      .menu-editorial-slide {
+        padding: clamp(3.2rem, 5vh, 4.2rem) 1.5rem 2rem;
+      }
+      .menu-ed-frame {
+        width: 145px;
+      }
+      .full-menu-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
     }
 
     /* =========================================================
        SECTION: THE SPACE (Spin Bar Style Full-Bleed 3-Col Gallery)
        ========================================================= */
     .space-section {
-      padding: 6rem 0 7rem;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: 6rem 0 0;
+      margin-bottom: 0;
+      border-bottom: none;
       scroll-margin-top: 5rem;
     }
 
-    .space-header-row {
+    .space-header-row,
+    .space-header-block {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 3rem;
-      margin-bottom: 2rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
     }
 
-    .space-header-left {
-      max-width: 620px;
+    .space-header-row .section-heading,
+    .space-header-block .section-heading {
+      text-align: center;
+      margin-bottom: 1rem;
     }
 
-    .space-header-right {
-      max-width: 440px;
-      text-align: right;
-    }
-
-    .space-header-quote {
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
+    .space-header-row .section-body,
+    .space-header-block .section-body {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0;
     }
 
     .space-fine-rule {
@@ -1514,6 +2384,8 @@
       right: 50%;
       margin-left: -50vw;
       margin-right: -50vw;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .spin-gallery-grid {
@@ -1521,6 +2393,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 2px;
       background: var(--bg-black);
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .spin-gallery-cell {
@@ -1544,52 +2418,15 @@
       filter: brightness(1.08) contrast(1.08);
     }
 
-    /* Acoustic Specs Bottom Bar */
-    .space-specs-strip {
-      margin-top: 3.5rem;
-      padding: 2.25rem 2.75rem;
-      background: rgba(14, 14, 14, 0.75);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 3rem;
-    }
-
-    .space-specs-title {
-      font-family: var(--font-heading);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 0.35rem;
-    }
-
-    .space-specs-desc {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      max-width: 650px;
-    }
-
     @media (max-width: 900px) {
-      .space-header-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
-      }
-      .space-header-right {
-        text-align: left;
-        max-width: 100%;
+      .space-header-row,
+      .space-header-block {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
       }
       .spin-gallery-grid {
         grid-template-columns: repeat(2, 1fr);
-      }
-      .space-specs-strip {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 2rem;
-        gap: 1.5rem;
       }
     }
 
@@ -1602,220 +2439,196 @@
       }
     }
 
-    /* SECTION: FAQS ACCORDION */
-    .faq-list {
-      margin-top: 2rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .faq-question {
-      width: 100%;
-      background: transparent;
-      border: none;
-      padding: 1.5rem 0;
-      text-align: left;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-family: 'Chivo', sans-serif;
-    }
-
-    .faq-toggle-icon {
-      font-size: 1.5rem;
-      color: var(--c-orange);
-      transition: transform 0.3s;
-    }
-
-    .faq-item.active .faq-toggle-icon {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .faq-answer-inner {
-      padding-bottom: 1.5rem;
-    }
-
-    /* SECTION: RESERVE A TABLE (On-Domain Booking Engine) */
-    .reservation-card {
-      background: rgba(14, 14, 14, 0.85);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 3.5rem;
-      margin-top: 3rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .reservation-glow {
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232, 66, 67, 0.3) 0%, transparent 70%);
-      filter: blur(50px);
-      pointer-events: none;
-    }
-
-    .booking-form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .form-label {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      text-transform: uppercase;
-    }
-
-    .form-input, .form-select {
-      background: #0d0d0d;
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-      color: #fff;
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-input:focus, .form-select:focus {
-      border-color: var(--c-red);
-    }
-
-    .btn-submit-booking {
-      background: var(--grad-primary);
-      color: #FFFFFF;
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      padding: 1.1rem 2.5rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      margin-top: 2rem;
-      width: 100%;
-      transition: transform 0.2s;
-    }
-
-    .btn-submit-booking:hover {
-      transform: translateY(-2px);
-    }
-
     /* FOOTER */
+    /* =========================================================
+       FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
+       ========================================================= */
     footer.site-footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: 5rem 2.5rem 3rem;
-      background: #050505;
+      border-top: none;
+      padding: 6rem 2.5rem 1.5rem;
+      background: #070707;
       position: relative;
       z-index: 10;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
     }
 
-    .footer-container {
-      max-width: 1180px;
+    /* Ambient Brand Glow Aura (Using ONLY NAMI Palette: Red, Orange, Rose, Deep Blue) */
+    .footer-glow-aura {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(ellipse 70% 65% at 50% 102%, rgba(232, 66, 67, 0.46) 0%, rgba(244, 143, 36, 0.32) 34%, rgba(0, 79, 157, 0.18) 68%, transparent 100%),
+        radial-gradient(circle at 50% 92%, rgba(255, 170, 189, 0.16) 0%, transparent 45%),
+        radial-gradient(ellipse 38% 28% at 50% 100%, rgba(230, 85, 0, 0.52) 0%, transparent 70%);
+      filter: blur(28px);
+      mix-blend-mode: screen;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1240px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-top-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1.2fr 1fr;
       gap: 3rem;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
     }
 
-    @media (max-width: 800px) {
-      .footer-container { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 500px) {
-      .footer-container { grid-template-columns: 1fr; }
-    }
-
-    .footer-logo {
-      height: 24px;
-      width: auto;
-      margin-bottom: 1.25rem;
+    .footer-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 320px;
     }
 
-    .footer-col h5 {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .footer-col p, .footer-col a {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.5rem;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover {
-      color: #fff;
+    .footer-tagline {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin: 0;
+      font-family: var(--font-body);
     }
 
     .btn-whatsapp-footer {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #fff;
-      font-size: 0.82rem;
+      color: #FFFFFF;
+      font-size: 0.8rem;
       font-weight: 600;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
-      margin-top: 1rem;
-      transition: all 0.2s;
+      width: fit-content;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      font-family: var(--font-body);
     }
 
     .btn-whatsapp-footer:hover {
+      background: rgba(255, 255, 255, 0.16);
       border-color: rgba(255, 255, 255, 0.35);
-      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-btn-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .footer-col-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.42);
+      display: block;
+      margin-bottom: 1.15rem;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-nav-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-nav-list a,
+    .footer-nav-list span {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.82);
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+      line-height: 1.4;
+    }
+
+    .footer-nav-list a:hover {
+      color: var(--c-orange);
+      transform: translateX(2px);
+    }
+
+    /* Bottom Huge NAMI Logo Bleeding into Edge (Reference Match) */
+    .footer-giant-logo-wrap {
+      width: 100%;
+      position: relative;
+      margin-top: 1.5rem;
+      margin-bottom: -1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .footer-giant-logo {
+      width: 100%;
+      max-width: 1320px;
+      height: auto;
+      display: block;
+      overflow: visible !important;
+      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.95));
+      opacity: 0.96;
     }
 
     .footer-bottom-bar {
-      max-width: 1180px;
-      margin: 3rem auto 0;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-subtle);
+      max-width: 1240px;
+      margin: 1.5rem auto 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.48);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 992px) {
+      .footer-top-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .footer-giant-logo-wrap {
+        margin-bottom: -0.6rem;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
     }
 
     /* Toast Notification */
@@ -1844,8 +2657,94 @@
 
     @media (max-width: 650px) {
       header.site-header { padding: 1rem 1.25rem; }
-      .now-playing-widget { bottom: 1rem; right: 1rem; }
+      .now-playing-widget {
+        bottom: 1rem;
+        left: 1rem;
+        gap: 0.75rem;
+        padding: 0.45rem 0.85rem 0.45rem 0.65rem;
+      }
+      .now-playing-text .track-title {
+        font-size: 0.76rem;
+      }
+      .now-playing-text .track-artist {
+        font-size: 0.66rem;
+      }
+      .audio-badge-circle {
+        width: 30px;
+        height: 30px;
+      }
+      .floating-reserve-cta {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem 2.2rem;
+        min-height: 46px;
+        font-size: 0.78rem;
+        gap: 0.55rem;
+      }
+      .reserve-cta-divider {
+        height: 12px;
+      }
+      .reserve-eat-logo {
+        height: 14px;
+      }
+      .reservation-modal-panel {
+        padding: 1.6rem 1.4rem;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
       .section-block { padding: 4rem 0; }
+      .section-philosophy-minimal { 
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        padding: 0 1.25rem; 
+      }
+      .phil-card-1, .phil-card-3, .phil-card-4, .phil-card-5, .phil-card-6, .phil-card-8 {
+        display: none !important;
+      }
+      .phil-card-2 {
+        top: 3% !important;
+        left: 2% !important;
+        width: 72px !important;
+        height: 92px !important;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .phil-card-7 {
+        bottom: 3% !important;
+        right: 2% !important;
+        width: 72px !important;
+        height: 92px !important;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .phil-card-3, .phil-card-6, .phil-card-8 {
+        display: none !important;
+      }
+      .phil-card {
+        transform: scale(0.85);
+      }
+    }
+
+    @media (max-width: 440px) {
+      .now-playing-text .track-artist { display: none; }
+      .floating-reserve-cta {
+        padding: 0.7rem 1.8rem;
+        min-height: 42px;
+        font-size: 0.74rem;
+        gap: 0.45rem;
+      }
+      .reserve-cta-divider {
+        height: 11px;
+      }
+      .reserve-eat-logo {
+        height: 13px;
+      }
     }
   </style>
 </head>
@@ -1869,53 +2768,43 @@
     </div>
 
     <div class="header-nav-wrap">
-      <!-- Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) -->
+      <!-- Circular Page Scroller: ( C ) ~ ( W ) ~ ( F ) ~ ( S ) -->
       <nav class="section-scroller" aria-label="Section scroller">
-        <!-- Node I: Intro / Hero -->
+        <!-- Node C: Concept -->
         <div class="scroller-node">
-          <a href="#hero" class="scroller-btn active" data-section="hero" aria-label="Intro">
-            I
-            <span class="tooltip">Intro</span>
+          <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Concept">
+            C
+            <span class="tooltip">Concept</span>
           </a>
         </div>
 
         <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
 
-        <!-- Node P: Philosophy -->
+        <!-- Node W: What's On -->
         <div class="scroller-node">
-          <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Philosophy">
-            P
-            <span class="tooltip">Philosophy</span>
+          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s On">
+            W
+            <span class="tooltip">What’s On</span>
           </a>
         </div>
 
         <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
 
-        <!-- Node S: Space -->
+        <!-- Node F: Food & Drinks -->
         <div class="scroller-node">
-          <a href="#space" class="scroller-btn" data-section="space" aria-label="Space">
+          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & Drinks">
+            F
+            <span class="tooltip">Food & Drinks</span>
+          </a>
+        </div>
+
+        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
+
+        <!-- Node S: Our Space -->
+        <div class="scroller-node">
+          <a href="#space" class="scroller-btn" data-section="space" aria-label="Our Space">
             S
-            <span class="tooltip">Space</span>
-          </a>
-        </div>
-
-        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
-        <!-- Node M: Menu -->
-        <div class="scroller-node">
-          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Menu">
-            M
-            <span class="tooltip">Menu</span>
-          </a>
-        </div>
-
-        <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
-        <!-- Node R: Reserve -->
-        <div class="scroller-node">
-          <a href="#reserve" class="scroller-btn" data-section="reserve" aria-label="Reserve a Table">
-            R
-            <span class="tooltip">Reserve</span>
+            <span class="tooltip">Our Space</span>
           </a>
         </div>
       </nav>
@@ -1936,29 +2825,43 @@
       <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
     </div>
 
-    <nav class="drawer-nav-links">
-      <a href="#hero" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">01</span> Intro & Welcome
-      </a>
-      <a href="#philosophy" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">02</span> The Philosophy
-      </a>
-      <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">03</span> What’s On (Schedule)
-      </a>
-      <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">04</span> Resonance Menu
-      </a>
-      <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">05</span> The Space & Sound Setup
-      </a>
-      <a href="#faqs" class="drawer-nav-item" onclick="toggleMenuDrawer()">
-        <span class="drawer-nav-num">06</span> FAQs & Etiquette
-      </a>
-      <a href="#reserve" class="drawer-nav-item" onclick="toggleMenuDrawer()" style="color: var(--c-orange);">
-        <span class="drawer-nav-num" style="color: var(--c-orange);">07</span> Reserve a Table
-      </a>
-    </nav>
+    <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
+    <div class="drawer-middle">
+      <nav class="drawer-nav-links" id="drawerNavLinks">
+        <a href="#philosophy" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+          <span class="drawer-nav-num">01</span> Concept
+        </a>
+        <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
+          <span class="drawer-nav-num">02</span> What’s On
+        </a>
+        <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Food & Drinks
+        </a>
+        <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+          <span class="drawer-nav-num">04</span> Our Space
+        </a>
+        <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
+        </a>
+      </nav>
+
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
+      <div class="drawer-image-wrap">
+        <div class="drawer-image-card">
+          <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
+          <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
+          <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
+
+          <div class="drawer-image-caption">
+            <span class="drawer-caption-tag" id="drawerCaptionTag">NAMI HI-FI</span>
+            <span class="drawer-caption-sub" id="drawerCaptionSub">Listening Room & Dining</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
@@ -1971,7 +2874,10 @@
       </div>
       <div class="drawer-info-col">
         <h4>COMMUNITY</h4>
-        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline;">Join WhatsApp Group →</a>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
       </div>
       <div class="drawer-info-col">
         <h4>INSTAGRAM</h4>
@@ -1991,10 +2897,10 @@
 
     <div class="hero-content">
       <!-- Huge Big Center Logo (Max 1024px) -->
-      <svg class="hero-big-logo" id="heroMainLogo" width="822" height="151" viewBox="0 0 822 151" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
+      <svg class="hero-big-logo" id="heroMainLogo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
 <defs>
 <style>
-  .nami-letter { transform-box: fill-box; transform-origin: 50% 50%; will-change: transform; }
+  .nami-letter { transform-box: fill-box; transform-origin: 50% 50%; will-change: transform; overflow: visible !important; }
   .nami-letter-i-dot { animation: logoWave_i_dot 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
   .nami-letter-n { animation: logoWave_n 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
   .nami-letter-m { animation: logoWave_m 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
@@ -2136,14 +3042,9 @@
   </section>
 
   <!-- =========================================================
-       BOTTOM RIGHT: NOW PLAYING AUDIO WIDGET (Reference Match)
+       BOTTOM LEFT: NOW PLAYING AUDIO WIDGET (Moved to Left Side)
        ========================================================= -->
-  <div class="now-playing-widget">
-    <div class="now-playing-text">
-      <span class="track-title">On & On</span>
-      <span class="track-artist">Erykah Badu</span>
-    </div>
-
+  <div class="now-playing-widget" aria-label="Music Player">
     <!-- Play/Pause Button -->
     <button class="btn-audio-toggle" id="audioToggleBtn" onclick="toggleAudio()" aria-label="Play/Pause track">
       <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -2153,6 +3054,11 @@
         <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
       </svg>
     </button>
+
+    <div class="now-playing-text">
+      <span class="track-title">On & On</span>
+      <span class="track-artist">Erykah Badu</span>
+    </div>
 
     <!-- Animated Equalizer Badge -->
     <div class="audio-badge-circle" title="Horn Sound System Active">
@@ -2166,20 +3072,94 @@
   </div>
 
   <!-- =========================================================
+       BOTTOM RIGHT: RESERVATION FLOATING CTA (Eat App Icon)
+       ========================================================= -->
+  <button class="floating-reserve-cta" id="floatingReserveBtn" onclick="openReservationModal(event)" aria-label="Reservation">
+    <span class="reserve-cta-text">Reservation</span>
+    <span class="reserve-cta-divider" aria-hidden="true"></span>
+    <img src="./assets/Eat_App_Logo.webp" alt="Eat App" class="reserve-eat-logo">
+  </button>
+
+  <!-- =========================================================
        PAGE CONTENT (Sitemap Sections)
        ========================================================= -->
   <main class="page-wrap">
 
-    <!-- 01. BRAND PHILOSOPHY / STORY (Minimalist Editorial Reference Match) -->
+    <!-- 01. BRAND PHILOSOPHY / STORY (Exact Reference Match 100vh) -->
     <section id="philosophy" class="section-philosophy-minimal">
+
+      <!-- Floating Image Scatter Canvas (8 Strategic Cards Matching Reference Placement) -->
+      <div class="phil-scatter-wrap" id="philScatterWrap" aria-hidden="true">
+
+        <!-- Card 1: Top Center (above headline) - Fast & agile tiny accent -->
+        <div class="phil-card phil-card-1" data-speed-y="0.22" data-speed-x="0.08" data-scroll="0.48" style="top: 11%; left: 49%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-7.jpg" alt="Horn Acoustic Shelves" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 2: Top Left - Heavy slow anchor -->
+        <div class="phil-card phil-card-2" data-speed-y="0.14" data-speed-x="0.10" data-scroll="0.15" style="top: 13%; left: 7%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 3: Mid Left (Indented inward) - Moderate-fast small card -->
+        <div class="phil-card phil-card-3" data-speed-y="0.20" data-speed-x="0.08" data-scroll="0.38" style="top: 47%; left: 14%;">
+          <div class="phil-card-inner">
+            <img src="./assets/gallery-1.jpg" alt="Acoustic Turntables" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 4: Bottom Left - Medium pace card -->
+        <div class="phil-card phil-card-4" data-speed-y="0.16" data-speed-x="0.09" data-scroll="0.22" style="top: 71%; left: 5%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-8.jpg" alt="Glassware & Amber Glow" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 5: Top Right - Slower large anchor -->
+        <div class="phil-card phil-card-5" data-speed-y="0.15" data-speed-x="-0.10" data-scroll="0.18" style="top: 11%; right: 7%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Lights" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 6: Mid Right (Indented inward) - Fast small card -->
+        <div class="phil-card phil-card-6" data-speed-y="0.22" data-speed-x="-0.08" data-scroll="0.42" style="top: 41%; right: 14%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-3.jpg" alt="Rotary DJ Booth" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 7: Bottom Right - Moderate pace medium-large card -->
+        <div class="phil-card phil-card-7" data-speed-y="0.18" data-speed-x="-0.09" data-scroll="0.28" style="top: 67%; right: 6%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-1.jpg" alt="Listening Room Booths" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Card 8: Bottom Center (below copy) - Fastest tiny accent card -->
+        <div class="phil-card phil-card-8" data-speed-y="0.24" data-speed-x="0.08" data-scroll="0.52" style="top: 78%; left: 39%;">
+          <div class="phil-card-inner">
+            <img src="./assets/spin-gallery-9.jpg" alt="Low-Lit Intimate Lounge" class="phil-card-img" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Center Editorial Typography Stage (Z-Index 5) -->
       <div class="philosophy-minimal-content">
         <h2 class="philosophy-minimal-title">
           We Don't Host Nights.<br>
           We Compose Them.
         </h2>
+
         <p class="philosophy-minimal-desc">
           It is curious, expressive and slightly unconventional. It does not simply serve food, drinks or music — it creates an environment where these things collide, overlap and influence one another.
         </p>
+
         <a href="#space" class="btn-our-story">OUR STORY</a>
       </div>
     </section>
@@ -2206,8 +3186,8 @@
       <div class="wave-strap-overlay"></div>
     </div>
 
-    <!-- 02. WHAT'S ON / EVENT CALENDAR OVERLAY (assets/Event-bg.jpg) -->
-    <section id="programming" class="event-calendar-section" aria-label="Sound Schedule and Events Calendar">
+    <!-- 02. WHAT'S ON AT NAMI / EVENT CALENDAR OVERLAY (assets/Event-bg.jpg) -->
+    <section id="programming" class="event-calendar-section" aria-label="What’s On at Nami">
       <!-- Background Media Wrap with Subtle Parallax -->
       <div class="event-parallax-media-wrap">
         <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
@@ -2219,7 +3199,7 @@
       <div class="event-calendar-container">
         <!-- Section Heading -->
         <div class="cal-header-block">
-          <h2 class="section-heading" style="margin: 0;">Weekly <span class="grad-accent">Programming</span></h2>
+          <h2 class="section-heading" style="margin: 0;">What’s On at <span class="grad-accent">Nami</span></h2>
         </div>
 
         <!-- 7-Column Calendar Grid Wrapper -->
@@ -2266,7 +3246,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">8</span></div>
               </div>
               <!-- Event Day 9: Atushi Maeda (Column 2) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">9</span>
                   <span class="cal-badge">440 Hz</span>
@@ -2289,7 +3269,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">13</span></div>
               </div>
               <!-- Event Day 14: Mogasu (Column 7) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">14</span>
                   <span class="cal-badge">Warm Freq</span>
@@ -2301,17 +3281,9 @@
               </a>
 
               <!-- ROW 3: Days 15 to 21 -->
-              <!-- Event Day 15: Jerrau (Column 1) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="15" onclick="openEventPopup('15', event)" aria-label="Feb 15: Jerrau">
-                <div class="cal-cell-top">
-                  <span class="cal-cell-num">15</span>
-                  <span class="cal-badge">980 Hz</span>
-                </div>
-                <div class="cal-event-body">
-                  <div class="cal-event-artist">Jerrau</div>
-                  <div class="cal-event-meta">20:30 · Leftfield Dub</div>
-                </div>
-              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">15</span></div>
+              </div>
               <div class="cal-cell">
                 <div class="cal-cell-top"><span class="cal-cell-num">16</span></div>
               </div>
@@ -2325,7 +3297,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">19</span></div>
               </div>
               <!-- Event Day 20: Yousuke Yukimatsu (Headline - Column 6) -->
-              <a href="#reserve" class="cal-cell has-event is-headline" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
+              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">20</span>
                   <span class="cal-badge badge-headline">3968 Hz Special</span>
@@ -2344,7 +3316,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">22</span></div>
               </div>
               <!-- Event Day 23: Occa (Column 2) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">23</span>
                   <span class="cal-badge">Resonant</span>
@@ -2367,7 +3339,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">27</span></div>
               </div>
               <!-- Event Day 28: Suze Ijo (Column 7) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">28</span>
                   <span class="cal-badge">Electric</span>
@@ -2380,7 +3352,7 @@
 
               <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
               <!-- Event Day 29: Sunju Hargun (Column 1) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">29</span>
                   <span class="cal-badge">Nocturnal</span>
@@ -2390,17 +3362,9 @@
                   <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
                 </div>
               </a>
-              <!-- Event Day 30: Vinyl Archives (Column 2) -->
-              <a href="#reserve" class="cal-cell has-event" data-day="30" onclick="openEventPopup('30', event)" aria-label="Feb 30: Vinyl Archives">
-                <div class="cal-cell-top">
-                  <span class="cal-cell-num">30</span>
-                  <span class="cal-badge">Deep Listening</span>
-                </div>
-                <div class="cal-event-body">
-                  <div class="cal-event-artist">Vinyl Archives</div>
-                  <div class="cal-event-meta">19:00 · Open Decks Session</div>
-                </div>
-              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">30</span></div>
+              </div>
               <!-- 5 empty cells matching reference layout -->
               <div class="cal-cell is-empty" aria-hidden="true"></div>
               <div class="cal-cell is-empty" aria-hidden="true"></div>
@@ -2410,20 +3374,22 @@
 
               <!-- IN-PLACE COLUMN EXPANDED EVENT POPUP (NO BACKGROUND BLUR) -->
               <div class="cal-column-popup" id="calColumnPopup" aria-hidden="true">
-                <div class="col-popup-header">
-                  <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
-                  <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
-                </div>
-
                 <div class="col-popup-body">
                   <div class="col-popup-media">
                     <img src="./assets/spin-gallery-1.jpg" alt="Event Poster" class="col-popup-img" id="colPopupImg">
+                    <!-- Subtle top vignette for contrast over any image -->
+                    <div class="col-popup-top-vignette"></div>
                     <div class="col-popup-img-grad"></div>
+                    <!-- Date & Close Button floating directly over the image (no noisy background) -->
+                    <div class="col-popup-header">
+                      <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                      <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
 
                   <div class="col-popup-info">
@@ -2431,39 +3397,14 @@
                       <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
                     </div>
                     <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
-                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient & Jazz</div>
-
-                    <div class="col-popup-meta-block">
-                      <div class="col-popup-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        <div>
-                          <span class="meta-label">Timing</span>
-                          <span class="meta-val" id="colPopupTiming">20:30 (Doors 19:00)</span>
-                        </div>
-                      </div>
-                      <div class="col-popup-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="9" cy="7" r="4"></circle>
-                          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        <div>
-                          <span class="meta-label">Attendees & Guests</span>
-                          <span class="meta-val" id="colPopupAttendees">38 Confirmed</span>
-                        </div>
-                      </div>
-                    </div>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient · Spiritual Jazz · 20:30 (Doors 19:00)</div>
 
                     <p class="col-popup-desc" id="colPopupDesc">
-                      Curated vinyl selections & experimental electronic producers playing exclusively through our custom horn-loaded acoustic system.
+                      Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
                     </p>
 
                     <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
-                      <span>Book Tickets</span>
+                      <span>Buy Ticket</span>
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
@@ -2479,156 +3420,108 @@
         <div class="cal-scroll-hint" aria-hidden="true">
           <span>← Swipe to explore full calendar →</span>
         </div>
-
-        <!-- Reserve CTA -->
-        <div class="cal-footer-block">
-          <a href="#reserve" class="btn-cal-action">
-            <span>Reserve A Table</span>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
 
-    <!-- 03. THE RESONANCE MENU -->
-    <section id="menu" class="section-block">
-      <div class="section-eyebrow">Culinary & Mixology</div>
-      <h2 class="section-heading">The <span class="grad-accent">Resonance</span> Menu</h2>
-      <p class="section-body">
-        Progressive Japanese and Asian-influenced culinary dishes and sound-mapped cocktails. 
-        Each selection carries its own sonic and textural profile.
-      </p>
+    <!-- 03. THE RESONANCE MENU (Full-Width 50-50 Nocturnal Scroll - Theme Match) -->
+    <section id="menu" class="section-block menu-editorial-scroll-track" aria-label="The Resonance Menu">
+      
+      <!-- Sticky Viewport Stage (pins in view as you scroll through the 280vh track) -->
+      <div class="menu-sticky-stage">
 
-      <div class="menu-tabs">
-        <button class="menu-tab-btn active" onclick="switchMenuTab('food')">Dishes</button>
-        <button class="menu-tab-btn" onclick="switchMenuTab('cocktails')">Cocktails [Hz]</button>
-        <button class="menu-tab-btn" onclick="switchMenuTab('desserts')">Desserts</button>
+        <!-- LEFT HALF: 50% Width Dark Nocturnal Editorial Canvas -->
+        <div class="menu-panel-editorial" id="menuPanelEditorial">
+
+          <!-- Phase 0: Food Content -->
+          <div class="menu-editorial-slide active" data-phase="0">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">food</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Food.png" alt="Hamachi Truffle Crudo & Robata Wagyu" class="menu-ed-img" loading="eager">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <h4 class="menu-ed-item-name">Truffle Hamachi & Robata Wagyu</h4>
+              <p class="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('food')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+          <!-- Phase 1: Cocktails Content -->
+          <div class="menu-editorial-slide" data-phase="1">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">cocktails</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Cocktail.png" alt="440Hz Clarified Milk Punch" class="menu-ed-img" loading="lazy">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <h4 class="menu-ed-item-name">440Hz Clarified Milk Punch</h4>
+              <p class="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('cocktails')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+          <!-- Phase 2: Dessert Content -->
+          <div class="menu-editorial-slide" data-phase="2">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">dessert</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Dessert.png" alt="Yuzu Miso Tart & Smoked Matcha Silk" class="menu-ed-img" loading="lazy">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <h4 class="menu-ed-item-name">Yuzu Miso Tart & Matcha Silk</h4>
+              <p class="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('dessert')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT HALF: 50% Width Pure Full-Bleed Photography (Zero Text) -->
+        <div class="menu-panel-hero" id="menuPanelHero">
+
+          <!-- Background Image 0: Food -->
+          <div class="menu-hero-slide active" data-phase="0">
+            <img src="./assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" class="menu-hero-bg-img">
+          </div>
+
+          <!-- Background Image 1: Cocktails -->
+          <div class="menu-hero-slide" data-phase="1">
+            <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="menu-hero-bg-img">
+          </div>
+
+          <!-- Background Image 2: Dessert -->
+          <div class="menu-hero-slide" data-phase="2">
+            <img src="./assets/Dessert.png" alt="Delicate Plated Desserts at Nami" class="menu-hero-bg-img">
+          </div>
+
+        </div>
+
       </div>
 
-      <!-- Food Menu Tab -->
-      <div id="menuFood" class="menu-items-grid">
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Charred Koji-Glazed Root Vegetables</span>
-            <span class="item-price">700</span>
-          </div>
-          <div class="item-ingredients">Smoked carrot, black garlic, fermented chili oil, toasted sesame</div>
-          <div class="item-sonic-descriptor">Grounded · Warm · Resonant</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Aged Hamachi Crudo</span>
-            <span class="item-price">1500</span>
-          </div>
-          <div class="item-ingredients">Yuzu kosho, preserved citrus, kombu oil, shaved fennel</div>
-          <div class="item-sonic-descriptor">Textural · Umami · Expansive</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Miso-Butter Scallop</span>
-            <span class="item-price">1750</span>
-          </div>
-          <div class="item-ingredients">Sweet corn purée, brown butter dashi, chili threads</div>
-          <div class="item-sonic-descriptor">Balanced · Rhythmic · Expressive</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Charcoal-Grilled Duck Breast</span>
-            <span class="item-price">2100</span>
-          </div>
-          <div class="item-ingredients">Tamarind glaze, sour cherry, smoked tea jus</div>
-          <div class="item-sonic-descriptor">Bright · Electric · Forward</div>
-        </div>
-      </div>
-
-      <!-- Cocktails Menu Tab -->
-      <div id="menuCocktails" class="menu-items-grid" style="display:none;">
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Gin - Tonic - Cherry</span>
-            <span class="item-price">800</span>
-          </div>
-          <div class="item-ingredients">Botanical gin, artisanal tonic, fermented sour cherry infusion</div>
-          <div class="item-sonic-descriptor">[ 440 Hz ] · Root Frequency · Crisp</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">White Rum - Yuzu - Bubble Gum Syrup</span>
-            <span class="item-price">850</span>
-          </div>
-          <div class="item-ingredients">Aged white rum, fresh yuzu, craft bubblegum botanical cordial</div>
-          <div class="item-sonic-descriptor">[ 980 Hz ] · Playful Harmonic · Effervescent</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Smoked Mezcal - Oolong - Plum</span>
-            <span class="item-price">900</span>
-          </div>
-          <div class="item-ingredients">Artisanal mezcal, roasted Taiwanese oolong, salted umeboshi</div>
-          <div class="item-sonic-descriptor">[ 1760 Hz ] · Resonant Smoke · Velvet Depth</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Whisky Highball - Shiso - Soda</span>
-            <span class="item-price">850</span>
-          </div>
-          <div class="item-ingredients">Single malt Japanese whisky, red shiso leaf, crystal mountain soda</div>
-          <div class="item-sonic-descriptor">[ 3968 Hz ] · High Harmonic · Nocturnal</div>
-        </div>
-      </div>
-
-      <!-- Desserts Menu Tab -->
-      <div id="menuDesserts" class="menu-items-grid" style="display:none;">
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Dark Chocolate & Black Sesame Crémeux</span>
-            <span class="item-price">950</span>
-          </div>
-          <div class="item-ingredients">Malted barley crumble, honeycomb, sea salt</div>
-          <div class="item-sonic-descriptor">Lingering · Warm · Satisfying</div>
-        </div>
-
-        <div class="menu-item-card">
-          <div class="menu-item-top">
-            <span class="item-name">Miso Caramel & Roasted Hojicha Tart</span>
-            <span class="item-price">850</span>
-          </div>
-          <div class="item-ingredients">Roasted tea ganache, smoked sea salt caramel, buckwheat crust</div>
-          <div class="item-sonic-descriptor">Earth · Bass Tone · Grounded</div>
-        </div>
-      </div>
-
-      <div style="margin-top: 3rem; text-align: center;">
-        <button class="btn-whatsapp-footer" onclick="showToast('Downloading Nami Menu PDF...')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          Download Resonance Menu (PDF)
-        </button>
-      </div>
     </section>
 
-    <!-- 04. THE SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
+    <!-- 04. OUR SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
     <section id="space" class="space-section">
       <div class="space-header-row">
-        <div class="space-header-left">
-          <div class="section-eyebrow">The Space & Sound</div>
-          <h2 class="section-heading">Architectural <span class="grad-accent">Intimacy</span></h2>
-          <p class="section-body" style="margin-bottom: 0;">
-            An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
-          </p>
-        </div>
-        <div class="space-header-right">
-          <p class="space-header-quote">
-            "Expect thoughtful selections, easy rhythms and the occasional shift up in tempo, with DJs given the freedom to play the records they don’t always get to play elsewhere."
-          </p>
-        </div>
+        <h2 class="section-heading">Our <span class="grad-accent">Space</span></h2>
+        <p class="section-body" style="margin-bottom: 0;">
+          An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
+        </p>
       </div>
 
       <div class="space-fine-rule"></div>
@@ -2670,191 +3563,92 @@
           </div>
         </div>
       </div>
-
-      <!-- Acoustic Specs Integration -->
-      <div class="space-specs-strip">
-        <div>
-          <div style="font-family: 'Chivo', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--c-orange); margin-bottom: 0.35rem; text-transform: uppercase;">
-            ACOUSTIC SPECIFICATION
-          </div>
-          <div class="space-specs-title">The Sound System</div>
-        </div>
-        <div class="space-specs-desc">
-          Two custom 15-inch horn-loaded bass enclosures, wooden mid-horns, and compression drivers powered by Class-A tube amplification. Rotary DJ mixer with pure analog signal path.
-        </div>
-      </div>
-    </section>
-
-    <!-- 05. FAQS & ETIQUETTE -->
-    <section id="faqs" class="section-block">
-      <div class="section-eyebrow">Good to Know</div>
-      <h2 class="section-heading">Frequently <span class="grad-accent">Asked</span></h2>
-      <p class="section-body">
-        A few essential guidelines to help you get the most out of your visit to Nami.
-      </p>
-
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span>Do you accept walk-ins or are reservations required?</span>
-            <span class="faq-toggle-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              We highly recommend booking through our official website to secure listening room tables during peak evening hours (20:00 – Late). However, we always hold space at our cocktail bar counter for walk-ins on a first-come, first-served basis.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span>What is the listening room policy?</span>
-            <span class="faq-toggle-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Nami is conversational, not silent like a library. However, during dedicated listening sessions (after 20:30), we ask guests to keep conversation at a respectful level so everyone can appreciate the nuances of the sound system.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span>Can I book for groups larger than 6 guests?</span>
-            <span class="faq-toggle-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Yes. For groups of 7 or more or private venue buyouts, please select "Private Event" in the reservation form or connect with us directly via our WhatsApp Community link.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span>What is the FAM Loyalty Program?</span>
-            <span class="faq-toggle-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              FAM is our private community of regular guests and music lovers. Members receive priority table bookings, access to secret listening sessions, limited vinyl pressings, and invites to test menu experiments.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06. RESERVE A TABLE (On-Domain Booking Engine) -->
-    <section id="reserve" class="section-block">
-      <div class="section-eyebrow">Direct Booking</div>
-      <h2 class="section-heading">Reserve a <span class="grad-accent">Table</span></h2>
-      <p class="section-body">
-        Book directly on our domain. We hold seats for dinner, cocktails, and immersive listening sessions.
-      </p>
-
-      <div class="reservation-card">
-        <div class="reservation-glow"></div>
-
-        <div style="position: relative; z-index: 2;">
-          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">Select Your Frequency</h3>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 500px;">
-            Choose your date, party size, and preferred seating zone. Instant confirmation sent via WhatsApp / Email.
-          </p>
-
-          <form id="reservationForm" onsubmit="handleReservationSubmit(event)">
-            <div class="booking-form-grid">
-              <div class="form-group">
-                <label class="form-label">Date</label>
-                <input type="date" class="form-input" required id="bookDate" value="2026-11-20">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Time</label>
-                <select class="form-select" id="bookTime" required>
-                  <option value="17:30">17:30 — Early Dinner</option>
-                  <option value="19:00">19:00 — Sunset Session</option>
-                  <option value="20:30" selected>20:30 — Hi-Fi Listening</option>
-                  <option value="22:00">22:00 — Late Nocturnal</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Guests</label>
-                <select class="form-select" id="bookGuests" required>
-                  <option value="1">1 Guest</option>
-                  <option value="2" selected>2 Guests</option>
-                  <option value="3">3 Guests</option>
-                  <option value="4">4 Guests</option>
-                  <option value="5">5 Guests</option>
-                  <option value="6">6 Guests</option>
-                  <option value="7+">7+ (Group / FAM)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Seating Zone</label>
-                <select class="form-select" id="bookZone" required>
-                  <option value="listening" selected>Horn Listening Room</option>
-                  <option value="counter">Bar Counter & Turntables</option>
-                  <option value="dining">Intimate Dining Booth</option>
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" class="btn-submit-booking">
-              Confirm Reservation →
-            </button>
-          </form>
-        </div>
-      </div>
     </section>
 
   </main>
 
   <!-- =========================================================
-       FOOTER
+       FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
        ========================================================= -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div>
-        <img src="./assets/Main-logo.svg" alt="NAMI" class="footer-logo">
-        <p style="max-width: 340px; color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem;">
-          A sensory provocateur in sound, dining, and nocturnal culture. 
-          Part listening room, part bar, part cultural gathering.
-        </p>
+  <footer class="site-footer" id="siteFooter">
+    <!-- Brand Gradient Nocturnal Atmosphere Aura (Nami Palette Only) -->
+    <div class="footer-glow-aura" aria-hidden="true"></div>
 
-        <!-- WhatsApp Community Link (Replaces Newsletter) -->
-        <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.882 3.183 0 5.769-2.587 5.77-5.767 0-3.181-2.587-5.768-5.77-5.768zm0 10.375c-.911 0-1.637-.251-2.457-.75l-.176-.107-1.579.414.421-1.54-.117-.186c-.544-.863-.834-1.572-.833-2.44 0-2.541 2.067-4.608 4.609-4.608 2.541 0 4.609 2.067 4.609 4.608 0 2.541-2.068 4.609-4.609 4.609z"/>
-          </svg>
-          Join WhatsApp Community
-        </a>
+    <div class="footer-inner">
+      <!-- Top Row: Editorial Nav Columns + Hanging VIP Lanyard Card -->
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Tagline -->
+        <div class="footer-meta-col">
+          <p class="footer-tagline">
+            A sensory provocateur in sound, dining, and nocturnal culture.<br>
+            Part listening room, part bar, part cultural gathering.
+          </p>
+          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+            <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+            <span>Join WhatsApp Community →</span>
+          </a>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">navigate</span>
+          <ul class="footer-nav-list">
+            <li><a href="#philosophy">about</a></li>
+            <li><a href="#programming">what’s on</a></li>
+            <li><a href="#menu">food & drinks</a></li>
+            <li><a href="#space">our space</a></li>
+            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">reservation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Hours & Address -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">hours & address</span>
+          <ul class="footer-nav-list">
+            <li><span>wed – sun · 7pm – late</span></li>
+            <li><span>sessions: 8:30pm onwards</span></li>
+            <li><span>bandra west, mumbai</span></li>
+            <li><a href="mailto:experience@nami.in">experience@nami.in</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Connect & Group -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">connect</span>
+          <ul class="footer-nav-list">
+            <li><a href="https://instagram.com/" target="_blank">instagram (@nami.hifi)</a></li>
+            <li><a href="#programming">resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank">abnah group ↗</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="footer-col">
-        <h5>HOURS</h5>
-        <p>Wednesday – Sunday<br>7:00 PM – Late</p>
-        <p>Listening Sessions<br>8:30 PM Onwards</p>
+      <!-- Bottom Huge NAMI Logo Bleeding into Edge (Exact Reference Match) -->
+      <div class="footer-giant-logo-wrap">
+        <svg class="footer-giant-logo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
+          <g class="nami-letter nami-letter-i-dot">
+            <path d="M780.391 11.7857C780.391 18.2947 775.956 23.5715 770.488 23.5715C765.019 23.5715 760.568 18.2789 760.568 11.7857C760.568 5.29252 765.019 0 770.488 0C775.956 0 780.391 5.27672 780.391 11.7857Z" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-n">
+            <path d="M171.404 149.265C171.308 150.055 170.609 150.639 169.846 150.639C169.766 150.639 169.703 150.639 169.639 150.639C136.782 146.563 118.835 126.31 109.599 110.021C105.148 102.201 102.541 94.8862 100.236 88.4088C99.5365 86.4498 98.853 84.5539 98.1694 82.7371C87.3917 54.6315 68.3161 39.4016 47.1264 41.9768C27.7647 44.3466 12.3929 61.3459 9.73823 83.3375C6.55897 109.516 5.63698 125.488 5.06472 135.03C4.715 141.018 4.50834 144.636 3.96787 146.816C3.92018 146.99 3.8407 147.164 3.74532 147.322L3.45919 147.748C3.04588 148.333 2.28286 148.57 1.59932 148.317C0.931674 148.064 0.502474 147.385 0.581956 146.674C0.788608 144.746 0.677333 141.35 0.502474 135.726C0.152755 124.003 -0.530786 102.138 0.725022 62.3412C1.90135 25.4515 29.5291 2.14861 55.5832 0.947918C68.7135 0.347573 80.6358 5.16614 90.0941 14.8981C100.824 25.9255 107.628 42.435 110.346 63.9368C110.696 66.7806 110.95 69.9877 111.204 73.3528C111.745 80.5885 112.381 88.7722 114.352 98.2829C118.453 118.015 135.51 142.756 170.053 147.495C170.911 147.622 171.515 148.412 171.404 149.265Z" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-m">
+            <path d="M698.636 147.954C700.528 148.364 703.151 148.759 704.422 148.87C704.74 148.902 705.074 148.87 705.408 148.87C706.203 148.838 706.934 148.159 706.982 147.369C707.029 146.5 706.378 146.058 705.456 145.9C703.882 145.647 701.72 145.236 699.956 144.794C698.795 144.51 693.629 142.819 692.055 142.156C664.539 130.654 657.958 104.918 657.958 104.918C648.769 72.0099 644.032 47.4905 624.893 47.0956C612.891 46.7954 602.034 59.1657 592.465 86.2602C591.05 90.2889 582.212 118.932 574.311 118.489C565.377 117.984 559.623 82.3106 557.461 71.7887C550.657 38.4379 534.205 29.2906 523.729 29.0852C503.016 28.706 490.983 49.4338 481.572 82.3738C479.013 91.3316 475.039 102.517 473.195 107.415C459.285 144.431 433.978 146.548 429.13 147.306C428.272 147.432 427.699 148.222 427.811 149.075C427.906 149.865 428.605 150.45 429.368 150.45C429.432 150.45 429.496 150.45 429.559 150.45C455.438 147.653 469.252 138.364 485.085 108.505C492.525 94.4755 503.954 69.4663 523.236 69.4663C538.624 69.4663 546.858 87.1607 551.087 101.458C560.291 132.692 573.31 144.304 587.473 123.497C591.924 116.957 600.174 99.6416 602.352 95.8342C607.852 86.2128 618.741 72.4523 630.52 79.1825C639.883 84.5382 646.21 100.684 651.408 111.017C656.829 121.791 669.959 141.855 698.652 148.001" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-a">
+            <path d="M419.275 148.775C419.211 149.613 418.48 150.229 417.638 150.213C404.714 149.676 389.803 141.208 383.445 137.574C382.348 136.958 381.505 136.468 380.933 136.168C371.522 131.381 363.654 126.341 356.039 121.459C330.796 105.313 312.563 93.6382 269.866 113.781C264.063 116.53 257.8 119.674 251.203 122.976C226.882 135.157 199.318 148.965 180.878 150.734H180.719C179.956 150.734 179.288 150.197 179.161 149.439C179.018 148.633 179.559 147.875 180.369 147.733C182.038 147.448 183.072 147.243 184.534 146.895C194.883 144.431 205.819 141.524 227.295 124.24C227.327 124.208 227.359 124.193 227.391 124.161C234.019 119.232 241.491 110.385 249.423 101.016C258.897 89.8308 268.673 78.2504 278.179 71.9784C293.662 61.7567 306.077 58.0598 317.3 60.3506C334.818 63.9369 349.156 81.5523 371.077 114.966C371.856 116.135 372.476 117.052 372.953 117.747C373.001 117.778 373.064 117.842 373.096 117.889C373.668 118.616 374.257 119.342 374.845 120.053C377.579 123.355 380.281 126.246 383.111 128.885C383.143 128.916 383.159 128.932 383.19 128.948C385.702 131.191 401.296 145.394 417.94 147.053C418.782 147.132 419.386 147.906 419.307 148.759" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-i-stem">
+            <path d="M821.054 147.338C821.054 148.206 820.355 148.902 819.497 148.917C804.602 149.107 791.408 140.718 785.033 131.571C784.159 130.322 781.838 126.294 781.6 125.852C778.786 120.654 772.857 102.675 766.228 112.691C765.624 113.592 764.448 115.235 763.812 116.341C759.456 124.05 749.283 135.899 736.756 142.124C732.973 143.988 729.317 145.426 725.947 146.563C723.689 147.401 719.858 148.175 716.949 148.759C716.806 148.791 715.63 148.933 715.503 148.933C714.803 148.933 714.168 148.475 713.977 147.796C713.738 146.958 714.199 146.105 715.026 145.852L718.221 145.3C720.145 144.952 722.195 144.446 724.643 143.625C749.871 134.256 755.069 114.034 760.108 94.4123L760.33 93.5592C760.521 92.8483 760.712 92.011 760.935 91.1104C763.319 81.2047 765.862 72.3575 771.076 72.8473C771.124 72.8473 771.172 72.8473 771.235 72.8789C776.116 73.653 779.486 86.4183 783.984 109.611C784.747 113.544 785.463 116.562 785.812 117.778C791.487 137.511 805.079 143.467 810.722 144.699C810.769 144.699 810.833 144.699 810.881 144.731H810.913C813.122 145.268 815.443 145.584 817.811 145.679H817.843C817.843 145.679 817.923 145.679 817.955 145.679C818.559 145.71 819.067 145.726 819.512 145.742C820.371 145.773 821.07 146.469 821.07 147.322" fill="white"/>
+          </g>
+        </svg>
       </div>
 
-      <div class="footer-col">
-        <h5>LOCATION & CONTACT</h5>
-        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
-        <p>experience@nami.in</p>
+      <!-- Bottom Minimal Bar -->
+      <div class="footer-bottom-bar">
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
+        <span>BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
       </div>
-
-      <div class="footer-col">
-        <h5>SOCIAL & GROUP</h5>
-        <a href="https://instagram.com/" target="_blank">Instagram (@nami.hifi)</a>
-        <a href="#programming">Resident Advisor</a>
-        <a href="https://abnah.com/" target="_blank" style="margin-top: 1rem; color: var(--c-orange);">ABNAH Group →</a>
-      </div>
-    </div>
-
-    <div class="footer-bottom-bar">
-      <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
-      <span>DESIGNED FOR SENSORY PROVOCATION</span>
     </div>
   </footer>
 
@@ -2929,11 +3723,41 @@
       }, 2600);
     }
 
-    // 2. Menu Drawer Toggle
+    // 2. Menu Drawer Toggle & Interactive Image Showcase
     function toggleMenuDrawer() {
       const drawer = document.getElementById('menuDrawer');
       drawer.classList.toggle('open');
     }
+
+    (function initDrawerImageHover() {
+      const navLinks = document.getElementById('drawerNavLinks');
+      if (!navLinks) return;
+      const defaultImg = document.getElementById('drawerImgDefault');
+      const tagEl = document.getElementById('drawerCaptionTag');
+      const subEl = document.getElementById('drawerCaptionSub');
+      const items = navLinks.querySelectorAll('.drawer-nav-item');
+      const allImgs = document.querySelectorAll('.drawer-preview-img');
+
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const targetId = item.getAttribute('data-target-img');
+          const targetImg = document.getElementById(targetId);
+          if (targetImg) {
+            allImgs.forEach(img => img.classList.remove('active'));
+            targetImg.classList.add('active');
+          }
+          if (tagEl) tagEl.textContent = item.getAttribute('data-tag') || 'NAMI HI-FI';
+          if (subEl) subEl.textContent = item.getAttribute('data-sub') || 'Listening Room & Dining';
+        });
+      });
+
+      navLinks.addEventListener('mouseleave', () => {
+        allImgs.forEach(img => img.classList.remove('active'));
+        if (defaultImg) defaultImg.classList.add('active');
+        if (tagEl) tagEl.textContent = 'NAMI HI-FI';
+        if (subEl) subEl.textContent = 'Listening Room & Dining';
+      });
+    })();
 
     // Event Details Data & Popup Modal System
     const EVENTS_DATA = {
@@ -2943,9 +3767,8 @@
         hzTag: '440 Hz Root',
         artist: 'Atushi Maeda',
         title: 'Atushi Maeda · Ambient & Jazz',
-        genre: 'Japanese Ambient · Spiritual Jazz · Tokyo Archives',
-        timing: '20:30 Onwards (Doors open 19:00)',
-        attendees: '38 Guests Attending · Counter Seats Available',
+        genre: 'Japanese Ambient · Spiritual Jazz',
+        timing: '20:30 (Doors 19:00)',
         poster: './assets/spin-gallery-1.jpg',
         desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
         dateStr: '2026-02-09'
@@ -2956,25 +3779,11 @@
         hzTag: 'Warm Frequencies',
         artist: 'Mogasu',
         title: 'Mogasu · Vinyl Soul & Rare Groove',
-        genre: 'Vintage Soul · Slow-Tempo Lovers Rock · Rare Groove',
-        timing: '18:00 Onwards (Golden Hour Session)',
-        attendees: '56 Guests Attending · High Demand',
+        genre: 'Vintage Soul · Rare Groove',
+        timing: '18:00 Onwards',
         poster: './assets/spin-gallery-2.jpg',
         desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
         dateStr: '2026-02-14'
-      },
-      '15': {
-        dateNum: '15',
-        dateTag: 'MON · FEB 15',
-        hzTag: '980 Hz Harmonic',
-        artist: 'Jerrau',
-        title: 'Jerrau · Leftfield Disco & Dub',
-        genre: 'Dub Reggae · Leftfield Disco · Post-Punk Funk',
-        timing: '20:30 Onwards',
-        attendees: '44 Guests Attending · Booths Available',
-        poster: './assets/spin-gallery-3.jpg',
-        desc: 'Amsterdam selector Jerrau brings hypnotic Jamaican dub plates, leftfield disco excursions, and driving polyrhythmic grooves calibrated to our sub-bass manifold.',
-        dateStr: '2026-02-15'
       },
       '20': {
         dateNum: '20',
@@ -2982,9 +3791,8 @@
         hzTag: '3968 Hz Special · Headline',
         artist: 'Yousuke Yukimatsu',
         title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
-        genre: 'Tokyo Avant-Garde · Sub-Bass Manifold · Experimental',
-        timing: '20:30 Onwards (Headline Showcase)',
-        attendees: '72 Guests Attending · Selling Fast',
+        genre: 'Tokyo Avant-Garde & Bass',
+        timing: '20:30 Onwards',
         poster: './assets/spin-gallery-6.jpg',
         desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
         dateStr: '2026-02-20'
@@ -2995,9 +3803,8 @@
         hzTag: 'Resonant Node',
         artist: 'Occa',
         title: 'Occa · Deep Hypnotic Soundscapes',
-        genre: 'Hypnotic Techno · Deep Ambient · Subterranean Waves',
+        genre: 'Hypnotic Soundscapes & Ambient',
         timing: '20:30 Onwards',
-        attendees: '35 Guests Attending · Listening Tables Open',
         poster: './assets/spin-gallery-4.jpg',
         desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
         dateStr: '2026-02-23'
@@ -3008,9 +3815,8 @@
         hzTag: 'Electric Pulse',
         artist: 'Suze Ijo',
         title: 'Suze Ijo · Afro-Cuban & Electronic',
-        genre: 'Afro-Cuban Percussion · Deep House · Global Groove',
+        genre: 'Afro-Cuban Beats & Deep House',
         timing: '19:00 Onwards',
-        attendees: '48 Guests Attending · Limited Counter Left',
         poster: './assets/spin-gallery-7.jpg',
         desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
         dateStr: '2026-02-28'
@@ -3021,25 +3827,11 @@
         hzTag: 'Nocturnal Set',
         artist: 'Sunju Hargun',
         title: 'Sunju Hargun · Bangkok Nightclub Selector',
-        genre: 'Cosmic Techno · Asian Synth · Psychedelic Dub',
-        timing: '19:00 Onwards (Leap Night Special)',
-        attendees: '52 Guests Attending · Special Event',
+        genre: 'Cosmic Techno & Asian Synth',
+        timing: '19:00 Onwards',
         poster: './assets/spin-gallery-8.jpg',
         desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
         dateStr: '2026-02-29'
-      },
-      '30': {
-        dateNum: '30',
-        dateTag: 'TUE · FEB 30',
-        hzTag: 'Deep Listening',
-        artist: 'Vinyl Archives',
-        title: 'Deep Listening · Open Decks Session',
-        genre: 'Archival Vinyl · Private Pressings · Audiophile Social',
-        timing: '19:00 Onwards (Community Social)',
-        attendees: '29 Guests Attending · Open Seating',
-        poster: './assets/spin-gallery-9.jpg',
-        desc: 'Our weekly communal listening session. Guests and resident collectors share rare test pressings, unreleased white labels, and archival vinyl on our reference turntable system.',
-        dateStr: '2026-02-30'
       }
     };
 
@@ -3082,8 +3874,6 @@
       const hzEl = document.getElementById('colPopupHz');
       const titleEl = document.getElementById('colPopupTitle');
       const genreEl = document.getElementById('colPopupGenre');
-      const timingEl = document.getElementById('colPopupTiming');
-      const attendeesEl = document.getElementById('colPopupAttendees');
       const descEl = document.getElementById('colPopupDesc');
 
       if (dateEl) dateEl.textContent = ev.dateTag;
@@ -3093,24 +3883,29 @@
       }
       if (hzEl) hzEl.textContent = ev.hzTag;
       if (titleEl) titleEl.textContent = ev.artist;
-      if (genreEl) genreEl.textContent = ev.genre;
-      if (timingEl) timingEl.textContent = ev.timing;
-      if (attendeesEl) attendeesEl.textContent = ev.attendees;
+      if (genreEl) {
+        genreEl.textContent = ev.genre + (ev.timing ? ' · ' + ev.timing : '');
+      }
       if (descEl) descEl.textContent = ev.desc;
 
-      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Zero Floating / Architectural Grid Snap)
-      const colWidth = targetCell.offsetWidth;
-      const cellHeight = targetCell.offsetHeight;
+      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Covers exactly 6 boxes: 3 rows × 2 columns)
       const totalCols = 7;
       const totalRows = 5;
+      const colSpan = 2;
+      const rowSpan = 3;
 
-      // Identify column (0..6) and row (0..4) of the clicked cell:
-      const colIndex = Math.round(targetCell.offsetLeft / colWidth);
-      const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
+      const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+      const cellIndex = cells.indexOf(targetCell);
 
-      // Card spans 3 calendar columns (or 2 if screen width is narrow):
-      const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
-      const rowSpan = 3; // Spans exactly 3 calendar rows
+      let colIndex = 0;
+      let rowIndex = 0;
+      if (cellIndex !== -1) {
+        colIndex = cellIndex % totalCols;
+        rowIndex = Math.floor(cellIndex / totalCols);
+      } else {
+        colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+        rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+      }
 
       // Adjust column start so card never overflows the 7 columns:
       let startCol = colIndex;
@@ -3126,11 +3921,26 @@
       }
       if (startRow < 0) startRow = 0;
 
-      // Exact pixel snap to the calendar block grid lines:
-      const left = startCol * colWidth;
-      const top = startRow * cellHeight;
-      const width = colSpan * colWidth;
-      const height = rowSpan * cellHeight;
+      // Query real top-left and bottom-right cells in the DOM for 100% exact boundary alignment:
+      const topLeftIndex = startRow * totalCols + startCol;
+      const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+      const topLeftCell = cells[topLeftIndex];
+      const bottomRightCell = cells[bottomRightIndex];
+
+      let left, top, width, height;
+      if (topLeftCell && bottomRightCell) {
+        left = topLeftCell.offsetLeft;
+        top = topLeftCell.offsetTop;
+        width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+        height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+      } else {
+        const colWidth = targetCell.offsetWidth;
+        const cellHeight = targetCell.offsetHeight;
+        left = startCol * colWidth;
+        top = startRow * cellHeight;
+        width = colSpan * colWidth;
+        height = rowSpan * cellHeight;
+      }
 
       popup.style.left = left + 'px';
       popup.style.top = top + 'px';
@@ -3146,9 +3956,9 @@
         const wrapLeft = scrollWrap.scrollLeft;
         const wrapWidth = scrollWrap.clientWidth;
         if (left < wrapLeft) {
-          scrollWrap.scrollTo({ left: left - 20, behavior: 'smooth' });
-        } else if (left + popupWidth > wrapLeft + wrapWidth) {
-          scrollWrap.scrollTo({ left: left + popupWidth - wrapWidth + 20, behavior: 'smooth' });
+          scrollWrap.scrollTo({ left: Math.max(0, left - 16), behavior: 'smooth' });
+        } else if (left + width > wrapLeft + wrapWidth) {
+          scrollWrap.scrollTo({ left: left + width - wrapWidth + 16, behavior: 'smooth' });
         }
       }
     }
@@ -3172,17 +3982,7 @@
       const targetDate = activePopupEvent.dateStr;
       const artist = activePopupEvent.artist;
       closeEventPopup();
-
-      const bookDateInput = document.getElementById('bookDate');
-      if (bookDateInput) {
-        bookDateInput.value = targetDate;
-      }
-      showToast(`Selected ${artist} · Feb ${targetDate.split('-')[2]}`);
-
-      const reserveSec = document.getElementById('reserve');
-      if (reserveSec) {
-        reserveSec.scrollIntoView({ behavior: 'smooth' });
-      }
+      showToast(`Tickets for ${artist} (Feb ${targetDate.split('-')[2]}) — Booking opens soon`);
     }
 
     // Dismiss popup on outside click (anywhere except inside the popup itself or on an event cell)
@@ -3193,6 +3993,33 @@
       if (e.target.closest('.has-event')) return;
       closeEventPopup();
     });
+
+    // Randomize Calendar Block Gradients between var(--grad-primary), var(--grad-resonance), var(--grad-flare)
+    function randomizeCalendarGradients() {
+      const variants = ['grad-variant-primary', 'grad-variant-resonance', 'grad-variant-flare'];
+      const eventCells = Array.from(document.querySelectorAll('.cal-cell.has-event'));
+      if (!eventCells.length) return;
+
+      const pool = [];
+      while (pool.length < eventCells.length) {
+        pool.push(...variants);
+      }
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      eventCells.forEach((cell, idx) => {
+        variants.forEach(v => cell.classList.remove(v));
+        cell.classList.add(pool[idx]);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', randomizeCalendarGradients);
+    } else {
+      randomizeCalendarGradients();
+    }
 
     // Keyboard support: Escape key closes in-place popup
     window.addEventListener('keydown', (e) => {
@@ -3208,16 +4035,23 @@
       const popup = document.getElementById('calColumnPopup');
       const targetCell = document.querySelector(`.cal-cell.has-event[data-day="${activePopupDayKey}"]`);
       if (grid && popup && targetCell) {
-        const colWidth = targetCell.offsetWidth;
-        const cellHeight = targetCell.offsetHeight;
         const totalCols = 7;
         const totalRows = 5;
-
-        const colIndex = Math.round(targetCell.offsetLeft / colWidth);
-        const rowIndex = Math.round(targetCell.offsetTop / cellHeight);
-
-        const colSpan = (grid.offsetWidth < 768) ? 2 : 3;
+        const colSpan = 2;
         const rowSpan = 3;
+
+        const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+        const cellIndex = cells.indexOf(targetCell);
+
+        let colIndex = 0;
+        let rowIndex = 0;
+        if (cellIndex !== -1) {
+          colIndex = cellIndex % totalCols;
+          rowIndex = Math.floor(cellIndex / totalCols);
+        } else {
+          colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+          rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+        }
 
         let startCol = colIndex;
         if (startCol + colSpan > totalCols) {
@@ -3231,19 +4065,35 @@
         }
         if (startRow < 0) startRow = 0;
 
-        popup.style.left = (startCol * colWidth) + 'px';
-        popup.style.top = (startRow * cellHeight) + 'px';
-        popup.style.width = (colSpan * colWidth) + 'px';
-        popup.style.height = (rowSpan * cellHeight) + 'px';
+        const topLeftIndex = startRow * totalCols + startCol;
+        const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+        const topLeftCell = cells[topLeftIndex];
+        const bottomRightCell = cells[bottomRightIndex];
+
+        let left, top, width, height;
+        if (topLeftCell && bottomRightCell) {
+          left = topLeftCell.offsetLeft;
+          top = topLeftCell.offsetTop;
+          width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+          height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+        } else {
+          const colWidth = targetCell.offsetWidth;
+          const cellHeight = targetCell.offsetHeight;
+          left = startCol * colWidth;
+          top = startRow * cellHeight;
+          width = colSpan * colWidth;
+          height = rowSpan * cellHeight;
+        }
+
+        popup.style.left = left + 'px';
+        popup.style.top = top + 'px';
+        popup.style.width = width + 'px';
+        popup.style.height = height + 'px';
       }
     });
 
-    // Select Event Date from Calendar to Booking Form
+    // Select Event Date from Calendar
     function selectEventDate(dateStr, artistName) {
-      const bookDateInput = document.getElementById('bookDate');
-      if (bookDateInput) {
-        bookDateInput.value = dateStr;
-      }
       showToast(`Selected ${artistName} · Feb ${dateStr.split('-')[2]}`);
     }
 
@@ -3252,7 +4102,7 @@
     const heroContent = document.querySelector('.hero-content');
     const heroScrollCue = document.querySelector('.hero-scroll-cue');
     const scrollerButtons = document.querySelectorAll('.scroller-btn');
-    const sections = ['hero', 'philosophy', 'space', 'menu', 'reserve'];
+    const sections = ['philosophy', 'programming', 'menu', 'space'];
     const brandMark = document.getElementById('headerBrandMark');
     const eventBanner = document.getElementById('programming') || document.getElementById('eventParallaxBanner');
     const eventImg = document.getElementById('eventParallaxImg');
@@ -3284,18 +4134,20 @@
         }
       }
 
-      // Subtle Parallax on Full-Width Event Banner
+      // Deep Cinematic Parallax on Full-Width Event Calendar Section
       if (eventBanner && eventImg) {
         const rect = eventBanner.getBoundingClientRect();
         if (rect.top < winHeight && rect.bottom > 0) {
-          const progress = (rect.top - winHeight / 2) / (winHeight / 2 + rect.height / 2);
-          const translateY = progress * 50;
-          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+          const sectionCenter = rect.top + rect.height / 2;
+          const screenCenter = winHeight / 2;
+          const diffFromCenter = sectionCenter - screenCenter;
+          const translateY = diffFromCenter * -0.22;
+          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(1.08)`;
         }
       }
 
       // ScrollSpy for Top-Right Nav
-      let currentSection = 'hero';
+      let currentSection = '';
       const scrollPos = scrollY + winHeight / 3;
 
       sections.forEach(id => {
@@ -3333,46 +4185,250 @@
     // Initial calculation on load
     handleScrollEffects();
 
-    // 4. Menu Tabs (Food / Cocktails / Desserts)
-    function switchMenuTab(tab) {
-      document.querySelectorAll('.menu-tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    // 3.5 MOBJOURNAL Reference: Floating Parallax Gallery in Philosophy Section (Upright & Straight)
+    (function initPhilosophyParallax() {
+      const section = document.getElementById('philosophy');
+      if (!section) return;
 
-      document.getElementById('menuFood').style.display = (tab === 'food') ? 'grid' : 'none';
-      document.getElementById('menuCocktails').style.display = (tab === 'cocktails') ? 'grid' : 'none';
-      document.getElementById('menuDesserts').style.display = (tab === 'desserts') ? 'grid' : 'none';
-    }
+      const cards = Array.from(section.querySelectorAll('.phil-card'));
+      if (!cards.length) return;
 
-    // 5. FAQ Accordions
-    function toggleFaq(button) {
-      const item = button.parentElement;
-      const answer = item.querySelector('.faq-answer');
-      const isOpen = item.classList.contains('active');
+      let mouseTargetX = 0;
+      let mouseTargetY = 0;
+      let mouseCurrentX = 0;
+      let mouseCurrentY = 0;
+      let isHovered = false;
 
-      // Close all
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('active');
-        i.querySelector('.faq-answer').style.maxHeight = null;
+      function onMouseMove(e) {
+        const rect = section.getBoundingClientRect();
+        const centerX = rect.left + rect.width * 0.5;
+        const centerY = rect.top + rect.height * 0.5;
+        // Normalized coordinates (-1 to 1)
+        mouseTargetX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width * 0.5)));
+        mouseTargetY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height * 0.5)));
+        isHovered = true;
+      }
+
+      function onMouseLeave() {
+        mouseTargetX = 0;
+        mouseTargetY = 0;
+        isHovered = false;
+      }
+
+      section.addEventListener('mousemove', onMouseMove, { passive: true });
+      section.addEventListener('mouseleave', onMouseLeave, { passive: true });
+
+      function updatePhilosophyParallax() {
+        // Smooth lerp mouse coordinates
+        mouseCurrentX += (mouseTargetX - mouseCurrentX) * 0.08;
+        mouseCurrentY += (mouseTargetY - mouseCurrentY) * 0.08;
+
+        const rect = section.getBoundingClientRect();
+        const winH = window.innerHeight;
+
+        // Execute only when section is within or near viewport
+        if (rect.bottom > -120 && rect.top < winH + 120) {
+          const sectionCenter = rect.top + rect.height * 0.5;
+          const screenCenter = winH * 0.5;
+          const scrollDiff = (sectionCenter - screenCenter) / winH; // -1 to 1
+
+          const now = performance.now() * 0.001;
+
+          cards.forEach((card, i) => {
+            // If user is directly hovering on the card, keep hover scale clean
+            if (card.matches(':hover')) return;
+
+            const speedY = parseFloat(card.getAttribute('data-speed-y')) || 0.18;
+            const speedX = parseFloat(card.getAttribute('data-speed-x')) || 0.12;
+            const scrollFactor = parseFloat(card.getAttribute('data-scroll')) || 0.25;
+
+            // Pronounced multi-speed scroll parallax: each card travels at a distinct rate on scroll
+            const scrollYOffset = scrollDiff * scrollFactor * -240;
+
+            // Interactive mouse parallax depth offset
+            const mouseXOffset = mouseCurrentX * speedX * 36;
+            const mouseYOffset = mouseCurrentY * speedY * 28;
+
+            // Gentle organic ambient levitation drift
+            const idleDriftY = Math.sin(now * 1.2 + i * 1.4) * 3.2;
+            const idleDriftX = Math.cos(now * 0.9 + i * 1.1) * 2.2;
+
+            const totalX = mouseXOffset + idleDriftX;
+            const totalY = scrollYOffset + mouseYOffset + idleDriftY;
+
+            // Completely straight and upright (zero rotation / tilt)
+            card.style.transform = `translate3d(${totalX.toFixed(2)}px, ${totalY.toFixed(2)}px, 0)`;
+          });
+        }
+
+        requestAnimationFrame(updatePhilosophyParallax);
+      }
+
+      requestAnimationFrame(updatePhilosophyParallax);
+    })();
+
+    // 4. Reference-Matched Editorial Menu Scroll Showcase (Food -> Cocktails -> Dessert)
+    (function initMenuScrollShowcase() {
+      const section = document.getElementById('menu');
+      if (!section) return;
+
+      const editorialSlides = section.querySelectorAll('.menu-editorial-slide');
+      const heroSlides = section.querySelectorAll('.menu-hero-slide');
+      const catBtns = section.querySelectorAll('.menu-cat-indicator, .menu-cat-btn');
+      const railDots = section.querySelectorAll('.menu-rail-dot');
+      const scrollPill = document.getElementById('menuScrollPill');
+
+      let currentPhase = -1;
+
+      window.setMenuPhase = function(phase) {
+        if (phase === currentPhase) return;
+        currentPhase = phase;
+
+        // Update Left Panel Category Background Color (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD)
+        const phaseColors = ['#E84243', '#004F9D', '#FFAABD'];
+        const leftPanel = document.getElementById('menuPanelEditorial');
+        if (leftPanel && phaseColors[phase]) {
+          leftPanel.style.backgroundColor = phaseColors[phase];
+        }
+
+        // Update Left Editorial Slides
+        editorialSlides.forEach(slide => {
+          const p = parseInt(slide.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update Right Hero Slides
+        heroSlides.forEach(slide => {
+          const p = parseInt(slide.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update Top Navigation Tabs
+        catBtns.forEach(btn => {
+          const p = parseInt(btn.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        // Update Rail Dots
+        railDots.forEach(dot => {
+          const p = parseInt(dot.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      };
+
+      window.goToMenuPhase = function(phase) {
+        const rect = section.getBoundingClientRect();
+        const totalDist = section.offsetHeight - window.innerHeight;
+        if (totalDist <= 0) return;
+        const phaseFrac = phase / 2; // 0, 0.5, 1.0
+        const targetScroll = window.scrollY + rect.top + (phaseFrac * totalDist) + 5;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      };
+
+      function updateMenuScroll() {
+        const rect = section.getBoundingClientRect();
+        const winH = window.innerHeight;
+        const totalDist = section.offsetHeight - winH;
+        if (totalDist <= 0) return;
+
+        // Scrolled distance within section: 0 to totalDist
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalDist));
+
+        // Determine phase: 0 (Food), 1 (Cocktails), 2 (Dessert)
+        let phase = 0;
+        if (progress >= 0.64) {
+          phase = 2; // Dessert
+        } else if (progress >= 0.31) {
+          phase = 1; // Cocktails
+        } else {
+          phase = 0; // Food
+        }
+        window.setMenuPhase(phase);
+
+        // Update scroll pill along the rail track
+        if (scrollPill) {
+          const maxTravel = 116; // 160 - 44
+          const pillY = progress * maxTravel;
+          scrollPill.style.transform = `translate3d(0, ${pillY.toFixed(1)}px, 0)`;
+        }
+      }
+
+      window.addEventListener('scroll', updateMenuScroll, { passive: true });
+      window.addEventListener('resize', updateMenuScroll, { passive: true });
+      updateMenuScroll();
+    })();
+
+    // 4.5 Full Menu Modal Controller
+    window.openFullMenuModal = function(tab) {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (tab) {
+        switchFullMenuTab(tab);
+      }
+    };
+
+    window.closeFullMenuModal = function() {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    window.switchFullMenuTab = function(tabName) {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+
+      const tabs = modal.querySelectorAll('.full-menu-tab-btn');
+      tabs.forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
       });
 
-      if (!isOpen) {
-        item.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
+      const panes = modal.querySelectorAll('.full-menu-pane');
+      panes.forEach(pane => {
+        if (pane.id === `pane-${tabName}`) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+    };
+
+    // Keyboard support: Escape closes full menu modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFullMenuModal();
       }
-    }
+    });
 
-    // 6. Direct Reservation Handler
-    function handleReservationSubmit(e) {
-      e.preventDefault();
-      const date = document.getElementById('bookDate').value;
-      const time = document.getElementById('bookTime').value;
-      const guests = document.getElementById('bookGuests').value;
-      const zone = document.getElementById('bookZone').value;
-
-      showToast(`Reservation requested for ${guests} guests on ${date} at ${time}!`);
-    }
-
-    // 7. Interactive Audio Player (Web Audio API Synthesizer)
+    // 4. Interactive Audio Player (Web Audio API Synthesizer)
     let isPlaying = false;
     let audioCtx = null;
     let vinylNoiseNode = null;
@@ -3469,6 +4525,340 @@
       });
       lead.addEventListener('seeked', alignPlayback);
     })();
+
+    // 5. Reservation Modal Handlers
+    function openReservationModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const dateInput = document.getElementById('resDate');
+      if (dateInput && !dateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+      }
+    }
+
+    function closeReservationModal() {
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function handleReservationSubmit(e) {
+      e.preventDefault();
+      const date = document.getElementById('resDate').value;
+      const guests = document.getElementById('resGuests').value;
+      const name = document.getElementById('resName').value;
+      closeReservationModal();
+      showToast(`Reservation confirmed for ${name || 'you'} (${guests} guests) on ${date}! Confirmation sent.`);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeReservationModal();
+      }
+    });
   </script>
+
+  <!-- =========================================================
+       RESERVATION MODAL DIALOG (Zero-Roundness Luxury Acoustic Style)
+       ========================================================= -->
+  <div id="reservationModal" class="reservation-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="reservation-modal-backdrop" onclick="closeReservationModal()"></div>
+    <div class="reservation-modal-panel">
+      <div class="reservation-modal-header">
+        <div>
+          <span class="reserve-eyebrow">RESERVE A TABLE</span>
+          <h3 class="reserve-modal-title">Table <span class="grad-accent">Reservation</span></h3>
+        </div>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+      </div>
+
+      <p class="reserve-modal-desc">
+        Experience intimate sound-mapped culinary and listening sessions at NAMI Bandra West.
+      </p>
+
+      <form id="reservationForm" class="reservation-form" onsubmit="handleReservationSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">DATE</label>
+            <input type="date" id="resDate" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="resGuests">GUESTS</label>
+            <select id="resGuests" required class="res-input">
+              <option value="1">1 Guest (Solo Listening)</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6+">6+ Guests (Private Area)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resSession">SESSION / TIME</label>
+            <select id="resSession" required class="res-input">
+              <option value="19:30 – Dinner & First Session">19:30 – Dinner & First Session</option>
+              <option value="21:30 – Hi-Fi Listening Focus" selected>21:30 – Hi-Fi Listening Focus</option>
+              <option value="23:30 – Nocturnal Sound & Cocktails">23:30 – Nocturnal Sound & Cocktails</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resZone">SEATING ZONE</label>
+            <select id="resZone" required class="res-input">
+              <option value="Hi-Fi Listening Room" selected>Hi-Fi Listening Room</option>
+              <option value="Cocktail Bar Counter">Cocktail Bar Counter</option>
+              <option value="Tatami Acoustic Nook">Tatami Acoustic Nook</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resName">NAME</label>
+            <input type="text" id="resName" placeholder="Your name" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="resContact">CONTACT / PHONE</label>
+            <input type="tel" id="resContact" placeholder="+91 98765 43210" required class="res-input">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirm-reserve">
+          <span>CONFIRM RESERVATION</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FULL MENU MODAL (Editorial Listening Room Menu)
+       ========================================================= -->
+  <div id="fullMenuModal" class="full-menu-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Nami Full Menu">
+    <div class="full-menu-backdrop" onclick="closeFullMenuModal()"></div>
+    <div class="full-menu-panel">
+      <div class="full-menu-header">
+        <div>
+          <span class="full-menu-eyebrow">THE RESONANCE MENU</span>
+          <h3 class="full-menu-title">NAMI · BANDRA WEST</h3>
+        </div>
+        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">✕</button>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="full-menu-tabs">
+        <button type="button" class="full-menu-tab-btn active" data-tab="food" onclick="switchFullMenuTab('food')">Food</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="cocktails" onclick="switchFullMenuTab('cocktails')">Cocktails</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="dessert" onclick="switchFullMenuTab('dessert')">Dessert</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & Sake</button>
+      </div>
+
+      <!-- Menu Content Panes -->
+      <div class="full-menu-content" id="fullMenuContent">
+        <!-- 1. FOOD PANE -->
+        <div class="full-menu-pane active" id="pane-food">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">RAW & CRUDO · 生</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hamachi Truffle Crudo</span>
+                <span class="dish-item-price">₹1,250</span>
+              </div>
+              <p class="dish-item-desc">Thinly sliced yellowtail, white truffle ponzu, crispy garlic chips, micro shiso.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Bluefin Otoro Tartare</span>
+                <span class="dish-item-price">₹1,650</span>
+              </div>
+              <p class="dish-item-desc">Fatty bluefin tuna, oscietra caviar, house-cured egg yolk, nori sesame crisps.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hokkaido Scallop Carpaccio</span>
+                <span class="dish-item-price">₹1,150</span>
+              </div>
+              <p class="dish-item-desc">Charred yuzu kosho vinaigrette, finger lime caviar, sea grape garnish.</p>
+            </div>
+          </div>
+
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">BINCHOTAN ROBATA GRILL · 炉端焼き</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Miyazaki Wagyu A5 Kushiyaki</span>
+                <span class="dish-item-price">₹2,400</span>
+              </div>
+              <p class="dish-item-desc">Melt-in-mouth wagyu skewer, 25-year aged master tare, fresh Shizuoka wasabi.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">King Oyster Yakitori</span>
+                <span class="dish-item-price">₹850</span>
+              </div>
+              <p class="dish-item-desc">Smoked soy tare, togarashi crunch, charred scallion emulsion.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Kurobuta Pork Belly</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Glazed with saikyo miso, applewood smoke, pickled baby ginger.</p>
+            </div>
+          </div>
+
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">MAINS & CLAYPOT · 釜飯</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Saikyo Miso Black Cod</span>
+                <span class="dish-item-price">₹2,200</span>
+              </div>
+              <p class="dish-item-desc">72-hour sweet miso marinade, charred hajikami ginger, dashi reduction.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Truffle & Morel Claypot Gohan</span>
+                <span class="dish-item-price">₹1,450</span>
+              </div>
+              <p class="dish-item-desc">Niigata Koshihikari rice, wild morels, shaved black winter truffle, burnt butter dashi.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. COCKTAILS PANE -->
+        <div class="full-menu-pane" id="pane-cocktails">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">HARMONIC SOUND-MAPPED SIGNATURES · 440Hz</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">440Hz Clarified Milk Punch</span>
+                <span class="dish-item-price">₹1,100</span>
+              </div>
+              <p class="dish-item-desc">Japanese whisky, toasted hojicha tea, clarified coconut whey, sudachi citrus.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Sub-Bass Smoked Highball</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Suntory Toki, peated Islay malt mist, super-carbonated soda, pink grapefruit twist.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Crystalline Highs</span>
+                <span class="dish-item-price">₹1,050</span>
+              </div>
+              <p class="dish-item-desc">Roku Gin, elderflower liqueur, cold-brewed sencha cordial, crystalline malic acid.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">The Equalizer (Low-Fi)</span>
+                <span class="dish-item-price">₹1,200</span>
+              </div>
+              <p class="dish-item-desc">Oaxacan mezcal, umeshu plum liqueur, smoked shiso leaf, fiery ginger cordial.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Bandra Frequency</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Haku Vodka, local kokum shrub, Japanese myoga ginger, sparkling yuzu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DESSERT PANE -->
+        <div class="full-menu-pane" id="pane-dessert">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">PLATED DELICACIES & LATE-NIGHT FINISHES · 甘味</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Yuzu Miso Caramel Tart</span>
+                <span class="dish-item-price">₹750</span>
+              </div>
+              <p class="dish-item-desc">Crisp Japanese citrus curd, salted white miso caramel, black sesame butter crust.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Smoked Matcha Silk</span>
+                <span class="dish-item-price">₹800</span>
+              </div>
+              <p class="dish-item-desc">Ceremonial Uji matcha ganache, roasted genmaicha crisps, white chocolate cloud.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hibiki Valrhona Gateau</span>
+                <span class="dish-item-price">₹900</span>
+              </div>
+              <p class="dish-item-desc">70% Guanaja chocolate fondant, Hibiki Japanese Harmony mist, smoked sea salt flakes.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Black Sesame Gelato</span>
+                <span class="dish-item-price">₹550</span>
+              </div>
+              <p class="dish-item-desc">House-churned roasted black sesame, roasted kinako soybean dust, dashi tuile.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. WINE & SAKE PANE -->
+        <div class="full-menu-pane" id="pane-drinks">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">JAPANESE SAKE & BIODYNAMIC WINES · 酒</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Dassai 23 Junmai Daiginjo</span>
+                <span class="dish-item-price">₹2,800 / glass</span>
+              </div>
+              <p class="dish-item-desc">Yamaguchi · 23% polish ratio. Ultra-refined melon, white peach, ethereal finish.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Born Gold Muroka Junmai Daiginjo</span>
+                <span class="dish-item-price">₹1,600 / glass</span>
+              </div>
+              <p class="dish-item-desc">Fukui · Unfiltered, aged at 0°C. Silky tropical mouthfeel with delicate aromatics.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Domaine de la Tourmaline Chablis</span>
+                <span class="dish-item-price">₹1,400 / glass</span>
+              </div>
+              <p class="dish-item-desc">Burgundy, France · Mineral-driven, crystalline acidity, saline oyster shell finish.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Meinklang Prosa Pet-Nat Rosé</span>
+                <span class="dish-item-price">₹1,200 / glass</span>
+              </div>
+              <p class="dish-item-desc">Burgenland, Austria · Biodynamic, natural sparkling red berries, lively citrus fizz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="full-menu-footer">
+        <p class="full-menu-note">Wed – Sun · 7 PM – Late · Listening Sessions 20:30 Onwards</p>
+        <button type="button" class="btn-reserve-from-menu" onclick="closeFullMenuModal(); openReservationModal(event);">
+          Reserve Table
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
