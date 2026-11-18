@@ -479,7 +479,7 @@
       font-size: 0.75rem;
       font-weight: 700;
       color: var(--c-orange);
-      text-transform: uppercase;
+      text-transform: none;
       margin-bottom: 0.5rem;
     }
 
@@ -1068,7 +1068,7 @@
       background: #141414;
       border: none !important;
       outline: none !important;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82);
       transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1092,26 +1092,22 @@
     }
 
     .phil-card:hover .phil-card-inner {
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.92);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.94);
       border: none !important;
       outline: none !important;
-      transform: translateY(-4px) scale(1.05);
+      transform: translateY(-4px) scale(1.04);
     }
 
     .phil-card:hover .phil-card-img {
-      transform: scale(1.08);
+      transform: scale(1.06);
       filter: brightness(1.05) contrast(1.08);
     }
 
-    /* Specific Card Sizes (Dynamic Editorial Randomized Proportions & Asymmetry) */
-    .phil-card-1 { width: 56px;  height: 76px; }  /* Top Center (Tiny Accent) */
-    .phil-card-2 { width: 138px; height: 178px; } /* Top Left (Large Anchor) */
-    .phil-card-3 { width: 84px;  height: 110px; } /* Mid Left (Small Indented) */
-    .phil-card-4 { width: 116px; height: 150px; } /* Bottom Left (Medium) */
-    .phil-card-5 { width: 130px; height: 168px; } /* Top Right (Large Anchor) */
-    .phil-card-6 { width: 76px;  height: 100px; } /* Mid Right (Small Indented) */
-    .phil-card-7 { width: 122px; height: 158px; } /* Bottom Right (Medium-Large) */
-    .phil-card-8 { width: 62px;  height: 82px; }  /* Bottom Center (Tiny Accent) */
+    /* Curated 4-Corner Editorial Anchors (Uncluttered, High-Impact Breathing Space) */
+    .phil-card-1 { width: clamp(140px, 11vw, 175px); height: clamp(185px, 14.5vw, 230px); } /* Top Left Anchor */
+    .phil-card-2 { width: clamp(130px, 10vw, 155px); height: clamp(170px, 13vw, 205px); }   /* Bottom Left Anchor */
+    .phil-card-3 { width: clamp(135px, 10.5vw, 165px); height: clamp(178px, 13.8vw, 218px); } /* Top Right Anchor */
+    .phil-card-4 { width: clamp(145px, 11.5vw, 180px); height: clamp(190px, 15vw, 236px); }  /* Bottom Right Anchor */
 
     /* Center Content Stage */
     .philosophy-minimal-content {
@@ -1982,29 +1978,25 @@
     }
 
     .menu-ed-item-name {
-      font-family: var(--font-body);
-      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
-      font-weight: 700;
-      color: #FFFFFF;
-      margin: 0 0 0.35rem;
-      line-height: 1.25;
+      display: none !important;
     }
 
     .menu-ed-item-desc {
       font-family: var(--font-body);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.9);
       max-width: 360px;
-      margin: 0 auto 1.15rem;
-      line-height: 1.5;
+      margin: 0 auto 1.35rem;
+      line-height: 1.55;
     }
 
+    /* Food & Drinks Buttons: Strictly White & Black Matching Background & Copy */
     .btn-menu-view-full {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #FFFFFF;
+      background: #FFFFFF;
+      color: #000000;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -2012,14 +2004,31 @@
       text-transform: uppercase;
       padding: 0.8rem 2.2rem;
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       cursor: pointer;
       box-shadow: none !important;
-      transition: filter 0.2s ease, transform 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-menu-view-full:hover {
-      filter: brightness(1.12);
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: none !important;
+    }
+
+    /* Phase 2 (Dessert): Light Background & Black Copy -> Solid Black Button with White Text */
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
+      background: #000000;
+      color: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
+      background: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
       transform: translateY(-2px) scale(1.03);
       box-shadow: none !important;
     }
@@ -2177,7 +2186,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
+      text-transform: none;
       color: rgba(255, 255, 255, 0.5);
       padding: 1rem 0;
       cursor: pointer;
@@ -2445,7 +2454,7 @@
        ========================================================= */
     footer.site-footer {
       border-top: none;
-      padding: 6rem 2.5rem 1.5rem;
+      padding: 6rem 2.5rem 0;
       background: #070707;
       position: relative;
       z-index: 10;
@@ -2536,8 +2545,8 @@
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(255, 255, 255, 0.42);
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.45);
       display: block;
       margin-bottom: 1.15rem;
     }
@@ -2572,50 +2581,86 @@
       transform: translateX(2px);
     }
 
-    /* Bottom Huge NAMI Logo Bleeding into Edge (Reference Match) */
-    .footer-giant-logo-wrap {
+    /* Centered Minimal Metadata Bar (Positioned Directly Above Vinyl, Zero Borders) */
+    .footer-mid-bar {
       width: 100%;
-      position: relative;
-      margin-top: 1.5rem;
-      margin-bottom: -1.2rem;
+      max-width: 1240px;
+      margin: 0 auto 1.8rem;
+      padding: 0;
+      border: none !important;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    .footer-giant-logo {
-      width: 100%;
-      max-width: 1320px;
-      height: auto;
-      display: block;
-      overflow: visible !important;
-      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.95));
-      opacity: 0.96;
-    }
-
-    .footer-bottom-bar {
-      max-width: 1240px;
-      margin: 1.5rem auto 0;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      justify-content: space-between;
       align-items: center;
+      text-align: center;
       font-family: var(--font-body);
-      font-size: 0.74rem;
-      color: rgba(255, 255, 255, 0.48);
-      letter-spacing: 0.04em;
+      font-size: clamp(0.68rem, 0.85vw, 0.74rem);
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    /* Bottom Rotating Half-Vinyl Record (Vinyl.svg) - Touching Footer End, 3x Speed */
+    .footer-vinyl-stage {
+      width: 100%;
+      height: clamp(180px, 24vw, 340px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+
+    .footer-vinyl-crop {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(360px, 48vw, 680px);
+      height: clamp(360px, 48vw, 680px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .footer-vinyl-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+      animation: spinFooterVinyl 9.33s linear infinite;
+      will-change: transform;
+      filter: drop-shadow(0 -15px 45px rgba(244, 143, 36, 0.22)) drop-shadow(0 25px 60px rgba(0, 0, 0, 0.95));
+    }
+
+    .footer-vinyl-glow {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 143, 36, 0.25) 0%, rgba(201, 114, 255, 0.08) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
+    @keyframes spinFooterVinyl {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 992px) {
       .footer-top-grid {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-      }
-      .footer-giant-logo-wrap {
-        margin-bottom: -0.6rem;
       }
     }
 
@@ -2624,10 +2669,12 @@
         grid-template-columns: 1fr;
         gap: 1.75rem;
       }
-      .footer-bottom-bar {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+      .footer-mid-bar {
+        white-space: normal;
+        line-height: 1.6;
+        padding: 0 1rem;
+        font-size: 0.68rem;
+        margin: 0 auto 1.25rem;
       }
     }
 
@@ -2701,31 +2748,28 @@
         max-height: 100vh;
         padding: 0 1.25rem; 
       }
-      .phil-card-1, .phil-card-3, .phil-card-4, .phil-card-5, .phil-card-6, .phil-card-8 {
+      .phil-card-2, .phil-card-3 {
         display: none !important;
       }
-      .phil-card-2 {
+      .phil-card-1 {
         top: 3% !important;
         left: 2% !important;
-        width: 72px !important;
-        height: 92px !important;
-        opacity: 0.55;
+        width: 96px !important;
+        height: 124px !important;
+        opacity: 0.65;
         pointer-events: none;
       }
-      .phil-card-7 {
+      .phil-card-4 {
         bottom: 3% !important;
         right: 2% !important;
-        width: 72px !important;
-        height: 92px !important;
-        opacity: 0.55;
+        width: 96px !important;
+        height: 124px !important;
+        opacity: 0.65;
         pointer-events: none;
       }
     }
 
     @media (max-width: 1100px) {
-      .phil-card-3, .phil-card-6, .phil-card-8 {
-        display: none !important;
-      }
       .phil-card {
         transform: scale(0.85);
       }
@@ -2746,9 +2790,81 @@
         height: 13px;
       }
     }
+
+    /* =========================================================
+       FULLSCREEN SPLASH SCREEN (Black Background + Centered loader-1.mp4)
+       ========================================================= */
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
+      user-select: none;
+    }
+
+    .splash-screen.splash-fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .splash-video {
+      width: min(440px, 78vw);
+      height: min(440px, 78vw);
+      max-width: 480px;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .splash-enter-text {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .splash-screen:hover .splash-enter-text {
+      color: #FFFFFF;
+      opacity: 0.95;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Fullscreen Splash Screen with Centered Video Loader (< 4s Duration, No Skip CTA) -->
+  <div id="splashScreen" class="splash-screen" onclick="dismissSplashScreen()" role="dialog" aria-modal="true" aria-label="Loading NAMI">
+    <div class="splash-center">
+      <video id="splashVideo" class="splash-video" autoplay muted playsinline webkit-playsinline preload="auto">
+        <source src="./assets/loader-1.mp4" type="video/mp4">
+      </video>
+      <span class="splash-enter-text">Enter the Experience</span>
+    </div>
+  </div>
 
   <!-- Official Noise Texture Overlay -->
   <div id="noise-layer"></div>
@@ -2782,9 +2898,9 @@
 
         <!-- Node W: What's On -->
         <div class="scroller-node">
-          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s On">
+          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s on">
             W
-            <span class="tooltip">What’s On</span>
+            <span class="tooltip">What’s on</span>
           </a>
         </div>
 
@@ -2792,19 +2908,19 @@
 
         <!-- Node F: Food & Drinks -->
         <div class="scroller-node">
-          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & Drinks">
+          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & drinks">
             F
-            <span class="tooltip">Food & Drinks</span>
+            <span class="tooltip">Food & drinks</span>
           </a>
         </div>
 
         <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
 
-        <!-- Node S: Our Space -->
+        <!-- Node S: Space -->
         <div class="scroller-node">
-          <a href="#space" class="scroller-btn" data-section="space" aria-label="Our Space">
+          <a href="#space" class="scroller-btn" data-section="space" aria-label="Space">
             S
-            <span class="tooltip">Our Space</span>
+            <span class="tooltip">Space</span>
           </a>
         </div>
       </nav>
@@ -2832,13 +2948,13 @@
           <span class="drawer-nav-num">01</span> Concept
         </a>
         <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
-          <span class="drawer-nav-num">02</span> What’s On
+          <span class="drawer-nav-num">02</span> What’s on
         </a>
         <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
-          <span class="drawer-nav-num">03</span> Food & Drinks
+          <span class="drawer-nav-num">03</span> Food & drinks
         </a>
         <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Space
+          <span class="drawer-nav-num">04</span> Our space
         </a>
         <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
           <span class="drawer-nav-num">05</span> Reservation
@@ -2865,23 +2981,26 @@
 
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
-        <h4>HOURS</h4>
+        <h4>Hours</h4>
         <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
       <div class="drawer-info-col">
-        <h4>LOCATION</h4>
+        <h4>Location</h4>
         <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
       <div class="drawer-info-col">
-        <h4>COMMUNITY</h4>
+        <h4>Community</h4>
         <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
           <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
           <span>Join WhatsApp Group →</span>
         </a>
       </div>
       <div class="drawer-info-col">
-        <h4>INSTAGRAM</h4>
-        <a href="https://instagram.com/" target="_blank" style="color: #fff;">@nami.hifi</a>
+        <h4>Instagram</h4>
+        <a href="https://instagram.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@nami.hifi</span>
+        </a>
       </div>
     </div>
   </div>
@@ -3091,59 +3210,31 @@
       <!-- Floating Image Scatter Canvas (8 Strategic Cards Matching Reference Placement) -->
       <div class="phil-scatter-wrap" id="philScatterWrap" aria-hidden="true">
 
-        <!-- Card 1: Top Center (above headline) - Fast & agile tiny accent -->
-        <div class="phil-card phil-card-1" data-speed-y="0.22" data-speed-x="0.08" data-scroll="0.48" style="top: 11%; left: 49%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-7.jpg" alt="Horn Acoustic Shelves" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 2: Top Left - Heavy slow anchor -->
-        <div class="phil-card phil-card-2" data-speed-y="0.14" data-speed-x="0.10" data-scroll="0.15" style="top: 13%; left: 7%;">
+        <!-- Card 1: Top Left - Iconic Amber Pool Table Anchor -->
+        <div class="phil-card phil-card-1" data-scroll="0.18" style="top: 12%; left: 6%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 3: Mid Left (Indented inward) - Moderate-fast small card -->
-        <div class="phil-card phil-card-3" data-speed-y="0.20" data-speed-x="0.08" data-scroll="0.38" style="top: 47%; left: 14%;">
-          <div class="phil-card-inner">
-            <img src="./assets/gallery-1.jpg" alt="Acoustic Turntables" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 4: Bottom Left - Medium pace card -->
-        <div class="phil-card phil-card-4" data-speed-y="0.16" data-speed-x="0.09" data-scroll="0.22" style="top: 71%; left: 5%;">
+        <!-- Card 2: Bottom Left - Intimate Glassware & Amber Glow -->
+        <div class="phil-card phil-card-2" data-scroll="0.30" style="top: 62%; left: 8%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-8.jpg" alt="Glassware & Amber Glow" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 5: Top Right - Slower large anchor -->
-        <div class="phil-card phil-card-5" data-speed-y="0.15" data-speed-x="-0.10" data-scroll="0.18" style="top: 11%; right: 7%;">
+        <!-- Card 3: Top Right - Nocturnal Atmosphere & Red Lighting -->
+        <div class="phil-card phil-card-3" data-scroll="0.22" style="top: 10%; right: 7%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Lights" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 6: Mid Right (Indented inward) - Fast small card -->
-        <div class="phil-card phil-card-6" data-speed-y="0.22" data-speed-x="-0.08" data-scroll="0.42" style="top: 41%; right: 14%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-3.jpg" alt="Rotary DJ Booth" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 7: Bottom Right - Moderate pace medium-large card -->
-        <div class="phil-card phil-card-7" data-speed-y="0.18" data-speed-x="-0.09" data-scroll="0.28" style="top: 67%; right: 6%;">
+        <!-- Card 4: Bottom Right - Listening Room Booths & Vinyl Wall -->
+        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 58%; right: 6%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-1.jpg" alt="Listening Room Booths" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 8: Bottom Center (below copy) - Fastest tiny accent card -->
-        <div class="phil-card phil-card-8" data-speed-y="0.24" data-speed-x="0.08" data-scroll="0.52" style="top: 78%; left: 39%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-9.jpg" alt="Low-Lit Intimate Lounge" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
@@ -3443,7 +3534,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">Truffle Hamachi & Robata Wagyu</h4>
               <p class="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('food')">
                 VIEW FULL MENU →
@@ -3462,7 +3552,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">440Hz Clarified Milk Punch</h4>
               <p class="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('cocktails')">
                 VIEW FULL MENU →
@@ -3481,7 +3570,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">Yuzu Miso Tart & Matcha Silk</h4>
               <p class="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('dessert')">
                 VIEW FULL MENU →
@@ -3591,63 +3679,49 @@
 
         <!-- Col 2: Navigation Links -->
         <div class="footer-links-col">
-          <span class="footer-col-label">navigate</span>
+          <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="#philosophy">about</a></li>
-            <li><a href="#programming">what’s on</a></li>
-            <li><a href="#menu">food & drinks</a></li>
-            <li><a href="#space">our space</a></li>
-            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">reservation</a></li>
+            <li><a href="#philosophy">About</a></li>
+            <li><a href="#programming">What’s on</a></li>
+            <li><a href="#menu">Food & drinks</a></li>
+            <li><a href="#space">Our space</a></li>
+            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
 
         <!-- Col 3: Hours & Address -->
         <div class="footer-links-col">
-          <span class="footer-col-label">hours & address</span>
+          <span class="footer-col-label">HOURS & ADDRESS</span>
           <ul class="footer-nav-list">
-            <li><span>wed – sun · 7pm – late</span></li>
-            <li><span>sessions: 8:30pm onwards</span></li>
-            <li><span>bandra west, mumbai</span></li>
+            <li><span>Wed – Sun · 7pm – late</span></li>
+            <li><span>Sessions: 8:30pm onwards</span></li>
+            <li><span>Bandra West, Mumbai</span></li>
             <li><a href="mailto:experience@nami.in">experience@nami.in</a></li>
           </ul>
         </div>
 
         <!-- Col 4: Connect & Group -->
         <div class="footer-links-col">
-          <span class="footer-col-label">connect</span>
+          <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://instagram.com/" target="_blank">instagram (@nami.hifi)</a></li>
-            <li><a href="#programming">resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">abnah group ↗</a></li>
+            <li><a href="https://instagram.com/" target="_blank">Instagram (@nami.hifi)</a></li>
+            <li><a href="#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
-      <!-- Bottom Huge NAMI Logo Bleeding into Edge (Exact Reference Match) -->
-      <div class="footer-giant-logo-wrap">
-        <svg class="footer-giant-logo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
-          <g class="nami-letter nami-letter-i-dot">
-            <path d="M780.391 11.7857C780.391 18.2947 775.956 23.5715 770.488 23.5715C765.019 23.5715 760.568 18.2789 760.568 11.7857C760.568 5.29252 765.019 0 770.488 0C775.956 0 780.391 5.27672 780.391 11.7857Z" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-n">
-            <path d="M171.404 149.265C171.308 150.055 170.609 150.639 169.846 150.639C169.766 150.639 169.703 150.639 169.639 150.639C136.782 146.563 118.835 126.31 109.599 110.021C105.148 102.201 102.541 94.8862 100.236 88.4088C99.5365 86.4498 98.853 84.5539 98.1694 82.7371C87.3917 54.6315 68.3161 39.4016 47.1264 41.9768C27.7647 44.3466 12.3929 61.3459 9.73823 83.3375C6.55897 109.516 5.63698 125.488 5.06472 135.03C4.715 141.018 4.50834 144.636 3.96787 146.816C3.92018 146.99 3.8407 147.164 3.74532 147.322L3.45919 147.748C3.04588 148.333 2.28286 148.57 1.59932 148.317C0.931674 148.064 0.502474 147.385 0.581956 146.674C0.788608 144.746 0.677333 141.35 0.502474 135.726C0.152755 124.003 -0.530786 102.138 0.725022 62.3412C1.90135 25.4515 29.5291 2.14861 55.5832 0.947918C68.7135 0.347573 80.6358 5.16614 90.0941 14.8981C100.824 25.9255 107.628 42.435 110.346 63.9368C110.696 66.7806 110.95 69.9877 111.204 73.3528C111.745 80.5885 112.381 88.7722 114.352 98.2829C118.453 118.015 135.51 142.756 170.053 147.495C170.911 147.622 171.515 148.412 171.404 149.265Z" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-m">
-            <path d="M698.636 147.954C700.528 148.364 703.151 148.759 704.422 148.87C704.74 148.902 705.074 148.87 705.408 148.87C706.203 148.838 706.934 148.159 706.982 147.369C707.029 146.5 706.378 146.058 705.456 145.9C703.882 145.647 701.72 145.236 699.956 144.794C698.795 144.51 693.629 142.819 692.055 142.156C664.539 130.654 657.958 104.918 657.958 104.918C648.769 72.0099 644.032 47.4905 624.893 47.0956C612.891 46.7954 602.034 59.1657 592.465 86.2602C591.05 90.2889 582.212 118.932 574.311 118.489C565.377 117.984 559.623 82.3106 557.461 71.7887C550.657 38.4379 534.205 29.2906 523.729 29.0852C503.016 28.706 490.983 49.4338 481.572 82.3738C479.013 91.3316 475.039 102.517 473.195 107.415C459.285 144.431 433.978 146.548 429.13 147.306C428.272 147.432 427.699 148.222 427.811 149.075C427.906 149.865 428.605 150.45 429.368 150.45C429.432 150.45 429.496 150.45 429.559 150.45C455.438 147.653 469.252 138.364 485.085 108.505C492.525 94.4755 503.954 69.4663 523.236 69.4663C538.624 69.4663 546.858 87.1607 551.087 101.458C560.291 132.692 573.31 144.304 587.473 123.497C591.924 116.957 600.174 99.6416 602.352 95.8342C607.852 86.2128 618.741 72.4523 630.52 79.1825C639.883 84.5382 646.21 100.684 651.408 111.017C656.829 121.791 669.959 141.855 698.652 148.001" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-a">
-            <path d="M419.275 148.775C419.211 149.613 418.48 150.229 417.638 150.213C404.714 149.676 389.803 141.208 383.445 137.574C382.348 136.958 381.505 136.468 380.933 136.168C371.522 131.381 363.654 126.341 356.039 121.459C330.796 105.313 312.563 93.6382 269.866 113.781C264.063 116.53 257.8 119.674 251.203 122.976C226.882 135.157 199.318 148.965 180.878 150.734H180.719C179.956 150.734 179.288 150.197 179.161 149.439C179.018 148.633 179.559 147.875 180.369 147.733C182.038 147.448 183.072 147.243 184.534 146.895C194.883 144.431 205.819 141.524 227.295 124.24C227.327 124.208 227.359 124.193 227.391 124.161C234.019 119.232 241.491 110.385 249.423 101.016C258.897 89.8308 268.673 78.2504 278.179 71.9784C293.662 61.7567 306.077 58.0598 317.3 60.3506C334.818 63.9369 349.156 81.5523 371.077 114.966C371.856 116.135 372.476 117.052 372.953 117.747C373.001 117.778 373.064 117.842 373.096 117.889C373.668 118.616 374.257 119.342 374.845 120.053C377.579 123.355 380.281 126.246 383.111 128.885C383.143 128.916 383.159 128.932 383.19 128.948C385.702 131.191 401.296 145.394 417.94 147.053C418.782 147.132 419.386 147.906 419.307 148.759" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-i-stem">
-            <path d="M821.054 147.338C821.054 148.206 820.355 148.902 819.497 148.917C804.602 149.107 791.408 140.718 785.033 131.571C784.159 130.322 781.838 126.294 781.6 125.852C778.786 120.654 772.857 102.675 766.228 112.691C765.624 113.592 764.448 115.235 763.812 116.341C759.456 124.05 749.283 135.899 736.756 142.124C732.973 143.988 729.317 145.426 725.947 146.563C723.689 147.401 719.858 148.175 716.949 148.759C716.806 148.791 715.63 148.933 715.503 148.933C714.803 148.933 714.168 148.475 713.977 147.796C713.738 146.958 714.199 146.105 715.026 145.852L718.221 145.3C720.145 144.952 722.195 144.446 724.643 143.625C749.871 134.256 755.069 114.034 760.108 94.4123L760.33 93.5592C760.521 92.8483 760.712 92.011 760.935 91.1104C763.319 81.2047 765.862 72.3575 771.076 72.8473C771.124 72.8473 771.172 72.8473 771.235 72.8789C776.116 73.653 779.486 86.4183 783.984 109.611C784.747 113.544 785.463 116.562 785.812 117.778C791.487 137.511 805.079 143.467 810.722 144.699C810.769 144.699 810.833 144.699 810.881 144.731H810.913C813.122 145.268 815.443 145.584 817.811 145.679H817.843C817.843 145.679 817.923 145.679 817.955 145.679C818.559 145.71 819.067 145.726 819.512 145.742C820.371 145.773 821.07 146.469 821.07 147.322" fill="white"/>
-          </g>
-        </svg>
+      <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
+      <div class="footer-mid-bar">
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
       </div>
 
-      <!-- Bottom Minimal Bar -->
-      <div class="footer-bottom-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
-        <span>BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+      <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
+      <div class="footer-vinyl-stage" aria-hidden="true">
+        <div class="footer-vinyl-crop">
+          <img src="./assets/Vinyl.svg" alt="" class="footer-vinyl-img">
+          <div class="footer-vinyl-glow"></div>
+        </div>
       </div>
     </div>
   </footer>
@@ -3659,7 +3733,45 @@
        JAVASCRIPT LOGIC
        ========================================================= -->
   <script>
-    // 0. Safari / WebKit Video Autoplay & Muted State Enforcer
+    // 0. Fullscreen Splash Screen Controller (loader-1.mp4 Reveal, max 4s, No Skip CTA)
+    (function initSplashScreen() {
+      const splash = document.getElementById('splashScreen');
+      const splashVid = document.getElementById('splashVideo');
+      if (!splash) return;
+
+      document.body.style.overflow = 'hidden';
+
+      let dismissed = false;
+      function dismissSplashScreen() {
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(maxDurationTimer);
+
+        splash.classList.add('splash-fade-out');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          splash.style.display = 'none';
+          splash.setAttribute('aria-hidden', 'true');
+        }, 900);
+      }
+
+      window.dismissSplashScreen = dismissSplashScreen;
+
+      // Strict <= 4 seconds duration cap
+      const maxDurationTimer = setTimeout(dismissSplashScreen, 4000);
+
+      if (splashVid) {
+        splashVid.addEventListener('ended', dismissSplashScreen);
+        splashVid.addEventListener('error', dismissSplashScreen);
+        const p = splashVid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      }
+    })();
+
+    // 0.1 Safari / WebKit Video Autoplay & Muted State Enforcer
     function initVideoAutoplay() {
       const allVideos = document.querySelectorAll('video[autoplay]');
       allVideos.forEach(v => {
@@ -4146,19 +4258,43 @@
         }
       }
 
-      // ScrollSpy for Top-Right Nav
+      // ScrollSpy for Top-Right Nav (First-Fold / Hero: ZERO active nodes; Concept is active only from Section 2)
       let currentSection = '';
-      const scrollPos = scrollY + winHeight / 3;
 
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop) {
-          currentSection = id;
+      const hero = document.getElementById('hero');
+      const heroRect = hero ? hero.getBoundingClientRect() : null;
+      // When hero is still occupying the main viewport, no section is active
+      const inFirstFold = heroRect ? (heroRect.bottom > winHeight * 0.45) : (scrollY < winHeight * 0.5);
+
+      if (!inFirstFold) {
+        // Focal trigger line: 40% down from viewport top
+        const focalLine = winHeight * 0.40;
+
+        for (let i = 0; i < sections.length; i++) {
+          const id = sections[i];
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
+            currentSection = id;
+            break;
+          }
         }
-      });
+
+        // If scrolled past space into footer, retain 'space' active
+        if (!currentSection && scrollY > winHeight) {
+          const spaceEl = document.getElementById('space');
+          if (spaceEl) {
+            const spaceRect = spaceEl.getBoundingClientRect();
+            if (spaceRect.top < winHeight) {
+              currentSection = 'space';
+            }
+          }
+        }
+      }
 
       scrollerButtons.forEach(btn => {
-        if (btn.getAttribute('data-section') === currentSection) {
+        if (currentSection && btn.getAttribute('data-section') === currentSection) {
           btn.classList.add('active');
         } else {
           btn.classList.remove('active');
@@ -4193,36 +4329,7 @@
       const cards = Array.from(section.querySelectorAll('.phil-card'));
       if (!cards.length) return;
 
-      let mouseTargetX = 0;
-      let mouseTargetY = 0;
-      let mouseCurrentX = 0;
-      let mouseCurrentY = 0;
-      let isHovered = false;
-
-      function onMouseMove(e) {
-        const rect = section.getBoundingClientRect();
-        const centerX = rect.left + rect.width * 0.5;
-        const centerY = rect.top + rect.height * 0.5;
-        // Normalized coordinates (-1 to 1)
-        mouseTargetX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width * 0.5)));
-        mouseTargetY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height * 0.5)));
-        isHovered = true;
-      }
-
-      function onMouseLeave() {
-        mouseTargetX = 0;
-        mouseTargetY = 0;
-        isHovered = false;
-      }
-
-      section.addEventListener('mousemove', onMouseMove, { passive: true });
-      section.addEventListener('mouseleave', onMouseLeave, { passive: true });
-
       function updatePhilosophyParallax() {
-        // Smooth lerp mouse coordinates
-        mouseCurrentX += (mouseTargetX - mouseCurrentX) * 0.08;
-        mouseCurrentY += (mouseTargetY - mouseCurrentY) * 0.08;
-
         const rect = section.getBoundingClientRect();
         const winH = window.innerHeight;
 
@@ -4232,39 +4339,39 @@
           const screenCenter = winH * 0.5;
           const scrollDiff = (sectionCenter - screenCenter) / winH; // -1 to 1
 
-          const now = performance.now() * 0.001;
-
-          cards.forEach((card, i) => {
+          cards.forEach((card) => {
             // If user is directly hovering on the card, keep hover scale clean
             if (card.matches(':hover')) return;
 
-            const speedY = parseFloat(card.getAttribute('data-speed-y')) || 0.18;
-            const speedX = parseFloat(card.getAttribute('data-speed-x')) || 0.12;
             const scrollFactor = parseFloat(card.getAttribute('data-scroll')) || 0.25;
 
             // Pronounced multi-speed scroll parallax: each card travels at a distinct rate on scroll
-            const scrollYOffset = scrollDiff * scrollFactor * -240;
+            // Zero movement when screen is frozen/still (strictly tied to scroll position changes)
+            const scrollYOffset = scrollDiff * scrollFactor * -180;
 
-            // Interactive mouse parallax depth offset
-            const mouseXOffset = mouseCurrentX * speedX * 36;
-            const mouseYOffset = mouseCurrentY * speedY * 28;
-
-            // Gentle organic ambient levitation drift
-            const idleDriftY = Math.sin(now * 1.2 + i * 1.4) * 3.2;
-            const idleDriftX = Math.cos(now * 0.9 + i * 1.1) * 2.2;
-
-            const totalX = mouseXOffset + idleDriftX;
-            const totalY = scrollYOffset + mouseYOffset + idleDriftY;
-
-            // Completely straight and upright (zero rotation / tilt)
-            card.style.transform = `translate3d(${totalX.toFixed(2)}px, ${totalY.toFixed(2)}px, 0)`;
+            // Completely straight and upright (zero rotation / tilt, zero movement on frozen screen)
+            card.style.transform = `translate3d(0, ${scrollYOffset.toFixed(2)}px, 0)`;
           });
         }
-
-        requestAnimationFrame(updatePhilosophyParallax);
       }
 
-      requestAnimationFrame(updatePhilosophyParallax);
+      // Update on scroll with RAF ticking - zero movement when screen is frozen
+      let philTicking = false;
+      function onScroll() {
+        if (!philTicking) {
+          requestAnimationFrame(() => {
+            updatePhilosophyParallax();
+            philTicking = false;
+          });
+          philTicking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+
+      // Initial placement
+      updatePhilosophyParallax();
     })();
 
     // 4. Reference-Matched Editorial Menu Scroll Showcase (Food -> Cocktails -> Dessert)
@@ -4663,7 +4770,7 @@
         <button type="button" class="full-menu-tab-btn active" data-tab="food" onclick="switchFullMenuTab('food')">Food</button>
         <button type="button" class="full-menu-tab-btn" data-tab="cocktails" onclick="switchFullMenuTab('cocktails')">Cocktails</button>
         <button type="button" class="full-menu-tab-btn" data-tab="dessert" onclick="switchFullMenuTab('dessert')">Dessert</button>
-        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & Sake</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & sake</button>
       </div>
 
       <!-- Menu Content Panes -->

@@ -1,0 +1,4968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMI — Hi-Fi Listening Room & Dining Experience</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <!-- Adobe Typekit: Savate -->
+  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
+
+  <!-- Google Fonts: Chivo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: "savate", sans-serif;
+      --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-black: #070707;
+      --bg-surface: rgba(18, 18, 18, 0.85);
+      --bg-surface-elevated: rgba(26, 26, 26, 0.92);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(232, 66, 67, 0.45);
+      --text-primary: #FFFFFF;
+      --text-secondary: #A6A6A6;
+      --text-muted: #6C6C6C;
+      
+      /* Approved Nami Palette */
+      --c-red: #E84243;
+      --c-amber-red: #E65500;
+      --c-orange: #F48F24;
+      --c-pink: #FFAABD;
+      --c-blue: #004F9D;
+
+      /* Approved Gradients */
+      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
+      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
+      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.16) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+
+      /* Official Noise Texture Tiled directly on body */
+      background-image: 
+        var(--grad-nocturnal-glow),
+        url('./assets/Noise-texture.png');
+      background-repeat: no-repeat, repeat;
+      background-position: center top, center top;
+      background-size: 100% 1000px, 100% auto;
+      background-attachment: scroll, scroll;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-heading,
+    .archetype-title,
+    .drawer-nav-item,
+    .event-artist {
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+
+    /* Fixed Viewport Noise Overlay */
+    #noise-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+      opacity: 0.95;
+      mix-blend-mode: screen;
+    }
+
+    /* Subtle Analog Tube Warmth Overlay */
+    #warmth-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(circle at 50% 50%, rgba(180, 95, 30, 0.05) 0%, rgba(0, 0, 0, 0.35) 90%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+    }
+
+    /* =========================================================
+       FIXED TOP NAVIGATION & SECTION SCROLLER (Reference Match)
+       ========================================================= */
+    header.site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 500;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .header-left {
+      pointer-events: auto;
+    }
+
+    .brand-mark-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #FFFFFF;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .brand-mark-img {
+      height: clamp(28px, 2.4vw, 34px);
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    }
+
+    .brand-mark-link:hover .brand-mark-img {
+      transform: scale(1.08);
+      opacity: 0.9;
+    }
+
+    /* Right Side: Header Reservation CTA + Wave Hamburger */
+    .header-nav-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      pointer-events: auto;
+    }
+
+    .btn-header-reserve {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--grad-flare);
+      border-radius: 999px;
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-header-reserve:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: brightness(1.12);
+      box-shadow: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .btn-header-reserve {
+        padding: 0.5rem 0.95rem;
+        font-size: 0.72rem;
+        gap: 0.45rem;
+      }
+      .btn-header-reserve .reserve-eat-logo {
+        height: 12px;
+      }
+    }
+
+    /* Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) */
+    .section-scroller {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      gap: 0;
+    }
+
+    .scroller-node {
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .scroller-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.45);
+      border: 1.5px solid #FFFFFF;
+      color: #FFFFFF;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroller-btn:hover {
+      border-color: var(--c-orange);
+      color: var(--c-orange);
+      transform: scale(1.08);
+    }
+
+    .scroller-btn.active {
+      background: var(--c-orange);
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+      box-shadow: 0 0 16px rgba(230, 85, 0, 0.6);
+      transform: scale(1.08);
+    }
+
+    /* Wave Separator between buttons (wave-1.svg and wave-2.svg) */
+    .scroller-wave-sep {
+      width: 28px;
+      height: 12px;
+      margin: 0 -2px;
+      display: block;
+      flex-shrink: 0;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Tooltip on hover */
+    .scroller-btn .tooltip {
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #111111;
+      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    .scroller-btn:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Wave Hamburger Button (Outer-border removed) */
+    .btn-wave-hamburger {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .btn-wave-hamburger:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-menu-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .btn-wave-hamburger:hover .btn-menu-icon {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    /* =========================================================
+       SLIDE-OUT / FULL-SCREEN MENU DRAWER
+       ========================================================= */
+    #menuDrawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 6, 6, 0.96);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(2rem, 3.5vh, 3.5rem) clamp(2.5rem, 5vw, 5.5rem);
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    #menuDrawer.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-drawer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-close-drawer:hover {
+      border-color: var(--c-red);
+      color: var(--c-red);
+      transform: rotate(90deg);
+    }
+
+    /* Drawer Middle Layout: 2 Columns (Nav links on Left, Enlarged Image on Right) */
+    .drawer-middle {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr;
+      align-items: center;
+      gap: clamp(2rem, 5vw, 6rem);
+      margin: auto 0;
+      padding: 1.25rem 0;
+      width: 100%;
+    }
+
+    .drawer-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 2vh, 1.6rem);
+    }
+
+    .drawer-nav-item {
+      color: #FFFFFF;
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.25s, color 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      cursor: pointer;
+    }
+
+    .drawer-nav-item:hover {
+      color: var(--c-orange);
+      transform: translateX(12px);
+    }
+
+    .drawer-nav-num {
+      font-family: 'Chivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Right Side Image Card inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) */
+    .drawer-image-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .drawer-image-card {
+      position: relative;
+      width: clamp(340px, 35vw, 560px);
+      max-height: calc(100vh - 200px);
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+      background: #111115;
+    }
+
+    .drawer-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(0.92) contrast(1.05);
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    .drawer-preview-img.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .drawer-image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.88) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: var(--font-body);
+      pointer-events: none;
+    }
+
+    .drawer-caption-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .drawer-caption-sub {
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .drawer-bottom-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .drawer-middle {
+        grid-template-columns: 1fr;
+      }
+      .drawer-image-wrap {
+        display: none;
+      }
+    }
+
+    .drawer-info-col h4 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .drawer-info-col p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       HERO ENTRANCE (Exact Reference Match: Center Huge Logo)
+       ========================================================= */
+    section.hero-entrance {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* Atmospheric Ambient Lighting Background Image / Video */
+    .hero-bg-media {
+      position: absolute;
+      top: -10%;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 1;
+      will-change: transform;
+      pointer-events: none;
+      background: var(--bg-black);
+    }
+
+    /* Safari WebKit Video Autoplay & Controls Suppression */
+    .hero-bg-media::-webkit-media-controls,
+    .hero-bg-media::-webkit-media-controls-panel,
+    .hero-bg-media::-webkit-media-controls-enclosure,
+    .hero-bg-media::-webkit-media-controls-overlay-play-button,
+    .hero-bg-media::-webkit-media-controls-start-playback-button,
+    .wave-strap-media::-webkit-media-controls,
+    .wave-strap-media::-webkit-media-controls-panel,
+    .wave-strap-media::-webkit-media-controls-enclosure,
+    .wave-strap-media::-webkit-media-controls-overlay-play-button,
+    .wave-strap-media::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform, opacity;
+    }
+
+    /* Big Huge Logo in Dead Center */
+    .hero-big-logo {
+      width: clamp(320px, 68vw, 1024px);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      overflow: visible !important;
+      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.85));
+      animation: logoFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes logoFadeIn {
+      0% { opacity: 0; transform: scale(0.94); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-welcome-strap {
+      margin-top: 1.5rem;
+      font-size: clamp(0.75rem, 1.05vw, 0.95rem);
+      font-family: 'Chivo', sans-serif;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      text-transform: uppercase;
+    }
+
+    /* Scroll Down Cue */
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      will-change: transform, opacity;
+    }
+
+    .hero-scroll-cue:hover {
+      color: #FFFFFF;
+    }
+
+    .cue-wave-arrow {
+      width: 22px;
+      height: auto;
+      display: block;
+      animation: bounceWave 2s infinite ease-in-out;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+    }
+
+    @keyframes bounceWave {
+      0%, 100% { transform: translateY(0); opacity: 0.75; }
+      50% { transform: translateY(5px); opacity: 1; }
+    }
+
+    /* =========================================================
+       BOTTOM LEFT: NOW PLAYING AUDIO WIDGET (Moved to Left Side)
+       ========================================================= */
+    .now-playing-widget {
+      position: fixed;
+      bottom: 2rem;
+      left: 2.5rem;
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      background: rgba(14, 14, 14, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 0.5rem 1.15rem 0.5rem 0.85rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .now-playing-widget:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .now-playing-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .track-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    .track-artist {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-family: 'Chivo', sans-serif;
+    }
+
+    .btn-audio-toggle {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem;
+      transition: color 0.2s;
+    }
+
+    .btn-audio-toggle:hover {
+      color: var(--c-orange);
+    }
+
+    .audio-badge-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .waveform-bars {
+      display: flex;
+      align-items: center;
+      gap: 2.5px;
+      height: 14px;
+    }
+
+    .waveform-bar {
+      width: 2px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      height: 4px;
+      transition: height 0.2s;
+    }
+
+    .waveform-bars.playing .waveform-bar:nth-child(1) { animation: soundWave 0.8s infinite ease-in-out alternate; }
+    .waveform-bars.playing .waveform-bar:nth-child(2) { animation: soundWave 1.2s infinite ease-in-out alternate 0.2s; }
+    .waveform-bars.playing .waveform-bar:nth-child(3) { animation: soundWave 0.7s infinite ease-in-out alternate 0.4s; }
+    .waveform-bars.playing .waveform-bar:nth-child(4) { animation: soundWave 1.0s infinite ease-in-out alternate 0.1s; }
+
+    @keyframes soundWave {
+      0% { height: 3px; background: #FFFFFF; }
+      100% { height: 14px; background: var(--c-orange); }
+    }
+
+    /* =========================================================
+       ROUNDED RECTANGLE CTA BUTTONS (Pill Shape)
+       ========================================================= */
+    .btn-eye-shape,
+    .btn-peanut-shape {
+      border-radius: 9999px !important;
+      clip-path: none !important;
+      -webkit-clip-path: none !important;
+    }
+
+    /* =========================================================
+       BOTTOM RIGHT: RESERVATION FLOATING CTA (Rounded Rectangle)
+       ========================================================= */
+    .floating-reserve-cta {
+      position: fixed;
+      bottom: 2rem;
+      right: 2.5rem;
+      z-index: 400;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      padding: 0.75rem 1.65rem 0.75rem 1.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .floating-reserve-cta:hover {
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.12);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+    }
+
+    .reserve-cta-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.38);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .reserve-eat-logo {
+      height: 16px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      vertical-align: middle;
+      transition: transform 0.2s ease;
+    }
+
+    .floating-reserve-cta:hover .reserve-eat-logo {
+      transform: scale(1.06);
+    }
+
+    /* =========================================================
+       RESERVATION MODAL DIALOG (Zero Roundness Luxury Aesthetic)
+       ========================================================= */
+    .reservation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reservation-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 4, 6, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .reservation-modal-panel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      background: #0B0B0E;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 0;
+      padding: 2.25rem 2.25rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(244, 143, 36, 0.08);
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open .reservation-modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .reservation-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .reserve-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .reserve-modal-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+    }
+
+    .reserve-modal-close {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 0;
+      font-size: 1.05rem;
+      line-height: 1;
+      transition: all 0.2s;
+    }
+
+    .reserve-modal-close:hover {
+      border-color: var(--c-orange);
+      color: var(--c-orange);
+      background: rgba(244, 143, 36, 0.1);
+    }
+
+    .reserve-modal-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 1.6rem;
+    }
+
+    .reservation-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .res-input {
+      width: 100%;
+      background: #121216;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .res-input:focus {
+      border-color: var(--c-orange);
+      background: #16161B;
+    }
+
+    .btn-confirm-reserve {
+      width: 100%;
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-confirm-reserve:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+    }
+
+    /* =========================================================
+       PAGE CONTENT SECTIONS (Sitemap Implementation)
+       ========================================================= */
+    .page-wrap {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    .section-block {
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      scroll-margin-top: 5rem;
+    }
+
+    .section-block:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-eyebrow {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-red);
+      display: inline-block;
+      box-shadow: 0 0 10px var(--c-red);
+    }
+
+    .section-heading {
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-heading span.grad-accent {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .section-body {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    /* =========================================================
+       SECTION: BRAND CONCEPT (50-50 Split Layout with Center Vinyl)
+       ========================================================= */
+    .section-philosophy-scroll-track {
+      position: relative;
+      height: 240vh;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #000000;
+    }
+
+    .philosophy-5050-stage {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      overflow: hidden;
+      box-sizing: border-box;
+      background: #000000;
+    }
+
+    /* Left Column: Left-Aligned Editorial Typography */
+    .phil-col-left {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(2.5rem, 5vw, 6rem);
+      box-sizing: border-box;
+      position: relative;
+      z-index: 12;
+      background: #050505;
+    }
+
+    .phil-left-inner {
+      max-width: 480px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      position: relative;
+      z-index: 10;
+    }
+
+    .phil-title-5050 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 0 0 1.6rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      text-shadow: 0 4px 28px rgba(0, 0, 0, 0.95);
+      width: 100%;
+    }
+
+    .phil-title-line {
+      display: block;
+      will-change: transform, opacity;
+      transform: translate3d(-120px, 0, 0);
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    .phil-desc-5050 {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.65;
+      margin: 0 0 2.2rem 0;
+      text-align: left;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+      will-change: transform, opacity;
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+
+    .phil-cta-wrap {
+      will-change: transform, opacity;
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+
+    /* Right Column: Full-Height Large Image (No copy or text) */
+    .phil-col-right {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+    }
+
+    .phil-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.95) contrast(1.05);
+      border: none !important;
+      outline: none !important;
+      border-radius: 0 !important;
+    }
+
+    /* Center: Rotating Vinyl Record (Vinyl.svg) on the Dividing Center */
+    .phil-vinyl-center-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(260px, 28vw, 420px);
+      height: clamp(260px, 28vw, 420px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 20px 65px rgba(0, 0, 0, 0.95));
+    }
+
+    .phil-vinyl-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+      will-change: transform;
+      transform-origin: center center;
+      transform: rotate(0deg);
+    }
+
+    .phil-vinyl-glow {
+      position: absolute;
+      inset: -14%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 143, 36, 0.18) 0%, rgba(201, 114, 255, 0.08) 50%, transparent 72%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
+    /* Legacy minimal container support */
+    .section-philosophy-minimal {
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+      min-height: 100vh;
+      max-height: 100vh;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border-bottom: none;
+      box-sizing: border-box;
+    }
+
+    .btn-our-story {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.8rem 2.25rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-our-story:hover {
+      background: var(--grad-flare);
+      filter: brightness(1.12);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: none !important;
+    }
+
+    /* =========================================================
+       WAVE ANIMATION SECTION SEPARATOR (3x Repeating Ribbon Strap)
+       ========================================================= */
+    .wave-video-strap {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      height: clamp(80px, 11vh, 130px);
+      overflow: hidden;
+      background: var(--bg-black);
+      border: none;
+      display: block;
+    }
+
+    .wave-strap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
+      gap: 0;
+    }
+
+    .wave-strap-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-black);
+    }
+
+    .wave-strap-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .wave-strap-item:last-child::after {
+      display: none;
+    }
+
+    .wave-strap-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.92) contrast(1.12);
+      pointer-events: none;
+      display: block;
+    }
+
+    .wave-strap-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.55) 0%,
+        rgba(7, 7, 7, 0.12) 20%,
+        rgba(7, 7, 7, 0) 50%,
+        rgba(7, 7, 7, 0.12) 80%,
+        rgba(7, 7, 7, 0.55) 100%
+      );
+    }
+
+    /* =========================================================
+       02. EVENT CALENDAR OVERLAY ON EVENT-BG.JPG (WEEKLY PROGRAMMING)
+       ========================================================= */
+    .event-calendar-section {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      margin-top: 0;
+      margin-bottom: 0;
+      min-height: 80vh;
+      padding: 120px 1.5rem;
+      overflow: hidden;
+      background: var(--bg-black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .event-parallax-media-wrap {
+      position: absolute;
+      top: -25%;
+      left: 0;
+      width: 100%;
+      height: 150%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .event-parallax-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.70) contrast(1.08);
+      will-change: transform;
+      pointer-events: none;
+      display: block;
+      transform: translate3d(0, 0, 0) scale(1.08);
+    }
+
+    .event-parallax-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.90) 0%,
+        rgba(0, 0, 0, 0.76) 15%,
+        rgba(0, 0, 0, 0.76) 85%,
+        rgba(7, 7, 7, 0.92) 100%
+      );
+    }
+
+    .event-calendar-container {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Calendar Header Block */
+    .cal-header-block {
+      max-width: 780px;
+      margin-bottom: 2.25rem;
+    }
+
+    /* 7-Column Calendar Grid Wrapper */
+    .cal-grid-scroll-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+
+    .cal-grid-table {
+      min-width: 860px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(10, 10, 10, 0.25);
+    }
+
+    /* Day of Week Header Row */
+    .cal-dow-row {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .cal-dow-col {
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 1.15rem 0.6rem;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #FFFFFF;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      user-select: none;
+    }
+
+    .cal-dow-col:last-child {
+      border-right: none;
+    }
+
+    /* 35 Calendar Cells Grid (5 rows of 7 cols) - Increased Box Size */
+    .cal-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
+      position: relative;
+      width: 100%;
+    }
+
+    .cal-cell {
+      min-width: 0;
+      position: relative;
+      min-height: clamp(140px, 16vh, 168px);
+      padding: 1.15rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: transparent;
+      transition: background 0.22s ease, transform 0.22s ease;
+      text-decoration: none;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    /* Remove right border on 7th column of each row */
+    .cal-cell:nth-child(7n) {
+      border-right: none;
+    }
+
+    /* Remove bottom border on 5th row (cells 29 to 35) */
+    .cal-cell:nth-child(n+29) {
+      border-bottom: none;
+    }
+
+    /* Non-event cells hover */
+    .cal-cell:not(.has-event):not(.is-empty):hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cal-cell-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .cal-cell-num {
+      font-family: var(--font-body);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .cal-cell:not(.has-event) .cal-cell-num {
+      opacity: 0.95;
+    }
+
+    /* Event Days (Brand Gradients: var(--grad-primary), var(--grad-resonance), var(--grad-flare)) */
+    .cal-cell.has-event {
+      background: var(--grad-primary);
+      cursor: pointer;
+      z-index: 2;
+      transition: filter 0.22s ease, transform 0.22s ease;
+    }
+
+    .cal-cell.has-event.grad-variant-primary {
+      background: var(--grad-primary) !important;
+    }
+
+    .cal-cell.has-event.grad-variant-resonance {
+      background: var(--grad-resonance) !important;
+    }
+
+    .cal-cell.has-event.grad-variant-flare {
+      background: var(--grad-flare) !important;
+    }
+
+    .cal-cell.has-event:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      z-index: 5;
+    }
+
+    /* Headline Event (Day 20 Yousuke Yukimatsu) */
+    .cal-cell.has-event.is-headline {
+      outline: 1.5px solid rgba(255, 255, 255, 0.9);
+      outline-offset: -2px;
+    }
+
+    .cal-cell.has-event.is-headline:hover {
+      filter: brightness(1.2);
+    }
+
+    .cal-badge {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.45);
+      border: none;
+      color: #FFFFFF;
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing: 0;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .badge-headline {
+      background: rgba(255, 255, 255, 0.28);
+      border: none;
+      color: #FFFFFF;
+    }
+
+    .cal-event-body {
+      margin-top: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      min-width: 0;
+    }
+
+    .cal-event-artist {
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      letter-spacing: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .cal-event-meta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.25;
+      letter-spacing: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .cal-cell.is-empty {
+      background: transparent;
+      pointer-events: none;
+    }
+
+    /* Scroll Hint for Mobile */
+    .cal-scroll-hint {
+      display: none;
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+
+    /* =========================================================
+       CALENDAR BLOCK-ALIGNED EXPANDED EVENT CARD (ZERO ROUNDNESS, ZERO SHADOW)
+       ========================================================= */
+    .cal-column-popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      background: #0B0B0B;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .cal-column-popup.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .col-popup-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 1.15rem;
+      border-bottom: none !important;
+      background: transparent !important;
+      flex-shrink: 0;
+      border-radius: 0 !important;
+      pointer-events: none;
+    }
+
+    .col-popup-date {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
+      pointer-events: auto;
+    }
+
+    .col-popup-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 0 !important;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+      padding: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+      pointer-events: auto;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .col-popup-close:hover {
+      background: var(--c-red);
+      border-color: var(--c-red);
+      transform: scale(1.05);
+    }
+
+    .col-popup-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(244, 143, 36, 0.4) transparent;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .col-popup-body::-webkit-scrollbar-thumb {
+      background: rgba(244, 143, 36, 0.4);
+      border-radius: 0;
+    }
+
+    .col-popup-media {
+      position: relative;
+      width: 100%;
+      height: 155px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000000;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.06) brightness(0.95);
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-media:hover .col-popup-img {
+      transform: scale(1.02);
+    }
+
+    .col-popup-top-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.32) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .col-popup-img-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 11, 0.85) 88%, #0B0B0B 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .col-popup-info {
+      padding: 0.95rem 1.15rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: left;
+      border-radius: 0 !important;
+    }
+
+    .col-popup-badge-wrap {
+      margin-bottom: 0.4rem;
+    }
+
+    .col-popup-hz {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: var(--grad-primary);
+      border: none;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+
+    .col-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.16;
+      margin: 0 0 0.3rem;
+      letter-spacing: 0;
+    }
+
+    .col-popup-genre {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--c-orange);
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .col-popup-desc {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.48;
+      margin: 0 0 1rem;
+    }
+
+    .btn-col-popup-book {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(244, 143, 36, 0.35);
+      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+      margin-top: auto;
+    }
+
+    .btn-col-popup-book:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: 0 10px 24px rgba(244, 143, 36, 0.55);
+    }
+
+    /* Active clicked cell highlight */
+    .cal-cell.is-active-event {
+      outline: 2px solid #FFFFFF !important;
+      outline-offset: -2px;
+    }
+
+    @media (max-width: 768px) {
+      .event-calendar-section {
+        padding: clamp(3.5rem, 6vh, 80px) 1rem;
+      }
+      .cal-scroll-hint {
+        display: block;
+      }
+      .cal-grid-table {
+        min-width: 780px;
+      }
+      .cal-cell {
+        min-height: 108px;
+        padding: 0.65rem 0.5rem;
+      }
+      .cal-cell-num {
+        font-size: 1.1rem;
+      }
+      .cal-event-artist {
+        font-size: 0.95rem;
+      }
+      .cal-event-meta {
+        font-size: 0.68rem;
+      }
+      .col-popup-media {
+        height: 130px;
+      }
+      .col-popup-header {
+        padding: 0.65rem 0.85rem;
+      }
+      .col-popup-info {
+        padding: 0.75rem 0.85rem 0.85rem;
+      }
+      .col-popup-title {
+        font-size: 1.15rem;
+      }
+      .col-popup-genre {
+        font-size: 0.72rem;
+        margin-bottom: 0.5rem;
+      }
+      .col-popup-desc {
+        font-size: 0.74rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+      }
+      .btn-col-popup-book {
+        font-size: 0.78rem;
+        padding: 0.72rem 1.35rem;
+        min-height: 42px;
+      }
+    }
+
+    /* =========================================================
+       SECTION: THE RESONANCE MENU (Full-Width 50-50 Nocturnal Scroll)
+       ========================================================= */
+    .menu-editorial-scroll-track {
+      position: relative;
+      width: 100%;
+      height: 280vh;
+      margin: 0;
+      padding: 0;
+      border-bottom: none;
+      box-sizing: border-box;
+      background: #070707;
+    }
+
+    .menu-sticky-stage {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      overflow: hidden;
+      box-sizing: border-box;
+      z-index: 15;
+      background: #070707;
+    }
+
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD) */
+    .menu-panel-editorial {
+      background-color: #E84243;
+      color: #FFFFFF;
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Editorial Slides (Left Column - Clean Centered Layout) */
+    .menu-editorial-slide {
+      position: absolute;
+      inset: 0;
+      padding: clamp(2rem, 4vh, 3.5rem) clamp(1.8rem, 3.5vw, 3.6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    /* Category Specific Background Colors */
+    .menu-editorial-slide[data-phase="0"] {
+      background-color: #E84243;
+      color: #FFFFFF;
+    }
+
+    .menu-editorial-slide[data-phase="1"] {
+      background-color: #004F9D;
+      color: #FFFFFF;
+    }
+
+    .menu-editorial-slide[data-phase="2"] {
+      background-color: #FFAABD;
+      color: #070707;
+    }
+
+    .menu-editorial-slide[data-phase="2"] .menu-ed-title {
+      color: #070707;
+    }
+
+    .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
+      color: #070707;
+    }
+
+    .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
+      color: rgba(7, 7, 7, 0.82);
+    }
+
+    .menu-editorial-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .menu-ed-top {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: clamp(1rem, 2.2vh, 1.6rem);
+    }
+
+    .menu-ed-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(3.2rem, 5.2vw, 5rem);
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin: 0;
+      text-transform: lowercase;
+      line-height: 1;
+    }
+
+    /* Centerpiece Photo (Zero Border, Zero Shadow, Clean Floating Image) */
+    .menu-ed-frame-wrap {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 clamp(1.1rem, 2.2vh, 1.6rem);
+      width: 100%;
+      box-shadow: none !important;
+    }
+
+    .menu-ed-frame {
+      width: clamp(170px, 16vw, 225px);
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: transparent;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    .menu-ed-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+      filter: brightness(0.96) contrast(1.04);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menu-editorial-slide.active .menu-ed-img {
+      transform: scale(1.03);
+    }
+
+    .menu-ed-bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .menu-ed-item-name {
+      display: none !important;
+    }
+
+    .menu-ed-item-desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 360px;
+      margin: 0 auto 1.35rem;
+      line-height: 1.55;
+    }
+
+    /* Food & Drinks Buttons: Strictly White & Black Matching Background & Copy */
+    .btn-menu-view-full {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.8rem 2.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-menu-view-full:hover {
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
+      transform: translateY(-2px);
+    }
+
+    /* On Pink Slide (Slide 2), invert button to solid black with white copy */
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
+      background: #000000;
+      color: #FFFFFF;
+      border: 1px solid #000000;
+    }
+
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
+      background: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
+    }
+
+    /* RIGHT PANE: 50% Width Pure Full-Bleed Photography (ZERO Text Overlay) */
+    .menu-panel-hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      background: #070707;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .menu-hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .menu-hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .menu-hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+
+    /* =========================================================
+       FULL MENU MODAL (Editorial Listening Room Menu)
+       ========================================================= */
+    .full-menu-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .full-menu-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .full-menu-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .full-menu-panel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 780px;
+      max-height: 88vh;
+      background: #0E0E12;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .full-menu-modal.open .full-menu-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .full-menu-header {
+      padding: 1.6rem 2rem 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .full-menu-eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 0.3rem;
+    }
+
+    .full-menu-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .full-menu-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .full-menu-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.08);
+    }
+
+    /* Modal Navigation Tabs */
+    .full-menu-tabs {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+
+    .full-menu-tab-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 1rem 0;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .full-menu-tab-btn:hover {
+      color: #FFFFFF;
+    }
+
+    .full-menu-tab-btn.active {
+      color: var(--c-orange);
+      border-bottom-color: var(--c-orange);
+    }
+
+    /* Modal Tab Content Area */
+    .full-menu-content {
+      padding: 1.8rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .full-menu-pane {
+      display: none;
+    }
+
+    .full-menu-pane.active {
+      display: block;
+      animation: menuFadeIn 0.3s ease forwards;
+    }
+
+    @keyframes menuFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-dish-group {
+      margin-bottom: 2rem;
+    }
+
+    .dish-group-title {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-dish-item {
+      margin-bottom: 1.25rem;
+    }
+
+    .dish-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.25rem;
+    }
+
+    .dish-item-name {
+      font-family: var(--font-body);
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .dish-item-price {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--c-orange);
+    }
+
+    .dish-item-desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .full-menu-footer {
+      padding: 1.2rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .full-menu-note {
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+
+    .btn-reserve-from-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grad-flare);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.8rem 2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: filter 0.2s, transform 0.2s;
+    }
+
+    .btn-reserve-from-menu:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: none !important;
+    }
+
+    /* Mobile Breakpoints */
+    @media (max-width: 768px) {
+      .menu-sticky-stage {
+        grid-template-columns: 1fr;
+      }
+      .menu-panel-hero {
+        display: none;
+      }
+      .menu-panel-editorial {
+        width: 100%;
+        border-right: none;
+      }
+      .menu-editorial-slide {
+        padding: clamp(3.2rem, 5vh, 4.2rem) 1.5rem 2rem;
+      }
+      .menu-ed-frame {
+        width: 145px;
+      }
+      .full-menu-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+    }
+
+    /* =========================================================
+       SECTION: THE SPACE (Spin Bar Style Full-Bleed 3-Col Gallery)
+       ========================================================= */
+    .space-section {
+      padding: 6rem 0 0;
+      margin-bottom: 0;
+      border-bottom: none;
+      scroll-margin-top: 5rem;
+    }
+
+    .space-header-row,
+    .space-header-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .space-header-row .section-heading,
+    .space-header-block .section-heading {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .space-header-row .section-body,
+    .space-header-block .section-body {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0;
+    }
+
+    .space-fine-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--border-subtle);
+      margin-bottom: 3rem;
+    }
+
+    /* Full-bleed 3-column breakout grid matching Spin Bar Amsterdam */
+    .spin-gallery-fullbleed {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .spin-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--bg-black);
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .spin-gallery-cell {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: #0a0a0a;
+    }
+
+    .spin-gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+      filter: brightness(0.96) contrast(1.04);
+    }
+
+    .spin-gallery-cell:hover .spin-gallery-img {
+      transform: scale(1.04);
+      filter: brightness(1.08) contrast(1.08);
+    }
+
+    @media (max-width: 900px) {
+      .space-header-row,
+      .space-header-block {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .spin-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .spin-gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .spin-gallery-cell {
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    /* FOOTER */
+    /* =========================================================
+       FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
+       ========================================================= */
+    footer.site-footer {
+      border-top: none;
+      padding: 6rem 2.5rem 1.5rem;
+      background: #070707;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    /* Ambient Brand Glow Aura (Using ONLY NAMI Palette: Red, Orange, Rose, Deep Blue) */
+    .footer-glow-aura {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(ellipse 70% 65% at 50% 102%, rgba(232, 66, 67, 0.46) 0%, rgba(244, 143, 36, 0.32) 34%, rgba(0, 79, 157, 0.18) 68%, transparent 100%),
+        radial-gradient(circle at 50% 92%, rgba(255, 170, 189, 0.16) 0%, transparent 45%),
+        radial-gradient(ellipse 38% 28% at 50% 100%, rgba(230, 85, 0, 0.52) 0%, transparent 70%);
+      filter: blur(28px);
+      mix-blend-mode: screen;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-top-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.2fr 1fr;
+      gap: 3rem;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 320px;
+    }
+
+    .footer-tagline {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin: 0;
+      font-family: var(--font-body);
+    }
+
+    .btn-whatsapp-footer {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      font-family: var(--font-body);
+    }
+
+    .btn-whatsapp-footer:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-btn-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .footer-col-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.42);
+      display: block;
+      margin-bottom: 1.15rem;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-nav-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-nav-list a,
+    .footer-nav-list span {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.82);
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+      line-height: 1.4;
+    }
+
+    .footer-nav-list a:hover {
+      color: var(--c-orange);
+      transform: translateX(2px);
+    }
+
+    /* Bottom Huge NAMI Logo Bleeding into Edge (Reference Match) */
+    .footer-giant-logo-wrap {
+      width: 100%;
+      position: relative;
+      margin-top: 1.5rem;
+      margin-bottom: -1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .footer-giant-logo {
+      width: 100%;
+      max-width: 1320px;
+      height: auto;
+      display: block;
+      overflow: visible !important;
+      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.95));
+      opacity: 0.96;
+    }
+
+    .footer-bottom-bar {
+      max-width: 1240px;
+      margin: 1.5rem auto 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.48);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 992px) {
+      .footer-top-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .footer-giant-logo-wrap {
+        margin-bottom: -0.6rem;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 2.5rem;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      z-index: 10000;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 650px) {
+      header.site-header { padding: 1rem 1.25rem; }
+      .now-playing-widget {
+        bottom: 1rem;
+        left: 1rem;
+        gap: 0.75rem;
+        padding: 0.45rem 0.85rem 0.45rem 0.65rem;
+      }
+      .now-playing-text .track-title {
+        font-size: 0.76rem;
+      }
+      .now-playing-text .track-artist {
+        font-size: 0.66rem;
+      }
+      .audio-badge-circle {
+        width: 30px;
+        height: 30px;
+      }
+      .floating-reserve-cta {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem 2.2rem;
+        min-height: 46px;
+        font-size: 0.78rem;
+        gap: 0.55rem;
+      }
+      .reserve-cta-divider {
+        height: 12px;
+      }
+      .reserve-eat-logo {
+        height: 14px;
+      }
+      .reservation-modal-panel {
+        padding: 1.6rem 1.4rem;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+      .section-block { padding: 4rem 0; }
+      .section-philosophy-scroll-track { 
+        height: 220vh;
+      }
+      .philosophy-5050-stage {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+      .phil-col-left {
+        padding: 2.2rem 1.5rem;
+        justify-content: center;
+      }
+      .phil-title-5050 {
+        font-size: clamp(1.8rem, 5.2vw, 2.4rem);
+        margin-bottom: 1rem;
+      }
+      .phil-title-line {
+        white-space: normal;
+        text-wrap: balance;
+      }
+      .phil-desc-5050 {
+        font-size: 0.92rem;
+        margin-bottom: 1.4rem;
+      }
+      .phil-vinyl-center-wrap {
+        width: clamp(180px, 45vw, 260px);
+        height: clamp(180px, 45vw, 260px);
+      }
+    }
+
+    @media (max-width: 440px) {
+      .now-playing-text .track-artist { display: none; }
+      .floating-reserve-cta {
+        padding: 0.7rem 1.8rem;
+        min-height: 42px;
+        font-size: 0.74rem;
+        gap: 0.45rem;
+      }
+      .reserve-cta-divider {
+        height: 11px;
+      }
+      .reserve-eat-logo {
+        height: 13px;
+      }
+    }
+
+    /* =========================================================
+       FULLSCREEN SPLASH SCREEN (Black Background + Centered loader-1.mp4)
+       ========================================================= */
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
+      user-select: none;
+    }
+
+    .splash-screen.splash-fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(440px, 78vw);
+      height: min(440px, 78vw);
+      max-width: 480px;
+      max-height: 480px;
+      position: relative;
+    }
+
+    .splash-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .splash-skip-btn {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.7);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      z-index: 10001;
+    }
+
+    .splash-skip-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen Splash Screen with Centered Video Loader -->
+  <div id="splashScreen" class="splash-screen" onclick="dismissSplashScreen()" role="dialog" aria-modal="true" aria-label="Loading NAMI">
+    <div class="splash-center">
+      <video id="splashVideo" class="splash-video" autoplay muted playsinline webkit-playsinline preload="auto">
+        <source src="./assets/loader-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <button class="splash-skip-btn" onclick="event.stopPropagation(); dismissSplashScreen();" aria-label="Skip intro">
+      <span>Skip</span>
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+
+  <!-- Official Noise Texture Overlay -->
+  <div id="noise-layer"></div>
+
+  <!-- Warm Analog Tube Glow -->
+  <div id="warmth-layer"></div>
+
+  <!-- =========================================================
+       FIXED TOP NAVIGATION (Exact Match to User Reference)
+       ========================================================= -->
+  <header class="site-header">
+    <div class="header-left">
+      <!-- Top-Left Favicon Wave Emblem (Always visible in Header) -->
+      <a href="#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+        <img src="./assets/favicon.svg" alt="NAMI" class="brand-mark-img">
+      </a>
+    </div>
+
+    <div class="header-nav-wrap">
+      <!-- Header Reservation CTA (Replaces Circular Page Scroller) -->
+      <button class="btn-header-reserve" onclick="openReservationModal(event)" aria-label="Reserve a Table at NAMI">
+        <span>Reservation</span>
+        <span class="reserve-cta-divider" aria-hidden="true"></span>
+        <img src="./assets/Eat_App_Logo.webp" alt="Eat App" class="reserve-eat-logo">
+      </button>
+
+      <!-- Waveform Hamburger Menu Icon (Menu-io.svg) -->
+      <button class="btn-wave-hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMenuDrawer()">
+        <img src="./assets/Menu-io.svg" alt="Menu" class="btn-menu-icon">
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       FULL-SCREEN SLIDE-OUT MENU DRAWER
+       ========================================================= -->
+  <div id="menuDrawer" role="dialog" aria-modal="true">
+    <div class="menu-drawer-top">
+      <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+    </div>
+
+    <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
+    <div class="drawer-middle">
+      <nav class="drawer-nav-links" id="drawerNavLinks">
+        <a href="#philosophy" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+          <span class="drawer-nav-num">01</span> Concept
+        </a>
+        <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
+          <span class="drawer-nav-num">02</span> What’s on
+        </a>
+        <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Food & drinks
+        </a>
+        <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+          <span class="drawer-nav-num">04</span> Our space
+        </a>
+        <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
+        </a>
+      </nav>
+
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
+      <div class="drawer-image-wrap">
+        <div class="drawer-image-card">
+          <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
+          <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
+          <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
+
+          <div class="drawer-image-caption">
+            <span class="drawer-caption-tag" id="drawerCaptionTag">NAMI HI-FI</span>
+            <span class="drawer-caption-sub" id="drawerCaptionSub">Listening Room & Dining</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-bottom-info">
+      <div class="drawer-info-col">
+        <h4>Hours</h4>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Location</h4>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Instagram</h4>
+        <a href="https://instagram.com/" target="_blank" style="color: #fff;">@nami.hifi</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       HERO ENTRANCE (Exact Reference Match: Center Big Logo)
+       ========================================================= -->
+  <section id="hero" class="hero-entrance">
+    <!-- Ambient Atmospheric Video Background (Short-video-2-min.mp4) -->
+    <video class="hero-bg-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+      <source src="./assets/Short-video-2-min.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+      <!-- Huge Big Center Logo (Max 1024px) -->
+      <svg class="hero-big-logo" id="heroMainLogo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
+<defs>
+<style>
+  .nami-letter { transform-box: fill-box; transform-origin: 50% 50%; will-change: transform; overflow: visible !important; }
+  .nami-letter-i-dot { animation: logoWave_i_dot 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
+  .nami-letter-n { animation: logoWave_n 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
+  .nami-letter-m { animation: logoWave_m 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
+  .nami-letter-a { animation: logoWave_a 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
+  .nami-letter-i-stem { animation: logoWave_i_stem 2000ms infinite cubic-bezier(0.42, 0, 0.58, 1); }
+  @keyframes logoWave_i_dot {
+    0.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    4.96% { transform: translateY(-0.207px) scaleY(1.0450); }
+    10.60% { transform: translateY(0.069px) scaleY(0.9850); }
+    16.46% { transform: translateY(-0.161px) scaleY(1.0350); }
+    23.00% { transform: translateY(0.046px) scaleY(0.9900); }
+    31.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    36.53% { transform: translateY(-0.207px) scaleY(1.0450); }
+    42.17% { transform: translateY(0.069px) scaleY(0.9850); }
+    48.03% { transform: translateY(-0.161px) scaleY(1.0350); }
+    54.57% { transform: translateY(0.046px) scaleY(0.9900); }
+    55.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    59.96% { transform: translateY(-0.207px) scaleY(1.0450); }
+    65.60% { transform: translateY(0.069px) scaleY(0.9850); }
+    71.46% { transform: translateY(-0.161px) scaleY(1.0350); }
+    78.00% { transform: translateY(0.046px) scaleY(0.9900); }
+    86.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    91.53% { transform: translateY(-0.207px) scaleY(1.0450); }
+    97.17% { transform: translateY(0.069px) scaleY(0.9850); }
+    100.00% { transform: translateY(0.000px) scaleY(1.0000); }
+  }
+  @keyframes logoWave_n {
+    0.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    4.06% { transform: translateY(-0.731px) scaleY(1.0250); }
+    9.47% { transform: translateY(0.292px) scaleY(0.9900); }
+    15.33% { transform: translateY(-1.169px) scaleY(1.0400); }
+    21.65% { transform: translateY(0.438px) scaleY(0.9850); }
+    31.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    35.63% { transform: translateY(-0.731px) scaleY(1.0250); }
+    41.04% { transform: translateY(0.292px) scaleY(0.9900); }
+    46.90% { transform: translateY(-1.169px) scaleY(1.0400); }
+    53.22% { transform: translateY(0.438px) scaleY(0.9850); }
+    55.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    59.06% { transform: translateY(-0.731px) scaleY(1.0250); }
+    64.47% { transform: translateY(0.292px) scaleY(0.9900); }
+    70.33% { transform: translateY(-1.169px) scaleY(1.0400); }
+    76.65% { transform: translateY(0.438px) scaleY(0.9850); }
+    86.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    90.63% { transform: translateY(-0.731px) scaleY(1.0250); }
+    96.04% { transform: translateY(0.292px) scaleY(0.9900); }
+    100.00% { transform: translateY(0.000px) scaleY(1.0000); }
+  }
+  @keyframes logoWave_m {
+    0.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    5.64% { transform: translateY(-0.829px) scaleY(1.0350); }
+    11.73% { transform: translateY(0.237px) scaleY(0.9900); }
+    17.59% { transform: translateY(-0.592px) scaleY(1.0250); }
+    24.35% { transform: translateY(0.237px) scaleY(0.9900); }
+    31.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    37.21% { transform: translateY(-0.829px) scaleY(1.0350); }
+    43.30% { transform: translateY(0.237px) scaleY(0.9900); }
+    49.16% { transform: translateY(-0.592px) scaleY(1.0250); }
+    55.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    60.64% { transform: translateY(-0.829px) scaleY(1.0350); }
+    66.73% { transform: translateY(0.237px) scaleY(0.9900); }
+    72.59% { transform: translateY(-0.592px) scaleY(1.0250); }
+    79.35% { transform: translateY(0.237px) scaleY(0.9900); }
+    86.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    92.21% { transform: translateY(-0.829px) scaleY(1.0350); }
+    98.30% { transform: translateY(0.237px) scaleY(0.9900); }
+    100.00% { transform: translateY(0.000px) scaleY(1.0000); }
+  }
+  @keyframes logoWave_a {
+    0.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    3.61% { transform: translateY(-0.355px) scaleY(1.0200); }
+    8.57% { transform: translateY(0.178px) scaleY(0.9900); }
+    14.43% { transform: translateY(-0.622px) scaleY(1.0350); }
+    20.75% { transform: translateY(0.178px) scaleY(0.9900); }
+    31.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    35.18% { transform: translateY(-0.355px) scaleY(1.0200); }
+    40.14% { transform: translateY(0.178px) scaleY(0.9900); }
+    46.00% { transform: translateY(-0.622px) scaleY(1.0350); }
+    52.32% { transform: translateY(0.178px) scaleY(0.9900); }
+    55.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    58.61% { transform: translateY(-0.355px) scaleY(1.0200); }
+    63.57% { transform: translateY(0.178px) scaleY(0.9900); }
+    69.43% { transform: translateY(-0.622px) scaleY(1.0350); }
+    75.75% { transform: translateY(0.178px) scaleY(0.9900); }
+    86.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    90.18% { transform: translateY(-0.355px) scaleY(1.0200); }
+    95.14% { transform: translateY(0.178px) scaleY(0.9900); }
+    100.00% { transform: translateY(0.000px) scaleY(1.0000); }
+  }
+  @keyframes logoWave_i_stem {
+    0.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    6.31% { transform: translateY(-0.743px) scaleY(1.0500); }
+    12.63% { transform: translateY(0.223px) scaleY(0.9850); }
+    18.49% { transform: translateY(-0.446px) scaleY(1.0300); }
+    24.81% { transform: translateY(0.149px) scaleY(0.9900); }
+    31.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    37.88% { transform: translateY(-0.743px) scaleY(1.0500); }
+    44.20% { transform: translateY(0.223px) scaleY(0.9850); }
+    50.06% { transform: translateY(-0.446px) scaleY(1.0300); }
+    55.00% { transform: translateY(0.000px) scaleY(1.0000); }
+    61.31% { transform: translateY(-0.743px) scaleY(1.0500); }
+    67.63% { transform: translateY(0.223px) scaleY(0.9850); }
+    73.49% { transform: translateY(-0.446px) scaleY(1.0300); }
+    79.80% { transform: translateY(0.149px) scaleY(0.9900); }
+    86.57% { transform: translateY(0.000px) scaleY(1.0000); }
+    92.88% { transform: translateY(-0.743px) scaleY(1.0500); }
+    100.00% { transform: translateY(0.000px) scaleY(1.0000); }
+  }
+</style>
+</defs>
+<g class="nami-letter nami-letter-i-dot">
+  <path d="M780.391 11.7857C780.391 18.2947 775.956 23.5715 770.488 23.5715C765.019 23.5715 760.568 18.2789 760.568 11.7857C760.568 5.29252 765.019 0 770.488 0C775.956 0 780.391 5.27672 780.391 11.7857Z" fill="white"/>
+</g>
+<g class="nami-letter nami-letter-n">
+  <path d="M171.404 149.265C171.308 150.055 170.609 150.639 169.846 150.639C169.766 150.639 169.703 150.639 169.639 150.639C136.782 146.563 118.835 126.31 109.599 110.021C105.148 102.201 102.541 94.8862 100.236 88.4088C99.5365 86.4498 98.853 84.5539 98.1694 82.7371C87.3917 54.6315 68.3161 39.4016 47.1264 41.9768C27.7647 44.3466 12.3929 61.3459 9.73823 83.3375C6.55897 109.516 5.63698 125.488 5.06472 135.03C4.715 141.018 4.50834 144.636 3.96787 146.816C3.92018 146.99 3.8407 147.164 3.74532 147.322L3.45919 147.748C3.04588 148.333 2.28286 148.57 1.59932 148.317C0.931674 148.064 0.502474 147.385 0.581956 146.674C0.788608 144.746 0.677333 141.35 0.502474 135.726C0.152755 124.003 -0.530786 102.138 0.725022 62.3412C1.90135 25.4515 29.5291 2.14861 55.5832 0.947918C68.7135 0.347573 80.6358 5.16614 90.0941 14.8981C100.824 25.9255 107.628 42.435 110.346 63.9368C110.696 66.7806 110.95 69.9877 111.204 73.3528C111.745 80.5885 112.381 88.7722 114.352 98.2829C118.453 118.015 135.51 142.756 170.053 147.495C170.911 147.622 171.515 148.412 171.404 149.265Z" fill="white"/>
+</g>
+<g class="nami-letter nami-letter-m">
+  <path d="M698.636 147.954C700.528 148.364 703.151 148.759 704.422 148.87C704.74 148.902 705.074 148.87 705.408 148.87C706.203 148.838 706.934 148.159 706.982 147.369C707.029 146.5 706.378 146.058 705.456 145.9C703.882 145.647 701.72 145.236 699.956 144.794C698.795 144.51 693.629 142.819 692.055 142.156C664.539 130.654 657.958 104.918 657.958 104.918C648.769 72.0099 644.032 47.4905 624.893 47.0956C612.891 46.7954 602.034 59.1657 592.465 86.2602C591.05 90.2889 582.212 118.932 574.311 118.489C565.377 117.984 559.623 82.3106 557.461 71.7887C550.657 38.4379 534.205 29.2906 523.729 29.0852C503.016 28.706 490.983 49.4338 481.572 82.3738C479.013 91.3316 475.039 102.517 473.195 107.415C459.285 144.431 433.978 146.548 429.13 147.306C428.272 147.432 427.699 148.222 427.811 149.075C427.906 149.865 428.605 150.45 429.368 150.45C429.432 150.45 429.496 150.45 429.559 150.45C455.438 147.653 469.252 138.364 485.085 108.505C492.525 94.4755 503.954 69.4663 523.236 69.4663C538.624 69.4663 546.858 87.1607 551.087 101.458C560.291 132.692 573.31 144.304 587.473 123.497C591.924 116.957 600.174 99.6416 602.352 95.8342C607.852 86.2128 618.741 72.4523 630.52 79.1825C639.883 84.5382 646.21 100.684 651.408 111.017C656.829 121.791 669.959 141.855 698.652 148.001" fill="white"/>
+</g>
+<g class="nami-letter nami-letter-a">
+  <path d="M419.275 148.775C419.211 149.613 418.48 150.229 417.638 150.213C404.714 149.676 389.803 141.208 383.445 137.574C382.348 136.958 381.505 136.468 380.933 136.168C371.522 131.381 363.654 126.341 356.039 121.459C330.796 105.313 312.563 93.6382 269.866 113.781C264.063 116.53 257.8 119.674 251.203 122.976C226.882 135.157 199.318 148.965 180.878 150.734H180.719C179.956 150.734 179.288 150.197 179.161 149.439C179.018 148.633 179.559 147.875 180.369 147.733C182.038 147.448 183.072 147.243 184.534 146.895C194.883 144.431 205.819 141.524 227.295 124.24C227.327 124.208 227.359 124.193 227.391 124.161C234.019 119.232 241.491 110.385 249.423 101.016C258.897 89.8308 268.673 78.2504 278.179 71.9784C293.662 61.7567 306.077 58.0598 317.3 60.3506C334.818 63.9369 349.156 81.5523 371.077 114.966C371.856 116.135 372.476 117.052 372.953 117.747C373.001 117.778 373.064 117.842 373.096 117.889C373.668 118.616 374.257 119.342 374.845 120.053C377.579 123.355 380.281 126.246 383.111 128.885C383.143 128.916 383.159 128.932 383.19 128.948C385.702 131.191 401.296 145.394 417.94 147.053C418.782 147.132 419.386 147.906 419.307 148.759" fill="white"/>
+</g>
+<g class="nami-letter nami-letter-i-stem">
+  <path d="M821.054 147.338C821.054 148.206 820.355 148.902 819.497 148.917C804.602 149.107 791.408 140.718 785.033 131.571C784.159 130.322 781.838 126.294 781.6 125.852C778.786 120.654 772.857 102.675 766.228 112.691C765.624 113.592 764.448 115.235 763.812 116.341C759.456 124.05 749.283 135.899 736.756 142.124C732.973 143.988 729.317 145.426 725.947 146.563C723.689 147.401 719.858 148.175 716.949 148.759C716.806 148.791 715.63 148.933 715.503 148.933C714.803 148.933 714.168 148.475 713.977 147.796C713.738 146.958 714.199 146.105 715.026 145.852L718.221 145.3C720.145 144.952 722.195 144.446 724.643 143.625C749.871 134.256 755.069 114.034 760.108 94.4123L760.33 93.5592C760.521 92.8483 760.712 92.011 760.935 91.1104C763.319 81.2047 765.862 72.3575 771.076 72.8473C771.124 72.8473 771.172 72.8473 771.235 72.8789C776.116 73.653 779.486 86.4183 783.984 109.611C784.747 113.544 785.463 116.562 785.812 117.778C791.487 137.511 805.079 143.467 810.722 144.699C810.769 144.699 810.833 144.699 810.881 144.731H810.913C813.122 145.268 815.443 145.584 817.811 145.679H817.843C817.843 145.679 817.923 145.679 817.955 145.679C818.559 145.71 819.067 145.726 819.512 145.742C820.371 145.773 821.07 146.469 821.07 147.322" fill="white"/>
+</g>
+</svg>
+
+
+      <!-- Short Subtitle Uppercase -->
+      <p class="hero-welcome-strap">
+        LISTENING BAR · DRINKS · FOOD
+      </p>
+    </div>
+
+    <!-- Scroll down indicator with custom wave arrow -->
+    <a href="#philosophy" class="hero-scroll-cue" aria-label="Scroll Down">
+      <img src="./assets/down-arrow-flat.svg" alt="Scroll Down" class="cue-wave-arrow">
+    </a>
+  </section>
+
+  <!-- =========================================================
+       BOTTOM LEFT: NOW PLAYING AUDIO WIDGET (Moved to Left Side)
+       ========================================================= -->
+  <div class="now-playing-widget" aria-label="Music Player">
+    <!-- Play/Pause Button -->
+    <button class="btn-audio-toggle" id="audioToggleBtn" onclick="toggleAudio()" aria-label="Play/Pause track">
+      <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <div class="now-playing-text">
+      <span class="track-title">On & On</span>
+      <span class="track-artist">Erykah Badu</span>
+    </div>
+
+    <!-- Animated Equalizer Badge -->
+    <div class="audio-badge-circle" title="Horn Sound System Active">
+      <div class="waveform-bars" id="eqBars">
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       PAGE CONTENT (Sitemap Sections)
+       ========================================================= -->
+  <main class="page-wrap">
+
+    <!-- 01. BRAND CONCEPT (50-50 Split Layout with Center Rotating Vinyl) -->
+    <section id="philosophy" class="section-philosophy-scroll-track" aria-label="Brand Concept">
+      <div class="philosophy-5050-stage">
+
+        <!-- LEFT COLUMN: Left-Aligned Editorial Typography -->
+        <div class="phil-col-left">
+          <div class="phil-left-inner">
+            <h2 class="phil-title-5050">
+              <span class="phil-title-line phil-line-1" id="philLine1">We Don't Host Nights.</span>
+              <span class="phil-title-line phil-line-2" id="philLine2">We Compose Them.</span>
+            </h2>
+
+            <p class="phil-desc-5050" id="philSubDesc">
+              It is curious, expressive and slightly unconventional. It does not simply serve food, drinks or music — it creates an environment where these things collide, overlap and influence one another.
+            </p>
+
+            <div class="phil-cta-wrap" id="philCtaWrap">
+              <a href="#space" class="btn-our-story" aria-label="Explore Our Space">OUR STORY</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Large Frameless Image (No copy or text) -->
+        <div class="phil-col-right">
+          <img src="./assets/spin-gallery-2.jpg" alt="NAMI Listening Room Atmosphere" class="phil-hero-img">
+        </div>
+
+        <!-- CENTER: Rotating Vinyl Record (Vinyl.svg) on Section Center -->
+        <div class="phil-vinyl-center-wrap" id="philVinylWrap" aria-hidden="true">
+          <img src="./assets/Vinyl.svg" alt="" class="phil-vinyl-img" id="philVinylImg">
+          <div class="phil-vinyl-glow"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3X REPEATING WAVE VIDEO STRAP SEPARATOR (assets/wave-anim.mp4) -->
+    <div class="wave-video-strap" aria-hidden="true">
+      <div class="wave-strap-grid">
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="wave-strap-item">
+          <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+            <source src="./assets/wave-anim.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="wave-strap-overlay"></div>
+    </div>
+
+    <!-- 02. WHAT'S ON AT NAMI / EVENT CALENDAR OVERLAY (assets/Event-bg.jpg) -->
+    <section id="programming" class="event-calendar-section" aria-label="What’s On at Nami">
+      <!-- Background Media Wrap with Subtle Parallax -->
+      <div class="event-parallax-media-wrap">
+        <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
+      </div>
+      <!-- Atmospheric film overlay -->
+      <div class="event-parallax-overlay"></div>
+
+      <!-- Transparent Calendar Container Over Image -->
+      <div class="event-calendar-container">
+        <!-- Section Heading -->
+        <div class="cal-header-block">
+          <h2 class="section-heading" style="margin: 0;">What’s On at <span class="grad-accent">Nami</span></h2>
+        </div>
+
+        <!-- 7-Column Calendar Grid Wrapper -->
+        <div class="cal-grid-scroll-wrap">
+          <div class="cal-grid-table">
+            <!-- Day of Week Header Row -->
+            <div class="cal-dow-row">
+              <div class="cal-dow-col">MON</div>
+              <div class="cal-dow-col">TUE</div>
+              <div class="cal-dow-col">WED</div>
+              <div class="cal-dow-col">THU</div>
+              <div class="cal-dow-col">FRI</div>
+              <div class="cal-dow-col">SAT</div>
+              <div class="cal-dow-col">SUN</div>
+            </div>
+
+            <!-- Calendar Days (35 Blocks: 5 rows x 7 cols) -->
+            <div class="cal-days-grid" id="calDaysGrid">
+              <!-- ROW 1: Days 1 to 7 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">1</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">2</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">3</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">4</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">5</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">6</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">7</span></div>
+              </div>
+
+              <!-- ROW 2: Days 8 to 14 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">8</span></div>
+              </div>
+              <!-- Event Day 9: Atushi Maeda (Column 2) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">9</span>
+                  <span class="cal-badge">440 Hz</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Atushi Maeda</div>
+                  <div class="cal-event-meta">20:30 · Ambient & Jazz</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">10</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">11</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">12</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">13</span></div>
+              </div>
+              <!-- Event Day 14: Mogasu (Column 7) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">14</span>
+                  <span class="cal-badge">Warm Freq</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Mogasu</div>
+                  <div class="cal-event-meta">18:00 · Vinyl Soul</div>
+                </div>
+              </a>
+
+              <!-- ROW 3: Days 15 to 21 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">15</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">16</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">17</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">18</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">19</span></div>
+              </div>
+              <!-- Event Day 20: Yousuke Yukimatsu (Headline - Column 6) -->
+              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">20</span>
+                  <span class="cal-badge badge-headline">3968 Hz Special</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Yousuke Yukimatsu</div>
+                  <div class="cal-event-meta">20:30 · Avant-Garde & Bass</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">21</span></div>
+              </div>
+
+              <!-- ROW 4: Days 22 to 28 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">22</span></div>
+              </div>
+              <!-- Event Day 23: Occa (Column 2) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">23</span>
+                  <span class="cal-badge">Resonant</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Occa</div>
+                  <div class="cal-event-meta">20:30 · Hypnotic Sound</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">24</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">25</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">26</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">27</span></div>
+              </div>
+              <!-- Event Day 28: Suze Ijo (Column 7) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">28</span>
+                  <span class="cal-badge">Electric</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Suze Ijo</div>
+                  <div class="cal-event-meta">19:00 · Afro-Cuban Beats</div>
+                </div>
+              </a>
+
+              <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
+              <!-- Event Day 29: Sunju Hargun (Column 1) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">29</span>
+                  <span class="cal-badge">Nocturnal</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Sunju Hargun</div>
+                  <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">30</span></div>
+              </div>
+              <!-- 5 empty cells matching reference layout -->
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+
+              <!-- IN-PLACE COLUMN EXPANDED EVENT POPUP (NO BACKGROUND BLUR) -->
+              <div class="cal-column-popup" id="calColumnPopup" aria-hidden="true">
+                <div class="col-popup-body">
+                  <div class="col-popup-media">
+                    <img src="./assets/spin-gallery-1.jpg" alt="Event Poster" class="col-popup-img" id="colPopupImg">
+                    <!-- Subtle top vignette for contrast over any image -->
+                    <div class="col-popup-top-vignette"></div>
+                    <div class="col-popup-img-grad"></div>
+                    <!-- Date & Close Button floating directly over the image (no noisy background) -->
+                    <div class="col-popup-header">
+                      <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                      <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-popup-info">
+                    <div class="col-popup-badge-wrap">
+                      <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
+                    </div>
+                    <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient · Spiritual Jazz · 20:30 (Doors 19:00)</div>
+
+                    <p class="col-popup-desc" id="colPopupDesc">
+                      Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
+                    </p>
+
+                    <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
+                      <span>Buy Ticket</span>
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile scroll swipe hint -->
+        <div class="cal-scroll-hint" aria-hidden="true">
+          <span>← Swipe to explore full calendar →</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. THE RESONANCE MENU (Full-Width 50-50 Nocturnal Scroll - Theme Match) -->
+    <section id="menu" class="section-block menu-editorial-scroll-track" aria-label="The Resonance Menu">
+      
+      <!-- Sticky Viewport Stage (pins in view as you scroll through the 280vh track) -->
+      <div class="menu-sticky-stage">
+
+        <!-- LEFT HALF: 50% Width Dark Nocturnal Editorial Canvas -->
+        <div class="menu-panel-editorial" id="menuPanelEditorial">
+
+          <!-- Phase 0: Food Content -->
+          <div class="menu-editorial-slide active" data-phase="0">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">food</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Food.png" alt="Hamachi Truffle Crudo & Robata Wagyu" class="menu-ed-img" loading="eager">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <p class="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('food')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+          <!-- Phase 1: Cocktails Content -->
+          <div class="menu-editorial-slide" data-phase="1">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">cocktails</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Cocktail.png" alt="440Hz Clarified Milk Punch" class="menu-ed-img" loading="lazy">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <p class="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('cocktails')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+          <!-- Phase 2: Dessert Content -->
+          <div class="menu-editorial-slide" data-phase="2">
+            <div class="menu-ed-top">
+              <h3 class="menu-ed-title">dessert</h3>
+            </div>
+            <div class="menu-ed-frame-wrap">
+              <div class="menu-ed-frame">
+                <img src="./assets/Dessert.png" alt="Yuzu Miso Tart & Smoked Matcha Silk" class="menu-ed-img" loading="lazy">
+              </div>
+            </div>
+            <div class="menu-ed-bottom">
+              <p class="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
+              <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('dessert')">
+                VIEW FULL MENU →
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT HALF: 50% Width Pure Full-Bleed Photography (Zero Text) -->
+        <div class="menu-panel-hero" id="menuPanelHero">
+
+          <!-- Background Image 0: Food -->
+          <div class="menu-hero-slide active" data-phase="0">
+            <img src="./assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" class="menu-hero-bg-img">
+          </div>
+
+          <!-- Background Image 1: Cocktails -->
+          <div class="menu-hero-slide" data-phase="1">
+            <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="menu-hero-bg-img">
+          </div>
+
+          <!-- Background Image 2: Dessert -->
+          <div class="menu-hero-slide" data-phase="2">
+            <img src="./assets/Dessert.png" alt="Delicate Plated Desserts at Nami" class="menu-hero-bg-img">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 04. OUR SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
+    <section id="space" class="space-section">
+      <div class="space-header-row">
+        <h2 class="section-heading">Our <span class="grad-accent">Space</span></h2>
+        <p class="section-body" style="margin-bottom: 0;">
+          An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
+        </p>
+      </div>
+
+      <div class="space-fine-rule"></div>
+
+      <!-- Edge-to-Edge 3-Column Photography Grid (Spin Bar Reference) -->
+      <div class="spin-gallery-fullbleed">
+        <div class="spin-gallery-grid">
+          <!-- Row 1 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-1.jpg" alt="Listening Room & Bar Tables" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-2.jpg" alt="Warm Amber Pool Table & Cue" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-3.jpg" alt="Rotary DJ Booth & Vinyl Wall" class="spin-gallery-img" loading="lazy">
+          </div>
+
+          <!-- Row 2 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Disco Ball & Beams" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-5.jpg" alt="Vinyl Artwork & Sconce Illumination" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-6.jpg" alt="Culinary Small Plates & Dining" class="spin-gallery-img" loading="lazy">
+          </div>
+
+          <!-- Row 3 -->
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails on Counter" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-8.jpg" alt="Listening Room Corner & Horn Acoustics" class="spin-gallery-img" loading="lazy">
+          </div>
+          <div class="spin-gallery-cell">
+            <img src="./assets/spin-gallery-9.jpg" alt="Private Lounge Seating & Vinyl Vault" class="spin-gallery-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
+       ========================================================= -->
+  <footer class="site-footer" id="siteFooter">
+    <!-- Brand Gradient Nocturnal Atmosphere Aura (Nami Palette Only) -->
+    <div class="footer-glow-aura" aria-hidden="true"></div>
+
+    <div class="footer-inner">
+      <!-- Top Row: Editorial Nav Columns + Hanging VIP Lanyard Card -->
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Tagline -->
+        <div class="footer-meta-col">
+          <p class="footer-tagline">
+            A sensory provocateur in sound, dining, and nocturnal culture.<br>
+            Part listening room, part bar, part cultural gathering.
+          </p>
+          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+            <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+            <span>Join WhatsApp Community →</span>
+          </a>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">navigate</span>
+          <ul class="footer-nav-list">
+            <li><a href="#philosophy">about</a></li>
+            <li><a href="#programming">what’s on</a></li>
+            <li><a href="#menu">food & drinks</a></li>
+            <li><a href="#space">our space</a></li>
+            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">reservation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Hours & Address -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">hours & address</span>
+          <ul class="footer-nav-list">
+            <li><span>wed – sun · 7pm – late</span></li>
+            <li><span>sessions: 8:30pm onwards</span></li>
+            <li><span>bandra west, mumbai</span></li>
+            <li><a href="mailto:experience@nami.in">experience@nami.in</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Connect & Group -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">connect</span>
+          <ul class="footer-nav-list">
+            <li><a href="https://instagram.com/" target="_blank">instagram (@nami.hifi)</a></li>
+            <li><a href="#programming">resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank">abnah group ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Huge NAMI Logo Bleeding into Edge (Exact Reference Match) -->
+      <div class="footer-giant-logo-wrap">
+        <svg class="footer-giant-logo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
+          <g class="nami-letter nami-letter-i-dot">
+            <path d="M780.391 11.7857C780.391 18.2947 775.956 23.5715 770.488 23.5715C765.019 23.5715 760.568 18.2789 760.568 11.7857C760.568 5.29252 765.019 0 770.488 0C775.956 0 780.391 5.27672 780.391 11.7857Z" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-n">
+            <path d="M171.404 149.265C171.308 150.055 170.609 150.639 169.846 150.639C169.766 150.639 169.703 150.639 169.639 150.639C136.782 146.563 118.835 126.31 109.599 110.021C105.148 102.201 102.541 94.8862 100.236 88.4088C99.5365 86.4498 98.853 84.5539 98.1694 82.7371C87.3917 54.6315 68.3161 39.4016 47.1264 41.9768C27.7647 44.3466 12.3929 61.3459 9.73823 83.3375C6.55897 109.516 5.63698 125.488 5.06472 135.03C4.715 141.018 4.50834 144.636 3.96787 146.816C3.92018 146.99 3.8407 147.164 3.74532 147.322L3.45919 147.748C3.04588 148.333 2.28286 148.57 1.59932 148.317C0.931674 148.064 0.502474 147.385 0.581956 146.674C0.788608 144.746 0.677333 141.35 0.502474 135.726C0.152755 124.003 -0.530786 102.138 0.725022 62.3412C1.90135 25.4515 29.5291 2.14861 55.5832 0.947918C68.7135 0.347573 80.6358 5.16614 90.0941 14.8981C100.824 25.9255 107.628 42.435 110.346 63.9368C110.696 66.7806 110.95 69.9877 111.204 73.3528C111.745 80.5885 112.381 88.7722 114.352 98.2829C118.453 118.015 135.51 142.756 170.053 147.495C170.911 147.622 171.515 148.412 171.404 149.265Z" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-m">
+            <path d="M698.636 147.954C700.528 148.364 703.151 148.759 704.422 148.87C704.74 148.902 705.074 148.87 705.408 148.87C706.203 148.838 706.934 148.159 706.982 147.369C707.029 146.5 706.378 146.058 705.456 145.9C703.882 145.647 701.72 145.236 699.956 144.794C698.795 144.51 693.629 142.819 692.055 142.156C664.539 130.654 657.958 104.918 657.958 104.918C648.769 72.0099 644.032 47.4905 624.893 47.0956C612.891 46.7954 602.034 59.1657 592.465 86.2602C591.05 90.2889 582.212 118.932 574.311 118.489C565.377 117.984 559.623 82.3106 557.461 71.7887C550.657 38.4379 534.205 29.2906 523.729 29.0852C503.016 28.706 490.983 49.4338 481.572 82.3738C479.013 91.3316 475.039 102.517 473.195 107.415C459.285 144.431 433.978 146.548 429.13 147.306C428.272 147.432 427.699 148.222 427.811 149.075C427.906 149.865 428.605 150.45 429.368 150.45C429.432 150.45 429.496 150.45 429.559 150.45C455.438 147.653 469.252 138.364 485.085 108.505C492.525 94.4755 503.954 69.4663 523.236 69.4663C538.624 69.4663 546.858 87.1607 551.087 101.458C560.291 132.692 573.31 144.304 587.473 123.497C591.924 116.957 600.174 99.6416 602.352 95.8342C607.852 86.2128 618.741 72.4523 630.52 79.1825C639.883 84.5382 646.21 100.684 651.408 111.017C656.829 121.791 669.959 141.855 698.652 148.001" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-a">
+            <path d="M419.275 148.775C419.211 149.613 418.48 150.229 417.638 150.213C404.714 149.676 389.803 141.208 383.445 137.574C382.348 136.958 381.505 136.468 380.933 136.168C371.522 131.381 363.654 126.341 356.039 121.459C330.796 105.313 312.563 93.6382 269.866 113.781C264.063 116.53 257.8 119.674 251.203 122.976C226.882 135.157 199.318 148.965 180.878 150.734H180.719C179.956 150.734 179.288 150.197 179.161 149.439C179.018 148.633 179.559 147.875 180.369 147.733C182.038 147.448 183.072 147.243 184.534 146.895C194.883 144.431 205.819 141.524 227.295 124.24C227.327 124.208 227.359 124.193 227.391 124.161C234.019 119.232 241.491 110.385 249.423 101.016C258.897 89.8308 268.673 78.2504 278.179 71.9784C293.662 61.7567 306.077 58.0598 317.3 60.3506C334.818 63.9369 349.156 81.5523 371.077 114.966C371.856 116.135 372.476 117.052 372.953 117.747C373.001 117.778 373.064 117.842 373.096 117.889C373.668 118.616 374.257 119.342 374.845 120.053C377.579 123.355 380.281 126.246 383.111 128.885C383.143 128.916 383.159 128.932 383.19 128.948C385.702 131.191 401.296 145.394 417.94 147.053C418.782 147.132 419.386 147.906 419.307 148.759" fill="white"/>
+          </g>
+          <g class="nami-letter nami-letter-i-stem">
+            <path d="M821.054 147.338C821.054 148.206 820.355 148.902 819.497 148.917C804.602 149.107 791.408 140.718 785.033 131.571C784.159 130.322 781.838 126.294 781.6 125.852C778.786 120.654 772.857 102.675 766.228 112.691C765.624 113.592 764.448 115.235 763.812 116.341C759.456 124.05 749.283 135.899 736.756 142.124C732.973 143.988 729.317 145.426 725.947 146.563C723.689 147.401 719.858 148.175 716.949 148.759C716.806 148.791 715.63 148.933 715.503 148.933C714.803 148.933 714.168 148.475 713.977 147.796C713.738 146.958 714.199 146.105 715.026 145.852L718.221 145.3C720.145 144.952 722.195 144.446 724.643 143.625C749.871 134.256 755.069 114.034 760.108 94.4123L760.33 93.5592C760.521 92.8483 760.712 92.011 760.935 91.1104C763.319 81.2047 765.862 72.3575 771.076 72.8473C771.124 72.8473 771.172 72.8473 771.235 72.8789C776.116 73.653 779.486 86.4183 783.984 109.611C784.747 113.544 785.463 116.562 785.812 117.778C791.487 137.511 805.079 143.467 810.722 144.699C810.769 144.699 810.833 144.699 810.881 144.731H810.913C813.122 145.268 815.443 145.584 817.811 145.679H817.843C817.843 145.679 817.923 145.679 817.955 145.679C818.559 145.71 819.067 145.726 819.512 145.742C820.371 145.773 821.07 146.469 821.07 147.322" fill="white"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Bottom Minimal Bar -->
+      <div class="footer-bottom-bar">
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
+        <span>BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast">Copied to clipboard</div>
+
+  <!-- =========================================================
+       JAVASCRIPT LOGIC
+       ========================================================= -->
+  <script>
+    // 0. Fullscreen Splash Screen Controller (loader-1.mp4 Reveal)
+    (function initSplashScreen() {
+      const splash = document.getElementById('splashScreen');
+      const splashVid = document.getElementById('splashVideo');
+      if (!splash) return;
+
+      document.body.style.overflow = 'hidden';
+
+      let dismissed = false;
+      function dismissSplashScreen() {
+        if (dismissed) return;
+        dismissed = true;
+
+        splash.classList.add('splash-fade-out');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          splash.style.display = 'none';
+          splash.setAttribute('aria-hidden', 'true');
+        }, 900);
+      }
+
+      window.dismissSplashScreen = dismissSplashScreen;
+
+      if (splashVid) {
+        splashVid.addEventListener('ended', dismissSplashScreen);
+        splashVid.addEventListener('error', dismissSplashScreen);
+        const p = splashVid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      }
+
+      // Fallback timeout after loader completes
+      setTimeout(dismissSplashScreen, 4800);
+    })();
+
+    // 0.1 Safari / WebKit Video Autoplay & Muted State Enforcer
+    function initVideoAutoplay() {
+      const allVideos = document.querySelectorAll('video[autoplay]');
+      allVideos.forEach(v => {
+        v.muted = true;
+        v.defaultMuted = true;
+        v.playsInline = true;
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+
+        const triggerPlayback = () => {
+          const promise = v.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              // If Safari blocked it initially, trigger on earliest interaction
+              const unlock = () => {
+                v.play().catch(() => {});
+                window.removeEventListener('click', unlock);
+                window.removeEventListener('touchstart', unlock);
+                window.removeEventListener('scroll', unlock);
+              };
+              window.addEventListener('click', unlock, { once: true, passive: true });
+              window.addEventListener('touchstart', unlock, { once: true, passive: true });
+              window.addEventListener('scroll', unlock, { once: true, passive: true });
+            });
+          }
+        };
+
+        if (v.readyState >= 2) {
+          triggerPlayback();
+        } else {
+          v.addEventListener('loadedmetadata', triggerPlayback, { once: true });
+          v.addEventListener('canplay', triggerPlayback, { once: true });
+        }
+        triggerPlayback();
+      });
+
+      // Resume on tab visibility return
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          allVideos.forEach(v => {
+            if (v.paused) v.play().catch(() => {});
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoAutoplay);
+    } else {
+      initVideoAutoplay();
+    }
+
+    // 1. Toast Notification Utility
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    // 2. Menu Drawer Toggle & Interactive Image Showcase
+    function toggleMenuDrawer() {
+      const drawer = document.getElementById('menuDrawer');
+      drawer.classList.toggle('open');
+    }
+
+    (function initDrawerImageHover() {
+      const navLinks = document.getElementById('drawerNavLinks');
+      if (!navLinks) return;
+      const defaultImg = document.getElementById('drawerImgDefault');
+      const tagEl = document.getElementById('drawerCaptionTag');
+      const subEl = document.getElementById('drawerCaptionSub');
+      const items = navLinks.querySelectorAll('.drawer-nav-item');
+      const allImgs = document.querySelectorAll('.drawer-preview-img');
+
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const targetId = item.getAttribute('data-target-img');
+          const targetImg = document.getElementById(targetId);
+          if (targetImg) {
+            allImgs.forEach(img => img.classList.remove('active'));
+            targetImg.classList.add('active');
+          }
+          if (tagEl) tagEl.textContent = item.getAttribute('data-tag') || 'NAMI HI-FI';
+          if (subEl) subEl.textContent = item.getAttribute('data-sub') || 'Listening Room & Dining';
+        });
+      });
+
+      navLinks.addEventListener('mouseleave', () => {
+        allImgs.forEach(img => img.classList.remove('active'));
+        if (defaultImg) defaultImg.classList.add('active');
+        if (tagEl) tagEl.textContent = 'NAMI HI-FI';
+        if (subEl) subEl.textContent = 'Listening Room & Dining';
+      });
+    })();
+
+    // Event Details Data & Popup Modal System
+    const EVENTS_DATA = {
+      '9': {
+        dateNum: '09',
+        dateTag: 'TUE · FEB 09',
+        hzTag: '440 Hz Root',
+        artist: 'Atushi Maeda',
+        title: 'Atushi Maeda · Ambient & Jazz',
+        genre: 'Japanese Ambient · Spiritual Jazz',
+        timing: '20:30 (Doors 19:00)',
+        poster: './assets/spin-gallery-1.jpg',
+        desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
+        dateStr: '2026-02-09'
+      },
+      '14': {
+        dateNum: '14',
+        dateTag: 'SUN · FEB 14',
+        hzTag: 'Warm Frequencies',
+        artist: 'Mogasu',
+        title: 'Mogasu · Vinyl Soul & Rare Groove',
+        genre: 'Vintage Soul · Rare Groove',
+        timing: '18:00 Onwards',
+        poster: './assets/spin-gallery-2.jpg',
+        desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
+        dateStr: '2026-02-14'
+      },
+      '20': {
+        dateNum: '20',
+        dateTag: 'SAT · FEB 20',
+        hzTag: '3968 Hz Special · Headline',
+        artist: 'Yousuke Yukimatsu',
+        title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
+        genre: 'Tokyo Avant-Garde & Bass',
+        timing: '20:30 Onwards',
+        poster: './assets/spin-gallery-6.jpg',
+        desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
+        dateStr: '2026-02-20'
+      },
+      '23': {
+        dateNum: '23',
+        dateTag: 'TUE · FEB 23',
+        hzTag: 'Resonant Node',
+        artist: 'Occa',
+        title: 'Occa · Deep Hypnotic Soundscapes',
+        genre: 'Hypnotic Soundscapes & Ambient',
+        timing: '20:30 Onwards',
+        poster: './assets/spin-gallery-4.jpg',
+        desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
+        dateStr: '2026-02-23'
+      },
+      '28': {
+        dateNum: '28',
+        dateTag: 'SUN · FEB 28',
+        hzTag: 'Electric Pulse',
+        artist: 'Suze Ijo',
+        title: 'Suze Ijo · Afro-Cuban & Electronic',
+        genre: 'Afro-Cuban Beats & Deep House',
+        timing: '19:00 Onwards',
+        poster: './assets/spin-gallery-7.jpg',
+        desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
+        dateStr: '2026-02-28'
+      },
+      '29': {
+        dateNum: '29',
+        dateTag: 'MON · FEB 29',
+        hzTag: 'Nocturnal Set',
+        artist: 'Sunju Hargun',
+        title: 'Sunju Hargun · Bangkok Nightclub Selector',
+        genre: 'Cosmic Techno & Asian Synth',
+        timing: '19:00 Onwards',
+        poster: './assets/spin-gallery-8.jpg',
+        desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
+        dateStr: '2026-02-29'
+      }
+    };
+
+    let activePopupEvent = null;
+    let activePopupDayKey = null;
+
+    function openEventPopup(dayKey, evt) {
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      const ev = EVENTS_DATA[dayKey];
+      if (!ev) return;
+
+      activePopupEvent = ev;
+      activePopupDayKey = dayKey;
+
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      if (!grid || !popup) return;
+
+      // Clear previous active cells
+      grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+
+      // Find target cell
+      let targetCell = null;
+      if (evt && evt.currentTarget) {
+        targetCell = evt.currentTarget.closest('.cal-cell');
+      }
+      if (!targetCell) {
+        targetCell = grid.querySelector(`[data-day="${dayKey}"]`);
+      }
+      if (targetCell) {
+        targetCell.classList.add('is-active-event');
+      }
+
+      // Populate data
+      const dateEl = document.getElementById('colPopupDate');
+      const imgEl = document.getElementById('colPopupImg');
+      const hzEl = document.getElementById('colPopupHz');
+      const titleEl = document.getElementById('colPopupTitle');
+      const genreEl = document.getElementById('colPopupGenre');
+      const descEl = document.getElementById('colPopupDesc');
+
+      if (dateEl) dateEl.textContent = ev.dateTag;
+      if (imgEl) {
+        imgEl.src = ev.poster;
+        imgEl.alt = ev.artist;
+      }
+      if (hzEl) hzEl.textContent = ev.hzTag;
+      if (titleEl) titleEl.textContent = ev.artist;
+      if (genreEl) {
+        genreEl.textContent = ev.genre + (ev.timing ? ' · ' + ev.timing : '');
+      }
+      if (descEl) descEl.textContent = ev.desc;
+
+      // Position logic: SNAPPED EXACTLY TO CALENDAR BLOCKS (Covers exactly 6 boxes: 3 rows × 2 columns)
+      const totalCols = 7;
+      const totalRows = 5;
+      const colSpan = 2;
+      const rowSpan = 3;
+
+      const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+      const cellIndex = cells.indexOf(targetCell);
+
+      let colIndex = 0;
+      let rowIndex = 0;
+      if (cellIndex !== -1) {
+        colIndex = cellIndex % totalCols;
+        rowIndex = Math.floor(cellIndex / totalCols);
+      } else {
+        colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+        rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+      }
+
+      // Adjust column start so card never overflows the 7 columns:
+      let startCol = colIndex;
+      if (startCol + colSpan > totalCols) {
+        startCol = totalCols - colSpan;
+      }
+      if (startCol < 0) startCol = 0;
+
+      // Adjust row start so card never overflows the 5 rows:
+      let startRow = rowIndex;
+      if (startRow + rowSpan > totalRows) {
+        startRow = totalRows - rowSpan;
+      }
+      if (startRow < 0) startRow = 0;
+
+      // Query real top-left and bottom-right cells in the DOM for 100% exact boundary alignment:
+      const topLeftIndex = startRow * totalCols + startCol;
+      const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+      const topLeftCell = cells[topLeftIndex];
+      const bottomRightCell = cells[bottomRightIndex];
+
+      let left, top, width, height;
+      if (topLeftCell && bottomRightCell) {
+        left = topLeftCell.offsetLeft;
+        top = topLeftCell.offsetTop;
+        width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+        height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+      } else {
+        const colWidth = targetCell.offsetWidth;
+        const cellHeight = targetCell.offsetHeight;
+        left = startCol * colWidth;
+        top = startRow * cellHeight;
+        width = colSpan * colWidth;
+        height = rowSpan * cellHeight;
+      }
+
+      popup.style.left = left + 'px';
+      popup.style.top = top + 'px';
+      popup.style.width = width + 'px';
+      popup.style.height = height + 'px';
+
+      popup.classList.add('open');
+      popup.setAttribute('aria-hidden', 'false');
+
+      // Scroll horizontal wrapper if needed so the open popup is in view
+      const scrollWrap = document.querySelector('.cal-grid-scroll-wrap');
+      if (scrollWrap) {
+        const wrapLeft = scrollWrap.scrollLeft;
+        const wrapWidth = scrollWrap.clientWidth;
+        if (left < wrapLeft) {
+          scrollWrap.scrollTo({ left: Math.max(0, left - 16), behavior: 'smooth' });
+        } else if (left + width > wrapLeft + wrapWidth) {
+          scrollWrap.scrollTo({ left: left + width - wrapWidth + 16, behavior: 'smooth' });
+        }
+      }
+    }
+
+    function closeEventPopup() {
+      const popup = document.getElementById('calColumnPopup');
+      if (popup) {
+        popup.classList.remove('open');
+        popup.setAttribute('aria-hidden', 'true');
+      }
+      const grid = document.getElementById('calDaysGrid');
+      if (grid) {
+        grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+      }
+      activePopupEvent = null;
+      activePopupDayKey = null;
+    }
+
+    function bookFromPopup() {
+      if (!activePopupEvent) return;
+      const targetDate = activePopupEvent.dateStr;
+      const artist = activePopupEvent.artist;
+      closeEventPopup();
+      showToast(`Tickets for ${artist} (Feb ${targetDate.split('-')[2]}) — Booking opens soon`);
+    }
+
+    // Dismiss popup on outside click (anywhere except inside the popup itself or on an event cell)
+    document.addEventListener('click', function(e) {
+      const popup = document.getElementById('calColumnPopup');
+      if (!popup || !popup.classList.contains('open')) return;
+      if (popup.contains(e.target)) return;
+      if (e.target.closest('.has-event')) return;
+      closeEventPopup();
+    });
+
+    // Randomize Calendar Block Gradients between var(--grad-primary), var(--grad-resonance), var(--grad-flare)
+    function randomizeCalendarGradients() {
+      const variants = ['grad-variant-primary', 'grad-variant-resonance', 'grad-variant-flare'];
+      const eventCells = Array.from(document.querySelectorAll('.cal-cell.has-event'));
+      if (!eventCells.length) return;
+
+      const pool = [];
+      while (pool.length < eventCells.length) {
+        pool.push(...variants);
+      }
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      eventCells.forEach((cell, idx) => {
+        variants.forEach(v => cell.classList.remove(v));
+        cell.classList.add(pool[idx]);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', randomizeCalendarGradients);
+    } else {
+      randomizeCalendarGradients();
+    }
+
+    // Keyboard support: Escape key closes in-place popup
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeEventPopup();
+      }
+    });
+
+    // Resize recalculation to keep popup perfectly aligned with calendar blocks
+    window.addEventListener('resize', () => {
+      if (!activePopupDayKey) return;
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      const targetCell = document.querySelector(`.cal-cell.has-event[data-day="${activePopupDayKey}"]`);
+      if (grid && popup && targetCell) {
+        const totalCols = 7;
+        const totalRows = 5;
+        const colSpan = 2;
+        const rowSpan = 3;
+
+        const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+        const cellIndex = cells.indexOf(targetCell);
+
+        let colIndex = 0;
+        let rowIndex = 0;
+        if (cellIndex !== -1) {
+          colIndex = cellIndex % totalCols;
+          rowIndex = Math.floor(cellIndex / totalCols);
+        } else {
+          colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+          rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
+        }
+
+        let startCol = colIndex;
+        if (startCol + colSpan > totalCols) {
+          startCol = totalCols - colSpan;
+        }
+        if (startCol < 0) startCol = 0;
+
+        let startRow = rowIndex;
+        if (startRow + rowSpan > totalRows) {
+          startRow = totalRows - rowSpan;
+        }
+        if (startRow < 0) startRow = 0;
+
+        const topLeftIndex = startRow * totalCols + startCol;
+        const bottomRightIndex = (startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1);
+        const topLeftCell = cells[topLeftIndex];
+        const bottomRightCell = cells[bottomRightIndex];
+
+        let left, top, width, height;
+        if (topLeftCell && bottomRightCell) {
+          left = topLeftCell.offsetLeft;
+          top = topLeftCell.offsetTop;
+          width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+          height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+        } else {
+          const colWidth = targetCell.offsetWidth;
+          const cellHeight = targetCell.offsetHeight;
+          left = startCol * colWidth;
+          top = startRow * cellHeight;
+          width = colSpan * colWidth;
+          height = rowSpan * cellHeight;
+        }
+
+        popup.style.left = left + 'px';
+        popup.style.top = top + 'px';
+        popup.style.width = width + 'px';
+        popup.style.height = height + 'px';
+      }
+    });
+
+    // Select Event Date from Calendar
+    function selectEventDate(dateStr, artistName) {
+      showToast(`Selected ${artistName} · Feb ${dateStr.split('-')[2]}`);
+    }
+
+    // 3. First-Fold Parallax & ScrollSpy Execution
+    const heroBg = document.querySelector('.hero-bg-media');
+    const heroContent = document.querySelector('.hero-content');
+    const heroScrollCue = document.querySelector('.hero-scroll-cue');
+    const scrollerButtons = document.querySelectorAll('.scroller-btn');
+    const sections = ['philosophy', 'programming', 'menu', 'space'];
+    const brandMark = document.getElementById('headerBrandMark');
+    const eventBanner = document.getElementById('programming') || document.getElementById('eventParallaxBanner');
+    const eventImg = document.getElementById('eventParallaxImg');
+
+    let ticking = false;
+
+    function handleScrollEffects() {
+      const scrollY = window.scrollY;
+      const winHeight = window.innerHeight;
+
+      // Parallax on First-Fold Banner
+      if (scrollY <= winHeight * 1.3) {
+        // Background video moves down at 0.35x speed + gentle cinematic depth scale
+        if (heroBg) {
+          heroBg.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0) scale(${1 + scrollY * 0.00015})`;
+        }
+        // Center content floats at 0.18x speed with smooth dissolution
+        if (heroContent) {
+          const contentOpacity = Math.max(0, 1 - (scrollY / (winHeight * 0.72)));
+          heroContent.style.transform = `translate3d(0, ${scrollY * 0.18}px, 0)`;
+          heroContent.style.opacity = contentOpacity;
+        }
+        // Bottom cue fades out quickly on scroll
+        if (heroScrollCue) {
+          const cueOpacity = Math.max(0, 1 - (scrollY / 180));
+          heroScrollCue.style.opacity = cueOpacity;
+          heroScrollCue.style.transform = `translate3d(-50%, ${scrollY * 0.45}px, 0)`;
+          heroScrollCue.style.pointerEvents = cueOpacity <= 0.05 ? 'none' : 'auto';
+        }
+      }
+
+      // Deep Cinematic Parallax on Full-Width Event Calendar Section
+      if (eventBanner && eventImg) {
+        const rect = eventBanner.getBoundingClientRect();
+        if (rect.top < winHeight && rect.bottom > 0) {
+          const sectionCenter = rect.top + rect.height / 2;
+          const screenCenter = winHeight / 2;
+          const diffFromCenter = sectionCenter - screenCenter;
+          const translateY = diffFromCenter * -0.22;
+          eventImg.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(1.08)`;
+        }
+      }
+
+      // ScrollSpy for Top-Right Nav
+      let currentSection = '';
+      const scrollPos = scrollY + winHeight / 3;
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && scrollPos >= el.offsetTop) {
+          currentSection = id;
+        }
+      });
+
+      scrollerButtons.forEach(btn => {
+        if (btn.getAttribute('data-section') === currentSection) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScrollEffects);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial calculation on load
+    handleScrollEffects();
+
+    // 3.5 Brand Concept: 50-50 Split Layout with Center Rotating Vinyl & Left-Aligned Reveal
+    (function initPhilosophyParallax() {
+      const section = document.getElementById('philosophy');
+      if (!section) return;
+
+      const vinylImg = document.getElementById('philVinylImg');
+      const line1 = document.getElementById('philLine1');
+      const line2 = document.getElementById('philLine2');
+      const subDesc = document.getElementById('philSubDesc');
+      const ctaWrap = document.getElementById('philCtaWrap');
+
+      function updatePhilosophyParallax() {
+        const rect = section.getBoundingClientRect();
+        const winH = window.innerHeight;
+
+        // Execute only when section is within or near viewport
+        if (rect.bottom > -120 && rect.top < winH + 120) {
+          const scrollDist = rect.height - winH;
+          let progress = 0;
+          if (scrollDist > 0) {
+            progress = Math.max(0, Math.min(1, -rect.top / scrollDist));
+          }
+
+          // 1. Vinyl Record 360 Rotation driven by scroll
+          if (vinylImg) {
+            const rotation = progress * 360;
+            vinylImg.style.transform = `rotate(${rotation.toFixed(2)}deg)`;
+          }
+
+          // 2. Left-Aligned Heading Lines Reveal on Scroll
+          // Line 1 glides in from left (-120px to 0) and fades in (0 to 1)
+          const p1 = Math.min(1, progress / 0.35);
+          const ease1 = 1 - Math.pow(1 - p1, 3);
+          const x1 = (1 - ease1) * -120;
+          const op1 = Math.min(1, p1 * 1.5);
+
+          if (line1) {
+            line1.style.transform = `translate3d(${x1.toFixed(1)}px, 0, 0)`;
+            line1.style.opacity = op1.toFixed(3);
+          }
+
+          // Line 2 glides in with a slight staggered delay
+          const p2 = Math.max(0, Math.min(1, (progress - 0.06) / 0.34));
+          const ease2 = 1 - Math.pow(1 - p2, 3);
+          const x2 = (1 - ease2) * -120;
+          const op2 = Math.min(1, p2 * 1.5);
+
+          if (line2) {
+            line2.style.transform = `translate3d(${x2.toFixed(1)}px, 0, 0)`;
+            line2.style.opacity = op2.toFixed(3);
+          }
+
+          // 3. Sub-Paragraph & CTA visible dissolve in
+          // Dissolves in after heading settles (progress 0.38 -> 0.68)
+          let pDissolve = 0;
+          if (progress > 0.38) {
+            pDissolve = Math.min(1, (progress - 0.38) / 0.30);
+          }
+          const easeDissolve = 1 - Math.pow(1 - pDissolve, 2);
+          const descY = (1 - easeDissolve) * 20;
+
+          if (subDesc) {
+            subDesc.style.opacity = easeDissolve.toFixed(3);
+            subDesc.style.transform = `translate3d(0, ${descY.toFixed(1)}px, 0)`;
+          }
+          if (ctaWrap) {
+            ctaWrap.style.opacity = easeDissolve.toFixed(3);
+            ctaWrap.style.transform = `translate3d(0, ${descY.toFixed(1)}px, 0)`;
+          }
+        }
+
+        requestAnimationFrame(updatePhilosophyParallax);
+      }
+
+      requestAnimationFrame(updatePhilosophyParallax);
+    })();
+
+    // 4. Reference-Matched Editorial Menu Scroll Showcase (Food -> Cocktails -> Dessert)
+    (function initMenuScrollShowcase() {
+      const section = document.getElementById('menu');
+      if (!section) return;
+
+      const editorialSlides = section.querySelectorAll('.menu-editorial-slide');
+      const heroSlides = section.querySelectorAll('.menu-hero-slide');
+      const catBtns = section.querySelectorAll('.menu-cat-indicator, .menu-cat-btn');
+      const railDots = section.querySelectorAll('.menu-rail-dot');
+      const scrollPill = document.getElementById('menuScrollPill');
+
+      let currentPhase = -1;
+
+      window.setMenuPhase = function(phase) {
+        if (phase === currentPhase) return;
+        currentPhase = phase;
+
+        // Update Left Panel Category Background Color (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD)
+        const phaseColors = ['#E84243', '#004F9D', '#FFAABD'];
+        const leftPanel = document.getElementById('menuPanelEditorial');
+        if (leftPanel && phaseColors[phase]) {
+          leftPanel.style.backgroundColor = phaseColors[phase];
+        }
+
+        // Update Left Editorial Slides
+        editorialSlides.forEach(slide => {
+          const p = parseInt(slide.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update Right Hero Slides
+        heroSlides.forEach(slide => {
+          const p = parseInt(slide.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update Top Navigation Tabs
+        catBtns.forEach(btn => {
+          const p = parseInt(btn.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        // Update Rail Dots
+        railDots.forEach(dot => {
+          const p = parseInt(dot.getAttribute('data-phase'), 10);
+          if (p === phase) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      };
+
+      window.goToMenuPhase = function(phase) {
+        const rect = section.getBoundingClientRect();
+        const totalDist = section.offsetHeight - window.innerHeight;
+        if (totalDist <= 0) return;
+        const phaseFrac = phase / 2; // 0, 0.5, 1.0
+        const targetScroll = window.scrollY + rect.top + (phaseFrac * totalDist) + 5;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      };
+
+      function updateMenuScroll() {
+        const rect = section.getBoundingClientRect();
+        const winH = window.innerHeight;
+        const totalDist = section.offsetHeight - winH;
+        if (totalDist <= 0) return;
+
+        // Scrolled distance within section: 0 to totalDist
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalDist));
+
+        // Determine phase: 0 (Food), 1 (Cocktails), 2 (Dessert)
+        let phase = 0;
+        if (progress >= 0.64) {
+          phase = 2; // Dessert
+        } else if (progress >= 0.31) {
+          phase = 1; // Cocktails
+        } else {
+          phase = 0; // Food
+        }
+        window.setMenuPhase(phase);
+
+        // Update scroll pill along the rail track
+        if (scrollPill) {
+          const maxTravel = 116; // 160 - 44
+          const pillY = progress * maxTravel;
+          scrollPill.style.transform = `translate3d(0, ${pillY.toFixed(1)}px, 0)`;
+        }
+      }
+
+      window.addEventListener('scroll', updateMenuScroll, { passive: true });
+      window.addEventListener('resize', updateMenuScroll, { passive: true });
+      updateMenuScroll();
+    })();
+
+    // 4.5 Full Menu Modal Controller
+    window.openFullMenuModal = function(tab) {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (tab) {
+        switchFullMenuTab(tab);
+      }
+    };
+
+    window.closeFullMenuModal = function() {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    window.switchFullMenuTab = function(tabName) {
+      const modal = document.getElementById('fullMenuModal');
+      if (!modal) return;
+
+      const tabs = modal.querySelectorAll('.full-menu-tab-btn');
+      tabs.forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      const panes = modal.querySelectorAll('.full-menu-pane');
+      panes.forEach(pane => {
+        if (pane.id === `pane-${tabName}`) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+    };
+
+    // Keyboard support: Escape closes full menu modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFullMenuModal();
+      }
+    });
+
+    // 4. Interactive Audio Player (Web Audio API Synthesizer)
+    let isPlaying = false;
+    let audioCtx = null;
+    let vinylNoiseNode = null;
+    let osc1 = null;
+
+    function toggleAudio() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('playIcon');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const eqBars = document.getElementById('eqBars');
+
+      if (isPlaying) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        eqBars.classList.add('playing');
+        startSyntheticWarmAudio();
+        showToast('Now Playing: On & On — Erykah Badu');
+      } else {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        eqBars.classList.remove('playing');
+        stopSyntheticWarmAudio();
+        showToast('Playback Paused');
+      }
+    }
+
+    function startSyntheticWarmAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        // Generate warm analog vinyl dust crackle & gentle chord
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.015; // subtle tape hiss
+        }
+
+        vinylNoiseNode = audioCtx.createBufferSource();
+        vinylNoiseNode.buffer = noiseBuffer;
+        vinylNoiseNode.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 800; // warm analog cut
+
+        vinylNoiseNode.connect(filter);
+        filter.connect(audioCtx.destination);
+        vinylNoiseNode.start();
+
+      } catch (e) {
+        console.log('Audio init prevented:', e);
+      }
+    }
+
+    function stopSyntheticWarmAudio() {
+      if (vinylNoiseNode) {
+        try {
+          vinylNoiseNode.stop();
+          vinylNoiseNode.disconnect();
+        } catch(e) {}
+      }
+    }
+
+    // Synchronize the 3-panel wave strap video loop
+    (function initWaveStrapSync() {
+      const strapVideos = document.querySelectorAll('.wave-strap-media');
+      if (strapVideos.length <= 1) return;
+
+      const lead = strapVideos[0];
+      const followers = Array.from(strapVideos).slice(1);
+
+      function alignPlayback() {
+        const targetTime = lead.currentTime;
+        followers.forEach(v => {
+          if (Math.abs(v.currentTime - targetTime) > 0.08) {
+            try {
+              v.currentTime = targetTime;
+            } catch(e) {}
+          }
+        });
+      }
+
+      lead.addEventListener('timeupdate', alignPlayback);
+      lead.addEventListener('play', () => {
+        followers.forEach(v => {
+          try { v.play(); } catch(e) {}
+        });
+      });
+      lead.addEventListener('seeked', alignPlayback);
+    })();
+
+    // 5. Reservation Modal Handlers
+    function openReservationModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const dateInput = document.getElementById('resDate');
+      if (dateInput && !dateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+      }
+    }
+
+    function closeReservationModal() {
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function handleReservationSubmit(e) {
+      e.preventDefault();
+      const date = document.getElementById('resDate').value;
+      const guests = document.getElementById('resGuests').value;
+      const name = document.getElementById('resName').value;
+      closeReservationModal();
+      showToast(`Reservation confirmed for ${name || 'you'} (${guests} guests) on ${date}! Confirmation sent.`);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeReservationModal();
+      }
+    });
+  </script>
+
+  <!-- =========================================================
+       RESERVATION MODAL DIALOG (Zero-Roundness Luxury Acoustic Style)
+       ========================================================= -->
+  <div id="reservationModal" class="reservation-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="reservation-modal-backdrop" onclick="closeReservationModal()"></div>
+    <div class="reservation-modal-panel">
+      <div class="reservation-modal-header">
+        <div>
+          <span class="reserve-eyebrow">RESERVE A TABLE</span>
+          <h3 class="reserve-modal-title">Table <span class="grad-accent">Reservation</span></h3>
+        </div>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+      </div>
+
+      <p class="reserve-modal-desc">
+        Experience intimate sound-mapped culinary and listening sessions at NAMI Bandra West.
+      </p>
+
+      <form id="reservationForm" class="reservation-form" onsubmit="handleReservationSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">DATE</label>
+            <input type="date" id="resDate" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="resGuests">GUESTS</label>
+            <select id="resGuests" required class="res-input">
+              <option value="1">1 Guest (Solo Listening)</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6+">6+ Guests (Private Area)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resSession">SESSION / TIME</label>
+            <select id="resSession" required class="res-input">
+              <option value="19:30 – Dinner & First Session">19:30 – Dinner & First Session</option>
+              <option value="21:30 – Hi-Fi Listening Focus" selected>21:30 – Hi-Fi Listening Focus</option>
+              <option value="23:30 – Nocturnal Sound & Cocktails">23:30 – Nocturnal Sound & Cocktails</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resZone">SEATING ZONE</label>
+            <select id="resZone" required class="res-input">
+              <option value="Hi-Fi Listening Room" selected>Hi-Fi Listening Room</option>
+              <option value="Cocktail Bar Counter">Cocktail Bar Counter</option>
+              <option value="Tatami Acoustic Nook">Tatami Acoustic Nook</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resName">NAME</label>
+            <input type="text" id="resName" placeholder="Your name" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="resContact">CONTACT / PHONE</label>
+            <input type="tel" id="resContact" placeholder="+91 98765 43210" required class="res-input">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirm-reserve">
+          <span>CONFIRM RESERVATION</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FULL MENU MODAL (Editorial Listening Room Menu)
+       ========================================================= -->
+  <div id="fullMenuModal" class="full-menu-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Nami Full Menu">
+    <div class="full-menu-backdrop" onclick="closeFullMenuModal()"></div>
+    <div class="full-menu-panel">
+      <div class="full-menu-header">
+        <div>
+          <span class="full-menu-eyebrow">THE RESONANCE MENU</span>
+          <h3 class="full-menu-title">NAMI · BANDRA WEST</h3>
+        </div>
+        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">✕</button>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="full-menu-tabs">
+        <button type="button" class="full-menu-tab-btn active" data-tab="food" onclick="switchFullMenuTab('food')">Food</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="cocktails" onclick="switchFullMenuTab('cocktails')">Cocktails</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="dessert" onclick="switchFullMenuTab('dessert')">Dessert</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & sake</button>
+      </div>
+
+      <!-- Menu Content Panes -->
+      <div class="full-menu-content" id="fullMenuContent">
+        <!-- 1. FOOD PANE -->
+        <div class="full-menu-pane active" id="pane-food">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">RAW & CRUDO · 生</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hamachi Truffle Crudo</span>
+                <span class="dish-item-price">₹1,250</span>
+              </div>
+              <p class="dish-item-desc">Thinly sliced yellowtail, white truffle ponzu, crispy garlic chips, micro shiso.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Bluefin Otoro Tartare</span>
+                <span class="dish-item-price">₹1,650</span>
+              </div>
+              <p class="dish-item-desc">Fatty bluefin tuna, oscietra caviar, house-cured egg yolk, nori sesame crisps.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hokkaido Scallop Carpaccio</span>
+                <span class="dish-item-price">₹1,150</span>
+              </div>
+              <p class="dish-item-desc">Charred yuzu kosho vinaigrette, finger lime caviar, sea grape garnish.</p>
+            </div>
+          </div>
+
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">BINCHOTAN ROBATA GRILL · 炉端焼き</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Miyazaki Wagyu A5 Kushiyaki</span>
+                <span class="dish-item-price">₹2,400</span>
+              </div>
+              <p class="dish-item-desc">Melt-in-mouth wagyu skewer, 25-year aged master tare, fresh Shizuoka wasabi.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">King Oyster Yakitori</span>
+                <span class="dish-item-price">₹850</span>
+              </div>
+              <p class="dish-item-desc">Smoked soy tare, togarashi crunch, charred scallion emulsion.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Kurobuta Pork Belly</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Glazed with saikyo miso, applewood smoke, pickled baby ginger.</p>
+            </div>
+          </div>
+
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">MAINS & CLAYPOT · 釜飯</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Saikyo Miso Black Cod</span>
+                <span class="dish-item-price">₹2,200</span>
+              </div>
+              <p class="dish-item-desc">72-hour sweet miso marinade, charred hajikami ginger, dashi reduction.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Truffle & Morel Claypot Gohan</span>
+                <span class="dish-item-price">₹1,450</span>
+              </div>
+              <p class="dish-item-desc">Niigata Koshihikari rice, wild morels, shaved black winter truffle, burnt butter dashi.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. COCKTAILS PANE -->
+        <div class="full-menu-pane" id="pane-cocktails">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">HARMONIC SOUND-MAPPED SIGNATURES · 440Hz</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">440Hz Clarified Milk Punch</span>
+                <span class="dish-item-price">₹1,100</span>
+              </div>
+              <p class="dish-item-desc">Japanese whisky, toasted hojicha tea, clarified coconut whey, sudachi citrus.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Sub-Bass Smoked Highball</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Suntory Toki, peated Islay malt mist, super-carbonated soda, pink grapefruit twist.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Crystalline Highs</span>
+                <span class="dish-item-price">₹1,050</span>
+              </div>
+              <p class="dish-item-desc">Roku Gin, elderflower liqueur, cold-brewed sencha cordial, crystalline malic acid.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">The Equalizer (Low-Fi)</span>
+                <span class="dish-item-price">₹1,200</span>
+              </div>
+              <p class="dish-item-desc">Oaxacan mezcal, umeshu plum liqueur, smoked shiso leaf, fiery ginger cordial.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Bandra Frequency</span>
+                <span class="dish-item-price">₹950</span>
+              </div>
+              <p class="dish-item-desc">Haku Vodka, local kokum shrub, Japanese myoga ginger, sparkling yuzu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DESSERT PANE -->
+        <div class="full-menu-pane" id="pane-dessert">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">PLATED DELICACIES & LATE-NIGHT FINISHES · 甘味</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Yuzu Miso Caramel Tart</span>
+                <span class="dish-item-price">₹750</span>
+              </div>
+              <p class="dish-item-desc">Crisp Japanese citrus curd, salted white miso caramel, black sesame butter crust.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Smoked Matcha Silk</span>
+                <span class="dish-item-price">₹800</span>
+              </div>
+              <p class="dish-item-desc">Ceremonial Uji matcha ganache, roasted genmaicha crisps, white chocolate cloud.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Hibiki Valrhona Gateau</span>
+                <span class="dish-item-price">₹900</span>
+              </div>
+              <p class="dish-item-desc">70% Guanaja chocolate fondant, Hibiki Japanese Harmony mist, smoked sea salt flakes.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Black Sesame Gelato</span>
+                <span class="dish-item-price">₹550</span>
+              </div>
+              <p class="dish-item-desc">House-churned roasted black sesame, roasted kinako soybean dust, dashi tuile.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. WINE & SAKE PANE -->
+        <div class="full-menu-pane" id="pane-drinks">
+          <div class="menu-dish-group">
+            <h4 class="dish-group-title">JAPANESE SAKE & BIODYNAMIC WINES · 酒</h4>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Dassai 23 Junmai Daiginjo</span>
+                <span class="dish-item-price">₹2,800 / glass</span>
+              </div>
+              <p class="dish-item-desc">Yamaguchi · 23% polish ratio. Ultra-refined melon, white peach, ethereal finish.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Born Gold Muroka Junmai Daiginjo</span>
+                <span class="dish-item-price">₹1,600 / glass</span>
+              </div>
+              <p class="dish-item-desc">Fukui · Unfiltered, aged at 0°C. Silky tropical mouthfeel with delicate aromatics.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Domaine de la Tourmaline Chablis</span>
+                <span class="dish-item-price">₹1,400 / glass</span>
+              </div>
+              <p class="dish-item-desc">Burgundy, France · Mineral-driven, crystalline acidity, saline oyster shell finish.</p>
+            </div>
+            <div class="menu-dish-item">
+              <div class="dish-item-top">
+                <span class="dish-item-name">Meinklang Prosa Pet-Nat Rosé</span>
+                <span class="dish-item-price">₹1,200 / glass</span>
+              </div>
+              <p class="dish-item-desc">Burgenland, Austria · Biodynamic, natural sparkling red berries, lively citrus fizz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="full-menu-footer">
+        <p class="full-menu-note">Wed – Sun · 7 PM – Late · Listening Sessions 20:30 Onwards</p>
+        <button type="button" class="btn-reserve-from-menu" onclick="closeFullMenuModal(); openReservationModal(event);">
+          Reserve Table
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
