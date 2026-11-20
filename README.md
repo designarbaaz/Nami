@@ -61,7 +61,7 @@ PHP sites use `root C:/dev/sites/...`. Next.js does **not** — nginx only proxi
 | Browser URL | `http://nami.localhost` |
 | Nginx `server_name` | `nami.localhost` |
 | Nginx `proxy_pass` | `http://127.0.0.1:3000` |
-| App process | `npm run dev` inside `C:\dev\sites\Nami` |
+| App process | `npm run dev` inside `C:\dev\sites\nami\namifrontend` |
 | App port | `3000` (`.env` `PORT` + `package.json`) |
 
 So “this is Nami” = **hostname + port + which folder you started Next from**.
