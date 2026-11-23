@@ -2804,7 +2804,7 @@
     /* Center-Aligned Header with Breadcrumb Above Main Heading */
     .event-list-header {
       text-align: center;
-      margin-bottom: 3.25rem;
+      margin-bottom: 3.5rem;
       position: relative;
       z-index: 3;
       display: flex;
@@ -2877,65 +2877,6 @@
       text-align: center;
     }
 
-    /* Tab Switcher (Upcoming vs Previous) */
-    .event-tabs-wrap {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 3.5rem;
-    }
-
-    .event-tabs-nav {
-      display: inline-flex;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 0.35rem;
-      border-radius: 999px;
-      gap: 0.4rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .event-tab-btn {
-      padding: 0.75rem 2rem;
-      border-radius: 999px;
-      border: none;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.65);
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .event-tab-btn:hover {
-      color: #FFFFFF;
-    }
-
-    .event-tab-btn.active {
-      background: var(--grad-flare);
-      color: #FFFFFF;
-      box-shadow: 0 4px 20px rgba(220, 121, 24, 0.35);
-    }
-
-    /* Tab Content Panes */
-    .event-tab-pane {
-      display: none;
-    }
-
-    .event-tab-pane.active {
-      display: block;
-      animation: fadeInTab 0.35s ease forwards;
-    }
-
-    @keyframes fadeInTab {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* Event List Table Layout (4rem gap per user feedback) */
     .event-list-table {
       display: flex;
@@ -2987,11 +2928,6 @@
       box-shadow: 0 0 10px rgba(220, 121, 24, 0.6);
     }
 
-    .event-status-dot.dot-past {
-      background: rgba(255, 255, 255, 0.35);
-      box-shadow: none;
-    }
-
     .event-row-title {
       font-family: var(--font-heading);
       font-size: 1.45rem;
@@ -3037,41 +2973,42 @@
       transform: translateX(3px);
     }
 
-    /* Floating Poster Preview Container (Zero border, zero border-radius, zero shadow, subtle water vibration on edges and canvas) */
-    .event-poster-preview {
+    /* Floating Poster Preview Container */
+    .event-poster-preview-wrap {
       position: fixed;
       top: 0;
       left: 0;
-      width: clamp(260px, 24vw, 340px);
-      height: clamp(350px, 32vw, 460px);
       pointer-events: none;
-      z-index: 1000;
+      width: clamp(280px, 24vw, 360px);
+      aspect-ratio: 3/4;
+      border-radius: 0 !important;
+      border: none !important;
+      overflow: visible !important;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
-      border: none !important;
-      border-radius: 0 !important;
+      transform: translate3d(0, 0, 0) scale(0.96);
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+      z-index: 9999;
       box-shadow: none !important;
       background: transparent !important;
-      overflow: visible !important;
       will-change: transform, opacity;
     }
 
-    .event-poster-preview.is-active {
+    .event-poster-preview-wrap.is-active {
       opacity: 1;
       visibility: visible;
+      transform: translate3d(0, 0, 0) scale(1);
     }
 
-    .event-poster-canvas {
+    .event-poster-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      border: none !important;
       border-radius: 0 !important;
+      border: none !important;
       box-shadow: none !important;
-      background: transparent !important;
-      filter: url(#waterDisplacementFilter);
+      filter: url(#waterVibration) drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
       will-change: filter, transform;
     }
 
@@ -3301,10 +3238,6 @@
       }
       .event-row-title {
         font-size: 1.15rem;
-      }
-      .event-tabs-nav {
-        width: 100%;
-        justify-content: center;
       }
     }
 
@@ -3855,19 +3788,21 @@
   <div id="noise-layer" aria-hidden="true"></div>
   <div id="warmth-layer" aria-hidden="true"></div>
 
-  <!-- SVG Filter for Fluid Distortion (Subtle Water Vibration on Hover Preview) -->
-  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true" focusable="false">
+  <!-- Hidden SVG filter definition for subtle water vibration with fluctuating wavy edges -->
+  <svg class="water-vibration-svg" style="position: fixed; width: 0; height: 0; top: -9999px; left: -9999px; pointer-events: none;" aria-hidden="true">
     <defs>
-      <filter id="waterDisplacementFilter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
-        <feTurbulence id="waterTurbulence" type="fractalNoise" baseFrequency="0.015 0.028" numOctaves="3" result="noise" seed="5" />
-        <feDisplacementMap id="waterDisplacement" in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+      <filter id="waterVibration" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence id="waterTurbulence" type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" result="noise" seed="4">
+          <animate attributeName="baseFrequency" dur="3.8s" keyTimes="0;0.5;1" values="0.012 0.022; 0.018 0.032; 0.012 0.022" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap id="waterDisplacement" in="SourceGraphic" in2="noise" scale="11" xChannelSelector="R" yChannelSelector="G" result="displaced" />
       </filter>
     </defs>
   </svg>
 
-  <!-- Floating Hover Poster Canvas (Zero Border, Zero Radius, Zero Shadow) -->
-  <div class="event-poster-preview" id="eventPosterPreview" aria-hidden="true">
-    <img src="" alt="" class="event-poster-canvas" id="eventPosterImg">
+  <!-- Floating Hover Poster Canvas (Zero Border, Zero Radius, Zero Shadow, Fluctuating Wave Edges) -->
+  <div class="event-poster-preview-wrap" id="eventPosterPreview" aria-hidden="true">
+    <img src="./assets/Event-1.jpg" alt="Event Poster Preview" class="event-poster-img" id="eventPosterImg">
   </div>
 
   <!-- =========================================================
@@ -4014,13 +3949,13 @@
         <a href="whats-on.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
           <span class="drawer-nav-num">02</span> What’s on
         </a>
-        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
-          <span class="drawer-nav-num">03</span> Food & drinks
+        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata &amp; Libations">
+          <span class="drawer-nav-num">03</span> Food &amp; drinks
         </a>
         <a href="index-2.html#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our space
         </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table &amp; Listening Sessions">
           <span class="drawer-nav-num">05</span> Reservation
         </a>
       </nav>
@@ -4031,7 +3966,7 @@
           <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
           <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
-          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/spin-gallery-7.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
           <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
@@ -4130,174 +4065,137 @@
           <p class="event-list-subhead">Curated vinyl archives, selector sessions &amp; Tokyo listening room culture.</p>
         </header>
 
-        <!-- Tabs: Upcoming vs Previous Events -->
-        <div class="event-tabs-wrap">
-          <div class="event-tabs-nav" role="tablist" aria-label="Event Schedules">
-            <button type="button" class="event-tab-btn active" id="tabUpcoming" role="tab" aria-selected="true" aria-controls="paneUpcoming" onclick="switchEventTab('upcoming')">
-              Upcoming Events
-            </button>
-            <button type="button" class="event-tab-btn" id="tabPrevious" role="tab" aria-selected="false" aria-controls="panePrevious" onclick="switchEventTab('previous')">
-              Previous Events
-            </button>
-          </div>
-        </div>
+        <!-- Direct Editorial Event Schedule Table (No Tabs) -->
+        <div class="event-list-table">
 
-        <!-- Tab Pane 1: Upcoming Events -->
-        <div class="event-tab-pane active" id="paneUpcoming" role="tabpanel" aria-labelledby="tabUpcoming">
-          <div class="event-list-table">
+          <!-- Event Row 1 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl on 06/09">
+            <span class="event-row-date">06/09</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</h2>
+            </div>
+            <span class="event-row-time">Wed · 20:30</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Event Row 1 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/04.png" aria-label="Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl on 06/09">
-              <span class="event-row-date">06/09</span>
-              <div class="event-row-center">
-                <span class="event-status-dot"></span>
-                <h2 class="event-row-title">Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</h2>
-              </div>
-              <span class="event-row-time">Wed · 20:30</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
+          <!-- Event Row 2 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Mogasu: Japanese Soul Archives &amp; Sake Tasting on 12/09">
+            <span class="event-row-date">12/09</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Mogasu: Japanese Soul Archives &amp; Sake Tasting</h2>
+            </div>
+            <span class="event-row-time">Thu · 18:00</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Event Row 2 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/01.png" aria-label="Mogasu: Japanese Soul Archives &amp; Sake Tasting on 12/09">
-              <span class="event-row-date">12/09</span>
-              <div class="event-row-center">
-                <span class="event-status-dot"></span>
-                <h2 class="event-row-title">Mogasu: Japanese Soul Archives &amp; Sake Tasting</h2>
-              </div>
-              <span class="event-row-time">Thu · 18:00</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
+          <!-- Event Row 3 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Yousuke Yukimatsu: Avant-Garde Analog Bass on 18/09">
+            <span class="event-row-date">18/09</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Yousuke Yukimatsu: Avant-Garde Analog Bass</h2>
+            </div>
+            <span class="event-row-time">Fri · 20:30</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Event Row 3 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/02.png" aria-label="Yousuke Yukimatsu: Avant-Garde Analog Bass on 18/09">
-              <span class="event-row-date">18/09</span>
-              <div class="event-row-center">
-                <span class="event-status-dot"></span>
-                <h2 class="event-row-title">Yousuke Yukimatsu: Avant-Garde Analog Bass</h2>
-              </div>
-              <span class="event-row-time">Fri · 20:30</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
+          <!-- Event Row 4 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-4.jpg" aria-label="Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi on 24/09">
+            <span class="event-row-date">24/09</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi</h2>
+            </div>
+            <span class="event-row-time">Wed · 21:00</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Event Row 4 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/03.png" aria-label="Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi on 24/09">
-              <span class="event-row-date">24/09</span>
-              <div class="event-row-center">
-                <span class="event-status-dot"></span>
-                <h2 class="event-row-title">Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi</h2>
-              </div>
-              <span class="event-row-time">Wed · 21:00</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
+          <!-- Event Row 5 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Toshio Matsuura: Tokyo Moon Audiophile Session on 30/09">
+            <span class="event-row-date">30/09</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Toshio Matsuura: Tokyo Moon Audiophile Session</h2>
+            </div>
+            <span class="event-row-time">Tue · 20:00</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Event Row 5 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/05.png" aria-label="Toshio Matsuura: Tokyo Moon Audiophile Session on 30/09">
-              <span class="event-row-date">30/09</span>
-              <div class="event-row-center">
-                <span class="event-status-dot"></span>
-                <h2 class="event-row-title">Toshio Matsuura: Tokyo Moon Audiophile Session</h2>
-              </div>
-              <span class="event-row-time">Tue · 20:00</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
+          <!-- Event Row 6 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Chee Shimizu: Obscure Japanese Ambient &amp; Balearic on 08/10">
+            <span class="event-row-date">08/10</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Chee Shimizu: Obscure Japanese Ambient &amp; Balearic</h2>
+            </div>
+            <span class="event-row-time">Wed · 20:30</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-          </div>
-        </div>
+          <!-- Event Row 7 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Midori Takada: Through the Looking Glass Live Playback on 14/10">
+            <span class="event-row-date">14/10</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Midori Takada: Through the Looking Glass Live Playback</h2>
+            </div>
+            <span class="event-row-time">Thu · 21:00</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-        <!-- Tab Pane 2: Previous Events -->
-        <div class="event-tab-pane" id="panePrevious" role="tabpanel" aria-labelledby="tabPrevious">
-          <div class="event-list-table">
+          <!-- Event Row 8 -->
+          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-4.jpg" aria-label="Soichi Terada: Analog House Retrospective on 21/10">
+            <span class="event-row-date">21/10</span>
+            <div class="event-row-center">
+              <span class="event-status-dot"></span>
+              <h2 class="event-row-title">Soichi Terada: Analog House Retrospective</h2>
+            </div>
+            <span class="event-row-time">Fri · 22:00</span>
+            <div class="event-row-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </a>
 
-            <!-- Past Event Row 1 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/03.png" aria-label="Chee Shimizu: Obscure Japanese Ambient &amp; Balearic on 28/08">
-              <span class="event-row-date">28/08</span>
-              <div class="event-row-center">
-                <span class="event-status-dot dot-past"></span>
-                <h2 class="event-row-title">Chee Shimizu: Obscure Japanese Ambient &amp; Balearic</h2>
-              </div>
-              <span class="event-row-time">Wed · Concluded</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
-
-            <!-- Past Event Row 2 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/04.png" aria-label="Midori Takada: Through the Looking Glass Live Playback on 21/08">
-              <span class="event-row-date">21/08</span>
-              <div class="event-row-center">
-                <span class="event-status-dot dot-past"></span>
-                <h2 class="event-row-title">Midori Takada: Through the Looking Glass Live Playback</h2>
-              </div>
-              <span class="event-row-time">Thu · Concluded</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
-
-            <!-- Past Event Row 3 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/05.png" aria-label="Soichi Terada: Analog House Retrospective on 14/08">
-              <span class="event-row-date">14/08</span>
-              <div class="event-row-center">
-                <span class="event-status-dot dot-past"></span>
-                <h2 class="event-row-title">Soichi Terada: Analog House Retrospective</h2>
-              </div>
-              <span class="event-row-time">Thu · Concluded</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
-
-            <!-- Past Event Row 4 -->
-            <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/01.png" aria-label="DJ Nobu: Hypnotic Minimal Vinyl Set on 07/08">
-              <span class="event-row-date">07/08</span>
-              <div class="event-row-center">
-                <span class="event-status-dot dot-past"></span>
-                <h2 class="event-row-title">DJ Nobu: Hypnotic Minimal Vinyl Set</h2>
-              </div>
-              <span class="event-row-time">Wed · Concluded</span>
-              <div class="event-row-btn" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </a>
-
-          </div>
         </div>
 
       </div>
@@ -4392,50 +4290,61 @@
     </section>
 
     <!-- =========================================================
-         03. INSTAGRAM FEED BANNER STRAP (EDGE-TO-EDGE)
+         03. INSTAGRAM FEED BANNER STRAP (EDGE-TO-EDGE, MATCHING INDEX.HTML)
          ========================================================= -->
     <section id="instagram" class="section-insta-strap" aria-label="Instagram Feed @namibombay">
-      <div class="insta-feed-grid">
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 1">
-          <img src="./assets/food-1.jpg" alt="Robata dish at Nami" class="insta-post-img" loading="lazy">
+      <div class="insta-feed-grid" id="instaFeedGrid">
+        <!-- Post 1: Listening Room & Turntables -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: DJ Booth &amp; Vinyl Vault">
+          <img src="./assets/spin-gallery-3.jpg" alt="DJ Booth &amp; Vinyl Wall at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 2">
-          <img src="./assets/Space-1.jpg" alt="Nami Listening Room" class="insta-post-img" loading="lazy">
+
+        <!-- Post 2: Sound-Mapped Cocktails -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Sound-Mapped Cocktails">
+          <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 3">
-          <img src="./assets/Space-3.jpg" alt="Cocktail libations" class="insta-post-img" loading="lazy">
+
+        <!-- Post 3: Amber Pool Table -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Amber Pool Table">
+          <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 4">
-          <img src="./assets/food-2.jpg" alt="Sake and culinary artistry" class="insta-post-img" loading="lazy">
+
+        <!-- Post 4: Culinary Robata Plates -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Robata Dining">
+          <img src="./assets/spin-gallery-6.jpg" alt="Robata Dining &amp; Plates at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 5">
-          <img src="./assets/Space-2.jpg" alt="Horn speakers and acoustic architecture" class="insta-post-img" loading="lazy">
+
+        <!-- Post 5: Nocturnal Disco Ball & Beams -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Nocturnal Disco Ball &amp; Beams">
+          <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Disco Ball &amp; Beams at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Nami Instagram post 6">
-          <img src="./assets/food-3.jpg" alt="Vinyl selector booth" class="insta-post-img" loading="lazy">
+
+        <!-- Post 6: Listening Room Atmosphere & Horn Acoustics -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Listening Room Atmosphere &amp; Horn Acoustics">
+          <img src="./assets/spin-gallery-8.jpg" alt="Listening Room Atmosphere &amp; Horn Acoustics at Nami" class="insta-post-img" loading="lazy">
           <div class="insta-post-overlay">
-            <svg class="insta-overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <span class="insta-post-action">View Post</span>
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
           </div>
         </a>
       </div>
@@ -4597,36 +4506,9 @@
   </div>
 
   <!-- =========================================================
-       SCRIPTS (Tabs, Audio, Modals, Hover Wave Preview)
+       SCRIPTS (Audio, Modals, Hover Wave Preview)
        ========================================================= -->
   <script>
-    // 0. Tab Switching Controller
-    function switchEventTab(tabName) {
-      const tabUpcoming = document.getElementById('tabUpcoming');
-      const tabPrevious = document.getElementById('tabPrevious');
-      const paneUpcoming = document.getElementById('paneUpcoming');
-      const panePrevious = document.getElementById('panePrevious');
-      if (!tabUpcoming || !tabPrevious || !paneUpcoming || !panePrevious) return;
-
-      if (tabName === 'upcoming') {
-        tabUpcoming.classList.add('active');
-        tabUpcoming.setAttribute('aria-selected', 'true');
-        tabPrevious.classList.remove('active');
-        tabPrevious.setAttribute('aria-selected', 'false');
-
-        paneUpcoming.classList.add('active');
-        panePrevious.classList.remove('active');
-      } else {
-        tabPrevious.classList.add('active');
-        tabPrevious.setAttribute('aria-selected', 'true');
-        tabUpcoming.classList.remove('active');
-        tabUpcoming.setAttribute('aria-selected', 'false');
-
-        panePrevious.classList.add('active');
-        paneUpcoming.classList.remove('active');
-      }
-    }
-
     // 1. Hamburger Drawer Toggle
     function toggleMenuDrawer() {
       const drawer = document.getElementById('menuDrawer');
