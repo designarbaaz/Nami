@@ -452,7 +452,8 @@
     .drawer-nav-item {
       color: #c0c0c0;
       font-size: clamp(2.2rem, 3.8vw, 3.5rem);
-      font-weight: 700;
+      font-weight: 100 !important;
+      text-transform: capitalize;
       text-decoration: none;
       transition: transform 0.25s, color 0.25s;
       display: inline-flex;
@@ -1098,7 +1099,8 @@
       margin-bottom: 1.25rem;
     }
 
-    .section-heading span.grad-accent {
+    .section-heading span.grad-accent,
+    .philosophy-minimal-title span.grad-accent {
       background: var(--grad-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1538,7 +1540,40 @@
     }
 
     .cal-cell.has-event.grad-variant-flare {
-      background: var(--grad-flare) !important;
+      background: linear-gradient(135deg, #08437F 0%, #03254C 50%, #021426 100%) !important;
+    }
+
+    /* Explore More CTA below calendar */
+    .cal-explore-wrap {
+      margin-top: 2.75rem;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .btn-cal-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--grad-primary);
+      color: #c0c0c0;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 2.25rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-cal-explore:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(217, 119, 24, 0.35);
     }
 
     .cal-cell.has-event:hover {
@@ -1940,9 +1975,9 @@
       background: #070707;
     }
 
-    /* LEFT PANE: 50% Width Category-Themed Canvas (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD) */
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Subtle Nocturnal Gradients) */
     .menu-panel-editorial {
-      background-color: #E84243;
+      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
       color: #c0c0c0;
       position: relative;
       height: 100vh;
@@ -1952,7 +1987,7 @@
       border-right: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
-      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Editorial Slides (Left Column - Clean Centered Layout) */
@@ -1972,32 +2007,32 @@
       box-sizing: border-box;
     }
 
-    /* Category Specific Background Colors */
+    /* Category Specific Background Subtle Gradients */
     .menu-editorial-slide[data-phase="0"] {
-      background-color: #E84243;
+      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
       color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="1"] {
-      background-color: #004F9D;
+      background: linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%);
       color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] {
-      background-color: #FFAABD;
-      color: #070707;
+      background: linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%);
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-title {
-      color: #070707;
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
-      color: #070707;
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
-      color: rgba(7, 7, 7, 0.82);
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .menu-editorial-slide.active {
@@ -2022,7 +2057,7 @@
       letter-spacing: -0.02em;
       color: #c0c0c0;
       margin: 0;
-      text-transform: lowercase;
+      text-transform: capitalize;
       line-height: 1;
     }
 
@@ -3380,9 +3415,9 @@
           </a>
         </div>
 
-        <!-- Node F: Food & Drinks -->
+        <!-- Node F: Drinks & Food -->
         <div class="scroller-node">
-          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & drinks">
+          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3392,7 +3427,7 @@
               </g>
             </svg>
             <span class="knob-label">F</span>
-            <span class="tooltip">Food & drinks</span>
+            <span class="tooltip">Drinks & Food</span>
           </a>
         </div>
 
@@ -3436,13 +3471,13 @@
           <span class="drawer-nav-num">01</span> Concept
         </a>
         <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
-          <span class="drawer-nav-num">02</span> What’s on
+          <span class="drawer-nav-num">02</span> What’s On
         </a>
         <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
-          <span class="drawer-nav-num">03</span> Food & drinks
+          <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our space
+          <span class="drawer-nav-num">04</span> Our Space
         </a>
         <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
           <span class="drawer-nav-num">05</span> Reservation
@@ -3715,7 +3750,7 @@
         </div>
 
         <!-- Card 4: Bottom Right - Listening Room Booths & Vinyl Wall (Moved Inward & Unaligned) -->
-        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 64%; right: 11%;">
+        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 64%; right: 20%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-1.jpg" alt="Listening Room Booths" class="phil-card-img" loading="lazy">
           </div>
@@ -3727,7 +3762,7 @@
       <div class="philosophy-minimal-content">
         <h2 class="philosophy-minimal-title">
           We Don't Host Nights.<br>
-          We Compose Them.
+          <span class="grad-accent">We Compose</span> Them.
         </h2>
 
         <p class="philosophy-minimal-desc">
@@ -3773,7 +3808,7 @@
       <div class="event-calendar-container">
         <!-- Section Heading -->
         <div class="cal-header-block">
-          <h2 class="section-heading" style="margin: 0;">What’s On at <span class="grad-accent">Nami</span></h2>
+          <h2 class="section-heading" style="margin: 0;"><span class="grad-accent">What’s On at</span> Nami</h2>
         </div>
 
         <!-- 7-Column Calendar Grid Wrapper -->
@@ -3994,6 +4029,17 @@
         <div class="cal-scroll-hint" aria-hidden="true">
           <span>← Swipe to explore full calendar →</span>
         </div>
+
+        <!-- Explore More CTA -->
+        <div class="cal-explore-wrap">
+          <a href="whats-on.html" class="btn-cal-explore">
+            <span>Explore More</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="8" x2="13" y2="8"></line>
+              <polyline points="9 4 13 8 9 12"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -4009,7 +4055,7 @@
           <!-- Phase 0: Food Content -->
           <div class="menu-editorial-slide active" data-phase="0">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">food</h3>
+              <h3 class="menu-ed-title">Food</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -4027,7 +4073,7 @@
           <!-- Phase 1: Cocktails Content -->
           <div class="menu-editorial-slide" data-phase="1">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">cocktails</h3>
+              <h3 class="menu-ed-title">Cocktails</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -4045,7 +4091,7 @@
           <!-- Phase 2: Dessert Content -->
           <div class="menu-editorial-slide" data-phase="2">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">dessert</h3>
+              <h3 class="menu-ed-title">Dessert</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -4172,7 +4218,7 @@
                 </div>
                 
                 <blockquote class="media-slide-quote">
-                  “Aditya Birla Group’s hospitality arm, Aditya Birla New Age Hospitality (ABNAH) has announced a strategic deal to add four restaurant brands including Michelin...”
+                  “Mumbai’s nocturnal soundscape finds its definitive temple: Nami opens in Bandra with custom-engineered horn acoustics, rare Japanese vinyl pressings, and a boundary-blurring culinary philosophy.”
                 </blockquote>
 
                 <div class="media-card-action">
@@ -4197,7 +4243,7 @@
                 </div>
 
                 <blockquote class="media-slide-quote">
-                  “The Group’s hospitality arm, housed under Aditya Birla New Age (ABNA), promoted by Aryaman Vikram Birla, will build premium casual dining restaurant chains across India”
+                  “Where analog frequencies meet sensory gastronomy — Nami redefines modern listening room culture with an uncompromising acoustic sanctuary crafted for deep nocturnal listening.”
                 </blockquote>
 
                 <div class="media-card-action">
@@ -4221,7 +4267,7 @@
                 </div>
 
                 <blockquote class="media-slide-quote">
-                  “The chef and restaurateur speaks about teaming up with Aditya Birla New Age Hospitality, authoring a book and how Gen Z wants to be served”
+                  “Part Tokyo jazz kissa, part nocturnal cocktail bar: Inside Nami, where audiophile precision and charcoal-fired Japanese plates compose an unforgettable after-dark ritual.”
                 </blockquote>
 
                 <div class="media-card-action">
@@ -4337,7 +4383,7 @@
           <ul class="footer-nav-list">
             <li><a href="#philosophy">About</a></li>
             <li><a href="#programming">What’s on</a></li>
-            <li><a href="#menu">Food & drinks</a></li>
+            <li><a href="#menu">Drinks & Food</a></li>
             <li><a href="#space">Our space</a></li>
             <li><a href="#press">In the news</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
@@ -5046,11 +5092,15 @@
         if (phase === currentPhase) return;
         currentPhase = phase;
 
-        // Update Left Panel Category Background Color (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD)
-        const phaseColors = ['#E84243', '#004F9D', '#FFAABD'];
+        // Update Left Panel Category Background (Subtle Brand Gradients)
+        const phaseGradients = [
+          'linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%)',
+          'linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%)',
+          'linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%)'
+        ];
         const leftPanel = document.getElementById('menuPanelEditorial');
-        if (leftPanel && phaseColors[phase]) {
-          leftPanel.style.backgroundColor = phaseColors[phase];
+        if (leftPanel && phaseGradients[phase]) {
+          leftPanel.style.background = phaseGradients[phase];
         }
 
         // Update Left Editorial Slides
