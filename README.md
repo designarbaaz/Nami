@@ -21,8 +21,7 @@ Benchmark: [Spin Bar (Amsterdam)](https://www.spin-bar.nl/)
 ---
 
 ## 🔤 Typography
-- **Headings**: Adobe Typekit **Savate** (`font-family: "savate", sans-serif;`)
-- **Body & Interface**: Google Fonts **Chivo** (`font-family: 'Chivo', sans-serif;`)
+- **Single Unified Brand Typeface**: Google Fonts **Chivo** (`font-family: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;`) used across all display headlines, section headings, body narrative, menus, and interface metadata.
 
 ---
 

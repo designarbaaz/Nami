@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAMI — Hi-Fi Listening Room & Dining Experience</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <!-- Adobe Typekit: Savate -->
-  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
 
-  <!-- Google Fonts: Chivo -->
+  <!-- Google Fonts: Chivo (Single Unified Brand Typeface) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --font-heading: "savate", sans-serif;
+      --font-heading: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg-black: #070707;
       --bg-surface: rgba(18, 18, 18, 0.85);
@@ -32,11 +30,11 @@
       --c-pink: #FFAABD;
       --c-blue: #004F9D;
 
-      /* Approved Gradients */
-      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
-      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
-      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.16) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+      /* Approved Gradients (Subtle Nocturnal Refinement) */
+      --grad-primary: linear-gradient(135deg, #D13536 0%, #C44A00 50%, #DC7918 100%);
+      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
+      --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
     * {
@@ -163,33 +161,32 @@
       pointer-events: auto;
     }
 
-    /* Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) */
+    /* =========================================================
+       CIRCULAR PAGE SCROLLER: RESOR HI-FI ROTARY MIXER KNOBS
+       ========================================================= */
     .section-scroller {
       display: flex;
       align-items: center;
       background: transparent;
       border: none;
       padding: 0;
-      gap: 0;
+      gap: 1rem;
     }
 
     .scroller-node {
       display: flex;
       align-items: center;
+      justify-content: center;
       position: relative;
       z-index: 2;
     }
 
     .scroller-btn {
-      width: 34px;
-      height: 34px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: rgba(10, 10, 10, 0.45);
-      border: 1.5px solid #FFFFFF;
-      color: #FFFFFF;
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
+      background: transparent;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -197,40 +194,131 @@
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .scroller-btn:hover {
-      border-color: var(--c-orange);
-      color: var(--c-orange);
-      transform: scale(1.08);
+    .knob-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
     }
 
-    .scroller-btn.active {
-      background: var(--c-orange);
-      border-color: #FFFFFF;
+    /* Outer Scale Graduation Ticks (Mixer Faceplate Scale) */
+    .knob-ticks line {
+      stroke: rgba(255, 255, 255, 0.45);
+      stroke-width: 0.85px;
+      stroke-linecap: round;
+      transition: stroke 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* Rotary Dial Body & Position Notch (Turns on Hover & Active) */
+    .knob-rotor {
+      transform-box: view-box;
+      transform-origin: 12px 12.2px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .knob-dial {
+      fill: rgba(14, 14, 14, 0.94);
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 0.95px;
+      transition: fill 0.25s ease, stroke 0.25s ease, filter 0.25s ease;
+    }
+
+    .knob-notch,
+    .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+      stroke-width: 0.45px;
+      transition: fill 0.25s ease, stroke 0.25s ease;
+    }
+
+    /* Center Section Letter */
+    .knob-label {
+      position: relative;
+      z-index: 3;
+      font-family: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
       color: #FFFFFF;
-      box-shadow: 0 0 16px rgba(230, 85, 0, 0.6);
-      transform: scale(1.08);
-    }
-
-    /* Wave Separator between buttons (wave-1.svg and wave-2.svg) */
-    .scroller-wave-sep {
-      width: 28px;
-      height: 12px;
-      margin: 0 -2px;
-      display: block;
-      flex-shrink: 0;
+      line-height: 1;
       pointer-events: none;
       user-select: none;
-      z-index: 1;
-      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+      margin-top: 1px;
+      transition: color 0.25s ease;
+    }
+
+    /* Tactile Click Feel */
+    .scroller-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Hover State: Knob Turns on Mixer (Clockwise ~48deg Rotation) */
+    .scroller-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .scroller-btn:hover .knob-rotor {
+      transform: rotate(48deg);
+    }
+
+    .scroller-btn:hover .knob-ticks line {
+      stroke: rgba(255, 255, 255, 0.82);
+    }
+
+    .scroller-btn:hover .knob-dial {
+      stroke: var(--c-orange);
+      fill: rgba(24, 20, 18, 0.96);
+    }
+
+    .scroller-btn:hover .knob-notch,
+    .scroller-btn:hover .knob-notch-tip {
+      fill: var(--c-orange);
+      stroke: var(--c-orange);
+    }
+
+    /* Active State: Section Engaged / Dialed In */
+    .scroller-btn.active {
+      transform: scale(1.06);
+    }
+
+    .scroller-btn.active .knob-rotor {
+      transform: rotate(45deg);
+    }
+
+    .scroller-btn.active .knob-ticks line {
+      stroke: rgba(244, 143, 36, 0.75);
+    }
+
+    .scroller-btn.active .knob-dial {
+      fill: var(--c-orange);
+      stroke: #FFFFFF;
+      filter: drop-shadow(0 0 10px rgba(244, 143, 36, 0.65));
+    }
+
+    .scroller-btn.active .knob-notch,
+    .scroller-btn.active .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+    }
+
+    .scroller-btn.active .knob-label {
+      color: #FFFFFF;
+    }
+
+    .scroller-btn.active:hover .knob-rotor {
+      transform: rotate(62deg);
     }
 
     /* Tooltip on hover */
     .scroller-btn .tooltip {
       position: absolute;
-      top: 36px;
+      top: 52px;
       left: 50%;
       transform: translateX(-50%) translateY(4px);
       background: #111111;
@@ -2448,13 +2536,365 @@
       }
     }
 
+    /* =========================================================
+       SECTION: IN THE NEWS / MEDIA MENTIONS (ONE NEWS PER SLIDE)
+       ========================================================= */
+    .section-media-mentions {
+      padding: 120px 0;
+      background: #070707;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: none;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+      scroll-margin-top: 5rem;
+    }
+
+    /* Ambient Nocturnal Glow beneath mentions */
+    .section-media-mentions::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(900px, 92vw);
+      height: 420px;
+      background: radial-gradient(ellipse at center, rgba(244, 143, 36, 0.038) 0%, rgba(200, 36, 44, 0.018) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .media-mentions-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    /* One News Per Slide Carousel Container */
+    .media-slider-container {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 5vw, 4rem);
+      box-sizing: border-box;
+    }
+
+    .media-slider-viewport {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .media-slider-track {
+      display: flex;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      width: 100%;
+    }
+
+    .media-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vw, 2.5rem);
+      gap: clamp(1.75rem, 3.5vh, 2.5rem);
+      opacity: 0.25;
+      transform: scale(0.96);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .media-slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Media Logo */
+    .media-logo-wrap {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.92);
+      transition: transform 0.3s ease;
+    }
+
+    .media-logo-svg {
+      height: 28px;
+      width: auto;
+      max-width: 240px;
+      display: block;
+    }
+
+    /* Prominent Editorial Headline / Quote */
+    .media-slide-quote {
+      font-family: var(--font-body);
+      font-size: clamp(1.35rem, 2.35vw, 2.15rem);
+      line-height: 1.44;
+      font-weight: 300;
+      color: #FFFFFF;
+      letter-spacing: -0.015em;
+      margin: 0;
+      max-width: 860px;
+    }
+
+    /* Read Full Article CTA (Text Only Button Style) */
+    .media-card-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.25rem;
+    }
+
+    .media-card-cta {
+      font-family: var(--font-heading);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.58);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 4px;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .media-cta-arrow {
+      transition: transform 0.25s ease;
+      color: inherit;
+    }
+
+    .media-card-cta:hover {
+      color: var(--c-orange);
+      border-bottom-color: var(--c-orange);
+      transform: translateY(-1px);
+    }
+
+    .media-card-cta:hover .media-cta-arrow {
+      transform: translate(2px, -2px);
+    }
+
+    /* Carousel Navigation Arrows */
+    .media-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(18, 18, 18, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 5;
+      padding: 0;
+      outline: none;
+    }
+
+    .media-nav-arrow:hover {
+      border-color: var(--c-orange);
+      color: #FFFFFF;
+      background: rgba(244, 143, 36, 0.12);
+      box-shadow: 0 0 14px rgba(244, 143, 36, 0.3);
+    }
+
+    .media-nav-arrow.prev {
+      left: 0;
+    }
+
+    .media-nav-arrow.next {
+      right: 0;
+    }
+
+    /* Pagination Dots (Matching Reference ● ○ ○) */
+    .media-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: clamp(2.5rem, 4vh, 3.5rem);
+    }
+
+    .media-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      padding: 0;
+      outline: none;
+      transition: all 0.28s ease;
+    }
+
+    .media-dot:hover {
+      border-color: rgba(255, 255, 255, 0.7);
+      transform: scale(1.15);
+    }
+
+    .media-dot.active {
+      background: var(--c-orange);
+      border-color: var(--c-orange);
+      transform: scale(1.25);
+      box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .section-media-mentions {
+        padding: clamp(4.5rem, 10vh, 120px) 0;
+      }
+      .media-slider-container {
+        padding: 0 0;
+      }
+      .media-nav-arrow {
+        display: none;
+      }
+      .media-slide {
+        padding: 1rem 0.5rem;
+        gap: 1.75rem;
+      }
+      .media-slide-quote {
+        font-size: 1.25rem;
+        line-height: 1.45;
+      }
+      footer.site-footer {
+        padding: clamp(4.5rem, 10vh, 120px) 1.5rem 0 !important;
+      }
+    }
+
+    /* =========================================================
+       SECTION: INSTAGRAM FEED BANNER STRAP (JUST ABOVE FOOTER)
+       ========================================================= */
+    .section-insta-strap {
+      padding: 0;
+      margin: 0;
+      background: #070707;
+      position: relative;
+      border: none;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    /* Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) */
+    .insta-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+      background: #070707;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .insta-post-card {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 0;
+      background: #0d0d0d;
+      border: none;
+      display: block;
+      text-decoration: none;
+    }
+
+    .insta-post-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease;
+      filter: brightness(0.92) contrast(1.04);
+    }
+
+    .insta-post-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(7, 7, 7, 0.68);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      padding: 1rem;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+
+    .insta-overlay-icon {
+      width: 24px;
+      height: 24px;
+      transform: translateY(6px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-post-action {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      transform: translateY(6px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-post-card:hover .insta-post-img {
+      transform: scale(1.06);
+      filter: brightness(1.06) contrast(1.08);
+    }
+
+    .insta-post-card:hover .insta-post-overlay {
+      opacity: 1;
+    }
+
+    .insta-post-card:hover .insta-overlay-icon,
+    .insta-post-card:hover .insta-post-action {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .insta-feed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .insta-feed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     /* FOOTER */
     /* =========================================================
        FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
        ========================================================= */
     footer.site-footer {
-      border-top: none;
-      padding: 6rem 2.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 120px 2.5rem 0;
       background: #070707;
       position: relative;
       z-index: 10;
@@ -2642,7 +3082,7 @@
       position: absolute;
       inset: -12%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(244, 143, 36, 0.25) 0%, rgba(201, 114, 255, 0.08) 45%, transparent 70%);
+      background: radial-gradient(circle, rgba(244, 143, 36, 0.16) 0%, rgba(201, 114, 255, 0.05) 45%, transparent 70%);
       pointer-events: none;
       z-index: -1;
       filter: blur(40px);
@@ -2704,6 +3144,10 @@
 
     @media (max-width: 650px) {
       header.site-header { padding: 1rem 1.25rem; }
+      .section-scroller { gap: 0.65rem; }
+      .scroller-btn { width: 38px; height: 38px; }
+      .knob-label { font-size: 0.74rem; }
+      .scroller-btn .tooltip { top: 44px; }
       .now-playing-widget {
         bottom: 1rem;
         left: 1rem;
@@ -2766,6 +3210,17 @@
         height: 124px !important;
         opacity: 0.65;
         pointer-events: none;
+      }
+    }
+
+    @media (max-width: 1280px) {
+      .phil-card-2 {
+        left: 7% !important;
+        top: 59% !important;
+      }
+      .phil-card-4 {
+        right: 6% !important;
+        top: 64% !important;
       }
     }
 
@@ -2884,42 +3339,110 @@
     </div>
 
     <div class="header-nav-wrap">
-      <!-- Circular Page Scroller: ( C ) ~ ( W ) ~ ( F ) ~ ( S ) -->
+      <!-- Circular Page Scroller: Resor Rotary Mixer Knobs ( C ) ( W ) ( F ) ( S ) -->
       <nav class="section-scroller" aria-label="Section scroller">
         <!-- Node C: Concept -->
         <div class="scroller-node">
           <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Concept">
-            C
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <!-- Static Graduation Ticks (Mixer Faceplate Scale) -->
+              <g class="knob-ticks">
+                <line x1="12" y1=".2" x2="12" y2="2.7"/>
+                <line x1="4.3" y1="3" x2="5.9" y2="4.9"/>
+                <line x1=".2" y1="10.1" x2="2.7" y2="10.5"/>
+                <line x1="1.7" y1="18.1" x2="3.8" y2="16.9"/>
+                <line x1="7.3" y1="23.2" x2="8.4" y2="21"/>
+                <line x1="17.1" y1="23.2" x2="15.9" y2="21.1"/>
+                <line x1="22.3" y1="18.1" x2="20.1" y2="16.9"/>
+                <line x1="23.7" y1="10.1" x2="21.3" y2="10.5"/>
+                <line x1="19.7" y1="3" x2="18.1" y2="4.9"/>
+              </g>
+              <!-- Rotary Dial Body & Position Notch (Turns on Hover & Active) -->
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">C</span>
             <span class="tooltip">Concept</span>
           </a>
         </div>
 
-        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
         <!-- Node W: What's On -->
         <div class="scroller-node">
           <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s on">
-            W
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-ticks">
+                <line x1="12" y1=".2" x2="12" y2="2.7"/>
+                <line x1="4.3" y1="3" x2="5.9" y2="4.9"/>
+                <line x1=".2" y1="10.1" x2="2.7" y2="10.5"/>
+                <line x1="1.7" y1="18.1" x2="3.8" y2="16.9"/>
+                <line x1="7.3" y1="23.2" x2="8.4" y2="21"/>
+                <line x1="17.1" y1="23.2" x2="15.9" y2="21.1"/>
+                <line x1="22.3" y1="18.1" x2="20.1" y2="16.9"/>
+                <line x1="23.7" y1="10.1" x2="21.3" y2="10.5"/>
+                <line x1="19.7" y1="3" x2="18.1" y2="4.9"/>
+              </g>
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">W</span>
             <span class="tooltip">What’s on</span>
           </a>
         </div>
 
-        <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
         <!-- Node F: Food & Drinks -->
         <div class="scroller-node">
           <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & drinks">
-            F
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-ticks">
+                <line x1="12" y1=".2" x2="12" y2="2.7"/>
+                <line x1="4.3" y1="3" x2="5.9" y2="4.9"/>
+                <line x1=".2" y1="10.1" x2="2.7" y2="10.5"/>
+                <line x1="1.7" y1="18.1" x2="3.8" y2="16.9"/>
+                <line x1="7.3" y1="23.2" x2="8.4" y2="21"/>
+                <line x1="17.1" y1="23.2" x2="15.9" y2="21.1"/>
+                <line x1="22.3" y1="18.1" x2="20.1" y2="16.9"/>
+                <line x1="23.7" y1="10.1" x2="21.3" y2="10.5"/>
+                <line x1="19.7" y1="3" x2="18.1" y2="4.9"/>
+              </g>
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">F</span>
             <span class="tooltip">Food & drinks</span>
           </a>
         </div>
 
-        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
         <!-- Node S: Space -->
         <div class="scroller-node">
           <a href="#space" class="scroller-btn" data-section="space" aria-label="Space">
-            S
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-ticks">
+                <line x1="12" y1=".2" x2="12" y2="2.7"/>
+                <line x1="4.3" y1="3" x2="5.9" y2="4.9"/>
+                <line x1=".2" y1="10.1" x2="2.7" y2="10.5"/>
+                <line x1="1.7" y1="18.1" x2="3.8" y2="16.9"/>
+                <line x1="7.3" y1="23.2" x2="8.4" y2="21"/>
+                <line x1="17.1" y1="23.2" x2="15.9" y2="21.1"/>
+                <line x1="22.3" y1="18.1" x2="20.1" y2="16.9"/>
+                <line x1="23.7" y1="10.1" x2="21.3" y2="10.5"/>
+                <line x1="19.7" y1="3" x2="18.1" y2="4.9"/>
+              </g>
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">S</span>
             <span class="tooltip">Space</span>
           </a>
         </div>
@@ -2997,9 +3520,9 @@
       </div>
       <div class="drawer-info-col">
         <h4>Instagram</h4>
-        <a href="https://instagram.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
           <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
-          <span>@nami.hifi</span>
+          <span>@namibombay</span>
         </a>
       </div>
     </div>
@@ -3217,8 +3740,8 @@
           </div>
         </div>
 
-        <!-- Card 2: Bottom Left - Intimate Glassware & Amber Glow -->
-        <div class="phil-card phil-card-2" data-scroll="0.30" style="top: 62%; left: 8%;">
+        <!-- Card 2: Bottom Left - Intimate Glassware & Amber Glow (Moved Inward Near Paragraph) -->
+        <div class="phil-card phil-card-2" data-scroll="0.30" style="top: 59%; left: 14%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-8.jpg" alt="Glassware & Amber Glow" class="phil-card-img" loading="lazy">
           </div>
@@ -3231,8 +3754,8 @@
           </div>
         </div>
 
-        <!-- Card 4: Bottom Right - Listening Room Booths & Vinyl Wall -->
-        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 58%; right: 6%;">
+        <!-- Card 4: Bottom Right - Listening Room Booths & Vinyl Wall (Moved Inward & Unaligned) -->
+        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 64%; right: 11%;">
           <div class="phil-card-inner">
             <img src="./assets/spin-gallery-1.jpg" alt="Listening Room Booths" class="phil-card-img" loading="lazy">
           </div>
@@ -3653,6 +4176,177 @@
       </div>
     </section>
 
+    <!-- 05. IN THE NEWS / MEDIA MENTIONS (ONE NEWS PER SLIDE CAROUSEL) -->
+    <section id="press" class="section-media-mentions" aria-label="In the News and Media Mentions">
+      <div class="media-mentions-container">
+        
+        <!-- Slider Wrapper (One News Per Slide) -->
+        <div class="media-slider-container" id="mediaSliderContainer">
+          
+          <!-- Navigation Arrows (Left / Right) -->
+          <button class="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="10 13 5 8 10 3"></polyline>
+            </svg>
+          </button>
+
+          <button class="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 3 11 8 6 13"></polyline>
+            </svg>
+          </button>
+
+          <!-- Viewport -->
+          <div class="media-slider-viewport">
+            <div class="media-slider-track" id="mediaSliderTrack">
+
+              <!-- Slide 1: The Economic Times -->
+              <article class="media-slide is-active" data-index="0">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg et-logo" viewBox="0 0 240 28" fill="currentColor" aria-label="The Economic Times">
+                    <text x="0" y="21" font-family="'Didot', 'Bodoni MT', 'Playfair Display', 'Times New Roman', Georgia, serif" font-size="19" font-weight="700" letter-spacing="0.4px">
+                      <tspan font-size="10.5" font-weight="600" dy="-4.5" letter-spacing="1px">THE </tspan>
+                      <tspan font-size="19" font-weight="700" dy="4.5">ECONOMIC TIMES</tspan>
+                    </text>
+                  </svg>
+                </div>
+                
+                <blockquote class="media-slide-quote">
+                  “Aditya Birla Group’s hospitality arm, Aditya Birla New Age Hospitality (ABNAH) has announced a strategic deal to add four restaurant brands including Michelin...”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on The Economic Times">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Slide 2: Business Today -->
+              <article class="media-slide" data-index="1">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg bt-logo" viewBox="0 0 200 28" fill="currentColor" aria-label="Business Today">
+                    <g transform="translate(0, 3)">
+                      <path d="M4 1.5h3.6v7.2c1-.9 2.2-1.4 3.7-1.4 3.2 0 5.4 2.3 5.4 5.9 0 3.7-2.2 6-5.4 6-1.5 0-2.7-.5-3.7-1.4v1.2H4V1.5zm3.6 11.7c0 2 1.3 3.3 2.9 3.3 1.7 0 2.9-1.3 2.9-3.3 0-2-1.2-3.3-2.9-3.3-1.6 0-2.9 1.3-2.9 3.3z"/>
+                      <path d="M21 4.5h3.6v2.8h3v3.1h-3v4.6c0 1 .4 1.5 1.4 1.5.6 0 1.1-.1 1.6-.3v3.2c-.8.3-1.9.4-2.8.4-2.4 0-3.8-1.2-3.8-3.8v-5.6H19V7.3h2V4.5z"/>
+                      <line x1="33" y1="1" x2="33" y2="21" stroke="currentColor" stroke-width="1.4" opacity="0.4"/>
+                      <text x="42" y="16.5" font-family="'Chivo', sans-serif" font-size="16.5" font-weight="800" letter-spacing="-0.3px">Business Today</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <blockquote class="media-slide-quote">
+                  “The Group’s hospitality arm, housed under Aditya Birla New Age (ABNA), promoted by Aryaman Vikram Birla, will build premium casual dining restaurant chains across India”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://www.businesstoday.in/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Business Today">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Slide 3: Mint Lounge -->
+              <article class="media-slide" data-index="2">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg mint-logo" viewBox="0 0 160 28" fill="currentColor" aria-label="Mint Lounge">
+                    <g transform="translate(0, 1)">
+                      <rect x="0" y="2" width="40" height="22" rx="11" fill="rgba(255, 255, 255, 0.22)"/>
+                      <text x="20" y="16.5" font-family="'Chivo', sans-serif" font-size="11.5" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.2px">mint</text>
+                      <text x="47" y="19" font-family="'Didot', 'Bodoni MT', 'Playfair Display', 'Times New Roman', Georgia, serif" font-size="20" font-weight="700" letter-spacing="-0.5px">lounge</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <blockquote class="media-slide-quote">
+                  “The chef and restaurateur speaks about teaming up with Aditya Birla New Age Hospitality, authoring a book and how Gen Z wants to be served”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://lifestyle.livemint.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Mint Lounge">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <!-- Pagination Dots (Interactive Indicator / Slider Navigation) -->
+          <div class="media-pagination" role="tablist" aria-label="Press mentions pagination">
+            <button class="media-dot active" role="tab" aria-selected="true" aria-label="View slide 1: The Economic Times" data-index="0"></button>
+            <button class="media-dot" role="tab" aria-selected="false" aria-label="View slide 2: Business Today" data-index="1"></button>
+            <button class="media-dot" role="tab" aria-selected="false" aria-label="View slide 3: Mint Lounge" data-index="2"></button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 06. INSTAGRAM FEED BANNER STRAP (FULL-WIDTH EDGE-TO-EDGE, JUST ABOVE FOOTER) -->
+    <section id="instagram" class="section-insta-strap" aria-label="Instagram Feed @namibombay">
+      <!-- Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) -->
+      <div class="insta-feed-grid" id="instaFeedGrid">
+        <!-- Post 1: Listening Room & Turntables -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: DJ Booth & Vinyl Vault">
+          <img src="./assets/spin-gallery-3.jpg" alt="DJ Booth & Vinyl Wall at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 2: Sound-Mapped Cocktails -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Sound-Mapped Cocktails">
+          <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 3: Amber Pool Table -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Amber Pool Table">
+          <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 4: Culinary Robata Plates -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Robata Dining">
+          <img src="./assets/spin-gallery-6.jpg" alt="Robata Dining & Plates at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 5: Nocturnal Disco Ball & Beams -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Nocturnal Disco Ball & Beams">
+          <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Disco Ball & Beams at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 6: Listening Room Atmosphere & Horn Acoustics -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Listening Room Atmosphere & Horn Acoustics">
+          <img src="./assets/spin-gallery-8.jpg" alt="Listening Room Atmosphere & Horn Acoustics at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <!-- =========================================================
@@ -3685,6 +4379,7 @@
             <li><a href="#programming">What’s on</a></li>
             <li><a href="#menu">Food & drinks</a></li>
             <li><a href="#space">Our space</a></li>
+            <li><a href="#press">In the news</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -3704,7 +4399,7 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://instagram.com/" target="_blank">Instagram (@nami.hifi)</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
             <li><a href="#programming">Resident advisor</a></li>
             <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
           </ul>
@@ -4671,6 +5366,112 @@
         closeReservationModal();
       }
     });
+
+    // Press Mentions One-News-Per-Slide Carousel Controller
+    (function initMediaSlider() {
+      const track = document.getElementById('mediaSliderTrack');
+      const slides = document.querySelectorAll('.media-slide');
+      const dots = document.querySelectorAll('.media-dot');
+      const prevBtn = document.getElementById('mediaPrevBtn');
+      const nextBtn = document.getElementById('mediaNextBtn');
+      const container = document.getElementById('mediaSliderContainer');
+      if (!track || !slides.length) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoplayTimer = null;
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+
+        // Slide the track
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Update active classes for fade & scale
+        slides.forEach((s, i) => {
+          s.classList.toggle('is-active', i === currentIndex);
+        });
+
+        // Update dots
+        dots.forEach((d, i) => {
+          const isActive = i === currentIndex;
+          d.classList.toggle('active', isActive);
+          d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) {
+            goToSlide(idx);
+            resetAutoplay();
+          }
+        });
+      });
+
+      // Touch / Swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        pauseAutoplay();
+      }, { passive: true });
+
+      track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const threshold = 40;
+        if (touchEndX < touchStartX - threshold) {
+          nextSlide();
+        } else if (touchEndX > touchStartX + threshold) {
+          prevSlide();
+        }
+      }
+
+      // Autoplay with pause on hover
+      function startAutoplay() {
+        pauseAutoplay();
+        autoplayTimer = setInterval(nextSlide, 7000);
+      }
+
+      function pauseAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function resetAutoplay() {
+        pauseAutoplay();
+        startAutoplay();
+      }
+
+      if (container) {
+        container.addEventListener('mouseenter', pauseAutoplay);
+        container.addEventListener('mouseleave', startAutoplay);
+      }
+
+      startAutoplay();
+    })();
   </script>
 
   <!-- =========================================================
