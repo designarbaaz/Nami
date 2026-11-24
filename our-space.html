@@ -36,15 +36,14 @@
 
       /* Approved Atmospheric Frequency (Subtle) Gradients */
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
-      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      letter-spacing: normal;
     }
 
     html {
@@ -60,14 +59,11 @@
       position: relative;
       -webkit-font-smoothing: antialiased;
 
-      /* Official Noise Texture Tiled directly on body */
-      background-image: 
-        var(--grad-nocturnal-glow),
-        url('./assets/Noise-texture.png');
-      background-repeat: no-repeat, repeat;
-      background-position: center top, center top;
-      background-size: 100% 1000px, 100% auto;
-      background-attachment: scroll, scroll;
+      /* Pure Background with Noise Texture Only (Gradient Removed) */
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
     }
 
     h1, h2, h3, h4, h5, h6,
@@ -76,6 +72,7 @@
     .gallery-page-title {
       font-family: var(--font-heading);
       font-weight: 700;
+      letter-spacing: normal;
     }
 
     /* Fixed Viewport Noise Overlay */
@@ -93,20 +90,6 @@
       background-size: 100% auto;
       opacity: 0.95;
       mix-blend-mode: screen;
-    }
-
-    /* Subtle Analog Tube Warmth Overlay */
-    #warmth-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 9998;
-      background: radial-gradient(circle at 50% 50%, rgba(180, 95, 30, 0.05) 0%, rgba(0, 0, 0, 0.35) 90%);
-      mix-blend-mode: soft-light;
-      opacity: 0.5;
     }
 
     /* =========================================================
@@ -239,6 +222,7 @@
       user-select: none;
       margin-top: 1px;
       transition: color 0.25s ease;
+      letter-spacing: normal;
     }
 
     .scroller-btn:active {
@@ -312,6 +296,7 @@
       opacity: 0;
       transition: opacity 0.2s, transform 0.2s;
       box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      letter-spacing: normal;
     }
 
     .scroller-btn:hover .tooltip {
@@ -433,6 +418,7 @@
       align-items: center;
       gap: 1.5rem;
       cursor: pointer;
+      letter-spacing: normal;
     }
 
     .drawer-nav-item:hover,
@@ -446,6 +432,7 @@
       font-size: 1rem;
       font-weight: 600;
       color: var(--text-muted);
+      letter-spacing: normal;
     }
 
     .drawer-image-wrap {
@@ -491,6 +478,31 @@
       z-index: 2;
     }
 
+    .drawer-bottom-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      width: 100%;
+    }
+
+    .drawer-info-col h4 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      margin-bottom: 0.5rem;
+      letter-spacing: normal;
+    }
+
+    .drawer-info-col p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      letter-spacing: normal;
+    }
+
     @media (max-width: 900px) {
       .drawer-middle {
         grid-template-columns: 1fr;
@@ -501,10 +513,10 @@
     }
 
     /* =========================================================
-       PAGE CONTENT: OUR SPACE JUSTIFIED GALLERY
+       PAGE CONTENT: OUR SPACE GALLERY
        ========================================================= */
     .gallery-page-wrap {
-      padding-top: clamp(100px, 14vh, 140px);
+      padding-top: clamp(100px, 13vh, 130px);
       padding-bottom: clamp(60px, 10vh, 100px);
       min-height: 100vh;
       position: relative;
@@ -521,22 +533,24 @@
       align-items: center;
     }
 
+    /* 1. Breadcrumb - letter-spacing removed */
     .gallery-breadcrumb {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     .gallery-breadcrumb a {
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s ease;
+      letter-spacing: normal !important;
     }
 
     .gallery-breadcrumb a:hover {
@@ -553,12 +567,12 @@
 
     .gallery-page-title {
       font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      font-size: clamp(2.6rem, 5.2vw, 4.6rem);
       font-weight: 700;
       color: #c0c0c0;
       line-height: 1.1;
       margin-bottom: 1.1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: normal !important;
     }
 
     .gallery-page-title .text-gradient {
@@ -571,63 +585,59 @@
 
     .gallery-page-desc {
       max-width: 720px;
-      font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
       color: var(--text-secondary);
       line-height: 1.65;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2.2rem;
       font-weight: 400;
+      letter-spacing: normal !important;
     }
 
-    /* Minimalist Audio Console Filter Tabs */
+    /* 6. Tab UI - Clean Minimalist Underline Tabs (font-size 30px, no border, no radius, no bg, no shadow, no letter-spacing) */
     .gallery-filter-bar {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 0.65rem;
+      gap: clamp(1.5rem, 3.5vw, 3rem);
+      margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
 
     .gallery-filter-pill {
-      background: rgba(20, 20, 24, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #c0c0c0;
-      font-family: var(--font-body);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.55rem 1.35rem;
-      border-radius: 999px;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+      color: #777777;
+      font-family: var(--font-heading);
+      font-size: clamp(18px, 2.2vw, 30px);
+      font-weight: 400;
+      letter-spacing: normal !important;
+      text-transform: none;
+      padding: 0 0 8px 0;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+      border-bottom: 3px solid transparent !important;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      line-height: 1.2;
+      display: inline-block;
     }
 
     .gallery-filter-pill:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(30, 30, 36, 0.9);
-      transform: translateY(-1px);
-      color: #ffffff;
+      color: #c0c0c0;
+      background: transparent !important;
+      transform: none !important;
+      box-shadow: none !important;
     }
 
+    /* Active state: bold underline, without underline for inactive */
     .gallery-filter-pill.active {
-      background: rgba(244, 143, 36, 0.12);
-      border-color: var(--c-orange);
-      color: #ffffff;
-      box-shadow: 0 0 16px rgba(244, 143, 36, 0.28);
-    }
-
-    .filter-count {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-
-    .gallery-filter-pill.active .filter-count {
-      color: var(--c-orange);
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      border-bottom: 3px solid #ffffff !important;
+      background: transparent !important;
+      box-shadow: none !important;
     }
 
     /* =========================================================
@@ -668,6 +678,7 @@
       box-sizing: border-box;
     }
 
+    /* 4. Remove zoom effect as of now */
     .gallery-strip-item img {
       width: 100%;
       height: 100%;
@@ -676,44 +687,17 @@
       border-radius: 0 !important;
       border: none !important;
       outline: none !important;
-      filter: brightness(0.95) contrast(1.05);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+      filter: brightness(0.96) contrast(1.04);
+      transform: none !important;
+      transition: filter 0.3s ease;
     }
 
     .gallery-strip-item:hover img {
-      transform: scale(1.028);
-      filter: brightness(1.08) contrast(1.08);
+      transform: none !important; /* Zero zoom */
+      filter: brightness(1.05) contrast(1.05);
     }
 
-    /* Hover Info Pill */
-    .strip-hover-badge {
-      position: absolute;
-      bottom: 1.15rem;
-      left: 1.15rem;
-      padding: 0.4rem 0.85rem;
-      background: rgba(8, 8, 10, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: #c0c0c0;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .gallery-strip-item:hover .strip-hover-badge {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Tablet & Mobile Responsive Feed (Exact idoru.in/gallery-1 behavior) */
+    /* Tablet & Mobile Responsive Feed */
     @media (max-width: 860px) {
       .gallery-strips-wrapper {
         padding: 0 6vw;
@@ -734,12 +718,7 @@
         height: auto;
         max-height: 75vh;
         object-fit: cover;
-      }
-      .strip-hover-badge {
-        opacity: 0.9;
-        transform: translateY(0);
-        bottom: 0.85rem;
-        left: 0.85rem;
+        transform: none !important;
       }
     }
 
@@ -750,7 +729,7 @@
       position: fixed;
       inset: 0;
       z-index: 20000;
-      background: rgba(4, 4, 6, 0.95);
+      background: rgba(4, 4, 6, 0.96);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       display: flex;
@@ -786,14 +765,14 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--c-orange);
-      letter-spacing: 0.12em;
+      letter-spacing: normal !important;
       font-family: var(--font-body);
     }
 
     .lightbox-category-tag {
       font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
       color: #c0c0c0;
       padding: 0.28rem 0.75rem;
@@ -911,12 +890,13 @@
       font-size: 1.05rem;
       font-weight: 600;
       color: #c0c0c0;
+      letter-spacing: normal !important;
     }
 
     .lightbox-keyboard-hint {
       font-size: 0.72rem;
       color: var(--text-muted);
-      letter-spacing: 0.08em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
     }
 
@@ -969,12 +949,14 @@
       font-weight: 700;
       color: #c0c0c0;
       line-height: 1.2;
+      letter-spacing: normal !important;
     }
 
     .track-artist {
       font-size: 0.72rem;
       color: var(--text-secondary);
       font-family: 'Chivo', sans-serif;
+      letter-spacing: normal !important;
     }
 
     .btn-audio-toggle {
@@ -1044,7 +1026,7 @@
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0;
+      letter-spacing: normal !important;
       text-transform: none;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
@@ -1143,7 +1125,7 @@
       font-size: 0.7rem;
       font-weight: 700;
       color: var(--c-orange);
-      letter-spacing: 0.12em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
       display: block;
       margin-bottom: 0.35rem;
@@ -1155,6 +1137,7 @@
       font-weight: 700;
       color: #c0c0c0;
       line-height: 1.15;
+      letter-spacing: normal !important;
     }
 
     .reserve-modal-close {
@@ -1184,6 +1167,7 @@
       color: var(--text-secondary);
       line-height: 1.45;
       margin-bottom: 1.6rem;
+      letter-spacing: normal !important;
     }
 
     .reservation-form {
@@ -1210,7 +1194,7 @@
       font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.08em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
     }
 
@@ -1226,6 +1210,7 @@
       outline: none;
       box-sizing: border-box;
       transition: border-color 0.2s, background 0.2s;
+      letter-spacing: normal !important;
     }
 
     .res-input:focus {
@@ -1245,7 +1230,7 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: normal !important;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
@@ -1278,6 +1263,7 @@
       opacity: 0;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
       z-index: 10000;
+      letter-spacing: normal !important;
     }
 
     #toast.show {
@@ -1342,6 +1328,7 @@
       line-height: 1.65;
       margin: 0;
       font-family: var(--font-body);
+      letter-spacing: normal !important;
     }
 
     .btn-whatsapp-footer {
@@ -1360,6 +1347,7 @@
       width: fit-content;
       transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
       font-family: var(--font-body);
+      letter-spacing: normal !important;
     }
 
     .btn-whatsapp-footer:hover {
@@ -1380,7 +1368,7 @@
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: normal !important;
       color: rgba(255, 255, 255, 0.45);
       display: block;
       margin-bottom: 1.15rem;
@@ -1409,6 +1397,7 @@
       transition: color 0.2s ease, transform 0.2s ease;
       display: inline-block;
       line-height: 1.4;
+      letter-spacing: normal !important;
     }
 
     .footer-nav-list a:hover {
@@ -1429,7 +1418,7 @@
       font-family: var(--font-body);
       font-size: clamp(0.68rem, 0.85vw, 0.74rem);
       color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.12em;
+      letter-spacing: normal !important;
       white-space: nowrap;
       box-sizing: border-box;
       pointer-events: none;
@@ -1507,8 +1496,15 @@
       .knob-label { font-size: 0.7rem; }
       .btn-wave-hamburger { width: 36px; height: 36px; }
       .btn-menu-icon { width: 32px; height: 32px; }
-      .gallery-filter-pill { padding: 0.45rem 0.95rem; font-size: 0.68rem; }
-      .scroller-btn .tooltip { top: 44px; }
+
+      .gallery-filter-bar {
+        gap: 1.25rem;
+      }
+      .gallery-filter-pill {
+        font-size: 19px !important;
+        padding-bottom: 4px !important;
+      }
+
       .now-playing-widget {
         bottom: 1rem;
         left: 1rem;
@@ -1561,11 +1557,8 @@
 </head>
 <body>
 
-  <!-- Fullscreen Grain Noise Layer -->
+  <!-- Fullscreen Grain Noise Layer (No Warmth / No Gradient Layer) -->
   <div id="noise-layer" aria-hidden="true"></div>
-
-  <!-- Subtle Analog Tube Warmth Overlay -->
-  <div id="warmth-layer" aria-hidden="true"></div>
 
   <!-- =========================================================
        FIXED TOP NAVIGATION & ROTARY SECTION SCROLLER
@@ -1684,7 +1677,7 @@
       <div class="drawer-image-wrap">
         <div class="drawer-image-card">
           <img src="./assets/spin-gallery-2.jpg" id="drawerImgConcept" class="drawer-preview-img" alt="Concept Preview">
-          <img src="./assets/Event-1.jpg" id="drawerImgProgramming" class="drawer-preview-img" alt="Programming Preview">
+          <img src="./assets/spin-gallery-1.jpg" id="drawerImgProgramming" class="drawer-preview-img" alt="Programming Preview">
           <img src="./assets/Food.png" id="drawerImgMenu" class="drawer-preview-img" alt="Drinks & Food Preview">
           <img src="./assets/Event-bg.jpg" id="drawerImgSpace" class="drawer-preview-img active" alt="Our Space Preview">
           <img src="./assets/spin-gallery-9.jpg" id="drawerImgPress" class="drawer-preview-img" alt="Press Preview">
@@ -1752,6 +1745,7 @@
   <main class="gallery-page-wrap">
     <!-- Header & Category Filter Bar -->
     <section class="gallery-header-section">
+      <!-- 1. Breadcrumb - letter-spacing removed -->
       <nav class="gallery-breadcrumb" aria-label="Breadcrumb">
         <a href="index-2.html">HOME</a>
         <span class="gallery-breadcrumb-sep">/</span>
@@ -1763,163 +1757,121 @@
         A sanctuary of analog acoustic engineering, Japanese robata gastronomy, bespoke libations, and nocturnal listening culture. Explore our custom rotary audio architecture, vinyl archives, dining rooms, and atmospheric bar.
       </p>
 
-      <!-- Category Filter Pills -->
+      <!-- 6. Tab UI: font-size 30px, simple bold underline active state, no border, no bg, no numbers, no letter-spacing -->
       <div class="gallery-filter-bar" role="tablist" aria-label="Gallery Categories">
         <button class="gallery-filter-pill active" data-filter="all" role="tab" aria-selected="true" onclick="filterGallery('all')">
-          <span>All</span>
-          <span class="filter-count">25</span>
+          All
         </button>
         <button class="gallery-filter-pill" data-filter="interiors" role="tab" aria-selected="false" onclick="filterGallery('interiors')">
-          <span>Interiors &amp; Space</span>
-          <span class="filter-count">8</span>
+          Interiors &amp; Space
         </button>
         <button class="gallery-filter-pill" data-filter="music" role="tab" aria-selected="false" onclick="filterGallery('music')">
-          <span>Music &amp; Sound</span>
-          <span class="filter-count">9</span>
+          Music &amp; Sound
         </button>
         <button class="gallery-filter-pill" data-filter="drinks-food" role="tab" aria-selected="false" onclick="filterGallery('drinks-food')">
-          <span>Drinks &amp; Food</span>
-          <span class="filter-count">8</span>
+          Drinks &amp; Food
         </button>
       </div>
     </section>
 
-    <!-- Justified Strips Gallery Container (Pure Idoru.in/gallery-1 Justified Grid) -->
+    <!-- Justified Strips Gallery Container (Pure Idoru.in/gallery-1 Justified Grid, Authentic Photos Only, No Captions on Hover, No Zoom) -->
     <div class="gallery-strips-wrapper" id="galleryStripsContainer">
       
       <!-- Row 1: The Nocturnal Bar Counter (Landscape) + Precision Tonearm (Portrait) + Wood-Panelled Booth (Portrait) -->
       <div class="gallery-strip-row" data-row-id="1">
         <div class="gallery-strip-item" style="flex: 1.78 1.78 0px;" data-category="interiors" data-index="0" onclick="openLightbox(0)">
           <img src="./assets/Event-bg2.jpg" alt="The Nocturnal Bar Counter" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; The Nocturnal Bar Counter</div>
         </div>
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="music" data-index="1" onclick="openLightbox(1)">
           <img src="./assets/spin-gallery-3.jpg" alt="Precision Turntable Tonearm" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Precision Turntable Tonearm</div>
         </div>
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="2" onclick="openLightbox(2)">
           <img src="./assets/spin-gallery-2.jpg" alt="Acoustic Wood-Panelled Booth" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Wood-Panelled Booth</div>
         </div>
       </div>
 
-      <!-- Row 2: Clarified Highball (Portrait) + Selector Session (Portrait) + Vinyl Archive Lounge (Landscape) -->
+      <!-- Row 2: Clarified Highball (Portrait) + Vinyl Selector at Decks (Square) + Vinyl Archive Lounge (Landscape) -->
       <div class="gallery-strip-row" data-row-id="2">
         <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="3" onclick="openLightbox(3)">
           <img src="./assets/Cocktail.png" alt="Clarified Solar Highball" loading="lazy">
-          <div class="strip-hover-badge">Drinks &middot; Clarified Solar Highball</div>
         </div>
-        <div class="gallery-strip-item" style="flex: 0.80 0.80 0px;" data-category="music" data-index="4" onclick="openLightbox(4)">
-          <img src="./assets/Event-1.jpg" alt="Tokyo Jazz Kissa Archive Selector" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Archive Selector Session</div>
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="4" onclick="openLightbox(4)">
+          <img src="./assets/Event-2.jpg" alt="Vinyl Selector at the Decks" loading="lazy">
         </div>
         <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="interiors" data-index="5" onclick="openLightbox(5)">
           <img src="./assets/spin-gallery-9.jpg" alt="The Vinyl Archive Lounge" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Vinyl Archive Lounge</div>
         </div>
       </div>
 
       <!-- Row 3: Grand Panoramic Master Acoustic Room (Single Panoramic Strip) -->
       <div class="gallery-strip-row panoramic-row" data-row-id="3">
         <div class="gallery-strip-item" style="flex: 2.2 2.2 0px;" data-category="interiors" data-index="6" onclick="openLightbox(6)">
-          <img src="./assets/Event-bg.jpg" alt="The 440Hz Master Acoustic Architecture" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; 440Hz Master Acoustic Architecture</div>
+          <img src="./assets/Event-bg.jpg" alt="440Hz Master Acoustic Architecture" loading="lazy">
         </div>
       </div>
 
-      <!-- Row 4: Robata Seasonal Dish (Portrait) + Turntable Platter (Landscape) + Tatami Nook (Portrait) -->
+      <!-- Row 4: Robata Seasonal Dish (Portrait) + Pool Hall Lounge (Landscape) + Bar Counter Seating (Portrait) -->
       <div class="gallery-strip-row" data-row-id="4">
         <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="7" onclick="openLightbox(7)">
           <img src="./assets/Food.png" alt="Robata Charcoal Seasonal Dish" loading="lazy">
-          <div class="strip-hover-badge">Food &middot; Robata Charcoal Dish</div>
         </div>
-        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="music" data-index="8" onclick="openLightbox(8)">
-          <img src="./assets/spin-gallery-1.jpg" alt="Turntable Platter in Motion" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Continuous Platter Motion</div>
+        <div class="gallery-strip-item" style="flex: 1.33 1.33 0px;" data-category="interiors" data-index="8" onclick="openLightbox(8)">
+          <img src="./assets/Event-bg1.jpg" alt="Ambient Pool Hall Lounge" loading="lazy">
         </div>
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="9" onclick="openLightbox(9)">
-          <img src="./assets/spin-gallery-4.jpg" alt="Tatami Acoustic Seating Nook" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Tatami Acoustic Nook</div>
+          <img src="./assets/spin-gallery-4.jpg" alt="Cocktail Bar Counter &amp; Stools" loading="lazy">
         </div>
       </div>
 
-      <!-- Row 5: Vacuum Tube Amp (Square) + Smoked Old Fashioned (Portrait) + Backbar Spirits (Landscape) -->
+      <!-- Row 5: Audiophile Turntable Room (Landscape) + Smoked Old Fashioned (Portrait) + Lounge Booths (Portrait) -->
       <div class="gallery-strip-row" data-row-id="5">
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="10" onclick="openLightbox(10)">
-          <img src="./assets/Event-2.jpg" alt="Analog Vacuum Tube Amplification" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Analog Vacuum Tubes</div>
+        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="music" data-index="10" onclick="openLightbox(10)">
+          <img src="./assets/spin-gallery-1.jpg" alt="Audiophile Turntable &amp; Listening Room" loading="lazy">
         </div>
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="11" onclick="openLightbox(11)">
           <img src="./assets/spin-gallery-8.jpg" alt="Smoked Japanese Old Fashioned" loading="lazy">
-          <div class="strip-hover-badge">Drinks &middot; Smoked Old Fashioned</div>
         </div>
-        <div class="gallery-strip-item" style="flex: 1.33 1.33 0px;" data-category="interiors" data-index="12" onclick="openLightbox(12)">
-          <img src="./assets/Event-bg1.jpg" alt="The Backbar Spirits Library" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Backbar Spirits Library</div>
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="12" onclick="openLightbox(12)">
+          <img src="./assets/spin-gallery-5.jpg" alt="Low-Lit Dining Lounge Booths" loading="lazy">
         </div>
       </div>
 
-      <!-- Row 6: Miso Caramel Tart (Portrait) + Rare Vinyl Selector (Portrait) + Wave Ceiling (Portrait) -->
+      <!-- Row 6: Miso Caramel Tart (Portrait) + Spinning Vinyl Grooves (Square) + Curated Spirits & Glassware (Landscape) -->
       <div class="gallery-strip-row" data-row-id="6">
         <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="13" onclick="openLightbox(13)">
           <img src="./assets/Dessert.png" alt="Miso Caramel Sweet Tart" loading="lazy">
-          <div class="strip-hover-badge">Food &middot; Miso Caramel Sweet Tart</div>
         </div>
-        <div class="gallery-strip-item" style="flex: 0.80 0.80 0px;" data-category="music" data-index="14" onclick="openLightbox(14)">
-          <img src="./assets/Event-3.jpg" alt="Rare Vinyl Discography Selectors" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Rare Vinyl Selectors</div>
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="14" onclick="openLightbox(14)">
+          <img src="./assets/gallery-1.jpg" alt="Spinning Vinyl Grooves" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="15" onclick="openLightbox(15)">
-          <img src="./assets/spin-gallery-5.jpg" alt="Acoustic Wave Ceiling & Counter" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Acoustic Wave Ceiling</div>
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="15" onclick="openLightbox(15)">
+          <img src="./assets/gallery-4.jpg" alt="Bespoke Spirits &amp; Glassware" loading="lazy">
         </div>
       </div>
 
-      <!-- Row 7: Infused Botanical Libation (Portrait) + Rotary Master Console (Portrait) + Charcoal Seared Plate (Portrait) -->
+      <!-- Row 7: Infused Botanical Libation (Portrait) + Listening Bar Setup (Square) + Charcoal Robata Skewers (Portrait) -->
       <div class="gallery-strip-row" data-row-id="7">
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="16" onclick="openLightbox(16)">
           <img src="./assets/spin-gallery-6.jpg" alt="Infused Botanical Libation" loading="lazy">
-          <div class="strip-hover-badge">Drinks &middot; Infused Botanical Libation</div>
         </div>
-        <div class="gallery-strip-item" style="flex: 0.79 0.79 0px;" data-category="music" data-index="17" onclick="openLightbox(17)">
-          <img src="./assets/Event-4.jpg" alt="Analog Rotary Master Console" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Rotary Master Console</div>
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="17" onclick="openLightbox(17)">
+          <img src="./assets/gallery-3.jpg" alt="Listening Bar Counter Audio Setup" loading="lazy">
         </div>
         <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="18" onclick="openLightbox(18)">
-          <img src="./assets/spin-gallery-7.jpg" alt="Charcoal Seared Seasonal Plate" loading="lazy">
-          <div class="strip-hover-badge">Food &middot; Charcoal Seared Plate</div>
+          <img src="./assets/spin-gallery-7.jpg" alt="Charcoal Seared Seasonal Skewers" loading="lazy">
         </div>
       </div>
 
-      <!-- Row 8: Spinning Vinyl Grooves (Square) + Horn Loudspeaker Setup (Square) + Bespoke Spirits Library (Landscape) -->
+      <!-- Row 8: Analog Faders Console (Square) + Robata Small Plates (Landscape) + Intimate Table Setting (Landscape) -->
       <div class="gallery-strip-row" data-row-id="8">
         <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="19" onclick="openLightbox(19)">
-          <img src="./assets/gallery-1.jpg" alt="Spinning Vinyl Grooves" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Spinning Vinyl Grooves</div>
+          <img src="./assets/gallery-2.jpg" alt="Analog Fader Precision Console" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="20" onclick="openLightbox(20)">
-          <img src="./assets/gallery-3.jpg" alt="Custom Horn Loudspeaker Architecture" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Horn Loudspeaker Setup</div>
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="20" onclick="openLightbox(20)">
+          <img src="./assets/gallery-5.jpg" alt="Robata Culinary Small Plates" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="21" onclick="openLightbox(21)">
-          <img src="./assets/gallery-4.jpg" alt="Bespoke Curated Spirits Library" loading="lazy">
-          <div class="strip-hover-badge">Drinks &middot; Bespoke Spirits Library</div>
-        </div>
-      </div>
-
-      <!-- Row 9: Analog Faders (Square) + Culinary Craft (Landscape) + Intimate Table Setting (Landscape) -->
-      <div class="gallery-strip-row" data-row-id="9">
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="22" onclick="openLightbox(22)">
-          <img src="./assets/gallery-2.jpg" alt="Analog Fader Precision Session" loading="lazy">
-          <div class="strip-hover-badge">Music &middot; Analog Faders & Knobs</div>
-        </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="23" onclick="openLightbox(23)">
-          <img src="./assets/gallery-5.jpg" alt="Robata Culinary Pairings" loading="lazy">
-          <div class="strip-hover-badge">Food &middot; Robata Culinary Pairings</div>
-        </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="interiors" data-index="24" onclick="openLightbox(24)">
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="interiors" data-index="21" onclick="openLightbox(21)">
           <img src="./assets/gallery-6.jpg" alt="Intimate Listening Table Setting" loading="lazy">
-          <div class="strip-hover-badge">Interiors &middot; Intimate Listening Table</div>
         </div>
       </div>
 
@@ -1932,7 +1884,7 @@
   <div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Photo View">
     <div class="lightbox-top-bar">
       <div class="lightbox-meta">
-        <span class="lightbox-counter" id="lightboxCounter">01 / 25</span>
+        <span class="lightbox-counter" id="lightboxCounter">01 / 22</span>
         <span class="lightbox-category-tag" id="lightboxCategoryTag">INTERIORS &amp; SPACE</span>
       </div>
       <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Close Lightbox">✕</button>
@@ -2109,44 +2061,41 @@
        SCRIPTS: GALLERY ENGINE, LIGHTBOX, AUDIO & RESERVATIONS
        ========================================================= -->
   <script>
-    // 1. Image Registry (25 items spanning the 4 pillars)
+    // 1. Image Registry (22 Authentic Photography Assets, 0 Posters)
     const GALLERY_DATA = [
       { id: 1, src: './assets/Event-bg2.jpg', ratio: 1.78, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'The Nocturnal Bar Counter', alt: 'The Nocturnal Bar Counter' },
       { id: 2, src: './assets/spin-gallery-3.jpg', ratio: 0.67, category: 'music', categoryLabel: 'Music & Sound', title: 'Precision Turntable Tonearm', alt: 'Precision Turntable Tonearm' },
       { id: 3, src: './assets/spin-gallery-2.jpg', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Acoustic Wood-Panelled Booth', alt: 'Acoustic Wood-Panelled Booth' },
       { id: 4, src: './assets/Cocktail.png', ratio: 0.69, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Clarified Solar Highball', alt: 'Clarified Solar Highball' },
-      { id: 5, src: './assets/Event-1.jpg', ratio: 0.80, category: 'music', categoryLabel: 'Music & Sound', title: 'Tokyo Jazz Kissa Archive Selector', alt: 'Tokyo Jazz Kissa Archive Selector' },
+      { id: 5, src: './assets/Event-2.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Vinyl Selector at the Decks', alt: 'Vinyl Selector at the Decks' },
       { id: 6, src: './assets/spin-gallery-9.jpg', ratio: 1.50, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'The Vinyl Archive Lounge', alt: 'The Vinyl Archive Lounge' },
       { id: 7, src: './assets/Event-bg.jpg', ratio: 2.20, category: 'interiors', categoryLabel: 'Interiors & Space', title: '440Hz Master Acoustic Architecture', alt: '440Hz Master Acoustic Architecture', panoramic: true },
       { id: 8, src: './assets/Food.png', ratio: 0.69, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Robata Charcoal Seasonal Dish', alt: 'Robata Charcoal Seasonal Dish' },
-      { id: 9, src: './assets/spin-gallery-1.jpg', ratio: 1.50, category: 'music', categoryLabel: 'Music & Sound', title: 'Continuous Turntable Platter Motion', alt: 'Turntable Platter in Motion' },
-      { id: 10, src: './assets/spin-gallery-4.jpg', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Tatami Acoustic Seating Nook', alt: 'Tatami Acoustic Seating Nook' },
-      { id: 11, src: './assets/Event-2.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Custom Audiophile Vacuum Tubes', alt: 'Custom Audiophile Vacuum Tubes' },
+      { id: 9, src: './assets/Event-bg1.jpg', ratio: 1.33, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Ambient Pool Hall Lounge', alt: 'Ambient Pool Hall Lounge' },
+      { id: 10, src: './assets/spin-gallery-4.jpg', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Cocktail Bar Counter & Stools', alt: 'Cocktail Bar Counter & Stools' },
+      { id: 11, src: './assets/spin-gallery-1.jpg', ratio: 1.50, category: 'music', categoryLabel: 'Music & Sound', title: 'Audiophile Turntable & Listening Room', alt: 'Audiophile Turntable & Listening Room' },
       { id: 12, src: './assets/spin-gallery-8.jpg', ratio: 0.67, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Smoked Japanese Old Fashioned', alt: 'Smoked Japanese Old Fashioned' },
-      { id: 13, src: './assets/Event-bg1.jpg', ratio: 1.33, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'The Backbar Spirits Library', alt: 'The Backbar Spirits Library' },
+      { id: 13, src: './assets/spin-gallery-5.jpg', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Low-Lit Dining Lounge Booths', alt: 'Low-Lit Dining Lounge Booths' },
       { id: 14, src: './assets/Dessert.png', ratio: 0.69, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Miso Caramel Sweet Tart', alt: 'Miso Caramel Sweet Tart' },
-      { id: 15, src: './assets/Event-3.jpg', ratio: 0.80, category: 'music', categoryLabel: 'Music & Sound', title: 'Rare Vinyl Discography Selectors', alt: 'Rare Vinyl Discography Selectors' },
-      { id: 16, src: './assets/spin-gallery-5.jpg', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Acoustic Wave Ceiling & Counter', alt: 'Acoustic Wave Ceiling & Counter' },
+      { id: 15, src: './assets/gallery-1.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Spinning Vinyl Grooves', alt: 'Spinning Vinyl Grooves' },
+      { id: 16, src: './assets/gallery-4.jpg', ratio: 1.20, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Bespoke Spirits & Glassware', alt: 'Bespoke Spirits & Glassware' },
       { id: 17, src: './assets/spin-gallery-6.jpg', ratio: 0.67, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Infused Botanical Libation', alt: 'Infused Botanical Libation' },
-      { id: 18, src: './assets/Event-4.jpg', ratio: 0.79, category: 'music', categoryLabel: 'Music & Sound', title: 'Analog Rotary Master Console', alt: 'Analog Rotary Master Console' },
-      { id: 19, src: './assets/spin-gallery-7.jpg', ratio: 0.67, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Charcoal Seared Seasonal Plate', alt: 'Charcoal Seared Seasonal Plate' },
-      { id: 20, src: './assets/gallery-1.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Spinning Vinyl Grooves', alt: 'Spinning Vinyl Grooves' },
-      { id: 21, src: './assets/gallery-3.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Custom Horn Loudspeaker Architecture', alt: 'Custom Horn Loudspeaker Architecture' },
-      { id: 22, src: './assets/gallery-4.jpg', ratio: 1.20, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Bespoke Curated Spirits Library', alt: 'Bespoke Curated Spirits Library' },
-      { id: 23, src: './assets/gallery-2.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Analog Fader Precision Session', alt: 'Analog Fader Precision Session' },
-      { id: 24, src: './assets/gallery-5.jpg', ratio: 1.20, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Robata Culinary Pairings', alt: 'Robata Culinary Pairings' },
-      { id: 25, src: './assets/gallery-6.jpg', ratio: 1.20, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Intimate Listening Table Setting', alt: 'Intimate Listening Table Setting' }
+      { id: 18, src: './assets/gallery-3.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Listening Bar Counter Audio Setup', alt: 'Listening Bar Counter Audio Setup' },
+      { id: 19, src: './assets/spin-gallery-7.jpg', ratio: 0.67, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Charcoal Seared Seasonal Skewers', alt: 'Charcoal Seared Seasonal Skewers' },
+      { id: 20, src: './assets/gallery-2.jpg', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Analog Fader Precision Console', alt: 'Analog Fader Precision Console' },
+      { id: 21, src: './assets/gallery-5.jpg', ratio: 1.20, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Robata Culinary Small Plates', alt: 'Robata Culinary Small Plates' },
+      { id: 22, src: './assets/gallery-6.jpg', ratio: 1.20, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Intimate Listening Table Setting', alt: 'Intimate Listening Table Setting' }
     ];
 
     let currentFilter = 'all';
     let currentLightboxIndex = 0;
     let activeDataset = [...GALLERY_DATA];
 
-    // 2. Category Filter & Dynamic Justified Repacking
+    // 2. Category Filter & Dynamic Justified Repacking (No Badges, No Zoom)
     function filterGallery(category) {
       currentFilter = category;
 
-      // Update Filter Pills UI
+      // Update Filter Pills UI (Bold underline for active, no underline for inactive)
       document.querySelectorAll('.gallery-filter-pill').forEach(pill => {
         const isMatch = pill.getAttribute('data-filter') === category;
         pill.classList.toggle('active', isMatch);
@@ -2164,10 +2113,9 @@
 
       // Smooth Fade Transition
       container.style.opacity = '0';
-      container.style.transition = 'opacity 0.25s ease';
+      container.style.transition = 'opacity 0.22s ease';
 
       setTimeout(() => {
-        // Group active items into justified rows (targeting ~2.3 - 3.2 aspect ratio sum per row)
         const rows = [];
         let currentRow = [];
         let currentRatioSum = 0;
@@ -2186,7 +2134,6 @@
           currentRow.push(item);
           currentRatioSum += item.ratio;
 
-          // Target ~2.3 to 3.2 ratio sum per row or max 3 items
           if (currentRatioSum >= 2.4 || currentRow.length >= 3) {
             rows.push(currentRow);
             currentRow = [];
@@ -2195,11 +2142,10 @@
         });
 
         if (currentRow.length > 0) {
-          // If 1 item is left over and we have previous rows, merge or keep
           rows.push(currentRow);
         }
 
-        // Generate Justified Rows HTML
+        // Generate Justified Rows HTML (Zero Hover Badge Overlay, Zero Zoom)
         let html = '';
         rows.forEach((r, rIdx) => {
           const isPanoramic = r.length === 1 && r[0].panoramic;
@@ -2209,7 +2155,6 @@
             html += `
               <div class="gallery-strip-item" style="flex: ${item.ratio} ${item.ratio} 0px;" data-category="${item.category}" data-index="${globalIndex}" onclick="openLightbox(${globalIndex})">
                 <img src="${item.src}" alt="${item.alt}" loading="lazy">
-                <div class="strip-hover-badge">${item.categoryLabel} &middot; ${item.title}</div>
               </div>
             `;
           });
@@ -2218,7 +2163,7 @@
 
         container.innerHTML = html;
         container.style.opacity = '1';
-      }, 250);
+      }, 220);
     }
 
     // 3. Lightbox Functionality
