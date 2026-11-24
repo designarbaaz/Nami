@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>What’s On at Nami — Listening Room, Vinyl Archives &amp; Selector Sessions</title>
-  <meta name="description" content="Discover weekly acoustic programming at NAMI Mumbai: Tokyo jazz kissa archives, rare vinyl selectors, rotary hi-fi sessions, and private event bookings.">
+  <meta name="description" content="Discover weekly acoustic programming at NAMI Mumbai: Tokyo jazz kissa archives, rare vinyl selectors, and rotary hi-fi listening sessions.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
@@ -20,13 +20,11 @@
       --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg-black: #070707;
       --bg-surface: rgba(18, 18, 18, 0.85);
-      --bg-surface-elevated: rgba(26, 26, 26, 0.92);
       --border-subtle: rgba(255, 255, 255, 0.1);
-      --border-accent: rgba(232, 66, 67, 0.45);
       --text-primary: #c0c0c0;
       --text-secondary: #A6A6A6;
       --text-muted: #6C6C6C;
-      
+
       /* Approved Nami Palette */
       --c-red: #E84243;
       --c-amber-red: #E65500;
@@ -34,21 +32,22 @@
       --c-pink: #FFAABD;
       --c-blue: #004F9D;
 
-      /* Approved Gradients (Subtle Nocturnal Refinement) */
+      /* Approved Atmospheric Frequency (Subtle) Gradients */
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
-      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
-    * {
+    /* ZERO LETTER-SPACING RULE ACROSS ALL ELEMENTS */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      letter-spacing: normal !important;
     }
 
     html {
       scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     body {
@@ -56,27 +55,18 @@
       color: var(--text-primary);
       font-family: var(--font-body);
       line-height: 1.5;
-      overflow-x: hidden;
+      overflow-x: clip;
       position: relative;
       -webkit-font-smoothing: antialiased;
-
-      /* Official Noise Texture Tiled directly on body */
-      background-image: 
-        var(--grad-nocturnal-glow),
-        url('./assets/Noise-texture.png');
-      background-repeat: no-repeat, repeat;
-      background-position: center top, center top;
-      background-size: 100% 1000px, 100% auto;
-      background-attachment: scroll, scroll;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
     }
 
-    h1, h2, h3, h4, h5, h6,
-    .section-heading,
-    .archetype-title,
-    .drawer-nav-item,
-    .event-artist {
+    h1, h2, h3, h4, h5, h6 {
       font-family: var(--font-heading);
-      font-weight: 700;
+      letter-spacing: normal !important;
     }
 
     /* Fixed Viewport Noise Overlay */
@@ -111,7 +101,7 @@
     }
 
     /* =========================================================
-       FIXED TOP NAVIGATION & SECTION SCROLLER (Reference Match)
+       FIXED TOP NAVIGATION & ROTARY SECTION SCROLLER
        ========================================================= */
     header.site-header {
       position: fixed;
@@ -135,14 +125,9 @@
       align-items: center;
       text-decoration: none;
       color: #c0c0c0;
-      opacity: 0;
-      transform: translateY(-8px);
+      opacity: 1 !important;
+      transform: translateY(0) !important;
       transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-
-    .brand-mark-link.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .brand-mark-img {
@@ -157,7 +142,6 @@
       opacity: 0.9;
     }
 
-    /* Right Side: Section Scroller Pills + Wave Hamburger */
     .header-nav-wrap {
       display: flex;
       align-items: center;
@@ -165,9 +149,6 @@
       pointer-events: auto;
     }
 
-    /* =========================================================
-       CIRCULAR PAGE SCROLLER: RESOR HI-FI ROTARY MIXER KNOBS
-       ========================================================= */
     .section-scroller {
       display: flex;
       align-items: center;
@@ -197,7 +178,6 @@
       text-decoration: none;
       cursor: pointer;
       position: relative;
-      box-sizing: border-box;
       padding: 0;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -212,16 +192,6 @@
       overflow: visible;
     }
 
-    /* Outer Scale Graduation Ticks (Mixer Faceplate Scale) */
-    .knob-ticks { display: none !important; }
-    .knob-ticks line {
-      stroke: rgba(255, 255, 255, 0.45);
-      stroke-width: 0.85px;
-      stroke-linecap: round;
-      transition: stroke 0.25s ease, opacity 0.25s ease;
-    }
-
-    /* Rotary Dial Body & Position Notch (Turns on Hover & Active) */
     .knob-rotor {
       transform-box: view-box;
       transform-origin: 12px 12.2px;
@@ -243,7 +213,6 @@
       transition: fill 0.25s ease, stroke 0.25s ease;
     }
 
-    /* Center Section Letter */
     .knob-label {
       position: relative;
       z-index: 3;
@@ -258,24 +227,9 @@
       transition: color 0.25s ease;
     }
 
-    /* Tactile Click Feel */
-    .scroller-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Hover State: Knob Turns on Mixer (Clockwise ~48deg Rotation) */
-    .scroller-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .scroller-btn:hover .knob-rotor {
-      transform: rotate(48deg);
-    }
-
-    .scroller-btn:hover .knob-ticks { display: none !important; }
-    .knob-ticks line {
-      stroke: rgba(255, 255, 255, 0.82);
-    }
+    .scroller-btn:active { transform: scale(0.95); }
+    .scroller-btn:hover { transform: scale(1.05); }
+    .scroller-btn:hover .knob-rotor { transform: rotate(48deg); }
 
     .scroller-btn:hover .knob-dial {
       stroke: var(--c-orange);
@@ -288,41 +242,20 @@
       stroke: var(--c-orange);
     }
 
-    /* Active State: Section Engaged / Dialed In */
-    .scroller-btn.active {
-      transform: scale(1.06);
-    }
-
-    .scroller-btn.active .knob-rotor {
-      transform: rotate(45deg);
-    }
-
-    .scroller-btn.active .knob-ticks { display: none !important; }
-    .knob-ticks line {
-      stroke: rgba(244, 143, 36, 0.75);
-    }
-
+    .scroller-btn.active { transform: scale(1.06); }
+    .scroller-btn.active .knob-rotor { transform: rotate(45deg); }
     .scroller-btn.active .knob-dial {
       fill: var(--c-orange);
       stroke: #FFFFFF;
       filter: drop-shadow(0 0 10px rgba(244, 143, 36, 0.65));
     }
-
     .scroller-btn.active .knob-notch,
     .scroller-btn.active .knob-notch-tip {
       fill: #FFFFFF;
       stroke: #FFFFFF;
     }
+    .scroller-btn.active:hover .knob-rotor { transform: rotate(62deg); }
 
-    .scroller-btn.active .knob-label {
-      color: #c0c0c0;
-    }
-
-    .scroller-btn.active:hover .knob-rotor {
-      transform: rotate(62deg);
-    }
-
-    /* Tooltip on hover */
     .scroller-btn .tooltip {
       position: absolute;
       top: 52px;
@@ -349,7 +282,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Wave Hamburger Button (Outer-border removed) */
     .btn-wave-hamburger {
       width: 44px;
       height: 44px;
@@ -360,12 +292,10 @@
       justify-content: center;
       cursor: pointer;
       padding: 0;
-      transition: transform 0.25s ease, opacity 0.25s ease;
+      transition: transform 0.25s ease;
     }
 
-    .btn-wave-hamburger:hover {
-      transform: scale(1.08);
-    }
+    .btn-wave-hamburger:hover { transform: scale(1.08); }
 
     .btn-menu-icon {
       width: 42px;
@@ -380,7 +310,7 @@
     }
 
     /* =========================================================
-       SLIDE-OUT / FULL-SCREEN MENU DRAWER
+       HAMBURGER FULLSCREEN OVERLAY DRAWER
        ========================================================= */
     #menuDrawer {
       position: fixed;
@@ -399,7 +329,6 @@
       flex-direction: column;
       justify-content: space-between;
       padding: clamp(2rem, 3.5vh, 3.5rem) clamp(2.5rem, 5vw, 5.5rem);
-      box-sizing: border-box;
       overflow-y: auto;
     }
 
@@ -436,7 +365,6 @@
       transform: rotate(90deg);
     }
 
-    /* Drawer Middle Layout: 2 Columns (Nav links on Left, Enlarged Image on Right) */
     .drawer-middle {
       display: grid;
       grid-template-columns: 1.05fr 1.15fr;
@@ -455,6 +383,7 @@
 
     .drawer-nav-item {
       color: #c0c0c0;
+      font-family: var(--font-heading);
       font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 100 !important;
       text-transform: capitalize;
@@ -466,7 +395,8 @@
       cursor: pointer;
     }
 
-    .drawer-nav-item:hover {
+    .drawer-nav-item:hover,
+    .drawer-nav-item.active {
       color: var(--c-orange);
       transform: translateX(12px);
     }
@@ -478,7 +408,6 @@
       color: var(--text-muted);
     }
 
-    /* Right Side Image Card inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) */
     .drawer-image-wrap {
       display: flex;
       justify-content: flex-end;
@@ -522,37 +451,6 @@
       z-index: 2;
     }
 
-    .drawer-image-caption {
-      display: none !important;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 5;
-      padding: 1.25rem 1.5rem;
-      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.88) 100%);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      font-family: var(--font-body);
-      pointer-events: none;
-    }
-
-    .drawer-caption-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .drawer-caption-sub {
-      font-size: 0.68rem;
-      color: rgba(255, 255, 255, 0.65);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
     .drawer-bottom-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -560,15 +458,6 @@
       border-top: 1px solid var(--border-subtle);
       padding-top: 2rem;
       width: 100%;
-    }
-
-    @media (max-width: 900px) {
-      .drawer-middle {
-        grid-template-columns: 1fr;
-      }
-      .drawer-image-wrap {
-        display: none;
-      }
     }
 
     .drawer-info-col h4 {
@@ -586,130 +475,13 @@
       line-height: 1.5;
     }
 
-    /* =========================================================
-       HERO ENTRANCE (Exact Reference Match: Center Huge Logo)
-       ========================================================= */
-    section.hero-entrance {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      min-height: 700px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    /* Atmospheric Ambient Lighting Background Image / Video */
-    .hero-bg-media {
-      position: absolute;
-      top: -10%;
-      left: 0;
-      width: 100%;
-      height: 120%;
-      object-fit: cover;
-      object-position: center;
-      z-index: 1;
-      will-change: transform;
-      pointer-events: none;
-      background: var(--bg-black);
-    }
-
-    /* Safari WebKit Video Autoplay & Controls Suppression */
-    .hero-bg-media::-webkit-media-controls,
-    .hero-bg-media::-webkit-media-controls-panel,
-    .hero-bg-media::-webkit-media-controls-enclosure,
-    .hero-bg-media::-webkit-media-controls-overlay-play-button,
-    .hero-bg-media::-webkit-media-controls-start-playback-button,
-    .wave-strap-media::-webkit-media-controls,
-    .wave-strap-media::-webkit-media-controls-panel,
-    .wave-strap-media::-webkit-media-controls-enclosure,
-    .wave-strap-media::-webkit-media-controls-overlay-play-button,
-    .wave-strap-media::-webkit-media-controls-start-playback-button {
-      display: none !important;
-      -webkit-appearance: none !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      visibility: hidden !important;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 1100px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      will-change: transform, opacity;
-    }
-
-    /* Big Huge Logo in Dead Center */
-    .hero-big-logo {
-      width: clamp(320px, 68vw, 1024px);
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      overflow: visible !important;
-      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.85));
-      animation: logoFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes logoFadeIn {
-      0% { opacity: 0; transform: scale(0.94); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .hero-welcome-strap {
-      margin-top: 1.5rem;
-      font-size: clamp(0.75rem, 1.05vw, 0.95rem);
-      font-family: 'Chivo', sans-serif;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
-      text-transform: uppercase;
-    }
-
-    /* Scroll Down Cue */
-    .hero-scroll-cue {
-      position: absolute;
-      bottom: 2.25rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.65);
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      will-change: transform, opacity;
-    }
-
-    .hero-scroll-cue:hover {
-      color: #c0c0c0;
-    }
-
-    .cue-wave-arrow {
-      width: 22px;
-      height: auto;
-      display: block;
-      animation: bounceWave 2s infinite ease-in-out;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
-    }
-
-    @keyframes bounceWave {
-      0%, 100% { transform: translateY(0); opacity: 0.75; }
-      50% { transform: translateY(5px); opacity: 1; }
+    @media (max-width: 900px) {
+      .drawer-middle { grid-template-columns: 1fr; }
+      .drawer-image-wrap { display: none; }
     }
 
     /* =========================================================
-       BOTTOM LEFT: NOW PLAYING AUDIO WIDGET (Moved to Left Side)
+       BOTTOM FLOATING AUDIO & RESERVE PILLS
        ========================================================= */
     .now-playing-widget {
       position: fixed;
@@ -751,7 +523,6 @@
     .track-artist {
       font-size: 0.72rem;
       color: var(--text-secondary);
-      font-family: 'Chivo', sans-serif;
     }
 
     .btn-audio-toggle {
@@ -766,9 +537,7 @@
       transition: color 0.2s;
     }
 
-    .btn-audio-toggle:hover {
-      color: var(--c-orange);
-    }
+    .btn-audio-toggle:hover { color: var(--c-orange); }
 
     .audio-badge-circle {
       width: 34px;
@@ -779,7 +548,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
     .waveform-bars {
@@ -807,19 +575,6 @@
       100% { height: 14px; background: var(--c-orange); }
     }
 
-    /* =========================================================
-       ROUNDED RECTANGLE CTA BUTTONS (Pill Shape)
-       ========================================================= */
-    .btn-eye-shape,
-    .btn-peanut-shape {
-      border-radius: 9999px !important;
-      clip-path: none !important;
-      -webkit-clip-path: none !important;
-    }
-
-    /* =========================================================
-       BOTTOM RIGHT: RESERVATION FLOATING CTA (Rounded Rectangle)
-       ========================================================= */
     .floating-reserve-cta {
       position: fixed;
       bottom: 2rem;
@@ -834,11 +589,8 @@
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0;
-      text-transform: none;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
-      text-decoration: none;
       border: none;
       cursor: pointer;
       backdrop-filter: blur(20px);
@@ -866,1919 +618,53 @@
       width: auto;
       display: block;
       object-fit: contain;
-      vertical-align: middle;
-      transition: transform 0.2s ease;
-    }
-
-    .floating-reserve-cta:hover .reserve-eat-logo {
-      transform: scale(1.06);
     }
 
     /* =========================================================
-       RESERVATION MODAL DIALOG (Zero Roundness Luxury Aesthetic)
-       ========================================================= */
-    .reservation-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 10001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reservation-modal.is-open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .reservation-modal-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(4, 4, 6, 0.84);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .reservation-modal-panel {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 520px;
-      background: #0B0B0E;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 0;
-      padding: 2.25rem 2.25rem 2rem;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(244, 143, 36, 0.08);
-      transform: translateY(24px) scale(0.98);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reservation-modal.is-open .reservation-modal-panel {
-      transform: translateY(0) scale(1);
-    }
-
-    .reservation-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.6rem;
-    }
-
-    .reserve-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-
-    .reserve-modal-title {
-      font-family: var(--font-heading);
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: #c0c0c0;
-      line-height: 1.15;
-    }
-
-    .reserve-modal-close {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #c0c0c0;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border-radius: 0;
-      font-size: 1.05rem;
-      line-height: 1;
-      transition: all 0.2s;
-    }
-
-    .reserve-modal-close:hover {
-      border-color: var(--c-orange);
-      color: var(--c-orange);
-      background: rgba(244, 143, 36, 0.1);
-    }
-
-    .reserve-modal-desc {
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-      line-height: 1.45;
-      margin-bottom: 1.6rem;
-    }
-
-    .reservation-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.05rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      text-align: left;
-    }
-
-    .form-group label {
-      font-family: var(--font-body);
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .res-input {
-      width: 100%;
-      background: #121216;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #c0c0c0;
-      font-family: var(--font-body);
-      font-size: 0.86rem;
-      padding: 0.75rem 0.85rem;
-      border-radius: 0;
-      outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .res-input:focus {
-      border-color: var(--c-orange);
-      background: #16161B;
-    }
-
-    .btn-confirm-reserve {
-      width: 100%;
-      margin-top: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
-      font-family: var(--font-body);
-      font-size: 0.86rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.95rem 1.6rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
-      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-confirm-reserve:hover {
-      filter: brightness(1.12);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
-    }
-
-    /* =========================================================
-       PAGE CONTENT SECTIONS (Sitemap Implementation)
+       01. WHAT’S ON SECTION (Carried forward from index-2.html)
+       - Weight 100 inside event table
+       - Darkness filter retained on Event-bg.jpg
+       - Atmospheric Frequency gradient on "What's On at" + Nami in #c0c0c0
+       - Zero water-vibration on hover preview poster
        ========================================================= */
     .page-wrap {
+      margin-top: 0;
+      padding-top: 0;
       width: 100%;
-      margin: 0 auto;
-      padding: 0;
       position: relative;
       z-index: 10;
-      box-sizing: border-box;
     }
 
-    .section-block {
-      padding: 6rem 0;
-      border-bottom: 1px solid var(--border-subtle);
-      scroll-margin-top: 5rem;
-    }
-
-    .section-block:last-of-type {
-      border-bottom: none;
-    }
-
-    .section-eyebrow {
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--c-orange);
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--c-red);
-      display: inline-block;
-      box-shadow: 0 0 10px var(--c-red);
-    }
-
-    .section-heading {
-      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-heading span.grad-accent {
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-
-    .section-body {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      max-width: 680px;
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
-    }
-
-    /* =========================================================
-       SECTION: BRAND PHILOSOPHY (Exact Placement Reference Match)
-       ========================================================= */
-    .section-philosophy-minimal {
-      position: relative;
-      overflow: hidden;
-      height: 100vh;
-      min-height: 100vh;
-      max-height: 100vh;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      border-bottom: none;
-      box-sizing: border-box;
-    }
-
-    /* Floating Image Scatter Canvas */
-    .phil-scatter-wrap {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    /* Floating Image Box Card (Completely Straight, No Rotation, No Border-Radius, No Outline) */
-    .phil-card {
-      position: absolute;
-      pointer-events: auto;
-      cursor: pointer;
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
-      transition: filter 0.3s ease;
-    }
-
-    .phil-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 0 !important;
-      overflow: hidden;
-      background: #141414;
-      border: none !important;
-      outline: none !important;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82);
-      transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .phil-card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 0 !important;
-      border: none !important;
-      outline: none !important;
-      filter: brightness(0.92) contrast(1.06);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    /* Hover State on Floating Card */
-    .phil-card:hover {
-      z-index: 30 !important;
-    }
-
-    .phil-card:hover .phil-card-inner {
-      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.94);
-      border: none !important;
-      outline: none !important;
-      transform: translateY(-4px) scale(1.04);
-    }
-
-    .phil-card:hover .phil-card-img {
-      transform: scale(1.06);
-      filter: brightness(1.05) contrast(1.08);
-    }
-
-    /* Curated 4-Corner Editorial Anchors (Uncluttered, High-Impact Breathing Space) */
-    .phil-card-1 { width: clamp(140px, 11vw, 175px); height: clamp(185px, 14.5vw, 230px); } /* Top Left Anchor */
-    .phil-card-2 { width: clamp(130px, 10vw, 155px); height: clamp(170px, 13vw, 205px); }   /* Bottom Left Anchor */
-    .phil-card-3 { width: clamp(135px, 10.5vw, 165px); height: clamp(178px, 13.8vw, 218px); } /* Top Right Anchor */
-    .phil-card-4 { width: clamp(145px, 11.5vw, 180px); height: clamp(190px, 15vw, 236px); }  /* Bottom Right Anchor */
-
-    /* Center Content Stage */
-    .philosophy-minimal-content {
-      position: relative;
-      z-index: 5;
-      max-width: 820px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      pointer-events: auto;
-    }
-
-    .philosophy-minimal-title {
-      font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 5.2vw, 4.4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      color: #c0c0c0;
-      margin: 0 0 1.5rem 0;
-      text-wrap: balance;
-      position: relative;
-    }
-
-    .philosophy-minimal-desc {
-      font-family: var(--font-body);
-      font-size: clamp(1rem, 1.3vw, 1.15rem);
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.78);
-      line-height: 1.65;
-      max-width: 680px;
-      margin: 0 auto 2.2rem;
-    }
-
-    .btn-our-story {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.8rem 2.25rem;
-      border-radius: 999px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      box-shadow: none !important;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-our-story:hover {
-      background: var(--grad-flare);
-      filter: brightness(1.12);
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
-    }
-
-    /* =========================================================
-       WAVE ANIMATION SECTION SEPARATOR (3x Repeating Ribbon Strap)
-       ========================================================= */
-    .wave-video-strap {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      height: clamp(80px, 11vh, 130px);
-      overflow: hidden;
-      background: var(--bg-black);
-      border: none;
-      display: block;
-    }
-
-    .wave-strap-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      width: 100%;
-      height: 100%;
-      gap: 0;
-    }
-
-    .wave-strap-item {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: var(--bg-black);
-    }
-
-    .wave-strap-item::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .wave-strap-item:last-child::after {
-      display: none;
-    }
-
-    .wave-strap-media {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: brightness(0.92) contrast(1.12);
-      pointer-events: none;
-      display: block;
-    }
-
-    .wave-strap-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 3;
-      background: linear-gradient(
-        180deg,
-        rgba(7, 7, 7, 0.55) 0%,
-        rgba(7, 7, 7, 0.12) 20%,
-        rgba(7, 7, 7, 0) 50%,
-        rgba(7, 7, 7, 0.12) 80%,
-        rgba(7, 7, 7, 0.55) 100%
-      );
-    }
-
-    /* =========================================================
-       02. WHAT'S ON AT NAMI — VERTICAL LIST-VIEW CALENDAR
-       ========================================================= */
-    .event-list-section {
-      padding: 120px 0;
-      background: #070707;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Parallax Background Media Wrap (assets/Event-bg.jpg) */
-    .event-parallax-media-wrap {
-      position: absolute;
-      top: -25%;
-      left: 0;
-      width: 100%;
-      height: 150%;
-      overflow: hidden;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .event-parallax-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      will-change: transform;
-      pointer-events: none;
-      display: block;
-      transform: translate3d(0, 0, 0) scale(1.08);
-    }
-
-    /* Atmospheric film vignette overlay */
-    .event-parallax-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      background: linear-gradient(
-        180deg,
-        rgba(7, 7, 7, 0.94) 0%,
-        rgba(7, 7, 7, 0.78) 18%,
-        rgba(7, 7, 7, 0.78) 82%,
-        rgba(7, 7, 7, 0.95) 100%
-      );
-    }
-
-    .event-list-header {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 780px;
-      margin: 0 auto 3.5rem;
-      padding: 0 1.5rem;
-      box-sizing: border-box;
-    }
-
-    .event-list-header .section-heading {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .event-list-header .section-body {
-      text-align: center;
-      margin: 0 auto;
-      color: var(--text-secondary, rgba(255, 255, 255, 0.6));
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    /* Table wrapper — full viewport width so dividers bleed edge-to-edge */
-    .event-list-table {
-      position: relative;
-      z-index: 3;
-      width: 100%;
-    }
-
-    /* Top hairline — full width edge-to-edge */
-    .event-list-table::before {
-      content: '';
-      display: block;
-      height: 1px;
-      background: rgba(255,255,255,0.09);
-      width: 100%;
-    }
-
-    /* Each row — 4rem gap between date, title, time, and arrow */
-    .event-list-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto 48px;
-      align-items: center;
-      gap: 0 4rem;
-      /* Mirror the heading's max-width:1240px + auto margin + inner pad */
-      padding-top: 2.25rem;
-      padding-bottom: 2.25rem;
-      padding-left: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
-      padding-right: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
-      position: relative;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      text-decoration: none;
-    }
-
-    /* Full-width hairline via pseudo — bleeds past padding, edge-to-edge */
-    .event-list-row::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.09);
-    }
-
-    .event-list-row:hover {
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    /* Date column — large editorial mono style */
-    .event-list-date {
-      font: 300 clamp(1.6rem, 3vw, 2.4rem)/1 'Chivo', sans-serif;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-    }
-
-    /* Title + badge group */
-    .event-list-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      min-width: 0;
-    }
-
-    .event-list-title {
-      font: 500 clamp(1.1rem, 2.2vw, 2rem)/1.25 'Chivo', sans-serif;
-      color: #c0c0c0;
-      text-transform: none;
-      transition: color 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    /* Bullet dot */
-    .event-list-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--c-orange, #DC7918);
-      flex-shrink: 0;
-    }
-
-    .event-list-row:hover .event-list-title {
-      color: var(--c-orange, #DC7918);
-    }
-
-    .event-list-badge {
-      display: none; /* removed per design feedback */
-    }
-
-    .event-list-badge-dot {
-      display: none;
-    }
-
-    /* Genre */
-    .event-list-genre {
-      font: 400 0.75rem/1 'Chivo', sans-serif;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Time */
-    .event-list-time {
-      font: 500 clamp(0.8rem,1.1vw,0.9rem)/1 'Chivo', sans-serif;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.06em;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    /* Hide "Doors..." sub-text */
-    .event-list-time strong {
-      display: block;
-      font: 600 clamp(0.85rem,1.2vw,0.95rem)/1 'Chivo', sans-serif;
-      color: rgba(255,255,255,0.75);
-    }
-
-    .event-list-time span.doors {
-      display: none;
-    }
-
-    /* Arrow CTA */
-    .event-list-arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.5);
-      font-size: 1rem;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      justify-self: center;
-      flex-shrink: 0;
-    }
-
-    .event-list-row:hover .event-list-arrow {
-      border-color: var(--c-orange, #DC7918);
-      color: var(--c-orange, #DC7918);
-      background: rgba(220, 121, 24, 0.08);
-    }
-
-    /* Bottom Explore More CTA (Rounded Gradient) */
-    .event-list-action {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      margin-top: 3.5rem;
-      padding: 0 1.5rem;
-    }
-
-    .btn-event-explore {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 0.85rem 2.4rem;
-      border-radius: 999px;
-      background: var(--grad-flare);
-      color: #c0c0c0;
-      font-family: var(--font-body, 'Chivo', sans-serif);
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      box-shadow: none !important;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-event-explore:hover {
-      background: var(--grad-flare);
-      filter: brightness(1.12);
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
-      color: #c0c0c0;
-    }
-
-    .btn-event-explore svg {
-      transition: transform 0.2s ease;
-    }
-
-    .btn-event-explore:hover svg {
-      transform: translateX(3px);
-    }
-
-    /* ---- Floating Poster Preview (Liquid Waving Edges + Water Vibration) ---- */
-    .event-poster-preview-wrap {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: clamp(280px, 24vw, 360px);
-      aspect-ratio: 3/4;
-      border-radius: 0;
-      border: none;
-      overflow: visible; /* Allows fluctuating liquid waves to undulate past the edges & corners */
-      opacity: 0;
-      visibility: hidden;
-      transform: translate3d(0, 0, 0) scale(0.96);
-      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
-      z-index: 9999;
-      box-shadow: none; /* No rigid rectangular box-shadow */
-      background: transparent; /* No rigid rectangular background */
-      will-change: transform, opacity;
-    }
-
-    .event-poster-preview-wrap.is-active {
-      opacity: 1;
-      visibility: visible;
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    /* Base Poster Image with Waving Liquid Edges & Water Ripple Displacement */
-    .event-poster-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 0;
-      border: none;
-      filter: url(#waterVibration) drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
-      will-change: filter, transform;
-      animation: liquidEdgeFluctuate 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes liquidEdgeFluctuate {
-      0% {
-        transform: translate(0, 0);
-      }
-      33% {
-        transform: translate(-1px, 1px);
-      }
-      66% {
-        transform: translate(1px, -0.5px);
-      }
-      100% {
-        transform: translate(-0.5px, -1px);
-      }
-    }
-
-    /* ---- Responsive ---- */
-    @media (max-width: 768px) {
-      .event-list-row {
-        grid-template-columns: auto 1fr 36px;
-        gap: 0 1.25rem;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
-      .event-list-title {
-        gap: 0.75rem;
-      }
-      .event-list-genre,
-      .event-list-time,
-      .event-list-arrow {
-        display: none;
-      }
-      .event-poster-preview-wrap {
-        display: none;
-      }
-    }
-
-    /* =========================================================
-       SECTION: THE RESONANCE MENU (Full-Width 50-50 Nocturnal Scroll)
-       ========================================================= */
-    
-    .menu-editorial-scroll-track {
-      position: relative;
-      width: 100%;
-      height: 280vh;
-      margin: 0;
-      padding: 0;
-      border-bottom: none;
-      box-sizing: border-box;
-      background: #070707;
-    }
-
-    .menu-sticky-stage {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 100vh;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      grid-template-columns: 50% 50%;
-      overflow: hidden;
-      box-sizing: border-box;
-      z-index: 15;
-      background: #070707;
-    }
-
-    /* LEFT PANE: 50% Width Category-Themed Canvas (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD) */
-    .menu-panel-editorial {
-      background-color: #E84243;
-      color: #c0c0c0;
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-      box-sizing: border-box;
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      flex-direction: column;
-      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Editorial Slides (Left Column - Clean Centered Layout) */
-    .menu-editorial-slide {
-      position: absolute;
-      inset: 0;
-      padding: clamp(2rem, 4vh, 3.5rem) clamp(1.8rem, 3.5vw, 3.6rem);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(16px);
-      pointer-events: none;
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      box-sizing: border-box;
-    }
-
-    /* Category Specific Background Colors */
-    .menu-editorial-slide[data-phase="0"] {
-      background-color: #E84243;
-      color: #c0c0c0;
-    }
-
-    .menu-editorial-slide[data-phase="1"] {
-      background-color: #004F9D;
-      color: #c0c0c0;
-    }
-
-    .menu-editorial-slide[data-phase="2"] {
-      background-color: #FFAABD;
-      color: #070707;
-    }
-
-    .menu-editorial-slide[data-phase="2"] .menu-ed-title {
-      color: #070707;
-    }
-
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
-      color: #070707;
-    }
-
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
-      color: rgba(7, 7, 7, 0.82);
-    }
-
-    .menu-editorial-slide.active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      z-index: 2;
-    }
-
-    .menu-ed-top {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: clamp(1rem, 2.2vh, 1.6rem);
-    }
-
-    .menu-ed-title {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: clamp(3.2rem, 5.2vw, 5rem);
-      letter-spacing: -0.02em;
-      color: #c0c0c0;
-      margin: 0;
-      text-transform: lowercase;
-      line-height: 1;
-    }
-
-    /* Centerpiece Photo (Zero Border, Zero Shadow, Clean Floating Image) */
-    .menu-ed-frame-wrap {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 0 clamp(1.1rem, 2.2vh, 1.6rem);
-      width: 100%;
-      box-shadow: none !important;
-    }
-
-    .menu-ed-frame {
-      width: clamp(170px, 16vw, 225px);
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      background: transparent;
-      box-shadow: none !important;
-      border: none !important;
-      outline: none !important;
-    }
-
-    .menu-ed-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      box-shadow: none !important;
-      border: none !important;
-      outline: none !important;
-      filter: brightness(0.96) contrast(1.04);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .menu-editorial-slide.active .menu-ed-img {
-      transform: scale(1.03);
-    }
-
-    .menu-ed-bottom {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .menu-ed-item-name {
-      display: none !important;
-    }
-
-    .menu-ed-item-desc {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 360px;
-      margin: 0 auto 1.35rem;
-      line-height: 1.55;
-    }
-
-    /* Food & Drinks Buttons: Strictly White & Black Matching Background & Copy */
-    .btn-menu-view-full {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #FFFFFF;
-      color: #000000;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.8rem 2.2rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      cursor: pointer;
-      box-shadow: none !important;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-menu-view-full:hover {
-      background: #000000;
-      color: #c0c0c0;
-      border-color: #000000;
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: none !important;
-    }
-
-    /* Phase 2 (Dessert): Light Background & Black Copy -> Solid Black Button with White Text */
-    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
-      background: #000000;
-      color: #c0c0c0;
-      border: 1px solid rgba(0, 0, 0, 0.25);
-    }
-
-    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
-      background: #FFFFFF;
-      color: #000000;
-      border-color: #FFFFFF;
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: none !important;
-    }
-
-    /* RIGHT PANE: 50% Width Pure Full-Bleed Photography (ZERO Text Overlay) */
-    .menu-panel-hero {
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      background: #070707;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-
-    .menu-hero-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-    }
-
-    .menu-hero-slide.active {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-      z-index: 2;
-    }
-
-    .menu-hero-bg-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      filter: brightness(0.92) contrast(1.05);
-    }
-
-    /* =========================================================
-       FULL MENU MODAL (Editorial Listening Room Menu)
-       ========================================================= */
-    .full-menu-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 10002;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      box-sizing: border-box;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .full-menu-modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .full-menu-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .full-menu-panel {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 780px;
-      max-height: 88vh;
-      background: #0E0E12;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 4px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(16px) scale(0.98);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .full-menu-modal.open .full-menu-panel {
-      transform: translateY(0) scale(1);
-    }
-
-    .full-menu-header {
-      padding: 1.6rem 2rem 1.2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
-    .full-menu-eyebrow {
-      display: block;
-      font-family: var(--font-body);
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--c-orange);
-      margin-bottom: 0.3rem;
-    }
-
-    .full-menu-title {
-      font-family: var(--font-heading);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #c0c0c0;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-
-    .full-menu-close {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #c0c0c0;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    }
-
-    .full-menu-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.08);
-    }
-
-    /* Modal Navigation Tabs */
-    .full-menu-tabs {
-      display: flex;
-      gap: 1.5rem;
-      padding: 0 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.02);
-      flex-shrink: 0;
-      overflow-x: auto;
-    }
-
-    .full-menu-tab-btn {
-      background: none;
-      border: none;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: none;
-      color: rgba(255, 255, 255, 0.5);
-      padding: 1rem 0;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
-
-    .full-menu-tab-btn:hover {
-      color: #c0c0c0;
-    }
-
-    .full-menu-tab-btn.active {
-      color: var(--c-orange);
-      border-bottom-color: var(--c-orange);
-    }
-
-    /* Modal Tab Content Area */
-    .full-menu-content {
-      padding: 1.8rem 2rem;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .full-menu-pane {
-      display: none;
-    }
-
-    .full-menu-pane.active {
-      display: block;
-      animation: menuFadeIn 0.3s ease forwards;
-    }
-
-    @keyframes menuFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .menu-dish-group {
-      margin-bottom: 2rem;
-    }
-
-    .dish-group-title {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
-      margin: 0 0 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .menu-dish-item {
-      margin-bottom: 1.25rem;
-    }
-
-    .dish-item-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.25rem;
-    }
-
-    .dish-item-name {
-      font-family: var(--font-body);
-      font-size: 0.94rem;
-      font-weight: 700;
-      color: #c0c0c0;
-    }
-
-    .dish-item-price {
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--c-orange);
-    }
-
-    .dish-item-desc {
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.65);
-      margin: 0;
-      line-height: 1.45;
-    }
-
-    .full-menu-footer {
-      padding: 1.2rem 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-shrink: 0;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    .full-menu-note {
-      font-family: var(--font-body);
-      font-size: 0.74rem;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0;
-    }
-
-    .btn-reserve-from-menu {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.8rem 2rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      box-shadow: none !important;
-      transition: filter 0.2s, transform 0.2s;
-    }
-
-    .btn-reserve-from-menu:hover {
-      filter: brightness(1.1);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: none !important;
-    }
-
-    /* Mobile Breakpoints */
-    @media (max-width: 768px) {
-      .menu-sticky-stage {
-        grid-template-columns: 1fr;
-      }
-      .menu-panel-hero {
-        display: none;
-      }
-      .menu-panel-editorial {
-        width: 100%;
-        border-right: none;
-      }
-      .menu-editorial-slide {
-        padding: clamp(3.2rem, 5vh, 4.2rem) 1.5rem 2rem;
-      }
-      .menu-ed-frame {
-        width: 145px;
-      }
-      .full-menu-footer {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-    }
-
-    /* =========================================================
-       SECTION: THE SPACE (Spin Bar Style Full-Bleed 3-Col Gallery)
-       ========================================================= */
-    .space-section {
-      padding: 6rem 0 0;
-      margin-bottom: 0;
-      border-bottom: none;
-      scroll-margin-top: 5rem;
-    }
-
-    .space-header-row,
-    .space-header-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 780px;
-      margin: 0 auto 2.5rem;
-      padding: 0 1.5rem;
-      box-sizing: border-box;
-    }
-
-    .space-header-row .section-heading,
-    .space-header-block .section-heading {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .space-header-row .section-body,
-    .space-header-block .section-body {
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 0;
-    }
-
-    .space-fine-rule {
-      width: 100%;
-      height: 1px;
-      background: var(--border-subtle);
-      margin-bottom: 3rem;
-    }
-
-    /* Full-bleed 3-column breakout grid matching Spin Bar Amsterdam */
-    .spin-gallery-fullbleed {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .spin-gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--bg-black);
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .spin-gallery-cell {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      background: #0a0a0a;
-    }
-
-    .spin-gallery-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
-      filter: brightness(0.96) contrast(1.04);
-    }
-
-    .spin-gallery-cell:hover .spin-gallery-img {
-      transform: scale(1.04);
-      filter: brightness(1.08) contrast(1.08);
-    }
-
-    @media (max-width: 900px) {
-      .space-header-row,
-      .space-header-block {
-        align-items: center;
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-      .spin-gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .spin-gallery-grid {
-        grid-template-columns: 1fr;
-      }
-      .spin-gallery-cell {
-        aspect-ratio: 4 / 3;
-      }
-    }
-
-    /* =========================================================
-       SECTION: IN THE NEWS / MEDIA MENTIONS (ONE NEWS PER SLIDE)
-       ========================================================= */
-    .section-media-mentions {
-      padding: 120px 0;
-      background: #070707;
-      position: relative;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-      border-bottom: none;
-      overflow: hidden;
-      box-sizing: border-box;
-      width: 100%;
-      scroll-margin-top: 5rem;
-    }
-
-    /* Ambient Nocturnal Glow beneath mentions */
-    .section-media-mentions::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(900px, 92vw);
-      height: 420px;
-      background: radial-gradient(ellipse at center, rgba(244, 143, 36, 0.038) 0%, rgba(200, 36, 44, 0.018) 45%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .media-mentions-container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
-      position: relative;
-      z-index: 1;
-      box-sizing: border-box;
-    }
-
-    /* One News Per Slide Carousel Container */
-    .media-slider-container {
-      position: relative;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 clamp(1rem, 5vw, 4rem);
-      box-sizing: border-box;
-    }
-
-    .media-slider-viewport {
-      overflow: hidden;
-      position: relative;
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .media-slider-track {
-      display: flex;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
-      width: 100%;
-    }
-
-    .media-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vw, 2.5rem);
-      gap: clamp(1.75rem, 3.5vh, 2.5rem);
-      opacity: 0.25;
-      transform: scale(0.96);
-      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .media-slide.is-active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Media Logo */
-    .media-logo-wrap {
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.92);
-      transition: transform 0.3s ease;
-    }
-
-    .media-logo-svg {
-      height: 28px;
-      width: auto;
-      max-width: 240px;
-      display: block;
-    }
-
-    /* Prominent Editorial Headline / Quote */
-    .media-slide-quote {
-      font-family: var(--font-body);
-      font-size: clamp(1.35rem, 2.35vw, 2.15rem);
-      line-height: 1.44;
-      font-weight: 300;
-      color: #c0c0c0;
-      letter-spacing: -0.015em;
-      margin: 0;
-      max-width: 860px;
-    }
-
-    /* Read Full Article CTA (Text Only Button Style) */
-    .media-card-action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 0.25rem;
-    }
-
-    .media-card-cta {
-      font-family: var(--font-heading);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.58);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding-bottom: 4px;
-      border: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      background: transparent;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .media-cta-arrow {
-      transition: transform 0.25s ease;
-      color: inherit;
-    }
-
-    .media-card-cta:hover {
-      color: var(--c-orange);
-      border-bottom-color: var(--c-orange);
-      transform: translateY(-1px);
-    }
-
-    .media-card-cta:hover .media-cta-arrow {
-      transform: translate(2px, -2px);
-    }
-
-    /* Carousel Navigation Arrows */
-    .media-nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(18, 18, 18, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: rgba(255, 255, 255, 0.75);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      z-index: 5;
-      padding: 0;
-      outline: none;
-    }
-
-    .media-nav-arrow:hover {
-      border-color: var(--c-orange);
-      color: #c0c0c0;
-      background: rgba(244, 143, 36, 0.12);
-      box-shadow: 0 0 14px rgba(244, 143, 36, 0.3);
-    }
-
-    .media-nav-arrow.prev {
-      left: 0;
-    }
-
-    .media-nav-arrow.next {
-      right: 0;
-    }
-
-    /* Pagination Dots (Matching Reference ● ○ ○) */
-    .media-pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.65rem;
-      margin-top: clamp(2.5rem, 4vh, 3.5rem);
-    }
-
-    .media-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: transparent;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
-      cursor: pointer;
-      padding: 0;
-      outline: none;
-      transition: all 0.28s ease;
-    }
-
-    .media-dot:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-      transform: scale(1.15);
-    }
-
-    .media-dot.active {
-      background: var(--c-orange);
-      border-color: var(--c-orange);
-      transform: scale(1.25);
-      box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);
-    }
-
-    @media (max-width: 768px) {
-      .section-media-mentions {
-        padding: clamp(4.5rem, 10vh, 120px) 0;
-      }
-      .media-slider-container {
-        padding: 0 0;
-      }
-      .media-nav-arrow {
-        display: none;
-      }
-      .media-slide {
-        padding: 1rem 0.5rem;
-        gap: 1.75rem;
-      }
-      .media-slide-quote {
-        font-size: 1.25rem;
-        line-height: 1.45;
-      }
-      footer.site-footer {
-        padding: clamp(4.5rem, 10vh, 120px) 1.5rem 0 !important;
-      }
-    }
-
-    /* =========================================================
-       SECTION: INSTAGRAM FEED BANNER STRAP (JUST ABOVE FOOTER)
-       ========================================================= */
-    .section-insta-strap {
-      padding: 0;
-      margin: 0;
-      background: #070707;
-      position: relative;
-      border: none;
-      overflow: hidden;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    /* Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) */
-    .insta-feed-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 2px;
-      background: #070707;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .insta-post-card {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border-radius: 0;
-      background: #0d0d0d;
-      border: none;
-      display: block;
-      text-decoration: none;
-    }
-
-    .insta-post-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 0;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease;
-      filter: brightness(0.92) contrast(1.04);
-    }
-
-    .insta-post-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(7, 7, 7, 0.68);
-      backdrop-filter: blur(4px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      padding: 1rem;
-      text-align: center;
-      box-sizing: border-box;
-      border-radius: 0;
-    }
-
-    .insta-overlay-icon {
-      width: 24px;
-      height: 24px;
-      transform: translateY(6px);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .insta-post-action {
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #c0c0c0;
-      transform: translateY(6px);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .insta-post-card:hover .insta-post-img {
-      transform: scale(1.06);
-      filter: brightness(1.06) contrast(1.08);
-    }
-
-    .insta-post-card:hover .insta-post-overlay {
-      opacity: 1;
-    }
-
-    .insta-post-card:hover .insta-overlay-icon,
-    .insta-post-card:hover .insta-post-action {
-      transform: translateY(0);
-    }
-
-    @media (max-width: 900px) {
-      .insta-feed-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .insta-feed-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    /* FOOTER */
-    /* Old footer replaced by vinyl footer */
- (Black Background + Centered loader-1.mp4)
-       ========================================================= */
-    .splash-screen {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000000;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
-      user-select: none;
-    }
-
-    .splash-screen.splash-fade-out {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .splash-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      position: relative;
-    }
-
-    .splash-video {
-      width: min(440px, 78vw);
-      height: min(440px, 78vw);
-      max-width: 480px;
-      max-height: 480px;
-      object-fit: contain;
-      display: block;
-      background: transparent;
-      pointer-events: none;
-    }
-
-    .splash-enter-text {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.65);
-      transition: color 0.25s ease, opacity 0.25s ease;
-    }
-
-    .splash-screen:hover .splash-enter-text {
-      color: #c0c0c0;
-      opacity: 0.95;
-    }
-  
-    /* =========================================================
-       INTERNAL PAGE CUSTOM STYLES & OVERRIDES (WHATS-ON)
-       ========================================================= */
-    .brand-mark-link {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-
-    /* Main Page Wrap Flush to Top 0 (Event-bg starts behind fixed header) */
-    .page-wrap {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-    }
-
-    /* Event List Section - Starts at top: 0 behind fixed transparent header */
     .event-list-section {
       position: relative;
-      padding-top: clamp(8.5rem, 15vh, 11.5rem) !important;
+      padding-top: clamp(8.5rem, 15vh, 11.5rem);
       padding-bottom: 120px;
       background: #070707;
       overflow: hidden;
       width: 100%;
-      box-sizing: border-box;
     }
 
-    /* Parallax Background Media Wrap (Starts at top: 0 behind header) */
     .event-parallax-media-wrap {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 140% !important;
-      overflow: hidden !important;
-      z-index: 1 !important;
-      pointer-events: none !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 140%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .event-parallax-img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      object-position: center top !important;
-      will-change: transform !important;
-      pointer-events: none !important;
-      display: block !important;
-      transform: translate3d(0, 0, 0) scale(1.06) !important;
-      filter: none !important;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      will-change: transform;
+      pointer-events: none;
+      display: block;
+      transform: translate3d(0, 0, 0) scale(1.06);
+      filter: brightness(0.42) contrast(1.10);
     }
 
     .event-parallax-overlay {
@@ -2788,36 +674,26 @@
       z-index: 2;
       background: linear-gradient(
         180deg,
-        rgba(7, 7, 7, 0.40) 0%,
-        rgba(0, 0, 0, 0.65) 15%,
-        rgba(0, 0, 0, 0.72) 70%,
+        rgba(7, 7, 7, 0.90) 0%,
+        rgba(7, 7, 7, 0.78) 20%,
+        rgba(7, 7, 7, 0.78) 80%,
         rgba(7, 7, 7, 0.96) 100%
       );
     }
 
-    .event-list-container {
-      position: relative;
-      z-index: 3;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* Center-Aligned Header with Breadcrumb Above Main Heading */
     .event-list-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
       position: relative;
       z-index: 3;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 3.5rem;
+      padding: 0 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    /* Breadcrumb Above Main Heading */
     .header-breadcrumb {
       display: inline-flex;
       align-items: center;
@@ -2827,7 +703,6 @@
       font-family: var(--font-body);
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
@@ -2837,26 +712,15 @@
       transition: color 0.2s ease;
     }
 
-    .header-breadcrumb .breadcrumb-link:hover {
-      color: var(--c-orange, #DC7918);
-    }
-
-    .header-breadcrumb .breadcrumb-sep {
-      color: rgba(255, 255, 255, 0.28);
-      font-weight: 400;
-    }
-
-    .header-breadcrumb .breadcrumb-active {
-      color: #c0c0c0;
-      letter-spacing: 0.18em;
-    }
+    .header-breadcrumb .breadcrumb-link:hover { color: var(--c-orange); }
+    .header-breadcrumb .breadcrumb-sep { color: rgba(255, 255, 255, 0.28); font-weight: 400; }
+    .header-breadcrumb .breadcrumb-active { color: #c0c0c0; }
 
     .event-list-title {
       font-family: var(--font-heading);
       font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      line-height: 1.15;
       color: #c0c0c0;
       margin: 0 0 1rem;
       text-align: center;
@@ -2873,7 +737,7 @@
     .event-list-subhead {
       font-family: var(--font-body);
       font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-      color: rgba(255, 255, 255, 0.65);
+      color: var(--text-secondary, rgba(255, 255, 255, 0.6));
       font-weight: 400;
       max-width: 640px;
       margin: 0 auto;
@@ -2881,63 +745,84 @@
       text-align: center;
     }
 
-    /* Event List Table Layout (4rem gap per user feedback) */
+    /* Full-width Edge-to-Edge Table matching index-2.html */
     .event-list-table {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+
+    .event-list-table,
+    .event-list-table * {
+      font-weight: 100 !important;
+    }
+
+    .event-list-table::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.09);
+      width: 100%;
     }
 
     .event-list-row {
       display: grid;
-      grid-template-columns: 100px 1fr 140px 48px;
+      grid-template-columns: auto 1fr auto 48px;
       align-items: center;
-      gap: 4rem;
-      padding: 2.2rem 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 0 4rem;
+      padding-top: 2.25rem;
+      padding-bottom: 2.25rem;
+      padding-left: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
+      padding-right: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s ease;
       text-decoration: none;
       color: #c0c0c0;
-      transition: background 0.22s ease, border-color 0.22s ease;
-      position: relative;
+    }
+
+    .event-list-row::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.09);
     }
 
     .event-list-row:hover {
       background: rgba(255, 255, 255, 0.035);
-      border-color: rgba(255, 255, 255, 0.22);
     }
 
     .event-row-date {
-      font-family: var(--font-heading);
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #c0c0c0;
-      letter-spacing: -0.01em;
+      font: 100 clamp(1.6rem, 3vw, 2.4rem)/1 'Chivo', sans-serif;
+      font-weight: 100 !important;
+      color: rgba(255, 255, 255, 0.85);
       white-space: nowrap;
     }
 
     .event-row-center {
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      gap: 1.25rem;
       min-width: 0;
     }
 
     .event-status-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--c-orange, #DC7918);
       flex-shrink: 0;
       display: inline-block;
-      box-shadow: 0 0 10px rgba(220, 121, 24, 0.6);
     }
 
     .event-row-title {
-      font-family: var(--font-heading);
-      font-size: 1.45rem;
-      font-weight: 700;
+      font: 100 clamp(1.1rem, 2.2vw, 2rem)/1.25 'Chivo', sans-serif;
+      font-weight: 100 !important;
       color: #c0c0c0;
-      line-height: 1.35;
+      line-height: 1.25;
       margin: 0;
       transition: color 0.2s ease;
     }
@@ -2947,26 +832,26 @@
     }
 
     .event-row-time {
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.55);
-      letter-spacing: 0.04em;
+      font: 100 clamp(0.85rem, 1.2vw, 0.95rem)/1 'Chivo', sans-serif;
+      font-weight: 100 !important;
+      color: rgba(255, 255, 255, 0.75);
       white-space: nowrap;
       text-align: right;
     }
 
     .event-row-btn {
-      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #c0c0c0;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      justify-self: end;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      justify-self: center;
+      flex-shrink: 0;
       background: transparent;
     }
 
@@ -2974,27 +859,26 @@
       border-color: var(--c-orange, #DC7918);
       color: var(--c-orange, #DC7918);
       background: rgba(220, 121, 24, 0.08);
-      transform: translateX(3px);
     }
 
-    /* Floating Poster Preview Container */
+    /* Floating Hover Poster Preview (Clean drop shadow, NO water vibration) */
     .event-poster-preview-wrap {
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
       width: clamp(280px, 24vw, 360px);
-      aspect-ratio: 3/4;
+      aspect-ratio: 3 / 4;
       border-radius: 0 !important;
       border: none !important;
-      overflow: visible !important;
+      overflow: visible;
       opacity: 0;
       visibility: hidden;
       transform: translate3d(0, 0, 0) scale(0.96);
       transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
       z-index: 9999;
       box-shadow: none !important;
-      background: transparent !important;
+      background: transparent;
       will-change: transform, opacity;
     }
 
@@ -3011,242 +895,110 @@
       display: block;
       border-radius: 0 !important;
       border: none !important;
-      box-shadow: none !important;
-      filter: url(#waterVibration) drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
-      will-change: filter, transform;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
+      will-change: transform;
     }
 
-    /* Private Gatherings & Buyout Section */
-    .private-events-section {
-      padding: 120px 0;
-      background: #0B0B0E;
+    /* =========================================================
+       02. PREVIOUS EVENTS SECTION
+       - 3 Previous Events in large open-box format
+       - Poster image in Black & White
+       - NO border, NO border-radius, NO shadow on boxes
+       - Event title + Date and Time
+       ========================================================= */
+    .previous-events-section {
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      background: #070707;
       position: relative;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .private-events-container {
-      max-width: 1180px;
+    .previous-events-container {
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 clamp(2rem, 5vw, 5rem);
     }
 
-    .private-header-block {
+    .previous-events-header {
       text-align: center;
-      max-width: 760px;
-      margin: 0 auto 4rem;
+      margin-bottom: clamp(3rem, 6vh, 4.5rem);
     }
 
-    .section-heading {
-      font-family: var(--font-heading, 'Chivo', sans-serif);
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    .previous-events-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+      font-weight: 700;
       color: #c0c0c0;
-      margin: 0 0 1rem;
+      line-height: 1.15;
     }
 
-    .section-heading .grad-accent {
+    .previous-events-heading .grad-text {
       background: var(--grad-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      display: inline-block;
     }
 
-    .section-body {
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.65);
-      margin: 0;
-      font-family: var(--font-body, 'Chivo', sans-serif);
-    }
-
-    .private-cards-grid {
+    .prev-events-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-bottom: 3.5rem;
+      gap: clamp(2rem, 3.5vw, 3.5rem);
+      align-items: start;
     }
 
-    .private-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 2.25rem 2rem;
+    /* Large Open Box: Strictly NO border, NO border-radius, NO shadow, NO enclosed background */
+    .prev-event-card {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: transparent;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      padding: 0;
     }
 
-    .private-card:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(220, 121, 24, 0.45);
-      transform: translateY(-4px);
+    .prev-event-poster {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: transparent;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      margin-bottom: 1.5rem;
     }
 
-    .private-card-num {
-      font-family: var(--font-body, 'Chivo', sans-serif);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: var(--c-orange, #DC7918);
+    .prev-event-poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      margin-bottom: 1rem;
+      filter: grayscale(100%) contrast(1.06);
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
     }
 
-    .private-card-title {
-      font-family: var(--font-heading, 'Chivo', sans-serif);
-      font-size: 1.35rem;
-      font-weight: 700;
+    .prev-event-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.3rem, 1.85vw, 1.65rem);
+      font-weight: 100 !important;
       color: #c0c0c0;
-      margin: 0 0 0.75rem;
-      line-height: 1.25;
+      line-height: 1.3;
+      margin-bottom: 0.65rem;
     }
 
-    .private-card-meta {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.04em;
-      margin-bottom: 1rem;
-    }
-
-    .private-card-desc {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.65);
-      margin: 0;
-    }
-
-    .private-inquiry-banner {
-      background: radial-gradient(circle at 10% 20%, rgba(220, 121, 24, 0.12) 0%, rgba(11, 11, 14, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 2.5rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2.5rem;
-    }
-
-    .private-inquiry-left {
-      max-width: 650px;
-    }
-
-    .private-inquiry-title {
-      font-family: var(--font-heading, 'Chivo', sans-serif);
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: #c0c0c0;
-      margin: 0 0 0.5rem;
-    }
-
-    .private-inquiry-desc {
-      font-size: 0.92rem;
-      line-height: 1.55;
-      font-family: var(--font-body, 'Chivo', sans-serif);
-      color: rgba(255, 255, 255, 0.65);
-      margin: 0 0 1.25rem;
-    }
-
-    .private-contact-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-    }
-
-    .contact-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 1rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 0.82rem;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .contact-pill:hover {
-      background: rgba(220, 121, 24, 0.15);
-      border-color: var(--c-orange, #DC7918);
-      color: #c0c0c0;
-    }
-
-    .private-inquiry-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.85rem;
-    }
-
-    .btn-inquire-private {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 2.5rem;
-      border-radius: 999px;
-      background: var(--grad-flare);
-      color: #c0c0c0;
-      font-family: var(--font-body, 'Chivo', sans-serif);
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-inquire-private:hover {
-      filter: brightness(1.12);
-      transform: translateY(-2px) scale(1.03);
-      color: #c0c0c0;
-    }
-
-    .inquire-note {
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.03em;
-    }
-
-    @media (max-width: 900px) {
-      .private-cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .private-inquiry-banner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .private-inquiry-right {
-        align-items: flex-start;
-      }
-      .event-list-row {
-        grid-template-columns: 80px 1fr 40px;
-        gap: 1.5rem;
-        padding: 1.6rem 0.5rem;
-      }
-      .event-row-time {
-        display: none;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .event-list-row {
-        grid-template-columns: 70px 1fr 36px;
-        gap: 1rem;
-      }
-      .event-row-date {
-        font-size: 1.35rem;
-      }
-      .event-row-title {
-        font-size: 1.15rem;
-      }
+    .prev-event-datetime {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 100 !important;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.4;
     }
 
     /* =========================================================
-       FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
+       FOOTER (EXACT MATCH TO INDEX-2 & OUR-SPACE)
        ========================================================= */
     footer.site-footer {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -3255,17 +1007,15 @@
       position: relative;
       z-index: 10;
       overflow: hidden;
-      box-sizing: border-box;
       width: 100%;
     }
 
-    /* Ambient Brand Glow Aura (Using ONLY NAMI Palette: Red, Orange, Rose, Deep Blue) */
     .footer-glow-aura {
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      background: 
+      background:
         radial-gradient(ellipse 70% 65% at 50% 102%, rgba(232, 66, 67, 0.46) 0%, rgba(244, 143, 36, 0.32) 34%, rgba(0, 79, 157, 0.18) 68%, transparent 100%),
         radial-gradient(circle at 50% 92%, rgba(255, 170, 189, 0.16) 0%, transparent 45%),
         radial-gradient(ellipse 38% 28% at 50% 100%, rgba(230, 85, 0, 0.52) 0%, transparent 70%);
@@ -3301,8 +1051,6 @@
       color: rgba(255, 255, 255, 0.72);
       font-size: 0.92rem;
       line-height: 1.65;
-      margin: 0;
-      font-family: var(--font-body);
     }
 
     .btn-whatsapp-footer {
@@ -3320,7 +1068,6 @@
       text-decoration: none;
       width: fit-content;
       transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-      font-family: var(--font-body);
     }
 
     .btn-whatsapp-footer:hover {
@@ -3329,19 +1076,12 @@
       transform: translateY(-1px);
     }
 
-    .whatsapp-btn-icon {
-      width: 18px;
-      height: 18px;
-      display: block;
-      flex-shrink: 0;
-    }
+    .whatsapp-btn-icon { width: 18px; height: 18px; display: block; flex-shrink: 0; }
 
     .footer-col-label {
-      font-family: var(--font-body);
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
       color: rgba(255, 255, 255, 0.45);
       display: block;
       margin-bottom: 1.15rem;
@@ -3349,21 +1089,13 @@
 
     .footer-nav-list {
       list-style: none;
-      padding: 0;
-      margin: 0;
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
     }
 
-    .footer-nav-list li {
-      margin: 0;
-      padding: 0;
-    }
-
     .footer-nav-list a,
     .footer-nav-list span {
-      font-family: var(--font-body);
       font-size: 0.92rem;
       color: rgba(255, 255, 255, 0.82);
       text-decoration: none;
@@ -3377,27 +1109,20 @@
       transform: translateX(2px);
     }
 
-    /* Centered Minimal Metadata Bar (Positioned Directly Above Vinyl, Zero Borders) */
     .footer-mid-bar {
       width: 100%;
       max-width: 1240px;
       margin: 0 auto 1.8rem;
-      padding: 0;
-      border: none !important;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-family: var(--font-body);
       font-size: clamp(0.68rem, 0.85vw, 0.74rem);
       color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.12em;
       white-space: nowrap;
-      box-sizing: border-box;
       pointer-events: none;
     }
 
-    /* Bottom Rotating Half-Vinyl Record (Vinyl.svg) - Touching Footer End, 3x Speed */
     .footer-vinyl-stage {
       width: 100%;
       height: clamp(180px, 24vw, 340px);
@@ -3406,8 +1131,6 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      margin-top: 0;
-      margin-bottom: 0;
       pointer-events: none;
     }
 
@@ -3445,43 +1168,17 @@
     }
 
     @keyframes spinFooterVinyl {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
-    @media (max-width: 992px) {
-      .footer-top-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-      }
-    }
-
-    @media (max-width: 580px) {
-      .footer-top-grid {
-        grid-template-columns: 1fr;
-        gap: 1.75rem;
-      }
-      .footer-mid-bar {
-        white-space: normal;
-        line-height: 1.6;
-        padding: 0 1rem;
-        font-size: 0.68rem;
-        margin: 0 auto 1.25rem;
-      }
-    }
-
-    /* Toast Notification */
+    /* Toast */
     #toast {
       position: fixed;
       bottom: 2rem;
       left: 2.5rem;
       background: #FFFFFF;
       color: #000000;
-      font-family: 'Chivo', sans-serif;
       font-size: 0.85rem;
       font-weight: 600;
       padding: 0.75rem 1.5rem;
@@ -3492,121 +1189,10 @@
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
       z-index: 10000;
     }
-
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    @media (max-width: 650px) {
-      header.site-header { padding: 1rem 1.25rem; }
-      .section-scroller { gap: 0.65rem; }
-      .scroller-btn { width: 38px; height: 38px; }
-      .knob-label { font-size: 0.74rem; }
-      .scroller-btn .tooltip { top: 44px; }
-      .now-playing-widget {
-        bottom: 1rem;
-        left: 1rem;
-        gap: 0.75rem;
-        padding: 0.45rem 0.85rem 0.45rem 0.65rem;
-      }
-      .now-playing-text .track-title {
-        font-size: 0.76rem;
-      }
-      .now-playing-text .track-artist {
-        font-size: 0.66rem;
-      }
-      .audio-badge-circle {
-        width: 30px;
-        height: 30px;
-      }
-      .floating-reserve-cta {
-        bottom: 1rem;
-        right: 1rem;
-        padding: 0.75rem 2.2rem;
-        min-height: 46px;
-        font-size: 0.78rem;
-        gap: 0.55rem;
-      }
-      .reserve-cta-divider {
-        height: 12px;
-      }
-      .reserve-eat-logo {
-        height: 14px;
-      }
-      .reservation-modal-panel {
-        padding: 1.6rem 1.4rem;
-      }
-      .form-row {
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-      }
-      .section-block { padding: 4rem 0; }
-      .section-philosophy-minimal { 
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        padding: 0 1.25rem; 
-      }
-      .phil-card-2, .phil-card-3 {
-        display: none !important;
-      }
-      .phil-card-1 {
-        top: 3% !important;
-        left: 2% !important;
-        width: 96px !important;
-        height: 124px !important;
-        opacity: 0.65;
-        pointer-events: none;
-      }
-      .phil-card-4 {
-        bottom: 3% !important;
-        right: 2% !important;
-        width: 96px !important;
-        height: 124px !important;
-        opacity: 0.65;
-        pointer-events: none;
-      }
-    }
-
-    @media (max-width: 1280px) {
-      .phil-card-2 {
-        left: 7% !important;
-        top: 59% !important;
-      }
-      .phil-card-4 {
-        right: 6% !important;
-        top: 64% !important;
-      }
-    }
-
-    @media (max-width: 1100px) {
-      .phil-card {
-        transform: scale(0.85);
-      }
-    }
-
-    @media (max-width: 440px) {
-      .now-playing-text .track-artist { display: none; }
-      .floating-reserve-cta {
-        padding: 0.7rem 1.8rem;
-        min-height: 42px;
-        font-size: 0.74rem;
-        gap: 0.45rem;
-      }
-      .reserve-cta-divider {
-        height: 11px;
-      }
-      .reserve-eat-logo {
-        height: 13px;
-      }
-    }
+    #toast.show { transform: translateY(0); opacity: 1; }
 
     /* =========================================================
-       FULLSCREEN SPLASH SCREEN
-
-    /* =========================================================
-       RESERVATION MODAL DIALOG (Zero Roundness Luxury Aesthetic)
+       RESERVATION MODAL DIALOG
        ========================================================= */
     .reservation-modal {
       position: fixed;
@@ -3621,10 +1207,7 @@
       transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .reservation-modal.is-open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .reservation-modal.is-open { opacity: 1; pointer-events: auto; }
 
     .reservation-modal-backdrop {
       position: absolute;
@@ -3660,11 +1243,9 @@
     }
 
     .reserve-eyebrow {
-      font-family: var(--font-body);
       font-size: 0.7rem;
       font-weight: 700;
       color: var(--c-orange);
-      letter-spacing: 0.12em;
       text-transform: uppercase;
       display: block;
       margin-bottom: 0.35rem;
@@ -3690,7 +1271,6 @@
       cursor: pointer;
       border-radius: 0;
       font-size: 1.05rem;
-      line-height: 1;
       transition: all 0.2s;
     }
 
@@ -3727,11 +1307,9 @@
     }
 
     .form-group label {
-      font-family: var(--font-body);
       font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
@@ -3745,7 +1323,6 @@
       padding: 0.75rem 0.85rem;
       border-radius: 0;
       outline: none;
-      box-sizing: border-box;
       transition: border-color 0.2s, background 0.2s;
     }
 
@@ -3766,7 +1343,6 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
@@ -3782,8 +1358,74 @@
       box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
     }
 
-    
+    /* =========================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================= */
+    @media (max-width: 992px) {
+      .footer-top-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .prev-events-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+    }
 
+    @media (max-width: 768px) {
+      .event-list-row {
+        grid-template-columns: auto 1fr 36px;
+        gap: 0 1.25rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .event-row-center { gap: 0.75rem; }
+      .event-row-time,
+      .event-row-btn { display: none; }
+      .event-poster-preview-wrap { display: none; }
+    }
+
+    @media (max-width: 650px) {
+      header.site-header { padding: 1rem 1.15rem; }
+      .brand-mark-img { height: 22px; }
+      .header-nav-wrap { gap: 0.7rem; }
+      .section-scroller { gap: 0.35rem; }
+      .scroller-btn { width: 32px; height: 32px; }
+      .knob-label { font-size: 0.7rem; }
+      .scroller-btn .tooltip { top: 40px; }
+      .btn-wave-hamburger { width: 34px; height: 34px; }
+      .btn-menu-icon { width: 32px; height: 32px; }
+      .now-playing-widget {
+        bottom: 1rem;
+        left: 1rem;
+        gap: 0.55rem;
+        padding: 0.4rem 0.65rem 0.4rem 0.55rem;
+      }
+      .now-playing-text .track-title { font-size: 0.72rem; }
+      .now-playing-text .track-artist { display: none; }
+      .audio-badge-circle { width: 28px; height: 28px; }
+      .floating-reserve-cta {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.65rem 1.35rem;
+        min-height: 42px;
+        font-size: 0.76rem;
+        gap: 0.5rem;
+      }
+      .reserve-cta-divider { height: 12px; }
+      .reserve-eat-logo { height: 14px; }
+      .reservation-modal-panel { padding: 1.6rem 1.4rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0.85rem; }
+      footer.site-footer { padding: 4.5rem 1.5rem 0; }
+    }
+
+    @media (max-width: 600px) {
+      .prev-events-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+      .footer-mid-bar {
+        white-space: normal;
+        line-height: 1.6;
+        padding: 0 1rem;
+        font-size: 0.68rem;
+        margin: 0 auto 1.25rem;
+      }
+    }
   </style>
 </head>
 <body class="theme-dark">
@@ -3792,42 +1434,27 @@
   <div id="noise-layer" aria-hidden="true"></div>
   <div id="warmth-layer" aria-hidden="true"></div>
 
-  <!-- Hidden SVG filter definition for subtle water vibration with fluctuating wavy edges -->
-  <svg class="water-vibration-svg" style="position: fixed; width: 0; height: 0; top: -9999px; left: -9999px; pointer-events: none;" aria-hidden="true">
-    <defs>
-      <filter id="waterVibration" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
-        <feTurbulence id="waterTurbulence" type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" result="noise" seed="4">
-          <animate attributeName="baseFrequency" dur="3.8s" keyTimes="0;0.5;1" values="0.012 0.022; 0.018 0.032; 0.012 0.022" repeatCount="indefinite" />
-        </feTurbulence>
-        <feDisplacementMap id="waterDisplacement" in="SourceGraphic" in2="noise" scale="11" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-      </filter>
-    </defs>
-  </svg>
-
-  <!-- Floating Hover Poster Canvas (Zero Border, Zero Radius, Zero Shadow, Fluctuating Wave Edges) -->
+  <!-- Floating Hover Poster Preview (Zero Border, Zero Radius, No Water Vibration) -->
   <div class="event-poster-preview-wrap" id="eventPosterPreview" aria-hidden="true">
     <img src="./assets/Event-1.jpg" alt="Event Poster Preview" class="event-poster-img" id="eventPosterImg">
   </div>
 
   <!-- =========================================================
-       FIXED TOP NAVIGATION & SECTION SCROLLER (Exact from index-2.html)
+       FIXED TOP NAVIGATION & ROTARY SECTION SCROLLER (Knob W Active)
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <!-- Visible on internal page -->
-      <a href="index-2.html#hero" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
 
     <div class="header-nav-wrap">
-      <!-- Circular Page Scroller: Resor Rotary Mixer Knobs ( C ) ( W - Active ) ( F ) ( S ) -->
       <nav class="section-scroller" aria-label="Section scroller">
         <!-- Node C: Concept -->
         <div class="scroller-node">
           <a href="concept.html" class="scroller-btn" data-section="philosophy" aria-label="Concept">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
-              
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
                 <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
@@ -3839,11 +1466,10 @@
           </a>
         </div>
 
-        <!-- Node W: What's On (Active) -->
+        <!-- Node W: What's On (ACTIVE) -->
         <div class="scroller-node">
           <a href="whats-on.html" class="scroller-btn active" data-section="programming" aria-label="What’s on" aria-current="page">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
-              
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
                 <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
@@ -3857,9 +1483,8 @@
 
         <!-- Node F: Drinks & Food -->
         <div class="scroller-node">
-          <a href="index-2.html#menu" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
+          <a href="drinks-food.html" class="scroller-btn" data-section="menu" aria-label="Drinks &amp; Food">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
-              
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
                 <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
@@ -3867,15 +1492,14 @@
               </g>
             </svg>
             <span class="knob-label">F</span>
-            <span class="tooltip">Drinks & Food</span>
+            <span class="tooltip">Drinks &amp; Food</span>
           </a>
         </div>
 
-        <!-- Node S: Space -->
+        <!-- Node S: Our Space -->
         <div class="scroller-node">
           <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
-              
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
                 <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
@@ -3888,7 +1512,7 @@
         </div>
       </nav>
 
-      <!-- Waveform Hamburger Menu Icon (Menu-io.svg) -->
+      <!-- Waveform Hamburger Menu Icon -->
       <button class="btn-wave-hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMenuDrawer()">
         <img src="./assets/Menu-io.svg" alt="Menu" class="btn-menu-icon">
       </button>
@@ -3896,7 +1520,7 @@
   </header>
 
   <!-- =========================================================
-       HAMBURGER FULLSCREEN OVERLAY DRAWER (Exact from index-2.html)
+       HAMBURGER FULLSCREEN OVERLAY DRAWER
        ========================================================= -->
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
@@ -3904,27 +1528,25 @@
       <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
     </div>
 
-    <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
     <div class="drawer-middle">
       <nav class="drawer-nav-links" id="drawerNavLinks">
-        <a href="concept.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+        <a href="concept.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept">
           <span class="drawer-nav-num">01</span> Concept
         </a>
-        <a href="whats-on.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
+        <a href="whats-on.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming">
           <span class="drawer-nav-num">02</span> What’s On
         </a>
-        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata &amp; Libations">
+        <a href="drinks-food.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu">
           <span class="drawer-nav-num">03</span> Drinks &amp; Food
         </a>
-        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table &amp; Listening Sessions">
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation">
           <span class="drawer-nav-num">05</span> Reservation
         </a>
       </nav>
 
-      <!-- Right Side Visual Showcase Inside Hamburger Menu (No Captions per User Feedback) -->
       <div class="drawer-image-wrap">
         <div class="drawer-image-card">
           <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
@@ -3949,14 +1571,14 @@
       <div class="drawer-info-col">
         <h4>Community</h4>
         <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
-          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;">
           <span>Join WhatsApp Group →</span>
         </a>
       </div>
       <div class="drawer-info-col">
         <h4>Instagram</h4>
         <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
-          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;">
           <span>@namibombay</span>
         </a>
       </div>
@@ -3967,7 +1589,6 @@
        BOTTOM LEFT: NOW PLAYING AUDIO WIDGET
        ========================================================= -->
   <div class="now-playing-widget" aria-label="Music Player">
-    <!-- Play/Pause Button -->
     <button class="btn-audio-toggle" id="audioToggleBtn" onclick="toggleAudio()" aria-label="Play/Pause track">
       <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
         <path d="M8 5v14l11-7z"/>
@@ -3982,7 +1603,6 @@
       <span class="track-artist">Erykah Badu</span>
     </div>
 
-    <!-- Animated Equalizer Badge -->
     <div class="audio-badge-circle" title="Horn Sound System Active">
       <div class="waveform-bars" id="eqBars">
         <div class="waveform-bar"></div>
@@ -4005,355 +1625,177 @@
   <main class="page-wrap">
 
     <!-- =========================================================
-         01. WHAT’S ON SECTION (Starts at top: 0 behind fixed header)
+         01. WHAT’S ON AT NAMI (Consistent with index-2.html)
          ========================================================= -->
     <section id="programming" class="event-list-section" aria-label="What's On at Nami">
 
-      <!-- Background Media Wrap with Cinematic Parallax from Top 0 (assets/Event-bg.jpg) -->
+      <!-- Background Media Wrap with Subtle Parallax & Darkness Filter -->
       <div class="event-parallax-media-wrap">
         <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space &amp; Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
       </div>
-      <!-- Atmospheric Filter Overlay -->
       <div class="event-parallax-overlay"></div>
 
-      <div class="event-list-container">
+      <!-- Centered Header -->
+      <header class="event-list-header">
+        <nav class="header-breadcrumb" aria-label="Breadcrumb">
+          <a href="index-2.html" class="breadcrumb-link">HOME</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-active">WHAT’S ON</span>
+        </nav>
+        <h1 class="event-list-title"><span class="text-gradient">What’s On at</span> Nami</h1>
+        <p class="event-list-subhead">Curated vinyl archives, selector sessions &amp; Tokyo listening room culture.</p>
+      </header>
 
-        <!-- Header: Centered Breadcrumb Above Title + Title + Subhead -->
-        <header class="event-list-header">
-          <nav class="header-breadcrumb" aria-label="Breadcrumb">
-            <a href="index-2.html" class="breadcrumb-link">HOME</a>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-active">WHAT’S ON</span>
-          </nav>
-          <h1 class="event-list-title">What’s On at <span class="text-gradient">Nami</span></h1>
-          <p class="event-list-subhead">Curated vinyl archives, selector sessions &amp; Tokyo listening room culture.</p>
+      <!-- Full-Width Edge-to-Edge Event Schedule Table -->
+      <div class="event-list-table">
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl on 06/09">
+          <span class="event-row-date">06/09</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</h2>
+          </div>
+          <span class="event-row-time">Wed · 20:30</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Mogasu: Japanese Soul Archives &amp; Sake Tasting on 12/09">
+          <span class="event-row-date">12/09</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Mogasu: Japanese Soul Archives &amp; Sake Tasting</h2>
+          </div>
+          <span class="event-row-time">Thu · 18:00</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Yousuke Yukimatsu: Avant-Garde Analog Bass on 18/09">
+          <span class="event-row-date">18/09</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Yousuke Yukimatsu: Avant-Garde Analog Bass</h2>
+          </div>
+          <span class="event-row-time">Fri · 20:30</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Occa: Hypnotic Rotary Sound &amp; Deep Minimal on 24/09">
+          <span class="event-row-date">24/09</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Occa: Hypnotic Rotary Sound &amp; Deep Minimal</h2>
+          </div>
+          <span class="event-row-time">Sat · 20:30</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves on 02/10">
+          <span class="event-row-date">02/10</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves</h2>
+          </div>
+          <span class="event-row-time">Sun · 19:00</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves on 08/10">
+          <span class="event-row-date">08/10</span>
+          <div class="event-row-center">
+            <span class="event-status-dot"></span>
+            <h2 class="event-row-title">Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves</h2>
+          </div>
+          <span class="event-row-time">Wed · 21:00</span>
+          <span class="event-row-btn" aria-hidden="true">→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================
+         02. PREVIOUS EVENTS SECTION
+         - 3 Previous Events in large open-box format
+         - B&W Poster image, event title, date & time
+         - No border, no border-radius, no shadow
+         ========================================================= -->
+    <section class="previous-events-section" id="previous-events" aria-label="Previous Events at Nami">
+      <div class="previous-events-container">
+
+        <header class="previous-events-header">
+          <h2 class="previous-events-heading">
+            <span class="grad-text">Previous</span> Events
+          </h2>
         </header>
 
-        <!-- Direct Editorial Event Schedule Table (No Tabs) -->
-        <div class="event-list-table">
+        <div class="prev-events-grid">
 
-          <!-- Event Row 1 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl on 06/09">
-            <span class="event-row-date">06/09</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</h2>
+          <!-- Previous Event 1 -->
+          <article class="prev-event-card">
+            <div class="prev-event-poster">
+              <img src="./assets/Event-1.jpg" alt="Roycin: After Dark" class="prev-event-poster-img" loading="lazy">
             </div>
-            <span class="event-row-time">Wed · 20:30</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 2 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Mogasu: Japanese Soul Archives &amp; Sake Tasting on 12/09">
-            <span class="event-row-date">12/09</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Mogasu: Japanese Soul Archives &amp; Sake Tasting</h2>
-            </div>
-            <span class="event-row-time">Thu · 18:00</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 3 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Yousuke Yukimatsu: Avant-Garde Analog Bass on 18/09">
-            <span class="event-row-date">18/09</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Yousuke Yukimatsu: Avant-Garde Analog Bass</h2>
-            </div>
-            <span class="event-row-time">Fri · 20:30</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 4 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-4.jpg" aria-label="Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi on 24/09">
-            <span class="event-row-date">24/09</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Hamza Rahimtula: Indo-Acid House &amp; Rotary Hi-Fi</h2>
-            </div>
-            <span class="event-row-time">Wed · 21:00</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 5 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Toshio Matsuura: Tokyo Moon Audiophile Session on 30/09">
-            <span class="event-row-date">30/09</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Toshio Matsuura: Tokyo Moon Audiophile Session</h2>
-            </div>
-            <span class="event-row-time">Tue · 20:00</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 6 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Chee Shimizu: Obscure Japanese Ambient &amp; Balearic on 08/10">
-            <span class="event-row-date">08/10</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Chee Shimizu: Obscure Japanese Ambient &amp; Balearic</h2>
-            </div>
-            <span class="event-row-time">Wed · 20:30</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 7 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Midori Takada: Through the Looking Glass Live Playback on 14/10">
-            <span class="event-row-date">14/10</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Midori Takada: Through the Looking Glass Live Playback</h2>
-            </div>
-            <span class="event-row-time">Thu · 21:00</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Event Row 8 -->
-          <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-4.jpg" aria-label="Soichi Terada: Analog House Retrospective on 21/10">
-            <span class="event-row-date">21/10</span>
-            <div class="event-row-center">
-              <span class="event-status-dot"></span>
-              <h2 class="event-row-title">Soichi Terada: Analog House Retrospective</h2>
-            </div>
-            <span class="event-row-time">Fri · 22:00</span>
-            <div class="event-row-btn" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </div>
-          </a>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         02. PRIVATE GATHERINGS & EVENT BUYOUTS (CONTACT SECTION)
-         ========================================================= -->
-    <section class="private-events-section" id="private-hires" aria-label="Private Events and Group Bookings">
-      <div class="private-events-container">
-
-        <!-- Section Heading -->
-        <div class="private-header-block">
-          <h2 class="section-heading">Private Gatherings &amp; <span class="grad-accent">Event Buyouts</span></h2>
-          <p class="section-body">
-            Host an intimate celebration, listening session, record release, or bespoke dining experience enveloped in 440Hz analog warmth.
-          </p>
-        </div>
-
-        <!-- 3 Feature Cards Grid -->
-        <div class="private-cards-grid">
-
-          <!-- Card 1: Group Celebrations -->
-          <article class="private-card">
-            <div>
-              <span class="private-card-num">01 / GROUP CELEBRATIONS</span>
-              <h3 class="private-card-title">Intimate Table &amp; Booth Takeovers</h3>
-              <div class="private-card-meta">12 – 35 Guests · Reserved Area</div>
-              <p class="private-card-desc">
-                Ideal for birthdays, celebrations, and gatherings. Enjoy dedicated robata shared plates, custom cocktail carafes, and listening booths directly adjacent to the vinyl selector booth.
-              </p>
-            </div>
+            <h3 class="prev-event-title">Roycin: After Dark — Analog Frequency Session</h3>
+            <p class="prev-event-datetime">20 Nov 2026 · 21:00</p>
           </article>
 
-          <!-- Card 2: Full Space Buyouts -->
-          <article class="private-card">
-            <div>
-              <span class="private-card-num">02 / EXCLUSIVE BUYOUTS</span>
-              <h3 class="private-card-title">Full Venue &amp; Sound System Hire</h3>
-              <div class="private-card-meta">Up to 80 Guests · Complete Exclusivity</div>
-              <p class="private-card-desc">
-                Total privacy for private parties, cultural gatherings, and creative summits. Includes full control of our custom horn-loaded sound architecture, rotary mixer console, and cocktail bar.
-              </p>
+          <!-- Previous Event 2 -->
+          <article class="prev-event-card">
+            <div class="prev-event-poster">
+              <img src="./assets/Event-4.jpg" alt="Hamza Rahimtula: After Hours" class="prev-event-poster-img" loading="lazy">
             </div>
+            <h3 class="prev-event-title">Hamza Rahimtula: After Hours — Indo-Acid Rotary Hi-Fi</h3>
+            <p class="prev-event-datetime">14 Nov 2026 · 21:00</p>
           </article>
 
-          <!-- Card 3: Album Launches & Brand Showcases -->
-          <article class="private-card">
-            <div>
-              <span class="private-card-num">03 / CURATED SHOWCASES</span>
-              <h3 class="private-card-title">Record Launches &amp; Brand Evenings</h3>
-              <div class="private-card-meta">Audiophile Acoustic Environment</div>
-              <p class="private-card-desc">
-                Engineered for artists, labels, and brands who value acoustic precision. Host album playbacks, press listening sessions, and sensory showcases in authentic Tokyo kissa atmosphere.
-              </p>
+          <!-- Previous Event 3 -->
+          <article class="prev-event-card">
+            <div class="prev-event-poster">
+              <img src="./assets/Event-3.jpg" alt="Sindhi Curry: After Hours" class="prev-event-poster-img" loading="lazy">
             </div>
+            <h3 class="prev-event-title">Sindhi Curry: After Hours — Tokyo Vinyl Archive</h3>
+            <p class="prev-event-datetime">07 Nov 2026 · 21:00</p>
           </article>
 
         </div>
-
-        <!-- Contact & Direct Inquiry Banner -->
-        <div class="private-inquiry-banner">
-          <div class="private-inquiry-left">
-            <h3 class="private-inquiry-title">Plan Your Private Event</h3>
-            <p class="private-inquiry-desc">
-              Every private gathering at Nami is custom-tailored with bespoke food menus, cocktail flights, and curated vinyl programming. Speak with our events curator directly:
-            </p>
-            <div class="private-contact-pills">
-              <a href="mailto:events@namibombay.com" class="contact-pill" title="Email Events Team">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <span>events@namibombay.com</span>
-              </a>
-              <a href="https://wa.me/919820044000" target="_blank" rel="noopener noreferrer" class="contact-pill" title="WhatsApp Concierge">
-                <img src="./assets/Whatsapp.svg" alt="" width="14" height="14" style="filter: brightness(0) invert(1);">
-                <span>+91 98200 44000</span>
-              </a>
-              <span class="contact-pill" style="pointer-events: none;">
-                <span>📍 Bandra West, Mumbai</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="private-inquiry-right">
-            <a href="mailto:events@namibombay.com?subject=Private%20Event%20Inquiry%20at%20Nami" class="btn-inquire-private">
-              <span>Send Private Inquiry →</span>
-            </a>
-            <span class="inquire-note">Direct response within 24 hours</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         03. INSTAGRAM FEED BANNER STRAP (EDGE-TO-EDGE, MATCHING INDEX.HTML)
-         ========================================================= -->
-    <section id="instagram" class="section-insta-strap" aria-label="Instagram Feed @namibombay">
-      <div class="insta-feed-grid" id="instaFeedGrid">
-        <!-- Post 1: Listening Room & Turntables -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: DJ Booth &amp; Vinyl Vault">
-          <img src="./assets/spin-gallery-3.jpg" alt="DJ Booth &amp; Vinyl Wall at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
-
-        <!-- Post 2: Sound-Mapped Cocktails -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Sound-Mapped Cocktails">
-          <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
-
-        <!-- Post 3: Amber Pool Table -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Amber Pool Table">
-          <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
-
-        <!-- Post 4: Culinary Robata Plates -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Robata Dining">
-          <img src="./assets/spin-gallery-6.jpg" alt="Robata Dining &amp; Plates at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
-
-        <!-- Post 5: Nocturnal Disco Ball & Beams -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Nocturnal Disco Ball &amp; Beams">
-          <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Disco Ball &amp; Beams at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
-
-        <!-- Post 6: Listening Room Atmosphere & Horn Acoustics -->
-        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Listening Room Atmosphere &amp; Horn Acoustics">
-          <img src="./assets/spin-gallery-8.jpg" alt="Listening Room Atmosphere &amp; Horn Acoustics at Nami" class="insta-post-img" loading="lazy">
-          <div class="insta-post-overlay">
-            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
-            <span class="insta-post-action">@namibombay ↗</span>
-          </div>
-        </a>
       </div>
     </section>
 
   </main>
 
   <!-- =========================================================
-       EXACT FOOTER FROM index.html (Vinyl Stage & Mid Bar)
+       EXACT FOOTER FROM index-2.html & our-space.html
        ========================================================= -->
   <footer class="site-footer" id="siteFooter">
-    <!-- Brand Gradient Nocturnal Atmosphere Aura (Nami Palette Only) -->
     <div class="footer-glow-aura" aria-hidden="true"></div>
 
     <div class="footer-inner">
-      <!-- Top Row: Editorial Nav Columns + Hanging VIP Lanyard Card -->
       <div class="footer-top-grid">
-        <!-- Col 1: Brand & Tagline -->
         <div class="footer-meta-col">
           <p class="footer-tagline">
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
           <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
-            <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+            <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon">
             <span>Join WhatsApp Community →</span>
           </a>
         </div>
 
-        <!-- Col 2: Navigation Links -->
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
             <li><a href="concept.html">About</a></li>
             <li><a href="whats-on.html">What’s on</a></li>
-            <li><a href="index-2.html#menu">Drinks & Food</a></li>
+            <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
             <li><a href="our-space.html">Our space</a></li>
             <li><a href="index-2.html#press">In the news</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
 
-        <!-- Col 3: Hours & Address -->
         <div class="footer-links-col">
-          <span class="footer-col-label">HOURS & ADDRESS</span>
+          <span class="footer-col-label">HOURS &amp; ADDRESS</span>
           <ul class="footer-nav-list">
             <li><span>Wed – Sun · 7pm – late</span></li>
             <li><span>Sessions: 8:30pm onwards</span></li>
@@ -4362,7 +1804,6 @@
           </ul>
         </div>
 
-        <!-- Col 4: Connect & Group -->
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
@@ -4373,12 +1814,10 @@
         </div>
       </div>
 
-      <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
       <div class="footer-mid-bar">
         <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
       </div>
 
-      <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
       <div class="footer-vinyl-stage" aria-hidden="true">
         <div class="footer-vinyl-crop">
           <img src="./assets/Vinyl.svg" alt="" class="footer-vinyl-img">
@@ -4392,7 +1831,7 @@
   <div id="toast">Copied to clipboard</div>
 
   <!-- =========================================================
-       RESERVATION MODAL DIALOG (Exact from index.html)
+       RESERVATION MODAL DIALOG
        ========================================================= -->
   <div id="reservationModal" class="reservation-modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="reservation-modal-backdrop" onclick="closeReservationModal()"></div>
@@ -4400,7 +1839,7 @@
       <div class="reservation-modal-header">
         <div>
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
-          <h3 class="reserve-modal-title">Table <span class="grad-accent">Reservation</span></h3>
+          <h3 class="reserve-modal-title">Table <span style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
         </div>
         <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
       </div>
@@ -4432,9 +1871,9 @@
           <div class="form-group">
             <label for="resSession">SESSION / TIME</label>
             <select id="resSession" required class="res-input">
-              <option value="19:30 – Dinner & First Session">19:30 – Dinner & First Session</option>
+              <option value="19:30 – Dinner & First Session">19:30 – Dinner &amp; First Session</option>
               <option value="21:30 – Hi-Fi Listening Focus" selected>21:30 – Hi-Fi Listening Focus</option>
-              <option value="23:30 – Nocturnal Sound & Cocktails">23:30 – Nocturnal Sound & Cocktails</option>
+              <option value="23:30 – Nocturnal Sound & Cocktails">23:30 – Nocturnal Sound &amp; Cocktails</option>
             </select>
           </div>
           <div class="form-group">
@@ -4470,18 +1909,16 @@
   </div>
 
   <!-- =========================================================
-       SCRIPTS (Audio, Modals, Hover Wave Preview)
+       SCRIPTS (Audio, Modals, Clean Poster Hover, Parallax)
        ========================================================= -->
   <script>
     // 1. Hamburger Drawer Toggle
     function toggleMenuDrawer() {
       const drawer = document.getElementById('menuDrawer');
-      if (drawer) {
-        drawer.classList.toggle('open');
-      }
+      if (drawer) drawer.classList.toggle('open');
     }
 
-    // 2. Reservation Modal Handlers (from index.html)
+    // 2. Reservation Modal Handlers
     function openReservationModal(e) {
       if (e && e.preventDefault) e.preventDefault();
       const modal = document.getElementById('reservationModal');
@@ -4492,8 +1929,7 @@
 
       const dateInput = document.getElementById('resDate');
       if (dateInput && !dateInput.value) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.value = today;
+        dateInput.value = new Date().toISOString().split('T')[0];
       }
     }
 
@@ -4517,9 +1953,7 @@
       if (!toast) return;
       toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3500);
+      setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
     // 4. Parallax Background Image on Scroll
@@ -4545,13 +1979,11 @@
       onScroll();
     })();
 
-    // 5. Event List Hover Poster Preview with Subtle Water Vibration
+    // 5. Event List Hover Poster Preview (Clean drop shadow, NO water vibration)
     (function initEventListHover() {
       const rows = document.querySelectorAll('.event-list-row[data-poster]');
       const preview = document.getElementById('eventPosterPreview');
       const previewImg = document.getElementById('eventPosterImg');
-      const turb = document.getElementById('waterTurbulence');
-      const disp = document.getElementById('waterDisplacement');
       if (!rows.length || !preview || !previewImg) return;
 
       let mouseX = 0;
@@ -4560,7 +1992,6 @@
       let curY = 0;
       let isHovered = false;
       let animId = null;
-      let waterT = 0;
 
       function renderLoop() {
         if (!isHovered && Math.abs(curX - mouseX) < 0.1 && Math.abs(curY - mouseY) < 0.1) {
@@ -4570,21 +2001,7 @@
 
         curX += (mouseX - curX) * 0.14;
         curY += (mouseY - curY) * 0.14;
-        preview.style.transform = `translate3d(${curX}px, ${curY}px, 0) ${isHovered ? 'scale(1)' : 'scale(0.96)'}`;
-
-        if (isHovered) {
-          waterT += 0.028;
-          if (turb) {
-            const fx = (0.013 + Math.sin(waterT * 1.8) * 0.004).toFixed(4);
-            const fy = (0.024 + Math.cos(waterT * 2.2) * 0.006).toFixed(4);
-            turb.setAttribute('baseFrequency', `${fx} ${fy}`);
-          }
-          if (disp) {
-            const sc = (11.0 + Math.sin(waterT * 2.6) * 3.0).toFixed(1);
-            disp.setAttribute('scale', sc);
-          }
-        }
-
+        preview.style.transform = `translate3d(${curX}px, ${curY}px, 0) ${isHovered ? 'scale(1)' : 'scale(0.94)'}`;
         animId = requestAnimationFrame(renderLoop);
       }
 
@@ -4633,8 +2050,10 @@
 
     // 6. Drawer Hover Image Preview Swap
     (function initDrawerPreviews() {
+      const navLinks = document.getElementById('drawerNavLinks');
       const navItems = document.querySelectorAll('.drawer-nav-item[data-target-img]');
       const previewImgs = document.querySelectorAll('.drawer-preview-img');
+      const defaultImg = document.getElementById('drawerImgDefault');
       if (!navItems.length || !previewImgs.length) return;
 
       navItems.forEach(item => {
@@ -4645,9 +2064,16 @@
           if (target) target.classList.add('active');
         });
       });
+
+      if (navLinks) {
+        navLinks.addEventListener('mouseleave', () => {
+          previewImgs.forEach(img => img.classList.remove('active'));
+          if (defaultImg) defaultImg.classList.add('active');
+        });
+      }
     })();
 
-    // 7. Synthetic Audiophile Audio Generator (On & On - Erykah Badu)
+    // 7. Synthetic Audiophile Audio Generator
     let isPlaying = false;
     let audioCtx = null;
     let vinylNoiseNode = null;
@@ -4676,28 +2102,18 @@
 
     function startSyntheticWarmAudio() {
       try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         const bufferSize = audioCtx.sampleRate * 2;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * 0.003;
-        }
-
+        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * 0.003;
         vinylNoiseNode = audioCtx.createBufferSource();
         vinylNoiseNode.buffer = buffer;
         vinylNoiseNode.loop = true;
-
         const noiseFilter = audioCtx.createBiquadFilter();
         noiseFilter.type = 'lowpass';
         noiseFilter.frequency.value = 1200;
-
         vinylNoiseNode.connect(noiseFilter);
         noiseFilter.connect(audioCtx.destination);
         vinylNoiseNode.start();
@@ -4707,31 +2123,30 @@
         osc1.type = 'sine';
         osc1.frequency.setValueAtTime(55, audioCtx.currentTime);
         gain1.gain.setValueAtTime(0.015, audioCtx.currentTime);
-
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
         osc1.start();
       } catch (err) {
-        console.warn('AudioContext prevented or not supported', err);
+        console.warn('AudioContext not supported', err);
       }
     }
 
     function stopSyntheticWarmAudio() {
       try {
-        if (vinylNoiseNode) {
-          vinylNoiseNode.stop();
-          vinylNoiseNode.disconnect();
-          vinylNoiseNode = null;
-        }
-        if (osc1) {
-          osc1.stop();
-          osc1.disconnect();
-          osc1 = null;
-        }
+        if (vinylNoiseNode) { vinylNoiseNode.stop(); vinylNoiseNode.disconnect(); vinylNoiseNode = null; }
+        if (osc1) { osc1.stop(); osc1.disconnect(); osc1 = null; }
       } catch (err) {
         console.warn('Audio stop error', err);
       }
     }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeReservationModal();
+        const drawer = document.getElementById('menuDrawer');
+        if (drawer && drawer.classList.contains('open')) toggleMenuDrawer();
+      }
+    });
   </script>
 </body>
 </html>
