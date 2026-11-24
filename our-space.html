@@ -12,7 +12,7 @@
   <!-- Google Fonts: Chivo Only -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -68,11 +68,10 @@
 
     h1, h2, h3, h4, h5, h6,
     .section-heading,
-    .drawer-nav-item,
     .gallery-page-title {
       font-family: var(--font-heading);
       font-weight: 700;
-      letter-spacing: normal;
+      letter-spacing: normal !important;
     }
 
     /* Fixed Viewport Noise Overlay */
@@ -170,7 +169,7 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      cursor: pointer;
+      cursor: default;
       position: relative;
       box-sizing: border-box;
       padding: 0;
@@ -313,7 +312,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      cursor: default;
       padding: 0;
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
@@ -378,7 +377,7 @@
       border-radius: 50%;
       color: #c0c0c0;
       font-size: 1.2rem;
-      cursor: pointer;
+      cursor: default;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -417,14 +416,18 @@
       display: inline-flex;
       align-items: center;
       gap: 1.5rem;
-      cursor: pointer;
+      cursor: default;
       letter-spacing: normal;
     }
 
-    .drawer-nav-item:hover,
-    .drawer-nav-item.active {
+    .drawer-nav-item:hover {
       color: var(--c-orange);
       transform: translateX(12px);
+    }
+
+    .drawer-nav-item.active {
+      color: var(--c-orange);
+      transform: none !important;
     }
 
     .drawer-nav-num {
@@ -492,8 +495,9 @@
       font-size: 0.75rem;
       font-weight: 700;
       color: var(--c-orange);
+      text-transform: none;
       margin-bottom: 0.5rem;
-      letter-spacing: normal;
+      letter-spacing: normal !important;
     }
 
     .drawer-info-col p {
@@ -617,7 +621,7 @@
       letter-spacing: normal !important;
       text-transform: none;
       padding: 0 0 8px 0;
-      cursor: pointer;
+      cursor: default;
       border-bottom: 3px solid transparent !important;
       transition: color 0.2s ease, border-color 0.2s ease;
       line-height: 1.2;
@@ -672,7 +676,7 @@
       border-radius: 0 !important;
       border: none !important;
       outline: none !important;
-      cursor: pointer;
+      cursor: default;
       background: #111115;
       flex-shrink: 1;
       box-sizing: border-box;
@@ -719,195 +723,6 @@
         max-height: 75vh;
         object-fit: cover;
         transform: none !important;
-      }
-    }
-
-    /* =========================================================
-       LIGHTBOX FULLSCREEN MODAL
-       ========================================================= */
-    .gallery-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 20000;
-      background: rgba(4, 4, 6, 0.96);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      box-sizing: border-box;
-      padding: clamp(1rem, 2.5vw, 2.25rem);
-    }
-
-    .gallery-lightbox.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lightbox-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      z-index: 3;
-    }
-
-    .lightbox-meta {
-      display: flex;
-      align-items: center;
-      gap: 1.15rem;
-    }
-
-    .lightbox-counter {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      letter-spacing: normal !important;
-      font-family: var(--font-body);
-    }
-
-    .lightbox-category-tag {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: normal !important;
-      text-transform: uppercase;
-      color: #c0c0c0;
-      padding: 0.28rem 0.75rem;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 999px;
-    }
-
-    .lightbox-close-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #c0c0c0;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .lightbox-close-btn:hover {
-      border-color: var(--c-orange);
-      color: var(--c-orange);
-      background: rgba(244, 143, 36, 0.14);
-      transform: rotate(90deg);
-    }
-
-    .lightbox-stage {
-      position: relative;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1rem 0;
-      overflow: hidden;
-    }
-
-    .lightbox-img-wrap {
-      max-width: 90vw;
-      max-height: 75vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .lightbox-active-img {
-      max-width: 100%;
-      max-height: 75vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 0;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.88);
-      transform: scale(0.97);
-      opacity: 0;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .lightbox-active-img.loaded {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    .lightbox-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: rgba(18, 18, 22, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #c0c0c0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.6rem;
-      z-index: 5;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .lightbox-nav-btn:hover {
-      background: rgba(244, 143, 36, 0.2);
-      border-color: var(--c-orange);
-      color: #ffffff;
-      transform: translateY(-50%) scale(1.08);
-    }
-
-    .lightbox-nav-prev {
-      left: clamp(0.5rem, 2vw, 2.5rem);
-    }
-
-    .lightbox-nav-next {
-      right: clamp(0.5rem, 2vw, 2.5rem);
-    }
-
-    .lightbox-bottom-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .lightbox-caption-title {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #c0c0c0;
-      letter-spacing: normal !important;
-    }
-
-    .lightbox-keyboard-hint {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      letter-spacing: normal !important;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 600px) {
-      .lightbox-keyboard-hint {
-        display: none;
-      }
-      .lightbox-nav-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 1.3rem;
       }
     }
 
@@ -963,7 +778,7 @@
       background: transparent;
       border: none;
       color: #c0c0c0;
-      cursor: pointer;
+      cursor: default;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1032,7 +847,7 @@
       border-radius: 999px;
       text-decoration: none;
       border: none;
-      cursor: pointer;
+      cursor: default;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
@@ -1149,7 +964,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      cursor: default;
       border-radius: 0;
       font-size: 1.05rem;
       line-height: 1;
@@ -1235,7 +1050,7 @@
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
       border: none;
-      cursor: pointer;
+      cursor: default;
       box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
@@ -1653,51 +1468,59 @@
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
     <div class="drawer-middle">
       <nav class="drawer-nav-links" id="drawerNavLinks">
-        <a href="concept.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept">
+        <a href="concept.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
           <span class="drawer-nav-num">01</span> Concept
         </a>
-        <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming">
+        <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
           <span class="drawer-nav-num">02</span> What’s On
         </a>
-        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu">
-          <span class="drawer-nav-num">03</span> Drinks &amp; Food
+        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
-        <a href="our-space.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace">
+        <a href="our-space.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="index-2.html#press" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgPress">
-          <span class="drawer-nav-num">05</span> In The News
-        </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event)">
-          <span class="drawer-nav-num">06</span> Reservation
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
         </a>
       </nav>
 
-      <!-- Right Side Enlarged Preview Card -->
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
       <div class="drawer-image-wrap">
         <div class="drawer-image-card">
-          <img src="./assets/spin-gallery-2.jpg" id="drawerImgConcept" class="drawer-preview-img" alt="Concept Preview">
-          <img src="./assets/spin-gallery-1.jpg" id="drawerImgProgramming" class="drawer-preview-img" alt="Programming Preview">
-          <img src="./assets/Food.png" id="drawerImgMenu" class="drawer-preview-img" alt="Drinks & Food Preview">
-          <img src="./assets/Event-bg.jpg" id="drawerImgSpace" class="drawer-preview-img active" alt="Our Space Preview">
-          <img src="./assets/spin-gallery-9.jpg" id="drawerImgPress" class="drawer-preview-img" alt="Press Preview">
+          <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img" id="drawerImgDefault">
+          <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
+          <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img active" id="drawerImgSpace">
+          <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
     </div>
 
-    <!-- Drawer Bottom: Opening Hours, Coordinates, Contact -->
+    <!-- Drawer Bottom: Opening Hours, Coordinates, Community, Instagram -->
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
-        <h4>HOURS</h4>
-        <p>Wed – Sun · 7pm – late<br>Acoustic Sessions: 8:30pm onwards</p>
+        <h4>Hours</h4>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
       <div class="drawer-info-col">
-        <h4>LOCATION</h4>
-        <p>Bandra West, Mumbai<br>Subterranean Listening Room</p>
+        <h4>Location</h4>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
       <div class="drawer-info-col">
-        <h4>CONNECT</h4>
-        <p>Instagram: @namibombay<br>experience@nami.in</p>
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@namibombay</span>
+        </a>
       </div>
     </div>
   </div>
@@ -1779,130 +1602,104 @@
       
       <!-- Row 1: The Nocturnal Bar Counter (Landscape) + Precision Tonearm (Portrait) + Wood-Panelled Booth (Portrait) -->
       <div class="gallery-strip-row" data-row-id="1">
-        <div class="gallery-strip-item" style="flex: 1.78 1.78 0px;" data-category="interiors" data-index="0" onclick="openLightbox(0)">
+        <div class="gallery-strip-item" style="flex: 1.78 1.78 0px;" data-category="interiors" data-index="0">
           <img src="./assets/Event-bg2.jpg" alt="The Nocturnal Bar Counter" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="music" data-index="1" onclick="openLightbox(1)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="music" data-index="1">
           <img src="./assets/spin-gallery-3.jpg" alt="Precision Turntable Tonearm" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="2" onclick="openLightbox(2)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="2">
           <img src="./assets/spin-gallery-2.jpg" alt="Acoustic Wood-Panelled Booth" loading="lazy">
         </div>
       </div>
 
       <!-- Row 2: Clarified Highball (Portrait) + Vinyl Selector at Decks (Square) + Vinyl Archive Lounge (Landscape) -->
       <div class="gallery-strip-row" data-row-id="2">
-        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="3" onclick="openLightbox(3)">
+        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="3">
           <img src="./assets/Cocktail.png" alt="Clarified Solar Highball" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="4" onclick="openLightbox(4)">
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="4">
           <img src="./assets/Event-2.jpg" alt="Vinyl Selector at the Decks" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="interiors" data-index="5" onclick="openLightbox(5)">
+        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="interiors" data-index="5">
           <img src="./assets/spin-gallery-9.jpg" alt="The Vinyl Archive Lounge" loading="lazy">
         </div>
       </div>
 
       <!-- Row 3: Grand Panoramic Master Acoustic Room (Single Panoramic Strip) -->
       <div class="gallery-strip-row panoramic-row" data-row-id="3">
-        <div class="gallery-strip-item" style="flex: 2.2 2.2 0px;" data-category="interiors" data-index="6" onclick="openLightbox(6)">
+        <div class="gallery-strip-item" style="flex: 2.2 2.2 0px;" data-category="interiors" data-index="6">
           <img src="./assets/Event-bg.jpg" alt="440Hz Master Acoustic Architecture" loading="lazy">
         </div>
       </div>
 
       <!-- Row 4: Robata Seasonal Dish (Portrait) + Pool Hall Lounge (Landscape) + Bar Counter Seating (Portrait) -->
       <div class="gallery-strip-row" data-row-id="4">
-        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="7" onclick="openLightbox(7)">
+        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="7">
           <img src="./assets/Food.png" alt="Robata Charcoal Seasonal Dish" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.33 1.33 0px;" data-category="interiors" data-index="8" onclick="openLightbox(8)">
+        <div class="gallery-strip-item" style="flex: 1.33 1.33 0px;" data-category="interiors" data-index="8">
           <img src="./assets/Event-bg1.jpg" alt="Ambient Pool Hall Lounge" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="9" onclick="openLightbox(9)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="9">
           <img src="./assets/spin-gallery-4.jpg" alt="Cocktail Bar Counter &amp; Stools" loading="lazy">
         </div>
       </div>
 
       <!-- Row 5: Audiophile Turntable Room (Landscape) + Smoked Old Fashioned (Portrait) + Lounge Booths (Portrait) -->
       <div class="gallery-strip-row" data-row-id="5">
-        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="music" data-index="10" onclick="openLightbox(10)">
+        <div class="gallery-strip-item" style="flex: 1.50 1.50 0px;" data-category="music" data-index="10">
           <img src="./assets/spin-gallery-1.jpg" alt="Audiophile Turntable &amp; Listening Room" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="11" onclick="openLightbox(11)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="11">
           <img src="./assets/spin-gallery-8.jpg" alt="Smoked Japanese Old Fashioned" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="12" onclick="openLightbox(12)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="interiors" data-index="12">
           <img src="./assets/spin-gallery-5.jpg" alt="Low-Lit Dining Lounge Booths" loading="lazy">
         </div>
       </div>
 
       <!-- Row 6: Miso Caramel Tart (Portrait) + Spinning Vinyl Grooves (Square) + Curated Spirits & Glassware (Landscape) -->
       <div class="gallery-strip-row" data-row-id="6">
-        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="13" onclick="openLightbox(13)">
+        <div class="gallery-strip-item" style="flex: 0.69 0.69 0px;" data-category="drinks-food" data-index="13">
           <img src="./assets/Dessert.png" alt="Miso Caramel Sweet Tart" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="14" onclick="openLightbox(14)">
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="14">
           <img src="./assets/gallery-1.jpg" alt="Spinning Vinyl Grooves" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="15" onclick="openLightbox(15)">
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="15">
           <img src="./assets/gallery-4.jpg" alt="Bespoke Spirits &amp; Glassware" loading="lazy">
         </div>
       </div>
 
       <!-- Row 7: Infused Botanical Libation (Portrait) + Listening Bar Setup (Square) + Charcoal Robata Skewers (Portrait) -->
       <div class="gallery-strip-row" data-row-id="7">
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="16" onclick="openLightbox(16)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="16">
           <img src="./assets/spin-gallery-6.jpg" alt="Infused Botanical Libation" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="17" onclick="openLightbox(17)">
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="17">
           <img src="./assets/gallery-3.jpg" alt="Listening Bar Counter Audio Setup" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="18" onclick="openLightbox(18)">
+        <div class="gallery-strip-item" style="flex: 0.67 0.67 0px;" data-category="drinks-food" data-index="18">
           <img src="./assets/spin-gallery-7.jpg" alt="Charcoal Seared Seasonal Skewers" loading="lazy">
         </div>
       </div>
 
       <!-- Row 8: Analog Faders Console (Square) + Robata Small Plates (Landscape) + Intimate Table Setting (Landscape) -->
       <div class="gallery-strip-row" data-row-id="8">
-        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="19" onclick="openLightbox(19)">
+        <div class="gallery-strip-item" style="flex: 1.00 1.00 0px;" data-category="music" data-index="19">
           <img src="./assets/gallery-2.jpg" alt="Analog Fader Precision Console" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="20" onclick="openLightbox(20)">
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="drinks-food" data-index="20">
           <img src="./assets/gallery-5.jpg" alt="Robata Culinary Small Plates" loading="lazy">
         </div>
-        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="interiors" data-index="21" onclick="openLightbox(21)">
+        <div class="gallery-strip-item" style="flex: 1.20 1.20 0px;" data-category="interiors" data-index="21">
           <img src="./assets/gallery-6.jpg" alt="Intimate Listening Table Setting" loading="lazy">
         </div>
       </div>
 
     </div>
   </main>
-
-  <!-- =========================================================
-       LIGHTBOX FULLSCREEN MODAL (Pure Audiophile Immersion)
-       ========================================================= -->
-  <div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Photo View">
-    <div class="lightbox-top-bar">
-      <div class="lightbox-meta">
-        <span class="lightbox-counter" id="lightboxCounter">01 / 22</span>
-        <span class="lightbox-category-tag" id="lightboxCategoryTag">INTERIORS &amp; SPACE</span>
-      </div>
-      <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Close Lightbox">✕</button>
-    </div>
-
-    <div class="lightbox-stage" onclick="handleStageClick(event)">
-      <button class="lightbox-nav-btn lightbox-nav-prev" onclick="prevLightbox(event)" aria-label="Previous Photo">&#8249;</button>
-      <div class="lightbox-img-wrap">
-        <img src="" alt="" class="lightbox-active-img" id="lightboxActiveImg">
-      </div>
-      <button class="lightbox-nav-btn lightbox-nav-next" onclick="nextLightbox(event)" aria-label="Next Photo">&#8250;</button>
-    </div>
-
-    <div class="lightbox-bottom-bar">
-      <div class="lightbox-caption-title" id="lightboxCaptionTitle">The Nocturnal Bar Counter</div>
-      <div class="lightbox-keyboard-hint">Press &#8592; / &#8594; to navigate &middot; ESC to close</div>
-    </div>
-  </div>
 
   <!-- =========================================================
        EXACT FOOTER FROM index-2.html (Vinyl Stage & Mid Bar)
@@ -2088,8 +1885,7 @@
     ];
 
     let currentFilter = 'all';
-    let currentLightboxIndex = 0;
-    let activeDataset = [...GALLERY_DATA];
+        let activeDataset = [...GALLERY_DATA];
 
     // 2. Category Filter & Dynamic Justified Repacking (No Badges, No Zoom)
     function filterGallery(category) {
@@ -2153,7 +1949,7 @@
           r.forEach(item => {
             const globalIndex = GALLERY_DATA.findIndex(d => d.id === item.id);
             html += `
-              <div class="gallery-strip-item" style="flex: ${item.ratio} ${item.ratio} 0px;" data-category="${item.category}" data-index="${globalIndex}" onclick="openLightbox(${globalIndex})">
+              <div class="gallery-strip-item" style="flex: ${item.ratio} ${item.ratio} 0px;" data-category="${item.category}" data-index="${globalIndex}" >
                 <img src="${item.src}" alt="${item.alt}" loading="lazy">
               </div>
             `;
@@ -2166,84 +1962,6 @@
       }, 220);
     }
 
-    // 3. Lightbox Functionality
-    function openLightbox(index) {
-      currentLightboxIndex = index;
-      const lightbox = document.getElementById('galleryLightbox');
-      if (!lightbox) return;
-
-      updateLightboxContent();
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      const lightbox = document.getElementById('galleryLightbox');
-      if (!lightbox) return;
-
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function nextLightbox(e) {
-      if (e) e.stopPropagation();
-      currentLightboxIndex = (currentLightboxIndex + 1) % GALLERY_DATA.length;
-      updateLightboxContent();
-    }
-
-    function prevLightbox(e) {
-      if (e) e.stopPropagation();
-      currentLightboxIndex = (currentLightboxIndex - 1 + GALLERY_DATA.length) % GALLERY_DATA.length;
-      updateLightboxContent();
-    }
-
-    function updateLightboxContent() {
-      const item = GALLERY_DATA[currentLightboxIndex];
-      if (!item) return;
-
-      const img = document.getElementById('lightboxActiveImg');
-      const counter = document.getElementById('lightboxCounter');
-      const tag = document.getElementById('lightboxCategoryTag');
-      const title = document.getElementById('lightboxCaptionTitle');
-
-      if (img) {
-        img.classList.remove('loaded');
-        img.src = item.src;
-        img.alt = item.alt;
-        img.onload = () => img.classList.add('loaded');
-      }
-
-      if (counter) {
-        const num = String(currentLightboxIndex + 1).padStart(2, '0');
-        const total = String(GALLERY_DATA.length).padStart(2, '0');
-        counter.textContent = `${num} / ${total}`;
-      }
-
-      if (tag) {
-        tag.textContent = item.categoryLabel.toUpperCase();
-      }
-
-      if (title) {
-        title.textContent = item.title;
-      }
-    }
-
-    function handleStageClick(e) {
-      if (e.target.classList.contains('lightbox-stage') || e.target.classList.contains('lightbox-img-wrap')) {
-        closeLightbox();
-      }
-    }
-
-    // Keyboard Shortcuts for Lightbox
-    window.addEventListener('keydown', (e) => {
-      const lightbox = document.getElementById('galleryLightbox');
-      if (!lightbox || !lightbox.classList.contains('active')) return;
-
-      if (e.key === 'ArrowRight') nextLightbox();
-      else if (e.key === 'ArrowLeft') prevLightbox();
-      else if (e.key === 'Escape') closeLightbox();
-    });
-
     // 4. Hamburger Drawer Handlers
     function toggleMenuDrawer() {
       const drawer = document.getElementById('menuDrawer');
@@ -2252,19 +1970,28 @@
       }
     }
 
-    // Drawer Hover Preview Image Swap
+    // Drawer Hover Preview Image Swap (Resets to Space Preview on leave)
     (function initDrawerPreviews() {
-      const navItems = document.querySelectorAll('.drawer-nav-item[data-target-img]');
-      const previewImgs = document.querySelectorAll('.drawer-preview-img');
-      if (!navItems.length || !previewImgs.length) return;
+      const navLinks = document.getElementById('drawerNavLinks');
+      const activeImg = document.getElementById('drawerImgSpace');
+      const items = document.querySelectorAll('.drawer-nav-item[data-target-img]');
+      const allImgs = document.querySelectorAll('.drawer-preview-img');
+      if (!navLinks || !items.length || !allImgs.length) return;
 
-      navItems.forEach(item => {
+      items.forEach(item => {
         item.addEventListener('mouseenter', () => {
           const targetId = item.getAttribute('data-target-img');
-          previewImgs.forEach(img => img.classList.remove('active'));
-          const target = document.getElementById(targetId);
-          if (target) target.classList.add('active');
+          const targetImg = document.getElementById(targetId);
+          if (targetImg) {
+            allImgs.forEach(img => img.classList.remove('active'));
+            targetImg.classList.add('active');
+          }
         });
+      });
+
+      navLinks.addEventListener('mouseleave', () => {
+        allImgs.forEach(img => img.classList.remove('active'));
+        if (activeImg) activeImg.classList.add('active');
       });
     })();
 

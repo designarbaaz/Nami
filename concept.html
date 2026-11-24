@@ -12,7 +12,7 @@
   <!-- Google Fonts: Chivo Only -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -419,10 +419,14 @@
       cursor: pointer;
     }
 
-    .drawer-nav-item:hover,
-    .drawer-nav-item.active {
+    .drawer-nav-item:hover {
       color: var(--c-orange);
       transform: translateX(12px);
+    }
+
+    .drawer-nav-item.active {
+      color: var(--c-orange);
+      transform: none !important;
     }
 
     .drawer-nav-num {
@@ -1831,51 +1835,59 @@
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
     <div class="drawer-middle">
       <nav class="drawer-nav-links" id="drawerNavLinks">
-        <a href="concept.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept">
+        <a href="concept.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
           <span class="drawer-nav-num">01</span> Concept
         </a>
-        <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming">
+        <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
           <span class="drawer-nav-num">02</span> What’s On
         </a>
-        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu">
-          <span class="drawer-nav-num">03</span> Drinks &amp; Food
+        <a href="index-2.html#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
-        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace">
+        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="index-2.html#press" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgPress">
-          <span class="drawer-nav-num">05</span> In The News
-        </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event)">
-          <span class="drawer-nav-num">06</span> Reservation
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
         </a>
       </nav>
 
-      <!-- Right Side Enlarged Preview Card -->
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
       <div class="drawer-image-wrap">
         <div class="drawer-image-card">
-          <img src="./assets/spin-gallery-2.jpg" id="drawerImgConcept" class="drawer-preview-img active" alt="Concept Preview">
-          <img src="./assets/spin-gallery-1.jpg" id="drawerImgProgramming" class="drawer-preview-img" alt="Programming Preview">
-          <img src="./assets/Food.png" id="drawerImgMenu" class="drawer-preview-img" alt="Drinks & Food Preview">
-          <img src="./assets/Event-bg.jpg" id="drawerImgSpace" class="drawer-preview-img" alt="Our Space Preview">
-          <img src="./assets/spin-gallery-9.jpg" id="drawerImgPress" class="drawer-preview-img" alt="Press Preview">
+          <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img" id="drawerImgDefault">
+          <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img active" id="drawerImgConcept">
+          <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
     </div>
 
-    <!-- Drawer Bottom: Opening Hours, Coordinates, Contact -->
+    <!-- Drawer Bottom: Opening Hours, Coordinates, Community, Instagram -->
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
-        <h4>HOURS</h4>
-        <p>Wed – Sun · 7pm – late<br>Acoustic Sessions: 8:30pm onwards</p>
+        <h4>Hours</h4>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
       <div class="drawer-info-col">
-        <h4>LOCATION</h4>
-        <p>Bandra West, Mumbai<br>Subterranean Listening Room</p>
+        <h4>Location</h4>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
       <div class="drawer-info-col">
-        <h4>CONNECT</h4>
-        <p>Instagram: @namibombay<br>experience@nami.in</p>
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@namibombay</span>
+        </a>
       </div>
     </div>
   </div>
@@ -2348,17 +2360,26 @@
 
     // 2. Drawer Hover Preview Image Swap
     (function initDrawerPreviews() {
-      const navItems = document.querySelectorAll('.drawer-nav-item[data-target-img]');
-      const previewImgs = document.querySelectorAll('.drawer-preview-img');
-      if (!navItems.length || !previewImgs.length) return;
+      const navLinks = document.getElementById('drawerNavLinks');
+      const activeImg = document.getElementById('drawerImgConcept');
+      const items = document.querySelectorAll('.drawer-nav-item[data-target-img]');
+      const allImgs = document.querySelectorAll('.drawer-preview-img');
+      if (!navLinks || !items.length || !allImgs.length) return;
 
-      navItems.forEach(item => {
+      items.forEach(item => {
         item.addEventListener('mouseenter', () => {
           const targetId = item.getAttribute('data-target-img');
-          previewImgs.forEach(img => img.classList.remove('active'));
-          const target = document.getElementById(targetId);
-          if (target) target.classList.add('active');
+          const targetImg = document.getElementById(targetId);
+          if (targetImg) {
+            allImgs.forEach(img => img.classList.remove('active'));
+            targetImg.classList.add('active');
+          }
         });
+      });
+
+      navLinks.addEventListener('mouseleave', () => {
+        allImgs.forEach(img => img.classList.remove('active'));
+        if (activeImg) activeImg.classList.add('active');
       });
     })();
 
