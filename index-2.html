@@ -3037,80 +3037,9 @@
       }
     }
 
-    /* =========================================================
-       FULLSCREEN SPLASH SCREEN (Black Background + Centered loader-1.mp4)
-       ========================================================= */
-    .splash-screen {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000000;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
-      user-select: none;
-    }
-
-    .splash-screen.splash-fade-out {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .splash-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      position: relative;
-    }
-
-    .splash-video {
-      width: min(440px, 78vw);
-      height: min(440px, 78vw);
-      max-width: 480px;
-      max-height: 480px;
-      object-fit: contain;
-      display: block;
-      background: transparent;
-      pointer-events: none;
-    }
-
-    .splash-enter-text {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.65);
-      transition: color 0.25s ease, opacity 0.25s ease;
-    }
-
-    .splash-screen:hover .splash-enter-text {
-      color: #c0c0c0;
-      opacity: 0.95;
-    }
   </style>
 </head>
 <body>
-
-  <!-- Fullscreen Splash Screen with Centered Video Loader (< 4s Duration, No Skip CTA) -->
-  <div id="splashScreen" class="splash-screen" onclick="dismissSplashScreen()" role="dialog" aria-modal="true" aria-label="Loading NAMI">
-    <div class="splash-center">
-      <video id="splashVideo" class="splash-video" autoplay muted playsinline webkit-playsinline preload="auto">
-        <source src="./assets/loader-1.mp4" type="video/mp4">
-      </video>
-      <span class="splash-enter-text">Enter the Experience</span>
-    </div>
-  </div>
 
   <!-- Official Noise Texture Overlay -->
   <div id="noise-layer"></div>
@@ -3291,8 +3220,7 @@
     </div>
 
     <!-- Scroll down indicator with custom wave arrow -->
-    <a href="#philosophy" class="hero-scroll-cue">
-      <span>SCROLL TO EXPLORE</span>
+    <a href="#philosophy" class="hero-scroll-cue" aria-label="Scroll to explore">
       <img src="./assets/down-arrow-flat.svg" alt="Scroll Down" class="cue-wave-arrow">
     </a>
   </section>
@@ -3905,44 +3833,6 @@
        JAVASCRIPT LOGIC
        ========================================================= -->
   <script>
-    // 0. Fullscreen Splash Screen Controller (loader-1.mp4 Reveal, max 4s, No Skip CTA)
-    (function initSplashScreen() {
-      const splash = document.getElementById('splashScreen');
-      const splashVid = document.getElementById('splashVideo');
-      if (!splash) return;
-
-      document.body.style.overflow = 'hidden';
-
-      let dismissed = false;
-      function dismissSplashScreen() {
-        if (dismissed) return;
-        dismissed = true;
-        clearTimeout(maxDurationTimer);
-
-        splash.classList.add('splash-fade-out');
-        document.body.style.overflow = '';
-
-        setTimeout(() => {
-          splash.style.display = 'none';
-          splash.setAttribute('aria-hidden', 'true');
-        }, 900);
-      }
-
-      window.dismissSplashScreen = dismissSplashScreen;
-
-      // Strict <= 4 seconds duration cap
-      const maxDurationTimer = setTimeout(dismissSplashScreen, 4000);
-
-      if (splashVid) {
-        splashVid.addEventListener('ended', dismissSplashScreen);
-        splashVid.addEventListener('error', dismissSplashScreen);
-        const p = splashVid.play();
-        if (p !== undefined) {
-          p.catch(() => {});
-        }
-      }
-    })();
-
     // 0.1 Safari / WebKit Video Autoplay & Muted State Enforcer
     function initVideoAutoplay() {
       const allVideos = document.querySelectorAll('video[autoplay]');
