@@ -341,7 +341,7 @@
     }
 
     /* =========================================================
-       HAMBURGER DRAWER MENU (EXACT MATCH TO WHATS-ON & OUR-SPACE)
+       HAMBURGER FULLSCREEN OVERLAY DRAWER (SITE-WIDE MATCH)
        ========================================================= */
     #menuDrawer {
       position: fixed;
@@ -349,23 +349,23 @@
       right: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(7, 7, 7, 0.98);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      background: rgba(6, 6, 6, 0.96);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: clamp(1.5rem, 3.5vw, 2.75rem) clamp(1.75rem, 5vw, 4.5rem);
+      padding: clamp(2rem, 3.5vh, 3.5rem) clamp(2.5rem, 5vw, 5.5rem);
       box-sizing: border-box;
-      transform: translateX(100%);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       overflow-y: auto;
-      pointer-events: none;
     }
 
     #menuDrawer.open {
-      transform: translateX(0);
+      opacity: 1;
       pointer-events: auto;
     }
 
@@ -378,88 +378,87 @@
 
     .btn-close-drawer {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #c0c0c0;
+      border: 1px solid var(--border-subtle);
       width: 44px;
       height: 44px;
       border-radius: 50%;
+      color: #c0c0c0;
+      font-size: 1.2rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      transition: all 0.2s;
     }
 
     .btn-close-drawer:hover {
-      transform: scale(1.08);
-      border-color: var(--c-orange);
-      color: var(--c-orange);
-      background: rgba(244, 143, 36, 0.08);
+      border-color: var(--c-red);
+      color: var(--c-red);
+      transform: rotate(90deg);
     }
 
     .drawer-middle {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: clamp(2rem, 5vw, 5rem);
+      grid-template-columns: 1.05fr 1.15fr;
       align-items: center;
-      width: 100%;
+      gap: clamp(2rem, 5vw, 6rem);
       margin: auto 0;
-      padding: 1.5rem 0;
+      padding: 1.25rem 0;
+      width: 100%;
     }
 
     .drawer-nav-links {
       display: flex;
       flex-direction: column;
-      gap: clamp(0.75rem, 1.8vh, 1.35rem);
+      gap: clamp(1rem, 2vh, 1.6rem);
     }
 
     .drawer-nav-item {
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
+      color: #c0c0c0;
       font-family: var(--font-heading);
-      font-size: clamp(2rem, 3.8vw, 3.6rem);
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 100 !important;
       text-transform: capitalize;
-      color: rgba(255, 255, 255, 0.78);
       text-decoration: none;
-      transition: color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      width: fit-content;
+      transition: transform 0.25s, color 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      cursor: pointer;
     }
 
     .drawer-nav-item:hover,
     .drawer-nav-item.active {
       color: var(--c-orange);
-      transform: translateX(10px);
+      transform: translateX(12px);
     }
 
     .drawer-nav-num {
+      font-family: 'Chivo', sans-serif;
       font-size: 1rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.32);
-      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      color: var(--text-muted);
     }
 
-    .drawer-nav-item:hover .drawer-nav-num,
-    .drawer-nav-item.active .drawer-nav-num {
-      color: var(--c-orange);
-    }
-
-    .drawer-right-showcase {
+    .drawer-image-wrap {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       position: relative;
+      width: 100%;
     }
 
-    .drawer-preview-frame {
-      width: min(340px, 80%);
+    .drawer-image-card {
+      position: relative;
+      width: clamp(340px, 35vw, 560px);
+      max-height: calc(100vh - 200px);
       aspect-ratio: 4 / 5;
       overflow: hidden;
-      position: relative;
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
       background: #111115;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
 
     .drawer-preview-img {
@@ -468,53 +467,49 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      filter: brightness(0.92) contrast(1.06);
+      transform: scale(1.04);
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(0.92) contrast(1.05);
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
     }
 
     .drawer-preview-img.active {
       opacity: 1;
       transform: scale(1);
+      z-index: 2;
     }
 
-    .drawer-bottom-meta {
+    .drawer-bottom-info {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
       width: 100%;
     }
 
-    .drawer-meta-col {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .drawer-meta-label {
-      font-size: 0.68rem;
+    .drawer-info-col h4 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--c-orange);
-      text-transform: uppercase;
+      text-transform: none;
+      margin-bottom: 0.5rem;
     }
 
-    .drawer-meta-val {
-      font-size: 0.82rem;
-      color: #c0c0c0;
-      line-height: 1.4;
+    .drawer-info-col p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
-    .drawer-meta-val a {
-      color: #c0c0c0;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .drawer-meta-val a:hover {
-      color: var(--c-orange);
+    @media (max-width: 900px) {
+      .drawer-middle { grid-template-columns: 1fr; }
+      .drawer-image-wrap { display: none; }
     }
 
     /* =========================================================
@@ -1527,10 +1522,10 @@
       .drawer-middle {
         grid-template-columns: 1fr;
       }
-      .drawer-right-showcase {
+      .drawer-image-wrap {
         display: none;
       }
-      .drawer-bottom-meta {
+      .drawer-bottom-info {
         grid-template-columns: 1fr 1fr;
         gap: 1.2rem;
       }
@@ -1726,7 +1721,7 @@
   </header>
 
   <!-- =========================================================
-       SLIDE-OUT HAMBURGER MENU DRAWER
+       HAMBURGER FULLSCREEN OVERLAY DRAWER
        ========================================================= -->
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
@@ -1741,55 +1736,55 @@
           <span class="drawer-nav-num">01</span> Concept
         </a>
         <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
-          <span class="drawer-nav-num">02</span> What’s on
+          <span class="drawer-nav-num">02</span> What’s On
         </a>
-        <a href="drinks-food.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="FLAVOUR · 03" data-sub="Drinks &amp; Robata">
-          <span class="drawer-nav-num">03</span> Drinks &amp; Food
+        <a href="drinks-food.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
-        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="SANCTUARY · 04" data-sub="Analog Acoustic Space">
-          <span class="drawer-nav-num">04</span> Our space
+        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+          <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="index-2.html#press" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgPress" data-tag="DISPATCH · 05" data-sub="Critical Acclaim">
-          <span class="drawer-nav-num">05</span> In the news
-        </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReserve" data-tag="EXPERIENCE · 06" data-sub="Find A Table">
-          <span class="drawer-nav-num">06</span> Reservation
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
         </a>
       </nav>
 
-      <div class="drawer-right-showcase">
-        <div class="drawer-preview-frame">
-          <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept Preview" class="drawer-preview-img active" id="drawerImgConcept">
-          <img src="./assets/nami-selector-booth.jpg" alt="Programming Preview" class="drawer-preview-img" id="drawerImgProgramming">
-          <img src="./assets/nami-negroni-horn.jpg" alt="Drinks &amp; Food Preview" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space Preview" class="drawer-preview-img" id="drawerImgSpace">
-          <img src="./assets/nami-dj-bar.jpg" alt="Press Preview" class="drawer-preview-img" id="drawerImgPress">
-          <img src="./assets/nami-guest-table.jpg" alt="Reservation Preview" class="drawer-preview-img" id="drawerImgReserve">
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
+      <div class="drawer-image-wrap">
+        <div class="drawer-image-card">
+          <img src="./assets/nami-dj-bar.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img" id="drawerImgDefault">
+          <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img active" id="drawerImgConcept">
+          <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
     </div>
 
-    <!-- Drawer Bottom 4 Meta Columns -->
-    <div class="drawer-bottom-meta">
-      <div class="drawer-meta-col">
-        <span class="drawer-meta-label">HOURS</span>
-        <span class="drawer-meta-val">Wed – Sun · 7pm – late</span>
+    <!-- Drawer Bottom: Opening Hours, Coordinates, Community, Instagram -->
+    <div class="drawer-bottom-info">
+      <div class="drawer-info-col">
+        <h4>Hours</h4>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
-      <div class="drawer-meta-col">
-        <span class="drawer-meta-label">LOCATION</span>
-        <span class="drawer-meta-val">Bandra West, Mumbai</span>
+      <div class="drawer-info-col">
+        <h4>Location</h4>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
-      <div class="drawer-meta-col">
-        <span class="drawer-meta-label">CONNECT</span>
-        <span class="drawer-meta-val">
-          <a href="https://www.instagram.com/namibombay/" target="_blank">Instagram: @namibombay</a>
-        </span>
+      <div class="drawer-info-col">
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
       </div>
-      <div class="drawer-meta-col">
-        <span class="drawer-meta-label">COMMUNITY</span>
-        <span class="drawer-meta-val">
-          <a href="https://chat.whatsapp.com/" target="_blank">Join WhatsApp Group ↗</a>
-        </span>
+      <div class="drawer-info-col">
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@namibombay</span>
+        </a>
       </div>
     </div>
   </div>
