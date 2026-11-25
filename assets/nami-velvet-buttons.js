@@ -55,6 +55,7 @@
     ".reserve-modal-title span[style*='background-clip']",
     ".concept-hero-title .text-gradient",
     ".pillars-section-title .text-gradient",
+    ".font-section-title .text-gradient",
     ".menu-page-title .text-gradient",
     ".gallery-page-title .text-gradient",
     ".event-list-title .text-gradient",
