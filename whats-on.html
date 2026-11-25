@@ -593,6 +593,8 @@
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.22);
@@ -988,9 +990,9 @@
     }
 
     .col-popup-close {
-      width: 28px;
-      height: 28px;
-      border-radius: 0 !important;
+      width: 32px;
+      height: 32px;
+      border-radius: 50% !important;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #c0c0c0;
@@ -1125,6 +1127,8 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       border: none;
@@ -1213,6 +1217,13 @@
       z-index: 5;
       padding: 0;
       outline: none;
+    }
+
+    .prev-nav-arrow .nav-arrow-img,
+    .prev-nav-arrow img {
+      width: 22px;
+      height: 22px;
+      display: block;
     }
 
     .prev-nav-arrow:hover:not(:disabled) {
@@ -1382,6 +1393,8 @@
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.85rem 2.1rem;
       border-radius: 999px;
       border: none;
@@ -1463,6 +1476,8 @@
       color: #c0c0c0;
       font-size: 0.8rem;
       font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
@@ -1759,6 +1774,7 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
@@ -2206,9 +2222,7 @@
                     </p>
                     <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup(event)">
                       <span>Reserve Spot</span>
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle; filter: brightness(0) invert(1);">
                     </button>
                   </div>
                 </div>
@@ -2240,11 +2254,11 @@
 
         <div class="prev-carousel-stage">
           <button type="button" class="prev-nav-arrow prev" id="prevCarouselPrev" aria-label="Previous events">
-            <img src="./assets/Arrow-left.svg" alt="Previous" width="16" height="16" class="nav-arrow-img">
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <button type="button" class="prev-nav-arrow next" id="prevCarouselNext" aria-label="Next events">
-            <img src="./assets/Arrow-right.svg" alt="Next" width="16" height="16" class="nav-arrow-img">
+            <img src="./assets/Arrow-right.svg" alt="Next" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <div class="prev-events-carousel-viewport" id="prevEventsViewport">
@@ -2468,7 +2482,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -2529,7 +2543,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>SEND INQUIRY</span>
-          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>

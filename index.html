@@ -695,7 +695,7 @@
     }
 
     .cue-wave-arrow {
-      width: 22px;
+      width: 28px;
       height: auto;
       display: block;
       animation: bounceWave 2s infinite ease-in-out;
@@ -834,7 +834,7 @@
       font-size: 0.88rem;
       font-weight: 700;
       letter-spacing: 0;
-      text-transform: none;
+      text-transform: uppercase;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
       text-decoration: none;
@@ -1034,7 +1034,7 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
@@ -1252,7 +1252,7 @@
       font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       padding: 0.8rem 2.25rem;
       border-radius: 999px;
       text-decoration: none;
@@ -1564,7 +1564,7 @@
       font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0;
       padding: 0.85rem 2.25rem;
       border-radius: 999px;
       border: none;
@@ -1722,9 +1722,9 @@
     }
 
     .col-popup-close {
-      width: 28px;
-      height: 28px;
-      border-radius: 0 !important;
+      width: 32px;
+      height: 32px;
+      border-radius: 50% !important;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #c0c0c0;
@@ -1877,6 +1877,8 @@
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       border: none;
@@ -2132,7 +2134,7 @@
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.8rem 2.2rem;
       border-radius: 999px;
@@ -2317,8 +2319,8 @@
       font-family: var(--font-body);
       font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: none;
+      letter-spacing: 0;
+      text-transform: uppercase;
       color: rgba(255, 255, 255, 0.5);
       padding: 1rem 0;
       cursor: pointer;
@@ -2434,7 +2436,7 @@
       font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       padding: 0.8rem 2rem;
       border-radius: 999px;
       border: none;
@@ -2716,6 +2718,8 @@
     }
 
     .media-cta-arrow {
+      width: 14px;
+      height: 14px;
       transition: transform 0.25s ease;
       color: inherit;
     }
@@ -2749,6 +2753,13 @@
       z-index: 5;
       padding: 0;
       outline: none;
+    }
+
+    .media-nav-arrow .nav-arrow-img,
+    .media-nav-arrow img {
+      width: 22px;
+      height: 22px;
+      display: block;
     }
 
     .media-nav-arrow:hover {
@@ -3003,6 +3014,8 @@
       color: #c0c0c0;
       font-size: 0.8rem;
       font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
@@ -4033,10 +4046,8 @@
                     </p>
 
                     <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
-                      <span>Buy Ticket</span>
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <span>Reserve Spot</span>
+                      <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle; filter: brightness(0) invert(1);">
                     </button>
                   </div>
                 </div>
@@ -4054,7 +4065,7 @@
         <div class="cal-explore-wrap">
           <a href="whats-on.html" class="btn-cal-explore">
             <span>Explore More</span>
-            <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="14" height="14" style="display:inline-block; vertical-align:middle;">
+            <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
           </a>
         </div>
       </div>
@@ -4208,11 +4219,11 @@
           
           <!-- Navigation Arrows (Left / Right) -->
           <button class="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
-            <img src="./assets/Arrow-left.svg" alt="Previous" width="16" height="16" class="nav-arrow-img">
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <button class="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
-            <img src="./assets/Arrow-right.svg" alt="Next" width="16" height="16" class="nav-arrow-img">
+            <img src="./assets/Arrow-right.svg" alt="Next" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <!-- Viewport -->
@@ -4237,7 +4248,7 @@
                 <div class="media-card-action">
                   <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on The Economic Times">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -4262,7 +4273,7 @@
                 <div class="media-card-action">
                   <a href="https://www.businesstoday.in/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Business Today">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -4286,7 +4297,7 @@
                 <div class="media-card-action">
                   <a href="https://lifestyle.livemint.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Mint Lounge">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -5566,7 +5577,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
