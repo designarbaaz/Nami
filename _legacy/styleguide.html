@@ -5,23 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAMI — Brand Style Guide & Design System</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <!-- Adobe Typekit: Savate -->
-  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
 
-  <!-- Google Fonts: Chivo -->
+  <!-- Google Fonts: Chivo (Single Unified Brand Typeface) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --font-heading: "savate", sans-serif;
+      --font-heading: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg-black: #070707;
       --bg-surface: rgba(18, 18, 18, 0.82);
       --bg-surface-elevated: rgba(28, 28, 28, 0.9);
       --border-subtle: rgba(255, 255, 255, 0.1);
       --border-accent: rgba(232, 66, 67, 0.4);
-      --text-primary: #FFFFFF;
+      --text-primary: #c0c0c0;
       --text-secondary: #A8A8A8;
       --text-muted: #6E6E6E;
       
@@ -32,11 +30,11 @@
       --c-pink: #FFAABD;
       --c-blue: #004F9D;
 
-      /* Approved Brand Gradients */
-      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
-      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
-      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.15) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+      /* Approved Brand Gradients (Subtle Nocturnal Refinement) */
+      --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
+      --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
     * {
@@ -161,12 +159,12 @@
     }
 
     nav.header-nav a:hover {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .btn-reserve-header {
       background: var(--grad-primary);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-weight: 700;
       font-size: 0.78rem;
       text-transform: uppercase;
@@ -297,7 +295,7 @@
     .control-switch.active {
       background: rgba(232, 66, 67, 0.2);
       border-color: var(--c-red);
-      color: #fff;
+      color: #c0c0c0;
     }
 
     /* Hero Banner */
@@ -579,7 +577,7 @@
       font-weight: 700;
       font-size: 0.95rem;
       text-transform: uppercase;
-      color: #fff;
+      color: #c0c0c0;
       margin-bottom: 0.25rem;
     }
 
@@ -755,7 +753,7 @@
     }
 
     .typo-sample {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     /* Interactive Type Tester */
@@ -782,7 +780,7 @@
       background: transparent;
       border: none;
       outline: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: 'Chivo', sans-serif;
       font-size: 2.5rem;
       line-height: 1.2;
@@ -993,14 +991,14 @@
     .menu-item-name {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .menu-item-price {
       font-family: 'Chivo', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .menu-item-desc {
@@ -1083,7 +1081,7 @@
 
     .btn-reserve-full {
       background: var(--grad-primary);
-      color: #fff;
+      color: #c0c0c0;
       font-weight: 700;
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -1106,7 +1104,7 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-subtle);
-      color: #FFFFFF;
+      color: #c0c0c0;
       text-decoration: none;
       font-size: 0.82rem;
       font-weight: 500;
@@ -1189,7 +1187,7 @@
       <div class="control-group">
         <span class="control-label">Noise Opacity:</span>
         <input type="range" id="grainSlider" class="control-slider" min="0" max="100" value="100" oninput="updateNoiseTexture(this.value)">
-        <span id="grainVal" class="control-label" style="color:#fff; min-width: 38px;">100%</span>
+        <span id="grainVal" class="control-label" style="color:#c0c0c0; min-width: 38px;">100%</span>
       </div>
 
       <div class="control-group">
@@ -1204,7 +1202,7 @@
       <div class="control-group">
         <span class="control-label">Sepia Warmth:</span>
         <input type="range" id="sepiaSlider" class="control-slider" min="0" max="80" value="50" oninput="updateWarmth(this.value)">
-        <span id="sepiaVal" class="control-label" style="color:#fff; min-width: 32px;">50%</span>
+        <span id="sepiaVal" class="control-label" style="color:#c0c0c0; min-width: 32px;">50%</span>
       </div>
 
       <div class="control-group">
@@ -1470,9 +1468,9 @@ body {
     <!-- SECTION: GRADIENTS -->
     <section id="gradients">
       <div class="section-eyebrow">Fluid Dynamics · 04</div>
-      <h2 class="section-title">Brand Gradients</h2>
+      <h2 class="section-title">Brand Gradients: Subtle Nocturnal Refinement</h2>
       <p class="section-desc">
-        Gradients simulate sound vibrations and organic thermal waves. They move seamlessly between hues without sharp stepped breaks.
+        Derived directly from Nami's five core brand colors (Red, Amber-Red, Orange, Blossom Pink, and Cobalt Blue), these gradients simulate warm analog tube vibrations and low-frequency nocturnal soundwaves. Formulated with dialed-back luminance to remain subtle, moody, and cohesive across dark backgrounds without visual glare.
       </p>
 
       <div class="gradients-grid">
@@ -1480,12 +1478,12 @@ body {
         <div class="gradient-card">
           <div class="gradient-preview" style="background: var(--grad-primary);"></div>
           <div class="gradient-info">
-            <div class="gradient-name">Signature Nami Flare</div>
+            <div class="gradient-name">Atmospheric Frequency (Subtle) [Primary]</div>
             <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Primary gradient for CTAs, hero typography, and active highlights.
+              Warm analog crimson-to-amber gradient for hero typography accents, active navigation states, and CTAs.
             </div>
-            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%)', 'CSS Gradient Copied!')">
-              linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%)
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%)
             </div>
           </div>
         </div>
@@ -1493,12 +1491,12 @@ body {
         <div class="gradient-card">
           <div class="gradient-preview" style="background: var(--grad-resonance);"></div>
           <div class="gradient-info">
-            <div class="gradient-name">Harmonic Resonance</div>
+            <div class="gradient-name">Harmonic Resonance (Subtle)</div>
             <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Sound-reactive gradient for album artwork, flyers, and nocturnal glows.
+              Deep nocturnal soundwave transition spanning deep cobalt, muted crimson, and dusky rose.
             </div>
-            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%)', 'CSS Gradient Copied!')">
-              linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%)
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%)
             </div>
           </div>
         </div>
@@ -1506,12 +1504,12 @@ body {
         <div class="gradient-card">
           <div class="gradient-preview" style="background: var(--grad-flare);"></div>
           <div class="gradient-info">
-            <div class="gradient-name">Atmospheric Frequency</div>
+            <div class="gradient-name">Atmospheric Frequency (Subtle)</div>
             <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Used for fluid backdrop ribbons and lighting washes.
+              Sophisticated dusk blend from warm solar amber through dusky rose into midnight cobalt for interactive CTAs.
             </div>
-            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%)', 'CSS Gradient Copied!')">
-              linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%)
+            <div class="gradient-code" onclick="copyToClipboard('linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%)', 'CSS Gradient Copied!')">
+              linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%)
             </div>
           </div>
         </div>
@@ -1522,19 +1520,19 @@ body {
     <!-- SECTION: TYPOGRAPHY -->
     <section id="typography">
       <div class="section-eyebrow">Language & Rhythm · 05</div>
-      <h2 class="section-title">Brand Typography: Savate & Chivo</h2>
+      <h2 class="section-title">Brand Typography: Chivo</h2>
       <p class="section-desc">
-        Nami operates on a complementary two-typeface system: <strong>Savate</strong> defines the poetic, editorial voice of all headings, titles, and artist spotlights, while <strong>Chivo</strong> provides functional clarity across body text, menu descriptions, forms, and metadata.
+        Nami operates on a single unified typeface: <strong>Chivo</strong>. A grotesque sans-serif with crystalline precision and modern utilitarian elegance. Designed to deliver architectural impact across all headings, titles, body narrative, menus, and micro interface metadata through variable weights (Light 300 to Black 900) and optical styles.
       </p>
 
-      <!-- Sub-section: Headings (Savate) -->
+      <!-- Sub-section: Headings & Display Hierarchy -->
       <div style="margin-top: 2.5rem;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
-          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #FFFFFF;">
-            Primary Headings Typeface: Savate
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #c0c0c0;">
+            Display & Headings Hierarchy
           </h3>
           <span style="font-family: var(--font-body); font-size: 0.75rem; color: var(--c-orange); font-weight: 700;">
-            Adobe Typekit: "savate", sans-serif
+            Google Fonts: 'Chivo', sans-serif (Weights 700–900)
           </span>
         </div>
         
@@ -1549,36 +1547,36 @@ body {
           <tbody>
             <tr>
               <td class="typo-role">Display / Hero H1</td>
-              <td class="typo-meta">Savate 700 Bold · 48px</td>
-              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 2.4rem; font-weight: 700; color: #FFFFFF;">
+              <td class="typo-meta">Chivo 900 Black · 48px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 2.4rem; font-weight: 900; color: #c0c0c0; letter-spacing: -0.02em;">
                 A Sensory Provocateur
               </td>
             </tr>
             <tr>
               <td class="typo-role">Editorial Accent</td>
-              <td class="typo-meta">Savate 700 Bold Italic · 36px</td>
-              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 2rem; font-weight: 700; font-style: italic; color: var(--c-pink);">
+              <td class="typo-meta">Chivo 700 Bold Italic · 36px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 2rem; font-weight: 700; font-style: italic; color: var(--c-pink);">
                 Where sound & nocturnal culture collide
               </td>
             </tr>
             <tr>
               <td class="typo-role">Section Headings</td>
-              <td class="typo-meta">Savate 400 Regular · 30px</td>
-              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.75rem; font-weight: 400; color: #FFFFFF;">
+              <td class="typo-meta">Chivo 700 Bold · 30px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 1.75rem; font-weight: 700; color: #c0c0c0;">
                 Weekly Programming & Resonance Menu
               </td>
             </tr>
             <tr>
               <td class="typo-role">Sonic / Tasting Notes</td>
-              <td class="typo-meta">Savate 400 Regular Italic · 22px</td>
-              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--c-orange);">
+              <td class="typo-meta">Chivo 600 SemiBold Italic · 22px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 1.35rem; font-weight: 600; font-style: italic; color: var(--c-orange);">
                 Aged Hamachi Crudo · Paired with Ambient Dub Techno
               </td>
             </tr>
             <tr>
               <td class="typo-role">Atmospheric Display</td>
-              <td class="typo-meta">Savate 300 Light · 24px</td>
-              <td class="typo-sample" style="font-family: 'savate', sans-serif; font-size: 1.45rem; font-weight: 300; color: #E0E0E0;">
+              <td class="typo-meta">Chivo 400 Regular · 24px</td>
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 1.45rem; font-weight: 400; color: #E0E0E0;">
                 Every ripple has a rhythm. Every rhythm has a flavour.
               </td>
             </tr>
@@ -1589,11 +1587,11 @@ body {
       <!-- Sub-section: Body & System (Chivo) -->
       <div style="margin-top: 3.5rem;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
-          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #FFFFFF;">
-            Body & Interface Typeface: Chivo
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #c0c0c0;">
+            Body & Interface Hierarchy
           </h3>
           <span style="font-family: var(--font-body); font-size: 0.75rem; color: var(--c-orange); font-weight: 700;">
-            Google Fonts: 'Chivo', sans-serif
+            Google Fonts: 'Chivo', sans-serif (Weights 300–700)
           </span>
         </div>
 
@@ -1623,7 +1621,7 @@ body {
             <tr>
               <td class="typo-role">Navigation / UI Tags</td>
               <td class="typo-meta">Chivo 700 Bold · 13px (Caps)</td>
-              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--c-orange); text-transform: uppercase;">
+              <td class="typo-sample" style="font-family: 'Chivo', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--c-orange); text-transform: uppercase; letter-spacing: 0.08em;">
                 [ 440 HZ ] · 20:30 ONWARDS · STEREO HORN HI-FI
               </td>
             </tr>
@@ -1637,23 +1635,26 @@ body {
           <span class="control-label">Live Type Previewer:</span>
           
           <select id="fontFamilySelect" class="control-switch" onchange="updateTypeFamily(this.value)">
-            <option value="'savate', sans-serif" selected>Savate (Headings)</option>
-            <option value="'Chivo', sans-serif">Chivo (Body)</option>
+            <option value="'Chivo', sans-serif" selected>Chivo (Single Unified Font)</option>
           </select>
 
           <select id="weightSelect" class="control-switch" onchange="updateTypeStyle(this.value)">
+            <option value="900_normal">900 Black</option>
+            <option value="900_italic">900 Black Italic</option>
             <option value="700_normal" selected>700 Bold</option>
             <option value="700_italic">700 Bold Italic</option>
+            <option value="600_normal">600 SemiBold</option>
+            <option value="500_normal">500 Medium</option>
             <option value="400_normal">400 Regular</option>
             <option value="400_italic">400 Regular Italic</option>
             <option value="300_normal">300 Light</option>
           </select>
 
           <input type="range" min="18" max="72" value="38" class="control-slider" oninput="updateTypeSize(this.value)">
-          <span id="typeSizeVal" class="control-label" style="color:#fff;">38px</span>
+          <span id="typeSizeVal" class="control-label" style="color:#c0c0c0;">38px</span>
         </div>
 
-        <textarea id="liveTypeInput" class="type-tester-input" spellcheck="false" style="font-family: 'savate', sans-serif; font-weight: 700;">Every ripple has a rhythm. Every rhythm has a flavour.</textarea>
+        <textarea id="liveTypeInput" class="type-tester-input" spellcheck="false" style="font-family: 'Chivo', sans-serif; font-weight: 700;">Every ripple has a rhythm. Every rhythm has a flavour.</textarea>
       </div>
     </section>
 
@@ -1678,7 +1679,7 @@ body {
 
         <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
           <div style="max-width: 480px;">
-            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; color: #fff;">Baseline Axis Rule</div>
+            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; color: #c0c0c0;">Baseline Axis Rule</div>
             <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
               Glyphs must align along the central horizontal equilibrium axis (red baseline). 
               Stretching, skewing, or misaligning letterforms breaks the physical wave equation.
@@ -1884,6 +1885,61 @@ body {
         </div>
 
       </div>
+
+      <!-- Mockup 3: In the News / Media Mentions (Minimal Pull-Quote Slide Pattern) -->
+      <div style="margin-top: 3.5rem; background: rgba(10, 10, 10, 0.95); border: 1px solid var(--border-subtle); border-radius: 20px; padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem); position: relative; overflow: hidden;">
+        
+        <!-- Single Slide Showcase (Pure Headline & Text-Only Button) -->
+        <div style="max-width: 860px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2.25rem;">
+          <div style="height: 34px; display: flex; align-items: center; color: rgba(255,255,255,0.92);">
+            <svg viewBox="0 0 240 28" fill="currentColor" style="height: 28px; width: auto;" aria-label="The Economic Times">
+              <text x="0" y="21" font-family="'Didot', 'Bodoni MT', 'Playfair Display', serif" font-size="19" font-weight="700" letter-spacing="0.4px">
+                <tspan font-size="10.5" font-weight="600" dy="-4.5" letter-spacing="1px">THE </tspan>
+                <tspan font-size="19" font-weight="700" dy="4.5">ECONOMIC TIMES</tspan>
+              </text>
+            </svg>
+          </div>
+          <p style="font-family: var(--font-body); font-size: clamp(1.35rem, 2.4vw, 2.15rem); line-height: 1.44; color: #c0c0c0; font-weight: 300; margin: 0; max-width: 820px; letter-spacing: -0.015em;">
+            “Aditya Birla Group’s hospitality arm, Aditya Birla New Age Hospitality (ABNAH) has announced a strategic deal to add four restaurant brands including Michelin...”
+          </p>
+          <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.2); background: transparent;">
+            <span>Read Full Article</span>
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+          </a>
+        </div>
+
+        <!-- Slider Pagination Dots Indicator -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 0.65rem; margin-top: 3rem;">
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--c-orange); border: 1.5px solid var(--c-orange); box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);"></div>
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: transparent; border: 1.5px solid rgba(255,255,255,0.3);"></div>
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: transparent; border: 1.5px solid rgba(255,255,255,0.3);"></div>
+        </div>
+      </div>
+
+      <!-- Mockup 4: Instagram Feed Banner Strap (@namibombay) -->
+      <div style="margin-top: 3.5rem; background: rgba(10, 10, 10, 0.95); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 0; position: relative; overflow: hidden;">
+        <!-- Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap) -->
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; background: #070707; width: 100%; margin: 0; padding: 0;">
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-3.jpg" alt="DJ Booth" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-7.jpg" alt="Cocktails" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-2.jpg" alt="Pool Table" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-6.jpg" alt="Dining" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-4.jpg" alt="Disco Ball & Beams" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="aspect-ratio: 1/1; border-radius: 0; overflow: hidden; border: none; background: #111;">
+            <img src="./assets/spin-gallery-8.jpg" alt="Atmosphere" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+        </div>
+      </div>
     </section>
 
   </div>
@@ -1949,26 +2005,6 @@ body {
     function updateTypeFamily(family) {
       const input = document.getElementById('liveTypeInput');
       input.style.fontFamily = family;
-      const weightSelect = document.getElementById('weightSelect');
-      if (family.includes('savate')) {
-        weightSelect.innerHTML = `
-          <option value="700_normal" selected>700 Bold</option>
-          <option value="700_italic">700 Bold Italic</option>
-          <option value="400_normal">400 Regular</option>
-          <option value="400_italic">400 Regular Italic</option>
-          <option value="300_normal">300 Light</option>
-        `;
-        updateTypeStyle('700_normal');
-      } else {
-        weightSelect.innerHTML = `
-          <option value="900_normal">900 Black</option>
-          <option value="700_normal" selected>700 Bold</option>
-          <option value="600_normal">600 SemiBold</option>
-          <option value="400_normal">400 Regular</option>
-          <option value="300_normal">300 Light</option>
-        `;
-        updateTypeStyle('700_normal');
-      }
     }
 
     function updateTypeStyle(val) {

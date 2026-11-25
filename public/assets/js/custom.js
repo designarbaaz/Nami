@@ -1,15 +1,43 @@
-/**
- * NAMI site interactions — edit this file for homepage behaviour.
- * Loaded from /assets/js/custom.js
- * Event data is injected as window.__NAMI_EVENTS__ from content/home.ts
- */
-(function () {
-  function initNamiSite(EVENTS_DATA) {
-    if (!EVENTS_DATA) EVENTS_DATA = window.__NAMI_EVENTS__ || {};
-    if (window.__NAMI_SITE_INIT__) return;
-    window.__NAMI_SITE_INIT__ = true;
 
-// 0. Safari / WebKit Video Autoplay & Muted State Enforcer
+    // 0. Fullscreen Splash Screen Controller (loader-1.mp4 Reveal, max 4s, No Skip CTA)
+    (function initSplashScreen() {
+      const splash = document.getElementById('splashScreen');
+      const splashVid = document.getElementById('splashVideo');
+      if (!splash) return;
+
+      document.body.style.overflow = 'hidden';
+
+      let dismissed = false;
+      function dismissSplashScreen() {
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(maxDurationTimer);
+
+        splash.classList.add('splash-fade-out');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          splash.style.display = 'none';
+          splash.setAttribute('aria-hidden', 'true');
+        }, 900);
+      }
+
+      window.dismissSplashScreen = dismissSplashScreen;
+
+      // Strict <= 4 seconds duration cap
+      const maxDurationTimer = setTimeout(dismissSplashScreen, 4000);
+
+      if (splashVid) {
+        splashVid.addEventListener('ended', dismissSplashScreen);
+        splashVid.addEventListener('error', dismissSplashScreen);
+        const p = splashVid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      }
+    })();
+
+    // 0.1 Safari / WebKit Video Autoplay & Muted State Enforcer
     function initVideoAutoplay() {
       const allVideos = document.querySelectorAll('video[autoplay]');
       allVideos.forEach(v => {
@@ -110,7 +138,80 @@
     })();
 
     // Event Details Data & Popup Modal System
-    // EVENTS_DATA imported from @/content/home
+    const EVENTS_DATA = {
+      '9': {
+        dateNum: '09',
+        dateTag: 'TUE · FEB 09',
+        hzTag: '440 Hz Root',
+        artist: 'Atushi Maeda',
+        title: 'Atushi Maeda · Ambient & Jazz',
+        genre: 'Japanese Ambient · Spiritual Jazz',
+        timing: '20:30 (Doors 19:00)',
+        poster: '/assets/nami-turntable-hands.avif',
+        desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
+        dateStr: '2026-02-09'
+      },
+      '14': {
+        dateNum: '14',
+        dateTag: 'SUN · FEB 14',
+        hzTag: 'Warm Frequencies',
+        artist: 'Mogasu',
+        title: 'Mogasu · Vinyl Soul & Rare Groove',
+        genre: 'Vintage Soul · Rare Groove',
+        timing: '18:00 Onwards',
+        poster: '/assets/nami-erykah-vinyl.avif',
+        desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
+        dateStr: '2026-02-14'
+      },
+      '20': {
+        dateNum: '20',
+        dateTag: 'SAT · FEB 20',
+        hzTag: '3968 Hz Special · Headline',
+        artist: 'Yousuke Yukimatsu',
+        title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
+        genre: 'Tokyo Avant-Garde & Bass',
+        timing: '20:30 Onwards',
+        poster: '/assets/nami-horn-speaker.avif',
+        desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
+        dateStr: '2026-02-20'
+      },
+      '23': {
+        dateNum: '23',
+        dateTag: 'TUE · FEB 23',
+        hzTag: 'Resonant Node',
+        artist: 'Occa',
+        title: 'Occa · Deep Hypnotic Soundscapes',
+        genre: 'Hypnotic Soundscapes & Ambient',
+        timing: '20:30 Onwards',
+        poster: '/assets/nami-resor-mixer.avif',
+        desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
+        dateStr: '2026-02-23'
+      },
+      '28': {
+        dateNum: '28',
+        dateTag: 'SUN · FEB 28',
+        hzTag: 'Electric Pulse',
+        artist: 'Suze Ijo',
+        title: 'Suze Ijo · Afro-Cuban & Electronic',
+        genre: 'Afro-Cuban Beats & Deep House',
+        timing: '19:00 Onwards',
+        poster: '/assets/nami-selector-booth.avif',
+        desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
+        dateStr: '2026-02-28'
+      },
+      '29': {
+        dateNum: '29',
+        dateTag: 'MON · FEB 29',
+        hzTag: 'Nocturnal Set',
+        artist: 'Sunju Hargun',
+        title: 'Sunju Hargun · Bangkok Nightclub Selector',
+        genre: 'Cosmic Techno & Asian Synth',
+        timing: '19:00 Onwards',
+        poster: '/assets/nami-evening-crowd.avif',
+        desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
+        dateStr: '2026-02-29'
+      }
+    };
 
     let activePopupEvent = null;
     let activePopupDayKey = null;
@@ -423,19 +524,43 @@
         }
       }
 
-      // ScrollSpy for Top-Right Nav
+      // ScrollSpy for Top-Right Nav (First-Fold / Hero: ZERO active nodes; Concept is active only from Section 2)
       let currentSection = '';
-      const scrollPos = scrollY + winHeight / 3;
 
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop) {
-          currentSection = id;
+      const hero = document.getElementById('hero');
+      const heroRect = hero ? hero.getBoundingClientRect() : null;
+      // When hero is still occupying the main viewport, no section is active
+      const inFirstFold = heroRect ? (heroRect.bottom > winHeight * 0.45) : (scrollY < winHeight * 0.5);
+
+      if (!inFirstFold) {
+        // Focal trigger line: 40% down from viewport top
+        const focalLine = winHeight * 0.40;
+
+        for (let i = 0; i < sections.length; i++) {
+          const id = sections[i];
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
+            currentSection = id;
+            break;
+          }
         }
-      });
+
+        // If scrolled past space into footer, retain 'space' active
+        if (!currentSection && scrollY > winHeight) {
+          const spaceEl = document.getElementById('space');
+          if (spaceEl) {
+            const spaceRect = spaceEl.getBoundingClientRect();
+            if (spaceRect.top < winHeight) {
+              currentSection = 'space';
+            }
+          }
+        }
+      }
 
       scrollerButtons.forEach(btn => {
-        if (btn.getAttribute('data-section') === currentSection) {
+        if (currentSection && btn.getAttribute('data-section') === currentSection) {
           btn.classList.add('active');
         } else {
           btn.classList.remove('active');
@@ -470,36 +595,7 @@
       const cards = Array.from(section.querySelectorAll('.phil-card'));
       if (!cards.length) return;
 
-      let mouseTargetX = 0;
-      let mouseTargetY = 0;
-      let mouseCurrentX = 0;
-      let mouseCurrentY = 0;
-      let isHovered = false;
-
-      function onMouseMove(e) {
-        const rect = section.getBoundingClientRect();
-        const centerX = rect.left + rect.width * 0.5;
-        const centerY = rect.top + rect.height * 0.5;
-        // Normalized coordinates (-1 to 1)
-        mouseTargetX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width * 0.5)));
-        mouseTargetY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height * 0.5)));
-        isHovered = true;
-      }
-
-      function onMouseLeave() {
-        mouseTargetX = 0;
-        mouseTargetY = 0;
-        isHovered = false;
-      }
-
-      section.addEventListener('mousemove', onMouseMove, { passive: true });
-      section.addEventListener('mouseleave', onMouseLeave, { passive: true });
-
       function updatePhilosophyParallax() {
-        // Smooth lerp mouse coordinates
-        mouseCurrentX += (mouseTargetX - mouseCurrentX) * 0.08;
-        mouseCurrentY += (mouseTargetY - mouseCurrentY) * 0.08;
-
         const rect = section.getBoundingClientRect();
         const winH = window.innerHeight;
 
@@ -509,39 +605,39 @@
           const screenCenter = winH * 0.5;
           const scrollDiff = (sectionCenter - screenCenter) / winH; // -1 to 1
 
-          const now = performance.now() * 0.001;
-
-          cards.forEach((card, i) => {
+          cards.forEach((card) => {
             // If user is directly hovering on the card, keep hover scale clean
             if (card.matches(':hover')) return;
 
-            const speedY = parseFloat(card.getAttribute('data-speed-y')) || 0.18;
-            const speedX = parseFloat(card.getAttribute('data-speed-x')) || 0.12;
             const scrollFactor = parseFloat(card.getAttribute('data-scroll')) || 0.25;
 
             // Pronounced multi-speed scroll parallax: each card travels at a distinct rate on scroll
-            const scrollYOffset = scrollDiff * scrollFactor * -240;
+            // Zero movement when screen is frozen/still (strictly tied to scroll position changes)
+            const scrollYOffset = scrollDiff * scrollFactor * -180;
 
-            // Interactive mouse parallax depth offset
-            const mouseXOffset = mouseCurrentX * speedX * 36;
-            const mouseYOffset = mouseCurrentY * speedY * 28;
-
-            // Gentle organic ambient levitation drift
-            const idleDriftY = Math.sin(now * 1.2 + i * 1.4) * 3.2;
-            const idleDriftX = Math.cos(now * 0.9 + i * 1.1) * 2.2;
-
-            const totalX = mouseXOffset + idleDriftX;
-            const totalY = scrollYOffset + mouseYOffset + idleDriftY;
-
-            // Completely straight and upright (zero rotation / tilt)
-            card.style.transform = `translate3d(${totalX.toFixed(2)}px, ${totalY.toFixed(2)}px, 0)`;
+            // Completely straight and upright (zero rotation / tilt, zero movement on frozen screen)
+            card.style.transform = `translate3d(0, ${scrollYOffset.toFixed(2)}px, 0)`;
           });
         }
-
-        requestAnimationFrame(updatePhilosophyParallax);
       }
 
-      requestAnimationFrame(updatePhilosophyParallax);
+      // Update on scroll with RAF ticking - zero movement when screen is frozen
+      let philTicking = false;
+      function onScroll() {
+        if (!philTicking) {
+          requestAnimationFrame(() => {
+            updatePhilosophyParallax();
+            philTicking = false;
+          });
+          philTicking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+
+      // Initial placement
+      updatePhilosophyParallax();
     })();
 
     // 4. Reference-Matched Editorial Menu Scroll Showcase (Food -> Cocktails -> Dessert)
@@ -561,11 +657,15 @@
         if (phase === currentPhase) return;
         currentPhase = phase;
 
-        // Update Left Panel Category Background Color (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD)
-        const phaseColors = ['#E84243', '#004F9D', '#FFAABD'];
+        // Update Left Panel Category Background (Subtle Brand Gradients)
+        const phaseGradients = [
+          'linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%)',
+          'linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%)',
+          'linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%)'
+        ];
         const leftPanel = document.getElementById('menuPanelEditorial');
-        if (leftPanel && phaseColors[phase]) {
-          leftPanel.style.backgroundColor = phaseColors[phase];
+        if (leftPanel && phaseGradients[phase]) {
+          leftPanel.style.background = phaseGradients[phase];
         }
 
         // Update Left Editorial Slides
@@ -841,59 +941,625 @@
         closeReservationModal();
       }
     });
+
+    // Press Mentions One-News-Per-Slide Carousel Controller
+    (function initMediaSlider() {
+      const track = document.getElementById('mediaSliderTrack');
+      const slides = document.querySelectorAll('.media-slide');
+      const dots = document.querySelectorAll('.media-dot');
+      const prevBtn = document.getElementById('mediaPrevBtn');
+      const nextBtn = document.getElementById('mediaNextBtn');
+      const container = document.getElementById('mediaSliderContainer');
+      if (!track || !slides.length) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoplayTimer = null;
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+
+        // Slide the track
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Update active classes for fade & scale
+        slides.forEach((s, i) => {
+          s.classList.toggle('is-active', i === currentIndex);
+        });
+
+        // Update dots
+        dots.forEach((d, i) => {
+          const isActive = i === currentIndex;
+          d.classList.toggle('active', isActive);
+          d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) {
+            goToSlide(idx);
+            resetAutoplay();
+          }
+        });
+      });
+
+      // Touch / Swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        pauseAutoplay();
+      }, { passive: true });
+
+      track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const threshold = 40;
+        if (touchEndX < touchStartX - threshold) {
+          nextSlide();
+        } else if (touchEndX > touchStartX + threshold) {
+          prevSlide();
+        }
+      }
+
+      // Autoplay with pause on hover
+      function startAutoplay() {
+        pauseAutoplay();
+        autoplayTimer = setInterval(nextSlide, 7000);
+      }
+
+      function pauseAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function resetAutoplay() {
+        pauseAutoplay();
+        startAutoplay();
+      }
+
+      if (container) {
+        container.addEventListener('mouseenter', pauseAutoplay);
+        container.addEventListener('mouseleave', startAutoplay);
+      }
+
+      startAutoplay();
+    })();
   
 
-    // Lazy-load wave strap videos when near viewport
-    (function initLazyWaveVideos() {
-      const root = document.querySelector('[data-lazy-video-root]');
-      if (!root) return;
-      const videos = root.querySelectorAll('video[data-src]');
-      if (!videos.length) return;
-      const load = () => {
-        videos.forEach((v) => {
-          const src = v.getAttribute('data-src');
-          if (!src || v.querySelector('source')) return;
-          const source = document.createElement('source');
-          source.src = src;
-          source.type = 'video/mp4';
-          v.appendChild(source);
-          v.load();
-          v.play?.().catch(() => {});
-        });
-      };
-      if (!('IntersectionObserver' in window)) {
-        load();
-        return;
-      }
-      const io = new IntersectionObserver((entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          load();
-          io.disconnect();
+/* ========== CONCEPT ========== */
+function initHorizontalPillarsScroll() {
+      const container = document.getElementById('pillarsPinnedContainer');
+      const track = document.getElementById('pillarsTrack');
+      if (!container || !track) return;
+
+      let ticking = false;
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updatePillarsTranslate();
+            ticking = false;
+          });
+          ticking = true;
         }
-      }, { rootMargin: '200px' });
-      io.observe(root);
-    })();
+      }
 
-    window.initVideoAutoplay = initVideoAutoplay;
-    window.showToast = showToast;
-    window.toggleMenuDrawer = toggleMenuDrawer;
-    window.openEventPopup = openEventPopup;
-    window.closeEventPopup = closeEventPopup;
-    window.bookFromPopup = bookFromPopup;
-    window.randomizeCalendarGradients = randomizeCalendarGradients;
-    window.selectEventDate = selectEventDate;
-    window.handleScrollEffects = handleScrollEffects;
-    window.toggleAudio = toggleAudio;
-    window.startSyntheticWarmAudio = startSyntheticWarmAudio;
-    window.stopSyntheticWarmAudio = stopSyntheticWarmAudio;
-    window.openReservationModal = openReservationModal;
-    window.closeReservationModal = closeReservationModal;
-    window.handleReservationSubmit = handleReservationSubmit;
-  }
+      function updatePillarsTranslate() {
+        if (window.innerWidth <= 860) {
+          track.style.transform = 'none';
+          return;
+        }
 
-  window.initNamiSite = initNamiSite;
+        const rect = container.getBoundingClientRect();
+        const totalScroll = container.offsetHeight - window.innerHeight;
+        if (totalScroll <= 0) return;
 
-  if (window.__NAMI_EVENTS__) {
-    initNamiSite(window.__NAMI_EVENTS__);
+        const scrollPassed = -rect.top;
+        const progress = Math.min(Math.max(scrollPassed / totalScroll, 0), 1);
+
+        const maxScroll = track.scrollWidth - window.innerWidth;
+        if (maxScroll > 0) {
+          const translateX = progress * maxScroll;
+          track.style.transform = 'translateX(-' + translateX + 'px)';
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      if (window.__namiPageCleanup) {
+        window.__namiPageCleanup.push(function () {
+          window.removeEventListener('scroll', onScroll);
+          window.removeEventListener('resize', onScroll);
+        });
+      }
+      updatePillarsTranslate();
+    }
+
+function initImageRevealAnimation() {
+      const targets = document.querySelectorAll('.reveal-on-scroll');
+      if (!targets.length) return;
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        targets.forEach(t => observer.observe(t));
+      } else {
+        targets.forEach(t => t.classList.add('is-revealed'));
+      }
+    }
+
+function initZigZagParallax() {
+      const rows = Array.from(document.querySelectorAll('.feature-edge-row'));
+      if (!rows.length) return;
+
+      let ticking = false;
+
+      function updateParallax() {
+        const winHeight = window.innerHeight;
+        const screenCenter = winHeight / 2;
+
+        rows.forEach(row => {
+          const media = row.querySelector('.feature-edge-media');
+          const img = row.querySelector('.feature-edge-media img');
+          if (!media || !img) return;
+
+          const rect = media.getBoundingClientRect();
+          if (rect.bottom > -100 && rect.top < winHeight + 100) {
+            const mediaCenter = rect.top + rect.height / 2;
+            const offset = (mediaCenter - screenCenter) * -0.14;
+            const clamped = Math.max(-68, Math.min(68, offset));
+            img.style.transform = 'translate3d(0, ' + clamped.toFixed(1) + 'px, 0)';
+          }
+        });
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      if (window.__namiPageCleanup) {
+        window.__namiPageCleanup.push(function () {
+          window.removeEventListener('scroll', onScroll);
+          window.removeEventListener('resize', onScroll);
+        });
+      }
+      updateParallax();
+    }
+
+function initWaveVideoSync() {
+      const videos = document.querySelectorAll('.wave-strap-media');
+      if (videos.length <= 1) return;
+      const master = videos[0];
+      const slaves = Array.from(videos).slice(1);
+      master.addEventListener('timeupdate', () => {
+        slaves.forEach(s => {
+          if (Math.abs(s.currentTime - master.currentTime) > 0.1) {
+            try { s.currentTime = master.currentTime; } catch (e) {}
+          }
+        });
+      });
+    }
+
+/* ========== INDEX-2 LIST ========== */
+function initEventListHover() {
+      const rows = document.querySelectorAll('.event-list-row[data-poster]');
+      const preview = document.getElementById('eventPosterPreview');
+      const previewImg = document.getElementById('eventPosterImg');
+      if (!rows.length || !preview || !previewImg) return;
+
+      let mouseX = 0;
+      let mouseY = 0;
+      let curX = 0;
+      let curY = 0;
+      let isHovered = false;
+      let animId = null;
+
+      // Smooth fluid lerp loop for floating position
+      function renderLoop() {
+        if (!isHovered && Math.abs(curX - mouseX) < 0.1 && Math.abs(curY - mouseY) < 0.1) {
+          animId = null;
+          return;
+        }
+
+        // Fluid cursor tracking with lerp
+        curX += (mouseX - curX) * 0.14;
+        curY += (mouseY - curY) * 0.14;
+        preview.style.transform = `translate3d(${curX}px, ${curY}px, 0) ${isHovered ? 'scale(1)' : 'scale(0.94)'}`;
+
+        animId = requestAnimationFrame(renderLoop);
+      }
+
+      function updateTarget(e) {
+        const pWidth = preview.offsetWidth || 320;
+        const pHeight = preview.offsetHeight || 426;
+
+        // Position poster neatly to the right of cursor
+        let targetX = e.clientX + 32;
+        let targetY = e.clientY - (pHeight / 2);
+
+        // If close to right edge, flip to left of cursor so it never gets cut off
+        if (targetX + pWidth > window.innerWidth - 24) {
+          targetX = e.clientX - pWidth - 32;
+        }
+
+        // Clamp Y within viewport bounds
+        targetY = Math.max(20, Math.min(window.innerHeight - pHeight - 20, targetY));
+
+        mouseX = targetX;
+        mouseY = targetY;
+
+        if (!animId) {
+          animId = requestAnimationFrame(renderLoop);
+        }
+      }
+
+      // Prevent stacking listeners on SPA re-init
+      if (preview.dataset.namiHoverBound === '1') return;
+      preview.dataset.namiHoverBound = '1';
+
+      rows.forEach(function(row) {
+        row.addEventListener('mouseenter', function(e) {
+          const posterUrl = row.dataset.poster;
+          if (previewImg.getAttribute('src') !== posterUrl) {
+            previewImg.src = posterUrl;
+          }
+          isHovered = true;
+          preview.classList.add('is-active');
+
+          // Initialize coordinates immediately on enter so it doesn't jump
+          const pWidth = preview.offsetWidth || 320;
+          const pHeight = preview.offsetHeight || 426;
+          let initX = e.clientX + 32;
+          let initY = e.clientY - (pHeight / 2);
+          if (initX + pWidth > window.innerWidth - 24) {
+            initX = e.clientX - pWidth - 32;
+          }
+          initY = Math.max(20, Math.min(window.innerHeight - pHeight - 20, initY));
+
+          if (!curX && !curY) {
+            curX = initX;
+            curY = initY;
+          }
+          mouseX = initX;
+          mouseY = initY;
+
+          if (!animId) {
+            animId = requestAnimationFrame(renderLoop);
+          }
+        });
+
+        row.addEventListener('mousemove', function(e) {
+          updateTarget(e);
+        });
+
+        row.addEventListener('mouseleave', function() {
+          isHovered = false;
+          preview.classList.remove('is-active');
+        });
+
+        // Keyboard support
+        row.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openReservationModal(e);
+          }
+        });
+      });
+
+      if (window.__namiPageCleanup) {
+        window.__namiPageCleanup.push(function () {
+          preview.dataset.namiHoverBound = '0';
+          preview.classList.remove('is-active');
+          if (animId) cancelAnimationFrame(animId);
+        });
+      }
+    }
+
+/* ========== DRINKS-FOOD ========== */
+function initMenuScrollSpy() {
+      const sections = Array.from(document.querySelectorAll('.menu-panel-section[data-category]'));
+      const sidebarItems = Array.from(document.querySelectorAll('.sidebar-nav-item[data-target]'));
+      if (!sections.length || !sidebarItems.length) return;
+
+      function setActiveCategory(cat) {
+        sidebarItems.forEach(item => {
+          const isMatch = item.getAttribute('data-target') === cat;
+          item.classList.toggle('active', isMatch);
+          item.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+      }
+
+      function syncCategoryFromScroll() {
+        const probeY = window.innerHeight * 0.45;
+        let currentCat = sections[0].getAttribute('data-category');
+
+        for (let i = 0; i < sections.length; i++) {
+          const rect = sections[i].getBoundingClientRect();
+          if (rect.top <= probeY) {
+            currentCat = sections[i].getAttribute('data-category');
+          }
+        }
+        setActiveCategory(currentCat);
+      }
+
+      let ticking = false;
+      function onMenuSpyScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            syncCategoryFromScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onMenuSpyScroll, { passive: true });
+      if (window.__namiPageCleanup) {
+        window.__namiPageCleanup.push(function () {
+          window.removeEventListener('scroll', onMenuSpyScroll);
+        });
+      }
+
+      window.addEventListener('resize', syncCategoryFromScroll, { passive: true });
+      syncCategoryFromScroll();
+
+      sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetCat = item.getAttribute('data-target');
+          const targetEl = document.getElementById(targetCat);
+          setActiveCategory(targetCat);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+function setActiveCategory(cat) {
+        sidebarItems.forEach(item => {
+          const isMatch = item.getAttribute('data-target') === cat;
+          item.classList.toggle('active', isMatch);
+          item.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+      }
+
+function syncCategoryFromScroll() {
+        const probeY = window.innerHeight * 0.45;
+        let currentCat = sections[0].getAttribute('data-category');
+
+        for (let i = 0; i < sections.length; i++) {
+          const rect = sections[i].getBoundingClientRect();
+          if (rect.top <= probeY) {
+            currentCat = sections[i].getAttribute('data-category');
+          }
+        }
+        setActiveCategory(currentCat);
+      }
+
+/* ========== OUR-SPACE ========== */
+const GALLERY_DATA = [
+      { id: 1, src: '/assets/Event-bg2.avif', ratio: 1.78, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'The Nocturnal Bar Counter', alt: 'The Nocturnal Bar Counter' },
+      { id: 2, src: '/assets/spin-gallery-3.avif', ratio: 0.67, category: 'music', categoryLabel: 'Music & Sound', title: 'Precision Turntable Tonearm', alt: 'Precision Turntable Tonearm' },
+      { id: 3, src: '/assets/spin-gallery-2.avif', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Acoustic Wood-Panelled Booth', alt: 'Acoustic Wood-Panelled Booth' },
+      { id: 4, src: '/assets/Cocktail.avif', ratio: 0.69, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Clarified Solar Highball', alt: 'Clarified Solar Highball' },
+      { id: 5, src: '/assets/Event-2.avif', ratio: 1.00, category: 'music', categoryLabel: 'Music & Sound', title: 'Vinyl Selector at the Decks', alt: 'Vinyl Selector at the Decks' },
+      { id: 6, src: '/assets/spin-gallery-9.avif', ratio: 1.50, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'The Vinyl Archive Lounge', alt: 'The Vinyl Archive Lounge' },
+      { id: 7, src: '/assets/Event-bg.avif', ratio: 2.20, category: 'interiors', categoryLabel: 'Interiors & Space', title: '440Hz Master Acoustic Architecture', alt: '440Hz Master Acoustic Architecture', panoramic: true },
+      { id: 8, src: '/assets/Food.avif', ratio: 0.69, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Robata Charcoal Seasonal Dish', alt: 'Robata Charcoal Seasonal Dish' },
+      { id: 9, src: '/assets/Event-bg1.avif', ratio: 1.33, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Ambient Pool Hall Lounge', alt: 'Ambient Pool Hall Lounge' },
+      { id: 10, src: '/assets/nami-dj-bar.avif', ratio: 0.75, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Cocktail Bar & DJ Console', alt: 'Cocktail Bar & DJ Console' },
+      { id: 11, src: '/assets/nami-horn-speaker.avif', ratio: 1.40, category: 'music', categoryLabel: 'Music & Sound', title: 'Custom Red Multi-Cell Horn Speaker', alt: 'Custom Red Multi-Cell Horn Speaker' },
+      { id: 12, src: '/assets/nami-negroni-horn.avif', ratio: 0.75, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Ruby Negroni at the Listening Bar', alt: 'Ruby Negroni at the Listening Bar' },
+      { id: 13, src: '/assets/spin-gallery-5.avif', ratio: 0.67, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Low-Lit Dining Lounge Booths', alt: 'Low-Lit Dining Lounge Booths' },
+      { id: 14, src: '/assets/Dessert.avif', ratio: 0.69, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Miso Caramel Sweet Tart', alt: 'Miso Caramel Sweet Tart' },
+      { id: 15, src: '/assets/nami-turntable-hands.avif', ratio: 1.50, category: 'music', categoryLabel: 'Music & Sound', title: 'Spinning Vinyl Turntable Decks', alt: 'Spinning Vinyl Turntable Decks' },
+      { id: 16, src: '/assets/nami-carafe-pour.avif', ratio: 1.33, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Clarified Cocktail Carafe Pour', alt: 'Clarified Cocktail Carafe Pour' },
+      { id: 17, src: '/assets/nami-guest-table.avif', ratio: 0.71, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Nocturnal Dining & Highballs', alt: 'Nocturnal Dining & Highballs' },
+      { id: 18, src: '/assets/nami-selector-booth.avif', ratio: 0.71, category: 'music', categoryLabel: 'Music & Sound', title: 'Selector Mixing on Dual Turntables', alt: 'Selector Mixing on Dual Turntables' },
+      { id: 19, src: '/assets/nami-edamame-tart.avif', ratio: 1.33, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Edamame & Blossom Tartlets', alt: 'Edamame & Blossom Tartlets' },
+      { id: 20, src: '/assets/nami-resor-mixer.avif', ratio: 0.71, category: 'music', categoryLabel: 'Music & Sound', title: 'Resor Rotary Mixer Amber VU Meter', alt: 'Resor Rotary Mixer Amber VU Meter' },
+      { id: 21, src: '/assets/nami-erykah-vinyl.avif', ratio: 0.75, category: 'music', categoryLabel: 'Music & Sound', title: 'Vinyl Records & Red Acoustic Horn', alt: 'Vinyl Records & Red Acoustic Horn' },
+      { id: 22, src: '/assets/nami-bar-room.avif', ratio: 1.40, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Nami Listening Room & Bar Interior', alt: 'Nami Listening Room & Bar Interior' },
+      { id: 23, src: '/assets/nami-coupe-cocktail.avif', ratio: 1.33, category: 'drinks-food', sub: 'drinks', categoryLabel: 'Drinks & Food', title: 'Botanical Foam Coupe Cocktail', alt: 'Botanical Foam Coupe Cocktail' },
+      { id: 24, src: '/assets/nami-croquette-plate.avif', ratio: 1.33, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Crispy Robata Small Plates', alt: 'Crispy Robata Small Plates' },
+      { id: 25, src: '/assets/nami-robata-skewer.avif', ratio: 1.33, category: 'drinks-food', sub: 'food', categoryLabel: 'Drinks & Food', title: 'Charcoal Grilled Squid Skewer', alt: 'Charcoal Grilled Squid Skewer' },
+      { id: 26, src: '/assets/nami-evening-crowd.avif', ratio: 1.33, category: 'interiors', categoryLabel: 'Interiors & Space', title: 'Evening Gathering Beneath Red Coffers', alt: 'Evening Gathering Beneath Red Coffers' }
+    ];
+
+    
+
+function filterGallery(category) {
+      currentFilter = category;
+
+      // Update Filter Pills UI (Bold underline for active, no underline for inactive)
+      document.querySelectorAll('.gallery-filter-pill').forEach(pill => {
+        const isMatch = pill.getAttribute('data-filter') === category;
+        pill.classList.toggle('active', isMatch);
+        pill.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      });
+
+      const container = document.getElementById('galleryStripsContainer');
+      if (!container) return;
+
+      if (category === 'all') {
+        activeDataset = [...GALLERY_DATA];
+      } else {
+        activeDataset = GALLERY_DATA.filter(item => item.category === category);
+      }
+
+      // Smooth Fade Transition
+      container.style.opacity = '0';
+      container.style.transition = 'opacity 0.22s ease';
+
+      setTimeout(() => {
+        const rows = [];
+        let currentRow = [];
+        let currentRatioSum = 0;
+
+        activeDataset.forEach((item, idx) => {
+          if (item.panoramic && (category === 'all' || activeDataset.length <= 3)) {
+            if (currentRow.length > 0) {
+              rows.push(currentRow);
+              currentRow = [];
+              currentRatioSum = 0;
+            }
+            rows.push([item]);
+            return;
+          }
+
+          currentRow.push(item);
+          currentRatioSum += item.ratio;
+
+          if (currentRatioSum >= 2.4 || currentRow.length >= 3) {
+            rows.push(currentRow);
+            currentRow = [];
+            currentRatioSum = 0;
+          }
+        });
+
+        if (currentRow.length > 0) {
+          rows.push(currentRow);
+        }
+
+        // Generate Justified Rows HTML (Zero Hover Badge Overlay, Zero Zoom)
+        let html = '';
+        rows.forEach((r, rIdx) => {
+          const isPanoramic = r.length === 1 && r[0].panoramic;
+          html += `<div class="gallery-strip-row ${isPanoramic ? 'panoramic-row' : ''}" data-row-id="${rIdx + 1}">`;
+          r.forEach(item => {
+            const globalIndex = GALLERY_DATA.findIndex(d => d.id === item.id);
+            html += `
+              <div class="gallery-strip-item" style="flex: ${item.ratio} ${item.ratio} 0px;" data-category="${item.category}" data-index="${globalIndex}" >
+                <img src="${item.src}" alt="${item.alt}" loading="lazy">
+              </div>
+            `;
+          });
+          html += `</div>`;
+        });
+
+        container.innerHTML = html;
+        container.style.opacity = '1';
+      }, 220);
+    }
+let currentFilter = 'all';
+let activeDataset = typeof GALLERY_DATA !== 'undefined' ? [...GALLERY_DATA] : [];
+
+
+/* ========== PAGE BOOTSTRAPS (Next.js-safe: callable after load + on route change) ========== */
+(function () {
+  function safe(fn) { try { fn(); } catch (e) { console.warn('[nami]', e); } }
+
+  window.__namiPageCleanup = window.__namiPageCleanup || [];
+
+  window.cleanupNamiPageFeatures = function cleanupNamiPageFeatures() {
+    (window.__namiPageCleanup || []).forEach(function (fn) {
+      try { fn(); } catch (e) {}
+    });
+    window.__namiPageCleanup = [];
+  };
+
+  window.initNamiPageFeatures = function initNamiPageFeatures() {
+    // Always cleanup previous page bindings first (SPA navigations)
+    window.cleanupNamiPageFeatures();
+
+    safe(function () {
+      if (typeof initHorizontalPillarsScroll === 'function' && document.getElementById('pillarsPinnedContainer')) {
+        initHorizontalPillarsScroll();
+      }
+    });
+    safe(function () {
+      if (typeof initImageRevealAnimation === 'function' && document.querySelector('.reveal-on-scroll')) {
+        initImageRevealAnimation();
+      }
+    });
+    safe(function () {
+      if (typeof initZigZagParallax === 'function' && document.querySelector('.feature-edge-row')) {
+        initZigZagParallax();
+      }
+    });
+    safe(function () {
+      if (typeof initWaveVideoSync === 'function' && document.querySelector('.wave-video-strap video')) {
+        initWaveVideoSync();
+      }
+    });
+    safe(function () {
+      if (typeof initMenuScrollSpy === 'function' && document.getElementById('menuPanels')) {
+        initMenuScrollSpy();
+      }
+    });
+    safe(function () {
+      if (typeof filterGallery === 'function' && document.getElementById('galleryStripsContainer')) {
+        filterGallery('all');
+      }
+    });
+    safe(function () {
+      if (typeof initEventListHover === 'function' && document.querySelector('.event-list-row')) {
+        initEventListHover();
+      }
+    });
+    safe(function () {
+      if (typeof initMediaSlider === 'function' && document.getElementById('mediaSliderContainer')) {
+        // media slider self-inits via IIFE on first parse; re-call only if exposed
+        if (!document.getElementById('mediaSliderContainer').dataset.namiInited) {
+          document.getElementById('mediaSliderContainer').dataset.namiInited = '1';
+        }
+      }
+    });
+
+    // Ensure wave / hero videos play after client nav
+    document.querySelectorAll('video.wave-strap-media, video.hero-bg-media, video.splash-video').forEach(function (v) {
+      try { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+    });
+  };
+
+  // Run once when script evaluates (DOM usually ready under Next afterInteractive)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      window.initNamiPageFeatures();
+    });
+  } else {
+    window.initNamiPageFeatures();
   }
 })();
+

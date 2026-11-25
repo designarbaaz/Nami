@@ -1,0 +1,246 @@
+<section id="programming" class="event-calendar-section" aria-label="What’s On at Nami">
+      <!-- Background Media Wrap with Subtle Parallax -->
+      <div class="event-parallax-media-wrap">
+        <img src="/assets/Event-bg.avif" alt="Nami Acoustic Space & Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
+      </div>
+      <!-- Atmospheric film overlay -->
+      <div class="event-parallax-overlay"></div>
+
+      <!-- Transparent Calendar Container Over Image -->
+      <div class="event-calendar-container">
+        <!-- Section Heading -->
+        <div class="cal-header-block">
+          <h2 class="section-heading" style="margin: 0;"><span class="grad-accent">What’s On at</span> Nami</h2>
+        </div>
+
+        <!-- 7-Column Calendar Grid Wrapper -->
+        <div class="cal-grid-scroll-wrap">
+          <div class="cal-grid-table">
+            <!-- Day of Week Header Row -->
+            <div class="cal-dow-row">
+              <div class="cal-dow-col">MON</div>
+              <div class="cal-dow-col">TUE</div>
+              <div class="cal-dow-col">WED</div>
+              <div class="cal-dow-col">THU</div>
+              <div class="cal-dow-col">FRI</div>
+              <div class="cal-dow-col">SAT</div>
+              <div class="cal-dow-col">SUN</div>
+            </div>
+
+            <!-- Calendar Days (35 Blocks: 5 rows x 7 cols) -->
+            <div class="cal-days-grid" id="calDaysGrid">
+              <!-- ROW 1: Days 1 to 7 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">1</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">2</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">3</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">4</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">5</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">6</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">7</span></div>
+              </div>
+
+              <!-- ROW 2: Days 8 to 14 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">8</span></div>
+              </div>
+              <!-- Event Day 9: Atushi Maeda (Column 2) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">9</span>
+                  <span class="cal-badge">440 Hz</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Atushi Maeda</div>
+                  <div class="cal-event-meta">20:30 · Ambient & Jazz</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">10</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">11</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">12</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">13</span></div>
+              </div>
+              <!-- Event Day 14: Mogasu (Column 7) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">14</span>
+                  <span class="cal-badge">Warm Freq</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Mogasu</div>
+                  <div class="cal-event-meta">18:00 · Vinyl Soul</div>
+                </div>
+              </a>
+
+              <!-- ROW 3: Days 15 to 21 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">15</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">16</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">17</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">18</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">19</span></div>
+              </div>
+              <!-- Event Day 20: Yousuke Yukimatsu (Headline - Column 6) -->
+              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">20</span>
+                  <span class="cal-badge badge-headline">3968 Hz Special</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Yousuke Yukimatsu</div>
+                  <div class="cal-event-meta">20:30 · Avant-Garde & Bass</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">21</span></div>
+              </div>
+
+              <!-- ROW 4: Days 22 to 28 -->
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">22</span></div>
+              </div>
+              <!-- Event Day 23: Occa (Column 2) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">23</span>
+                  <span class="cal-badge">Resonant</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Occa</div>
+                  <div class="cal-event-meta">20:30 · Hypnotic Sound</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">24</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">25</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">26</span></div>
+              </div>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">27</span></div>
+              </div>
+              <!-- Event Day 28: Suze Ijo (Column 7) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">28</span>
+                  <span class="cal-badge">Electric</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Suze Ijo</div>
+                  <div class="cal-event-meta">19:00 · Afro-Cuban Beats</div>
+                </div>
+              </a>
+
+              <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
+              <!-- Event Day 29: Sunju Hargun (Column 1) -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">29</span>
+                  <span class="cal-badge">Nocturnal</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Sunju Hargun</div>
+                  <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
+                </div>
+              </a>
+              <div class="cal-cell">
+                <div class="cal-cell-top"><span class="cal-cell-num">30</span></div>
+              </div>
+              <!-- 5 empty cells matching reference layout -->
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+
+              <!-- IN-PLACE COLUMN EXPANDED EVENT POPUP (NO BACKGROUND BLUR) -->
+              <div class="cal-column-popup" id="calColumnPopup" aria-hidden="true">
+                <div class="col-popup-body">
+                  <div class="col-popup-media">
+                    <img src="/assets/spin-gallery-1.avif" alt="Event Poster" class="col-popup-img" id="colPopupImg">
+                    <!-- Subtle top vignette for contrast over any image -->
+                    <div class="col-popup-top-vignette"></div>
+                    <div class="col-popup-img-grad"></div>
+                    <!-- Date & Close Button floating directly over the image (no noisy background) -->
+                    <div class="col-popup-header">
+                      <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                      <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-popup-info">
+                    <div class="col-popup-badge-wrap">
+                      <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
+                    </div>
+                    <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient · Spiritual Jazz · 20:30 (Doors 19:00)</div>
+
+                    <p class="col-popup-desc" id="colPopupDesc">
+                      Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
+                    </p>
+
+                    <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup()">
+                      <span>Buy Ticket</span>
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile scroll swipe hint -->
+        <div class="cal-scroll-hint" aria-hidden="true">
+          <span>← Swipe to explore full calendar →</span>
+        </div>
+
+        <!-- Explore More CTA -->
+        <div class="cal-explore-wrap">
+          <a href="whats-on.html" class="btn-cal-explore">
+            <span>Explore More</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="8" x2="13" y2="8"></line>
+              <polyline points="9 4 13 8 9 12"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>

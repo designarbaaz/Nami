@@ -1,20 +1,12 @@
 // @ts-nocheck
+"use client";
 
 export default function Hero() {
   return (
     <>
       <section id="hero" className="hero-entrance">
           {/* Looping Vinyl Video Background (Safari-Optimized, Audio-Free, Zero Ghost Logo) */}
-          {/* No poster attr — still posters caused a multi-second splash on reload */}
-          <video
-            className="hero-bg-media"
-            autoPlay
-            muted
-            loop
-            playsInline
-            disablePictureInPicture
-            preload="auto"
-          >
+          <video className="hero-bg-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
             <source src="/assets/vinyl-loop.mp4" type="video/mp4" />
           </video>
       
@@ -158,7 +150,7 @@ export default function Hero() {
           </div>
       
           {/* Scroll down indicator with custom wave arrow */}
-          <a href="#philosophy" className="hero-scroll-cue">
+          <a href="/#philosophy" className="hero-scroll-cue">
             <span>SCROLL TO EXPLORE</span>
             <img src="/assets/down-arrow-flat.svg" alt="Scroll Down" className="cue-wave-arrow" />
           </a>

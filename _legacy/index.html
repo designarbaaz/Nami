@@ -5,23 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAMI — Hi-Fi Listening Room & Dining Experience</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <!-- Adobe Typekit: Savate -->
-  <link rel="stylesheet" href="https://use.typekit.net/wmt0aje.css">
 
-  <!-- Google Fonts: Chivo -->
+  <!-- Google Fonts: Chivo (Single Unified Brand Typeface) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --font-heading: "savate", sans-serif;
+      --font-heading: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg-black: #070707;
       --bg-surface: rgba(18, 18, 18, 0.85);
       --bg-surface-elevated: rgba(26, 26, 26, 0.92);
       --border-subtle: rgba(255, 255, 255, 0.1);
       --border-accent: rgba(232, 66, 67, 0.45);
-      --text-primary: #FFFFFF;
+      --text-primary: #c0c0c0;
       --text-secondary: #A6A6A6;
       --text-muted: #6C6C6C;
       
@@ -32,11 +30,11 @@
       --c-pink: #FFAABD;
       --c-blue: #004F9D;
 
-      /* Approved Gradients */
-      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
-      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
-      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.16) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+      /* Approved Gradients (Subtle Nocturnal Refinement) */
+      --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
+      --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
     * {
@@ -132,7 +130,7 @@
       display: inline-flex;
       align-items: center;
       text-decoration: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       opacity: 0;
       transform: translateY(-8px);
       transition: opacity 0.35s ease, transform 0.35s ease;
@@ -163,33 +161,32 @@
       pointer-events: auto;
     }
 
-    /* Circular Page Scroller: ( I ) ~ ( P ) ~ ( S ) ~ ( M ) ~ ( R ) */
+    /* =========================================================
+       CIRCULAR PAGE SCROLLER: RESOR HI-FI ROTARY MIXER KNOBS
+       ========================================================= */
     .section-scroller {
       display: flex;
       align-items: center;
       background: transparent;
       border: none;
       padding: 0;
-      gap: 0;
+      gap: 0rem;
     }
 
     .scroller-node {
       display: flex;
       align-items: center;
+      justify-content: center;
       position: relative;
       z-index: 2;
     }
 
     .scroller-btn {
-      width: 34px;
-      height: 34px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: rgba(10, 10, 10, 0.45);
-      border: 1.5px solid #FFFFFF;
-      color: #FFFFFF;
-      font-family: 'Chivo', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
+      background: transparent;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -197,45 +194,139 @@
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .scroller-btn:hover {
-      border-color: var(--c-orange);
-      color: var(--c-orange);
-      transform: scale(1.08);
+    .knob-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
     }
 
-    .scroller-btn.active {
-      background: var(--c-orange);
-      border-color: #FFFFFF;
+    /* Outer Scale Graduation Ticks (Mixer Faceplate Scale) */
+    .knob-ticks { display: none !important; }
+    .knob-ticks line {
+      stroke: rgba(255, 255, 255, 0.45);
+      stroke-width: 0.85px;
+      stroke-linecap: round;
+      transition: stroke 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* Rotary Dial Body & Position Notch (Turns on Hover & Active) */
+    .knob-rotor {
+      transform-box: view-box;
+      transform-origin: 12px 12.2px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .knob-dial {
+      fill: rgba(14, 14, 14, 0.94);
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 0.95px;
+      transition: fill 0.25s ease, stroke 0.25s ease, filter 0.25s ease;
+    }
+
+    .knob-notch,
+    .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+      stroke-width: 0.45px;
+      transition: fill 0.25s ease, stroke 0.25s ease;
+    }
+
+    /* Center Section Letter */
+    .knob-label {
+      position: relative;
+      z-index: 3;
+      font-family: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
       color: #FFFFFF;
-      box-shadow: 0 0 16px rgba(230, 85, 0, 0.6);
-      transform: scale(1.08);
-    }
-
-    /* Wave Separator between buttons (wave-1.svg and wave-2.svg) */
-    .scroller-wave-sep {
-      width: 28px;
-      height: 12px;
-      margin: 0 -2px;
-      display: block;
-      flex-shrink: 0;
+      line-height: 1;
       pointer-events: none;
       user-select: none;
-      z-index: 1;
-      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+      margin-top: 1px;
+      transition: color 0.25s ease;
+    }
+
+    /* Tactile Click Feel */
+    .scroller-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Hover State: Knob Turns on Mixer (Clockwise ~48deg Rotation) */
+    .scroller-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .scroller-btn:hover .knob-rotor {
+      transform: rotate(48deg);
+    }
+
+    .scroller-btn:hover .knob-ticks { display: none !important; }
+    .knob-ticks line {
+      stroke: rgba(255, 255, 255, 0.82);
+    }
+
+    .scroller-btn:hover .knob-dial {
+      stroke: var(--c-orange);
+      fill: rgba(24, 20, 18, 0.96);
+    }
+
+    .scroller-btn:hover .knob-notch,
+    .scroller-btn:hover .knob-notch-tip {
+      fill: var(--c-orange);
+      stroke: var(--c-orange);
+    }
+
+    /* Active State: Section Engaged / Dialed In */
+    .scroller-btn.active {
+      transform: scale(1.06);
+    }
+
+    .scroller-btn.active .knob-rotor {
+      transform: rotate(45deg);
+    }
+
+    .scroller-btn.active .knob-ticks { display: none !important; }
+    .knob-ticks line {
+      stroke: rgba(244, 143, 36, 0.75);
+    }
+
+    .scroller-btn.active .knob-dial {
+      fill: var(--c-orange);
+      stroke: #FFFFFF;
+      filter: drop-shadow(0 0 10px rgba(244, 143, 36, 0.65));
+    }
+
+    .scroller-btn.active .knob-notch,
+    .scroller-btn.active .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+    }
+
+    .scroller-btn.active .knob-label {
+      color: #FFFFFF;
+    }
+
+    .scroller-btn.active:hover .knob-rotor {
+      transform: rotate(62deg);
     }
 
     /* Tooltip on hover */
     .scroller-btn .tooltip {
       position: absolute;
-      top: 36px;
+      top: 52px;
       left: 50%;
       transform: translateX(-50%) translateY(4px);
       background: #111111;
       border: 1px solid var(--border-subtle);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: 'Chivo', sans-serif;
       font-size: 0.68rem;
       font-weight: 600;
@@ -326,7 +417,7 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      color: #fff;
+      color: #c0c0c0;
       font-size: 1.2rem;
       cursor: pointer;
       display: flex;
@@ -359,9 +450,10 @@
     }
 
     .drawer-nav-item {
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-size: clamp(2.2rem, 3.8vw, 3.5rem);
-      font-weight: 700;
+      font-weight: 100 !important;
+      text-transform: capitalize;
       text-decoration: none;
       transition: transform 0.25s, color 0.25s;
       display: inline-flex;
@@ -427,6 +519,7 @@
     }
 
     .drawer-image-caption {
+      display: none !important;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -479,7 +572,7 @@
       font-size: 0.75rem;
       font-weight: 700;
       color: var(--c-orange);
-      text-transform: uppercase;
+      text-transform: none;
       margin-bottom: 0.5rem;
     }
 
@@ -565,11 +658,12 @@
     }
 
     .hero-welcome-strap {
-      margin-top: 1.5rem;
+      margin-top: clamp(2.8rem, 4.5vw, 4rem);
       font-size: clamp(0.75rem, 1.05vw, 0.95rem);
       font-family: 'Chivo', sans-serif;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
+      color: #c0c0c0;
+      letter-spacing: 0;
       text-transform: uppercase;
     }
 
@@ -595,7 +689,7 @@
     }
 
     .hero-scroll-cue:hover {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .cue-wave-arrow {
@@ -647,7 +741,7 @@
     .track-title {
       font-size: 0.85rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
       line-height: 1.2;
     }
 
@@ -660,7 +754,7 @@
     .btn-audio-toggle {
       background: transparent;
       border: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -733,7 +827,7 @@
       justify-content: center;
       gap: 0.8rem;
       background: var(--grad-flare);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
@@ -846,14 +940,14 @@
       font-family: var(--font-heading);
       font-size: 1.85rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
       line-height: 1.15;
     }
 
     .reserve-modal-close {
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #FFFFFF;
+      color: #c0c0c0;
       width: 36px;
       height: 36px;
       display: flex;
@@ -911,7 +1005,7 @@
       width: 100%;
       background: #121216;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.86rem;
       padding: 0.75rem 0.85rem;
@@ -934,7 +1028,7 @@
       justify-content: center;
       gap: 0.65rem;
       background: var(--grad-flare);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
@@ -1005,7 +1099,8 @@
       margin-bottom: 1.25rem;
     }
 
-    .section-heading span.grad-accent {
+    .section-heading span.grad-accent,
+    .philosophy-minimal-title span.grad-accent {
       background: var(--grad-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1068,7 +1163,7 @@
       background: #141414;
       border: none !important;
       outline: none !important;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82);
       transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1092,26 +1187,22 @@
     }
 
     .phil-card:hover .phil-card-inner {
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.92);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.94);
       border: none !important;
       outline: none !important;
-      transform: translateY(-4px) scale(1.05);
+      transform: translateY(-4px) scale(1.04);
     }
 
     .phil-card:hover .phil-card-img {
-      transform: scale(1.08);
+      transform: scale(1.06);
       filter: brightness(1.05) contrast(1.08);
     }
 
-    /* Specific Card Sizes (Dynamic Editorial Randomized Proportions & Asymmetry) */
-    .phil-card-1 { width: 56px;  height: 76px; }  /* Top Center (Tiny Accent) */
-    .phil-card-2 { width: 138px; height: 178px; } /* Top Left (Large Anchor) */
-    .phil-card-3 { width: 84px;  height: 110px; } /* Mid Left (Small Indented) */
-    .phil-card-4 { width: 116px; height: 150px; } /* Bottom Left (Medium) */
-    .phil-card-5 { width: 130px; height: 168px; } /* Top Right (Large Anchor) */
-    .phil-card-6 { width: 76px;  height: 100px; } /* Mid Right (Small Indented) */
-    .phil-card-7 { width: 122px; height: 158px; } /* Bottom Right (Medium-Large) */
-    .phil-card-8 { width: 62px;  height: 82px; }  /* Bottom Center (Tiny Accent) */
+    /* Curated 4-Corner Editorial Anchors (Uncluttered, High-Impact Breathing Space) */
+    .phil-card-1 { width: clamp(140px, 11vw, 175px); height: clamp(185px, 14.5vw, 230px); } /* Top Left Anchor */
+    .phil-card-2 { width: clamp(130px, 10vw, 155px); height: clamp(170px, 13vw, 205px); }   /* Bottom Left Anchor */
+    .phil-card-3 { width: clamp(135px, 10.5vw, 165px); height: clamp(178px, 13.8vw, 218px); } /* Top Right Anchor */
+    .phil-card-4 { width: clamp(145px, 11.5vw, 180px); height: clamp(190px, 15vw, 236px); }  /* Bottom Right Anchor */
 
     /* Center Content Stage */
     .philosophy-minimal-content {
@@ -1129,9 +1220,9 @@
     .philosophy-minimal-title {
       font-family: var(--font-heading);
       font-size: clamp(2.4rem, 5.2vw, 4.4rem);
-      font-weight: 400;
+      font-weight: 700;
       line-height: 1.15;
-      color: #FFFFFF;
+      color: #c0c0c0;
       margin: 0 0 1.5rem 0;
       text-wrap: balance;
       position: relative;
@@ -1152,7 +1243,7 @@
       align-items: center;
       justify-content: center;
       background: var(--grad-flare);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -1359,7 +1450,7 @@
       font-size: 0.95rem;
       font-weight: 800;
       letter-spacing: 0.06em;
-      color: #FFFFFF;
+      color: #c0c0c0;
       border-right: 1px solid rgba(255, 255, 255, 0.38);
       user-select: none;
     }
@@ -1390,7 +1481,7 @@
       background: transparent;
       transition: background 0.22s ease, transform 0.22s ease;
       text-decoration: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       box-sizing: border-box;
       text-align: left;
       overflow: hidden;
@@ -1423,7 +1514,7 @@
       font-family: var(--font-body);
       font-size: 1.35rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #c0c0c0;
       line-height: 1;
       letter-spacing: 0;
     }
@@ -1449,7 +1540,40 @@
     }
 
     .cal-cell.has-event.grad-variant-flare {
-      background: var(--grad-flare) !important;
+      background: linear-gradient(135deg, #08437F 0%, #03254C 50%, #021426 100%) !important;
+    }
+
+    /* Explore More CTA below calendar */
+    .cal-explore-wrap {
+      margin-top: 2.75rem;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .btn-cal-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--grad-primary);
+      color: #c0c0c0;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 2.25rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-cal-explore:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(217, 119, 24, 0.35);
     }
 
     .cal-cell.has-event:hover {
@@ -1475,7 +1599,7 @@
       text-transform: uppercase;
       background: rgba(0, 0, 0, 0.45);
       border: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       padding: 3px 8px;
       border-radius: 999px;
       letter-spacing: 0;
@@ -1486,7 +1610,7 @@
     .badge-headline {
       background: rgba(255, 255, 255, 0.28);
       border: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .cal-event-body {
@@ -1501,7 +1625,7 @@
       font-family: var(--font-heading);
       font-size: 1.18rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
       line-height: 1.15;
       letter-spacing: 0;
       word-break: break-word;
@@ -1600,7 +1724,7 @@
       border-radius: 0 !important;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #FFFFFF;
+      color: #c0c0c0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1702,7 +1826,7 @@
       font-family: var(--font-body);
       font-size: 0.66rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #c0c0c0;
       background: var(--grad-primary);
       border: none;
       padding: 3px 8px;
@@ -1716,7 +1840,7 @@
       font-family: var(--font-heading);
       font-size: 1.35rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
       line-height: 1.16;
       margin: 0 0 0.3rem;
       letter-spacing: 0;
@@ -1746,7 +1870,7 @@
       gap: 0.55rem;
       width: 100%;
       background: var(--grad-flare);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
@@ -1851,10 +1975,10 @@
       background: #070707;
     }
 
-    /* LEFT PANE: 50% Width Category-Themed Canvas (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD) */
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Subtle Nocturnal Gradients) */
     .menu-panel-editorial {
-      background-color: #E84243;
-      color: #FFFFFF;
+      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
+      color: #c0c0c0;
       position: relative;
       height: 100vh;
       width: 100%;
@@ -1863,7 +1987,7 @@
       border-right: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
-      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Editorial Slides (Left Column - Clean Centered Layout) */
@@ -1883,32 +2007,32 @@
       box-sizing: border-box;
     }
 
-    /* Category Specific Background Colors */
+    /* Category Specific Background Subtle Gradients */
     .menu-editorial-slide[data-phase="0"] {
-      background-color: #E84243;
-      color: #FFFFFF;
+      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="1"] {
-      background-color: #004F9D;
-      color: #FFFFFF;
+      background: linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%);
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] {
-      background-color: #FFAABD;
-      color: #070707;
+      background: linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%);
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-title {
-      color: #070707;
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
-      color: #070707;
+      color: #c0c0c0;
     }
 
     .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
-      color: rgba(7, 7, 7, 0.82);
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .menu-editorial-slide.active {
@@ -1931,9 +2055,9 @@
       font-weight: 700;
       font-size: clamp(3.2rem, 5.2vw, 5rem);
       letter-spacing: -0.02em;
-      color: #FFFFFF;
+      color: #c0c0c0;
       margin: 0;
-      text-transform: lowercase;
+      text-transform: capitalize;
       line-height: 1;
     }
 
@@ -1982,29 +2106,25 @@
     }
 
     .menu-ed-item-name {
-      font-family: var(--font-body);
-      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
-      font-weight: 700;
-      color: #FFFFFF;
-      margin: 0 0 0.35rem;
-      line-height: 1.25;
+      display: none !important;
     }
 
     .menu-ed-item-desc {
       font-family: var(--font-body);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.9);
       max-width: 360px;
-      margin: 0 auto 1.15rem;
-      line-height: 1.5;
+      margin: 0 auto 1.35rem;
+      line-height: 1.55;
     }
 
+    /* Food & Drinks Buttons: Strictly White & Black Matching Background & Copy */
     .btn-menu-view-full {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #FFFFFF;
+      background: #FFFFFF;
+      color: #000000;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -2012,14 +2132,31 @@
       text-transform: uppercase;
       padding: 0.8rem 2.2rem;
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       cursor: pointer;
       box-shadow: none !important;
-      transition: filter 0.2s ease, transform 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-menu-view-full:hover {
-      filter: brightness(1.12);
+      background: #000000;
+      color: #c0c0c0;
+      border-color: #000000;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: none !important;
+    }
+
+    /* Phase 2 (Dessert): Light Background & Black Copy -> Solid Black Button with White Text */
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
+      background: #000000;
+      color: #c0c0c0;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
+      background: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
       transform: translateY(-2px) scale(1.03);
       box-shadow: none !important;
     }
@@ -2134,7 +2271,7 @@
       font-family: var(--font-heading);
       font-size: 1.6rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
       margin: 0;
       letter-spacing: -0.01em;
     }
@@ -2145,7 +2282,7 @@
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
@@ -2177,7 +2314,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
+      text-transform: none;
       color: rgba(255, 255, 255, 0.5);
       padding: 1rem 0;
       cursor: pointer;
@@ -2187,7 +2324,7 @@
     }
 
     .full-menu-tab-btn:hover {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .full-menu-tab-btn.active {
@@ -2247,7 +2384,7 @@
       font-family: var(--font-body);
       font-size: 0.94rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .dish-item-price {
@@ -2288,7 +2425,7 @@
       align-items: center;
       justify-content: center;
       background: var(--grad-flare);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -2439,13 +2576,365 @@
       }
     }
 
+    /* =========================================================
+       SECTION: IN THE NEWS / MEDIA MENTIONS (ONE NEWS PER SLIDE)
+       ========================================================= */
+    .section-media-mentions {
+      padding: 120px 0;
+      background: #070707;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: none;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+      scroll-margin-top: 5rem;
+    }
+
+    /* Ambient Nocturnal Glow beneath mentions */
+    .section-media-mentions::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(900px, 92vw);
+      height: 420px;
+      background: radial-gradient(ellipse at center, rgba(244, 143, 36, 0.038) 0%, rgba(200, 36, 44, 0.018) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .media-mentions-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    /* One News Per Slide Carousel Container */
+    .media-slider-container {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 5vw, 4rem);
+      box-sizing: border-box;
+    }
+
+    .media-slider-viewport {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .media-slider-track {
+      display: flex;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      width: 100%;
+    }
+
+    .media-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vw, 2.5rem);
+      gap: clamp(1.75rem, 3.5vh, 2.5rem);
+      opacity: 0.25;
+      transform: scale(0.96);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .media-slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Media Logo */
+    .media-logo-wrap {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.92);
+      transition: transform 0.3s ease;
+    }
+
+    .media-logo-svg {
+      height: 28px;
+      width: auto;
+      max-width: 240px;
+      display: block;
+    }
+
+    /* Prominent Editorial Headline / Quote */
+    .media-slide-quote {
+      font-family: var(--font-body);
+      font-size: clamp(1.35rem, 2.35vw, 2.15rem);
+      line-height: 1.44;
+      font-weight: 300;
+      color: #c0c0c0;
+      letter-spacing: -0.015em;
+      margin: 0;
+      max-width: 860px;
+    }
+
+    /* Read Full Article CTA (Text Only Button Style) */
+    .media-card-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.25rem;
+    }
+
+    .media-card-cta {
+      font-family: var(--font-heading);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.58);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 4px;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .media-cta-arrow {
+      transition: transform 0.25s ease;
+      color: inherit;
+    }
+
+    .media-card-cta:hover {
+      color: var(--c-orange);
+      border-bottom-color: var(--c-orange);
+      transform: translateY(-1px);
+    }
+
+    .media-card-cta:hover .media-cta-arrow {
+      transform: translate(2px, -2px);
+    }
+
+    /* Carousel Navigation Arrows */
+    .media-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(18, 18, 18, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 5;
+      padding: 0;
+      outline: none;
+    }
+
+    .media-nav-arrow:hover {
+      border-color: var(--c-orange);
+      color: #c0c0c0;
+      background: rgba(244, 143, 36, 0.12);
+      box-shadow: 0 0 14px rgba(244, 143, 36, 0.3);
+    }
+
+    .media-nav-arrow.prev {
+      left: 0;
+    }
+
+    .media-nav-arrow.next {
+      right: 0;
+    }
+
+    /* Pagination Dots (Matching Reference ● ○ ○) */
+    .media-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: clamp(2.5rem, 4vh, 3.5rem);
+    }
+
+    .media-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      padding: 0;
+      outline: none;
+      transition: all 0.28s ease;
+    }
+
+    .media-dot:hover {
+      border-color: rgba(255, 255, 255, 0.7);
+      transform: scale(1.15);
+    }
+
+    .media-dot.active {
+      background: var(--c-orange);
+      border-color: var(--c-orange);
+      transform: scale(1.25);
+      box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .section-media-mentions {
+        padding: clamp(4.5rem, 10vh, 120px) 0;
+      }
+      .media-slider-container {
+        padding: 0 0;
+      }
+      .media-nav-arrow {
+        display: none;
+      }
+      .media-slide {
+        padding: 1rem 0.5rem;
+        gap: 1.75rem;
+      }
+      .media-slide-quote {
+        font-size: 1.25rem;
+        line-height: 1.45;
+      }
+      footer.site-footer {
+        padding: clamp(4.5rem, 10vh, 120px) 1.5rem 0 !important;
+      }
+    }
+
+    /* =========================================================
+       SECTION: INSTAGRAM FEED BANNER STRAP (JUST ABOVE FOOTER)
+       ========================================================= */
+    .section-insta-strap {
+      padding: 0;
+      margin: 0;
+      background: #070707;
+      position: relative;
+      border: none;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    /* Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) */
+    .insta-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+      background: #070707;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .insta-post-card {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 0;
+      background: #0d0d0d;
+      border: none;
+      display: block;
+      text-decoration: none;
+    }
+
+    .insta-post-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease;
+      filter: brightness(0.92) contrast(1.04);
+    }
+
+    .insta-post-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(7, 7, 7, 0.68);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      padding: 1rem;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+
+    .insta-overlay-icon {
+      width: 24px;
+      height: 24px;
+      transform: translateY(6px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-post-action {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c0c0c0;
+      transform: translateY(6px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-post-card:hover .insta-post-img {
+      transform: scale(1.06);
+      filter: brightness(1.06) contrast(1.08);
+    }
+
+    .insta-post-card:hover .insta-post-overlay {
+      opacity: 1;
+    }
+
+    .insta-post-card:hover .insta-overlay-icon,
+    .insta-post-card:hover .insta-post-action {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .insta-feed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .insta-feed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     /* FOOTER */
     /* =========================================================
        FOOTER: EDITORIAL LUXURY & GIANT NAMI LOGO (REFERENCE MATCH)
        ========================================================= */
     footer.site-footer {
-      border-top: none;
-      padding: 6rem 2.5rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 120px 2.5rem 0;
       background: #070707;
       position: relative;
       z-index: 10;
@@ -2507,7 +2996,7 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-size: 0.8rem;
       font-weight: 600;
       padding: 0.75rem 1.4rem;
@@ -2536,8 +3025,8 @@
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(255, 255, 255, 0.42);
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.45);
       display: block;
       margin-bottom: 1.15rem;
     }
@@ -2572,50 +3061,86 @@
       transform: translateX(2px);
     }
 
-    /* Bottom Huge NAMI Logo Bleeding into Edge (Reference Match) */
-    .footer-giant-logo-wrap {
+    /* Centered Minimal Metadata Bar (Positioned Directly Above Vinyl, Zero Borders) */
+    .footer-mid-bar {
       width: 100%;
-      position: relative;
-      margin-top: 1.5rem;
-      margin-bottom: -1.2rem;
+      max-width: 1240px;
+      margin: 0 auto 1.8rem;
+      padding: 0;
+      border: none !important;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    .footer-giant-logo {
-      width: 100%;
-      max-width: 1320px;
-      height: auto;
-      display: block;
-      overflow: visible !important;
-      filter: drop-shadow(0 15px 45px rgba(0, 0, 0, 0.95));
-      opacity: 0.96;
-    }
-
-    .footer-bottom-bar {
-      max-width: 1240px;
-      margin: 1.5rem auto 0;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      justify-content: space-between;
       align-items: center;
+      text-align: center;
       font-family: var(--font-body);
-      font-size: 0.74rem;
-      color: rgba(255, 255, 255, 0.48);
-      letter-spacing: 0.04em;
+      font-size: clamp(0.68rem, 0.85vw, 0.74rem);
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    /* Bottom Rotating Half-Vinyl Record (Vinyl.svg) - Touching Footer End, 3x Speed */
+    .footer-vinyl-stage {
+      width: 100%;
+      height: clamp(180px, 24vw, 340px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+
+    .footer-vinyl-crop {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(360px, 48vw, 680px);
+      height: clamp(360px, 48vw, 680px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .footer-vinyl-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+      animation: spinFooterVinyl 9.33s linear infinite;
+      will-change: transform;
+      filter: drop-shadow(0 -15px 45px rgba(244, 143, 36, 0.22)) drop-shadow(0 25px 60px rgba(0, 0, 0, 0.95));
+    }
+
+    .footer-vinyl-glow {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 143, 36, 0.16) 0%, rgba(201, 114, 255, 0.05) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
+    @keyframes spinFooterVinyl {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 992px) {
       .footer-top-grid {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-      }
-      .footer-giant-logo-wrap {
-        margin-bottom: -0.6rem;
       }
     }
 
@@ -2624,10 +3149,12 @@
         grid-template-columns: 1fr;
         gap: 1.75rem;
       }
-      .footer-bottom-bar {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+      .footer-mid-bar {
+        white-space: normal;
+        line-height: 1.6;
+        padding: 0 1rem;
+        font-size: 0.68rem;
+        margin: 0 auto 1.25rem;
       }
     }
 
@@ -2657,6 +3184,10 @@
 
     @media (max-width: 650px) {
       header.site-header { padding: 1rem 1.25rem; }
+      .section-scroller { gap: 0rem; }
+      .scroller-btn { width: 38px; height: 38px; }
+      .knob-label { font-size: 0.74rem; }
+      .scroller-btn .tooltip { top: 44px; }
       .now-playing-widget {
         bottom: 1rem;
         left: 1rem;
@@ -2701,31 +3232,39 @@
         max-height: 100vh;
         padding: 0 1.25rem; 
       }
-      .phil-card-1, .phil-card-3, .phil-card-4, .phil-card-5, .phil-card-6, .phil-card-8 {
+      .phil-card-2, .phil-card-3 {
         display: none !important;
       }
-      .phil-card-2 {
+      .phil-card-1 {
         top: 3% !important;
         left: 2% !important;
-        width: 72px !important;
-        height: 92px !important;
-        opacity: 0.55;
+        width: 96px !important;
+        height: 124px !important;
+        opacity: 0.65;
         pointer-events: none;
       }
-      .phil-card-7 {
+      .phil-card-4 {
         bottom: 3% !important;
         right: 2% !important;
-        width: 72px !important;
-        height: 92px !important;
-        opacity: 0.55;
+        width: 96px !important;
+        height: 124px !important;
+        opacity: 0.65;
         pointer-events: none;
       }
     }
 
-    @media (max-width: 1100px) {
-      .phil-card-3, .phil-card-6, .phil-card-8 {
-        display: none !important;
+    @media (max-width: 1280px) {
+      .phil-card-2 {
+        left: 7% !important;
+        top: 59% !important;
       }
+      .phil-card-4 {
+        right: 6% !important;
+        top: 64% !important;
+      }
+    }
+
+    @media (max-width: 1100px) {
       .phil-card {
         transform: scale(0.85);
       }
@@ -2746,9 +3285,81 @@
         height: 13px;
       }
     }
+
+    /* =========================================================
+       FULLSCREEN SPLASH SCREEN (Black Background + Centered loader-1.mp4)
+       ========================================================= */
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
+      user-select: none;
+    }
+
+    .splash-screen.splash-fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .splash-video {
+      width: min(440px, 78vw);
+      height: min(440px, 78vw);
+      max-width: 480px;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .splash-enter-text {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: normal;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .splash-screen:hover .splash-enter-text {
+      color: #c0c0c0;
+      opacity: 0.95;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Fullscreen Splash Screen with Centered Video Loader (< 4s Duration, No Skip CTA) -->
+  <div id="splashScreen" class="splash-screen" onclick="dismissSplashScreen()" role="dialog" aria-modal="true" aria-label="Loading NAMI">
+    <div class="splash-center">
+      <video id="splashVideo" class="splash-video" autoplay muted playsinline webkit-playsinline preload="auto">
+        <source src="./assets/loader-1.mp4" type="video/mp4">
+      </video>
+      <span class="splash-enter-text">Enter the Experience</span>
+    </div>
+  </div>
 
   <!-- Official Noise Texture Overlay -->
   <div id="noise-layer"></div>
@@ -2768,42 +3379,70 @@
     </div>
 
     <div class="header-nav-wrap">
-      <!-- Circular Page Scroller: ( C ) ~ ( W ) ~ ( F ) ~ ( S ) -->
+      <!-- Circular Page Scroller: Resor Rotary Mixer Knobs ( C ) ( W ) ( F ) ( S ) -->
       <nav class="section-scroller" aria-label="Section scroller">
         <!-- Node C: Concept -->
         <div class="scroller-node">
           <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Concept">
-            C
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <!-- Static Graduation Ticks (Mixer Faceplate Scale) -->
+              
+              <!-- Rotary Dial Body & Position Notch (Turns on Hover & Active) -->
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">C</span>
             <span class="tooltip">Concept</span>
           </a>
         </div>
 
-        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
         <!-- Node W: What's On -->
         <div class="scroller-node">
-          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s On">
-            W
-            <span class="tooltip">What’s On</span>
+          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s on">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">W</span>
+            <span class="tooltip">What’s on</span>
           </a>
         </div>
 
-        <img src="./assets/wave-2.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
-        <!-- Node F: Food & Drinks -->
+        <!-- Node F: Drinks & Food -->
         <div class="scroller-node">
-          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Food & Drinks">
-            F
-            <span class="tooltip">Food & Drinks</span>
+          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">F</span>
+            <span class="tooltip">Drinks & Food</span>
           </a>
         </div>
 
-        <img src="./assets/wave-1.svg" class="scroller-wave-sep" alt="" aria-hidden="true">
-
-        <!-- Node S: Our Space -->
+        <!-- Node S: Space -->
         <div class="scroller-node">
-          <a href="#space" class="scroller-btn" data-section="space" aria-label="Our Space">
-            S
+          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">S</span>
             <span class="tooltip">Our Space</span>
           </a>
         </div>
@@ -2828,16 +3467,16 @@
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
     <div class="drawer-middle">
       <nav class="drawer-nav-links" id="drawerNavLinks">
-        <a href="#philosophy" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+        <a href="concept.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
           <span class="drawer-nav-num">01</span> Concept
         </a>
         <a href="#programming" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
           <span class="drawer-nav-num">02</span> What’s On
         </a>
-        <a href="#menu" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
-          <span class="drawer-nav-num">03</span> Food & Drinks
+        <a href="drinks-food.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
-        <a href="#space" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
         <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
@@ -2848,40 +3487,38 @@
       <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
       <div class="drawer-image-wrap">
         <div class="drawer-image-card">
-          <img src="./assets/spin-gallery-8.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
-          <img src="./assets/spin-gallery-2.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
-          <img src="./assets/Event-bg.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
-          <img src="./assets/spin-gallery-7.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/spin-gallery-4.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
-          <img src="./assets/spin-gallery-6.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
-
-          <div class="drawer-image-caption">
-            <span class="drawer-caption-tag" id="drawerCaptionTag">NAMI HI-FI</span>
-            <span class="drawer-caption-sub" id="drawerCaptionSub">Listening Room & Dining</span>
-          </div>
+          <img src="./assets/nami-dj-bar.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img active" id="drawerImgDefault">
+          <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
+          <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
     </div>
 
     <div class="drawer-bottom-info">
       <div class="drawer-info-col">
-        <h4>HOURS</h4>
+        <h4>Hours</h4>
         <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
       </div>
       <div class="drawer-info-col">
-        <h4>LOCATION</h4>
+        <h4>Location</h4>
         <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
       </div>
       <div class="drawer-info-col">
-        <h4>COMMUNITY</h4>
-        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #fff; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
           <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
           <span>Join WhatsApp Group →</span>
         </a>
       </div>
       <div class="drawer-info-col">
-        <h4>INSTAGRAM</h4>
-        <a href="https://instagram.com/" target="_blank" style="color: #fff;">@nami.hifi</a>
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@namibombay</span>
+        </a>
       </div>
     </div>
   </div>
@@ -3091,59 +3728,31 @@
       <!-- Floating Image Scatter Canvas (8 Strategic Cards Matching Reference Placement) -->
       <div class="phil-scatter-wrap" id="philScatterWrap" aria-hidden="true">
 
-        <!-- Card 1: Top Center (above headline) - Fast & agile tiny accent -->
-        <div class="phil-card phil-card-1" data-speed-y="0.22" data-speed-x="0.08" data-scroll="0.48" style="top: 11%; left: 49%;">
+        <!-- Card 1: Top Left - Analog Rotary Mixer -->
+        <div class="phil-card phil-card-1" data-scroll="0.18" style="top: 12%; left: 6%;">
           <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-7.jpg" alt="Horn Acoustic Shelves" class="phil-card-img" loading="lazy">
+            <img src="./assets/nami-resor-mixer.jpg" alt="Analog Rotary Mixer VU Meter" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 2: Top Left - Heavy slow anchor -->
-        <div class="phil-card phil-card-2" data-speed-y="0.14" data-speed-x="0.10" data-scroll="0.15" style="top: 13%; left: 7%;">
+        <!-- Card 2: Bottom Left - Cocktail & Red Horn Speaker -->
+        <div class="phil-card phil-card-2" data-scroll="0.30" style="top: 59%; left: 14%;">
           <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-2.jpg" alt="Amber Pool Table" class="phil-card-img" loading="lazy">
+            <img src="./assets/nami-negroni-horn.jpg" alt="Cocktail &amp; Acoustic Horn" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 3: Mid Left (Indented inward) - Moderate-fast small card -->
-        <div class="phil-card phil-card-3" data-speed-y="0.20" data-speed-x="0.08" data-scroll="0.38" style="top: 47%; left: 14%;">
+        <!-- Card 3: Top Right - Vinyl Selector at Console -->
+        <div class="phil-card phil-card-3" data-scroll="0.22" style="top: 10%; right: 7%;">
           <div class="phil-card-inner">
-            <img src="./assets/gallery-1.jpg" alt="Acoustic Turntables" class="phil-card-img" loading="lazy">
+            <img src="./assets/nami-selector-booth.jpg" alt="Vinyl Selector at Rotary Console" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 4: Bottom Left - Medium pace card -->
-        <div class="phil-card phil-card-4" data-speed-y="0.16" data-speed-x="0.09" data-scroll="0.22" style="top: 71%; left: 5%;">
+        <!-- Card 4: Bottom Right - Candlelit Table & Highballs -->
+        <div class="phil-card phil-card-4" data-scroll="0.34" style="top: 64%; right: 20%;">
           <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-8.jpg" alt="Glassware & Amber Glow" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 5: Top Right - Slower large anchor -->
-        <div class="phil-card phil-card-5" data-speed-y="0.15" data-speed-x="-0.10" data-scroll="0.18" style="top: 11%; right: 7%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-4.jpg" alt="Nocturnal Lights" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 6: Mid Right (Indented inward) - Fast small card -->
-        <div class="phil-card phil-card-6" data-speed-y="0.22" data-speed-x="-0.08" data-scroll="0.42" style="top: 41%; right: 14%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-3.jpg" alt="Rotary DJ Booth" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 7: Bottom Right - Moderate pace medium-large card -->
-        <div class="phil-card phil-card-7" data-speed-y="0.18" data-speed-x="-0.09" data-scroll="0.28" style="top: 67%; right: 6%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-1.jpg" alt="Listening Room Booths" class="phil-card-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Card 8: Bottom Center (below copy) - Fastest tiny accent card -->
-        <div class="phil-card phil-card-8" data-speed-y="0.24" data-speed-x="0.08" data-scroll="0.52" style="top: 78%; left: 39%;">
-          <div class="phil-card-inner">
-            <img src="./assets/spin-gallery-9.jpg" alt="Low-Lit Intimate Lounge" class="phil-card-img" loading="lazy">
+            <img src="./assets/nami-guest-table.jpg" alt="Nocturnal Dining &amp; Highballs" class="phil-card-img" loading="lazy">
           </div>
         </div>
 
@@ -3153,7 +3762,7 @@
       <div class="philosophy-minimal-content">
         <h2 class="philosophy-minimal-title">
           We Don't Host Nights.<br>
-          We Compose Them.
+          <span class="grad-accent">We Compose</span> Them.
         </h2>
 
         <p class="philosophy-minimal-desc">
@@ -3199,7 +3808,7 @@
       <div class="event-calendar-container">
         <!-- Section Heading -->
         <div class="cal-header-block">
-          <h2 class="section-heading" style="margin: 0;">What’s On at <span class="grad-accent">Nami</span></h2>
+          <h2 class="section-heading" style="margin: 0;"><span class="grad-accent">What’s On at</span> Nami</h2>
         </div>
 
         <!-- 7-Column Calendar Grid Wrapper -->
@@ -3420,6 +4029,17 @@
         <div class="cal-scroll-hint" aria-hidden="true">
           <span>← Swipe to explore full calendar →</span>
         </div>
+
+        <!-- Explore More CTA -->
+        <div class="cal-explore-wrap">
+          <a href="whats-on.html" class="btn-cal-explore">
+            <span>Explore More</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="8" x2="13" y2="8"></line>
+              <polyline points="9 4 13 8 9 12"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -3435,7 +4055,7 @@
           <!-- Phase 0: Food Content -->
           <div class="menu-editorial-slide active" data-phase="0">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">food</h3>
+              <h3 class="menu-ed-title">Food</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -3443,7 +4063,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">Truffle Hamachi & Robata Wagyu</h4>
               <p class="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('food')">
                 VIEW FULL MENU →
@@ -3454,7 +4073,7 @@
           <!-- Phase 1: Cocktails Content -->
           <div class="menu-editorial-slide" data-phase="1">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">cocktails</h3>
+              <h3 class="menu-ed-title">Cocktails</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -3462,7 +4081,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">440Hz Clarified Milk Punch</h4>
               <p class="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('cocktails')">
                 VIEW FULL MENU →
@@ -3473,7 +4091,7 @@
           <!-- Phase 2: Dessert Content -->
           <div class="menu-editorial-slide" data-phase="2">
             <div class="menu-ed-top">
-              <h3 class="menu-ed-title">dessert</h3>
+              <h3 class="menu-ed-title">Dessert</h3>
             </div>
             <div class="menu-ed-frame-wrap">
               <div class="menu-ed-frame">
@@ -3481,7 +4099,6 @@
               </div>
             </div>
             <div class="menu-ed-bottom">
-              <h4 class="menu-ed-item-name">Yuzu Miso Tart & Matcha Silk</h4>
               <p class="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('dessert')">
                 VIEW FULL MENU →
@@ -3496,17 +4113,17 @@
 
           <!-- Background Image 0: Food -->
           <div class="menu-hero-slide active" data-phase="0">
-            <img src="./assets/spin-gallery-6.jpg" alt="Nocturnal Japanese Dining at Nami" class="menu-hero-bg-img">
+            <img src="./assets/nami-edamame-tart.jpg" alt="Nocturnal Japanese Dining at Nami" class="menu-hero-bg-img">
           </div>
 
           <!-- Background Image 1: Cocktails -->
           <div class="menu-hero-slide" data-phase="1">
-            <img src="./assets/spin-gallery-7.jpg" alt="Sound-Mapped Cocktails at Nami" class="menu-hero-bg-img">
+            <img src="./assets/nami-carafe-pour.jpg" alt="Sound-Mapped Cocktails at Nami" class="menu-hero-bg-img">
           </div>
 
           <!-- Background Image 2: Dessert -->
           <div class="menu-hero-slide" data-phase="2">
-            <img src="./assets/Dessert.png" alt="Delicate Plated Desserts at Nami" class="menu-hero-bg-img">
+            <img src="./assets/nami-coupe-cocktail.jpg" alt="Nocturnal Digestifs &amp; Sweets at Nami" class="menu-hero-bg-img">
           </div>
 
         </div>
@@ -3565,6 +4182,177 @@
       </div>
     </section>
 
+    <!-- 05. IN THE NEWS / MEDIA MENTIONS (ONE NEWS PER SLIDE CAROUSEL) -->
+    <section id="press" class="section-media-mentions" aria-label="In the News and Media Mentions">
+      <div class="media-mentions-container">
+        
+        <!-- Slider Wrapper (One News Per Slide) -->
+        <div class="media-slider-container" id="mediaSliderContainer">
+          
+          <!-- Navigation Arrows (Left / Right) -->
+          <button class="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="10 13 5 8 10 3"></polyline>
+            </svg>
+          </button>
+
+          <button class="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 3 11 8 6 13"></polyline>
+            </svg>
+          </button>
+
+          <!-- Viewport -->
+          <div class="media-slider-viewport">
+            <div class="media-slider-track" id="mediaSliderTrack">
+
+              <!-- Slide 1: The Economic Times -->
+              <article class="media-slide is-active" data-index="0">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg et-logo" viewBox="0 0 240 28" fill="currentColor" aria-label="The Economic Times">
+                    <text x="0" y="21" font-family="'Didot', 'Bodoni MT', 'Playfair Display', 'Times New Roman', Georgia, serif" font-size="19" font-weight="700" letter-spacing="0.4px">
+                      <tspan font-size="10.5" font-weight="600" dy="-4.5" letter-spacing="1px">THE </tspan>
+                      <tspan font-size="19" font-weight="700" dy="4.5">ECONOMIC TIMES</tspan>
+                    </text>
+                  </svg>
+                </div>
+                
+                <blockquote class="media-slide-quote">
+                  “Mumbai’s nocturnal soundscape finds its definitive temple: Nami opens in Bandra with custom-engineered horn acoustics, rare Japanese vinyl pressings, and a boundary-blurring culinary philosophy.”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on The Economic Times">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Slide 2: Business Today -->
+              <article class="media-slide" data-index="1">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg bt-logo" viewBox="0 0 200 28" fill="currentColor" aria-label="Business Today">
+                    <g transform="translate(0, 3)">
+                      <path d="M4 1.5h3.6v7.2c1-.9 2.2-1.4 3.7-1.4 3.2 0 5.4 2.3 5.4 5.9 0 3.7-2.2 6-5.4 6-1.5 0-2.7-.5-3.7-1.4v1.2H4V1.5zm3.6 11.7c0 2 1.3 3.3 2.9 3.3 1.7 0 2.9-1.3 2.9-3.3 0-2-1.2-3.3-2.9-3.3-1.6 0-2.9 1.3-2.9 3.3z"/>
+                      <path d="M21 4.5h3.6v2.8h3v3.1h-3v4.6c0 1 .4 1.5 1.4 1.5.6 0 1.1-.1 1.6-.3v3.2c-.8.3-1.9.4-2.8.4-2.4 0-3.8-1.2-3.8-3.8v-5.6H19V7.3h2V4.5z"/>
+                      <line x1="33" y1="1" x2="33" y2="21" stroke="currentColor" stroke-width="1.4" opacity="0.4"/>
+                      <text x="42" y="16.5" font-family="'Chivo', sans-serif" font-size="16.5" font-weight="800" letter-spacing="-0.3px">Business Today</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <blockquote class="media-slide-quote">
+                  “Where analog frequencies meet sensory gastronomy — Nami redefines modern listening room culture with an uncompromising acoustic sanctuary crafted for deep nocturnal listening.”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://www.businesstoday.in/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Business Today">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Slide 3: Mint Lounge -->
+              <article class="media-slide" data-index="2">
+                <div class="media-logo-wrap">
+                  <svg class="media-logo-svg mint-logo" viewBox="0 0 160 28" fill="currentColor" aria-label="Mint Lounge">
+                    <g transform="translate(0, 1)">
+                      <rect x="0" y="2" width="40" height="22" rx="11" fill="rgba(255, 255, 255, 0.22)"/>
+                      <text x="20" y="16.5" font-family="'Chivo', sans-serif" font-size="11.5" font-weight="800" fill="#c0c0c0" text-anchor="middle" letter-spacing="-0.2px">mint</text>
+                      <text x="47" y="19" font-family="'Didot', 'Bodoni MT', 'Playfair Display', 'Times New Roman', Georgia, serif" font-size="20" font-weight="700" letter-spacing="-0.5px">lounge</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <blockquote class="media-slide-quote">
+                  “Part Tokyo jazz kissa, part nocturnal cocktail bar: Inside Nami, where audiophile precision and charcoal-fired Japanese plates compose an unforgettable after-dark ritual.”
+                </blockquote>
+
+                <div class="media-card-action">
+                  <a href="https://lifestyle.livemint.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Mint Lounge">
+                    <span>Read Full Article</span>
+                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                  </a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <!-- Pagination Dots (Interactive Indicator / Slider Navigation) -->
+          <div class="media-pagination" role="tablist" aria-label="Press mentions pagination">
+            <button class="media-dot active" role="tab" aria-selected="true" aria-label="View slide 1: The Economic Times" data-index="0"></button>
+            <button class="media-dot" role="tab" aria-selected="false" aria-label="View slide 2: Business Today" data-index="1"></button>
+            <button class="media-dot" role="tab" aria-selected="false" aria-label="View slide 3: Mint Lounge" data-index="2"></button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 06. INSTAGRAM FEED BANNER STRAP (FULL-WIDTH EDGE-TO-EDGE, JUST ABOVE FOOTER) -->
+    <section id="instagram" class="section-insta-strap" aria-label="Instagram Feed @namibombay">
+      <!-- Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) -->
+      <div class="insta-feed-grid" id="instaFeedGrid">
+        <!-- Post 1: Listening Room & Bar Architecture -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Bar Counter &amp; Acoustic Architecture">
+          <img src="./assets/nami-bar-room.jpg" alt="Bar Counter &amp; Acoustic Speakers at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 2: Signature Cocktails -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Signature Coupe Cocktail">
+          <img src="./assets/nami-coupe-cocktail.jpg" alt="Signature Cocktail at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 3: Vinyl Archive Shelf -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Vinyl Record Shelves">
+          <img src="./assets/nami-erykah-vinyl.jpg" alt="Vinyl Records &amp; Red Horn Speaker at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 4: Robata Culinary Plates -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Charcoal Grilled Robata">
+          <img src="./assets/nami-robata-skewer.jpg" alt="Charcoal Grilled Robata at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 5: Spinning Turntable Decks -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Spinning Vinyl Turntables">
+          <img src="./assets/nami-turntable-hands.jpg" alt="Turntable Selector Decks at Nami" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+
+        <!-- Post 6: Listening Room Evening Atmosphere -->
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" class="insta-post-card" aria-label="Instagram post: Listening Room Evening Atmosphere">
+          <img src="./assets/nami-evening-crowd.jpg" alt="Evening Gathering at Nami Bandra" class="insta-post-img" loading="lazy">
+          <div class="insta-post-overlay">
+            <img src="./assets/Instagram.svg" alt="Instagram" class="insta-overlay-icon" width="26" height="26">
+            <span class="insta-post-action">@namibombay ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <!-- =========================================================
@@ -3591,63 +4379,50 @@
 
         <!-- Col 2: Navigation Links -->
         <div class="footer-links-col">
-          <span class="footer-col-label">navigate</span>
+          <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="#philosophy">about</a></li>
-            <li><a href="#programming">what’s on</a></li>
-            <li><a href="#menu">food & drinks</a></li>
-            <li><a href="#space">our space</a></li>
-            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">reservation</a></li>
+            <li><a href="concept.html">About</a></li>
+            <li><a href="#programming">What’s on</a></li>
+            <li><a href="drinks-food.html">Drinks & Food</a></li>
+            <li><a href="our-space.html">Our space</a></li>
+            <li><a href="#press">In the news</a></li>
+            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
 
         <!-- Col 3: Hours & Address -->
         <div class="footer-links-col">
-          <span class="footer-col-label">hours & address</span>
+          <span class="footer-col-label">HOURS & ADDRESS</span>
           <ul class="footer-nav-list">
-            <li><span>wed – sun · 7pm – late</span></li>
-            <li><span>sessions: 8:30pm onwards</span></li>
-            <li><span>bandra west, mumbai</span></li>
+            <li><span>Wed – Sun · 7pm – late</span></li>
+            <li><span>Sessions: 8:30pm onwards</span></li>
+            <li><span>Bandra West, Mumbai</span></li>
             <li><a href="mailto:experience@nami.in">experience@nami.in</a></li>
           </ul>
         </div>
 
         <!-- Col 4: Connect & Group -->
         <div class="footer-links-col">
-          <span class="footer-col-label">connect</span>
+          <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://instagram.com/" target="_blank">instagram (@nami.hifi)</a></li>
-            <li><a href="#programming">resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
+            <li><a href="#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
-      <!-- Bottom Huge NAMI Logo Bleeding into Edge (Exact Reference Match) -->
-      <div class="footer-giant-logo-wrap">
-        <svg class="footer-giant-logo" width="842" height="171" viewBox="-10 -10 842 171" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAMI">
-          <g class="nami-letter nami-letter-i-dot">
-            <path d="M780.391 11.7857C780.391 18.2947 775.956 23.5715 770.488 23.5715C765.019 23.5715 760.568 18.2789 760.568 11.7857C760.568 5.29252 765.019 0 770.488 0C775.956 0 780.391 5.27672 780.391 11.7857Z" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-n">
-            <path d="M171.404 149.265C171.308 150.055 170.609 150.639 169.846 150.639C169.766 150.639 169.703 150.639 169.639 150.639C136.782 146.563 118.835 126.31 109.599 110.021C105.148 102.201 102.541 94.8862 100.236 88.4088C99.5365 86.4498 98.853 84.5539 98.1694 82.7371C87.3917 54.6315 68.3161 39.4016 47.1264 41.9768C27.7647 44.3466 12.3929 61.3459 9.73823 83.3375C6.55897 109.516 5.63698 125.488 5.06472 135.03C4.715 141.018 4.50834 144.636 3.96787 146.816C3.92018 146.99 3.8407 147.164 3.74532 147.322L3.45919 147.748C3.04588 148.333 2.28286 148.57 1.59932 148.317C0.931674 148.064 0.502474 147.385 0.581956 146.674C0.788608 144.746 0.677333 141.35 0.502474 135.726C0.152755 124.003 -0.530786 102.138 0.725022 62.3412C1.90135 25.4515 29.5291 2.14861 55.5832 0.947918C68.7135 0.347573 80.6358 5.16614 90.0941 14.8981C100.824 25.9255 107.628 42.435 110.346 63.9368C110.696 66.7806 110.95 69.9877 111.204 73.3528C111.745 80.5885 112.381 88.7722 114.352 98.2829C118.453 118.015 135.51 142.756 170.053 147.495C170.911 147.622 171.515 148.412 171.404 149.265Z" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-m">
-            <path d="M698.636 147.954C700.528 148.364 703.151 148.759 704.422 148.87C704.74 148.902 705.074 148.87 705.408 148.87C706.203 148.838 706.934 148.159 706.982 147.369C707.029 146.5 706.378 146.058 705.456 145.9C703.882 145.647 701.72 145.236 699.956 144.794C698.795 144.51 693.629 142.819 692.055 142.156C664.539 130.654 657.958 104.918 657.958 104.918C648.769 72.0099 644.032 47.4905 624.893 47.0956C612.891 46.7954 602.034 59.1657 592.465 86.2602C591.05 90.2889 582.212 118.932 574.311 118.489C565.377 117.984 559.623 82.3106 557.461 71.7887C550.657 38.4379 534.205 29.2906 523.729 29.0852C503.016 28.706 490.983 49.4338 481.572 82.3738C479.013 91.3316 475.039 102.517 473.195 107.415C459.285 144.431 433.978 146.548 429.13 147.306C428.272 147.432 427.699 148.222 427.811 149.075C427.906 149.865 428.605 150.45 429.368 150.45C429.432 150.45 429.496 150.45 429.559 150.45C455.438 147.653 469.252 138.364 485.085 108.505C492.525 94.4755 503.954 69.4663 523.236 69.4663C538.624 69.4663 546.858 87.1607 551.087 101.458C560.291 132.692 573.31 144.304 587.473 123.497C591.924 116.957 600.174 99.6416 602.352 95.8342C607.852 86.2128 618.741 72.4523 630.52 79.1825C639.883 84.5382 646.21 100.684 651.408 111.017C656.829 121.791 669.959 141.855 698.652 148.001" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-a">
-            <path d="M419.275 148.775C419.211 149.613 418.48 150.229 417.638 150.213C404.714 149.676 389.803 141.208 383.445 137.574C382.348 136.958 381.505 136.468 380.933 136.168C371.522 131.381 363.654 126.341 356.039 121.459C330.796 105.313 312.563 93.6382 269.866 113.781C264.063 116.53 257.8 119.674 251.203 122.976C226.882 135.157 199.318 148.965 180.878 150.734H180.719C179.956 150.734 179.288 150.197 179.161 149.439C179.018 148.633 179.559 147.875 180.369 147.733C182.038 147.448 183.072 147.243 184.534 146.895C194.883 144.431 205.819 141.524 227.295 124.24C227.327 124.208 227.359 124.193 227.391 124.161C234.019 119.232 241.491 110.385 249.423 101.016C258.897 89.8308 268.673 78.2504 278.179 71.9784C293.662 61.7567 306.077 58.0598 317.3 60.3506C334.818 63.9369 349.156 81.5523 371.077 114.966C371.856 116.135 372.476 117.052 372.953 117.747C373.001 117.778 373.064 117.842 373.096 117.889C373.668 118.616 374.257 119.342 374.845 120.053C377.579 123.355 380.281 126.246 383.111 128.885C383.143 128.916 383.159 128.932 383.19 128.948C385.702 131.191 401.296 145.394 417.94 147.053C418.782 147.132 419.386 147.906 419.307 148.759" fill="white"/>
-          </g>
-          <g class="nami-letter nami-letter-i-stem">
-            <path d="M821.054 147.338C821.054 148.206 820.355 148.902 819.497 148.917C804.602 149.107 791.408 140.718 785.033 131.571C784.159 130.322 781.838 126.294 781.6 125.852C778.786 120.654 772.857 102.675 766.228 112.691C765.624 113.592 764.448 115.235 763.812 116.341C759.456 124.05 749.283 135.899 736.756 142.124C732.973 143.988 729.317 145.426 725.947 146.563C723.689 147.401 719.858 148.175 716.949 148.759C716.806 148.791 715.63 148.933 715.503 148.933C714.803 148.933 714.168 148.475 713.977 147.796C713.738 146.958 714.199 146.105 715.026 145.852L718.221 145.3C720.145 144.952 722.195 144.446 724.643 143.625C749.871 134.256 755.069 114.034 760.108 94.4123L760.33 93.5592C760.521 92.8483 760.712 92.011 760.935 91.1104C763.319 81.2047 765.862 72.3575 771.076 72.8473C771.124 72.8473 771.172 72.8473 771.235 72.8789C776.116 73.653 779.486 86.4183 783.984 109.611C784.747 113.544 785.463 116.562 785.812 117.778C791.487 137.511 805.079 143.467 810.722 144.699C810.769 144.699 810.833 144.699 810.881 144.731H810.913C813.122 145.268 815.443 145.584 817.811 145.679H817.843C817.843 145.679 817.923 145.679 817.955 145.679C818.559 145.71 819.067 145.726 819.512 145.742C820.371 145.773 821.07 146.469 821.07 147.322" fill="white"/>
-          </g>
-        </svg>
+      <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
+      <div class="footer-mid-bar">
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
       </div>
 
-      <!-- Bottom Minimal Bar -->
-      <div class="footer-bottom-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED.</span>
-        <span>BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+      <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
+      <div class="footer-vinyl-stage" aria-hidden="true">
+        <div class="footer-vinyl-crop">
+          <img src="./assets/Vinyl.svg" alt="" class="footer-vinyl-img">
+          <div class="footer-vinyl-glow"></div>
+        </div>
       </div>
     </div>
   </footer>
@@ -3659,7 +4434,45 @@
        JAVASCRIPT LOGIC
        ========================================================= -->
   <script>
-    // 0. Safari / WebKit Video Autoplay & Muted State Enforcer
+    // 0. Fullscreen Splash Screen Controller (loader-1.mp4 Reveal, max 4s, No Skip CTA)
+    (function initSplashScreen() {
+      const splash = document.getElementById('splashScreen');
+      const splashVid = document.getElementById('splashVideo');
+      if (!splash) return;
+
+      document.body.style.overflow = 'hidden';
+
+      let dismissed = false;
+      function dismissSplashScreen() {
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(maxDurationTimer);
+
+        splash.classList.add('splash-fade-out');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          splash.style.display = 'none';
+          splash.setAttribute('aria-hidden', 'true');
+        }, 900);
+      }
+
+      window.dismissSplashScreen = dismissSplashScreen;
+
+      // Strict <= 4 seconds duration cap
+      const maxDurationTimer = setTimeout(dismissSplashScreen, 4000);
+
+      if (splashVid) {
+        splashVid.addEventListener('ended', dismissSplashScreen);
+        splashVid.addEventListener('error', dismissSplashScreen);
+        const p = splashVid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      }
+    })();
+
+    // 0.1 Safari / WebKit Video Autoplay & Muted State Enforcer
     function initVideoAutoplay() {
       const allVideos = document.querySelectorAll('video[autoplay]');
       allVideos.forEach(v => {
@@ -3769,7 +4582,7 @@
         title: 'Atushi Maeda · Ambient & Jazz',
         genre: 'Japanese Ambient · Spiritual Jazz',
         timing: '20:30 (Doors 19:00)',
-        poster: './assets/spin-gallery-1.jpg',
+        poster: './assets/nami-turntable-hands.jpg',
         desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
         dateStr: '2026-02-09'
       },
@@ -3781,7 +4594,7 @@
         title: 'Mogasu · Vinyl Soul & Rare Groove',
         genre: 'Vintage Soul · Rare Groove',
         timing: '18:00 Onwards',
-        poster: './assets/spin-gallery-2.jpg',
+        poster: './assets/nami-erykah-vinyl.jpg',
         desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
         dateStr: '2026-02-14'
       },
@@ -3793,7 +4606,7 @@
         title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
         genre: 'Tokyo Avant-Garde & Bass',
         timing: '20:30 Onwards',
-        poster: './assets/spin-gallery-6.jpg',
+        poster: './assets/nami-horn-speaker.jpg',
         desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
         dateStr: '2026-02-20'
       },
@@ -3805,7 +4618,7 @@
         title: 'Occa · Deep Hypnotic Soundscapes',
         genre: 'Hypnotic Soundscapes & Ambient',
         timing: '20:30 Onwards',
-        poster: './assets/spin-gallery-4.jpg',
+        poster: './assets/nami-resor-mixer.jpg',
         desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
         dateStr: '2026-02-23'
       },
@@ -3817,7 +4630,7 @@
         title: 'Suze Ijo · Afro-Cuban & Electronic',
         genre: 'Afro-Cuban Beats & Deep House',
         timing: '19:00 Onwards',
-        poster: './assets/spin-gallery-7.jpg',
+        poster: './assets/nami-selector-booth.jpg',
         desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
         dateStr: '2026-02-28'
       },
@@ -3829,7 +4642,7 @@
         title: 'Sunju Hargun · Bangkok Nightclub Selector',
         genre: 'Cosmic Techno & Asian Synth',
         timing: '19:00 Onwards',
-        poster: './assets/spin-gallery-8.jpg',
+        poster: './assets/nami-evening-crowd.jpg',
         desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
         dateStr: '2026-02-29'
       }
@@ -4146,19 +4959,43 @@
         }
       }
 
-      // ScrollSpy for Top-Right Nav
+      // ScrollSpy for Top-Right Nav (First-Fold / Hero: ZERO active nodes; Concept is active only from Section 2)
       let currentSection = '';
-      const scrollPos = scrollY + winHeight / 3;
 
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop) {
-          currentSection = id;
+      const hero = document.getElementById('hero');
+      const heroRect = hero ? hero.getBoundingClientRect() : null;
+      // When hero is still occupying the main viewport, no section is active
+      const inFirstFold = heroRect ? (heroRect.bottom > winHeight * 0.45) : (scrollY < winHeight * 0.5);
+
+      if (!inFirstFold) {
+        // Focal trigger line: 40% down from viewport top
+        const focalLine = winHeight * 0.40;
+
+        for (let i = 0; i < sections.length; i++) {
+          const id = sections[i];
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
+            currentSection = id;
+            break;
+          }
         }
-      });
+
+        // If scrolled past space into footer, retain 'space' active
+        if (!currentSection && scrollY > winHeight) {
+          const spaceEl = document.getElementById('space');
+          if (spaceEl) {
+            const spaceRect = spaceEl.getBoundingClientRect();
+            if (spaceRect.top < winHeight) {
+              currentSection = 'space';
+            }
+          }
+        }
+      }
 
       scrollerButtons.forEach(btn => {
-        if (btn.getAttribute('data-section') === currentSection) {
+        if (currentSection && btn.getAttribute('data-section') === currentSection) {
           btn.classList.add('active');
         } else {
           btn.classList.remove('active');
@@ -4193,36 +5030,7 @@
       const cards = Array.from(section.querySelectorAll('.phil-card'));
       if (!cards.length) return;
 
-      let mouseTargetX = 0;
-      let mouseTargetY = 0;
-      let mouseCurrentX = 0;
-      let mouseCurrentY = 0;
-      let isHovered = false;
-
-      function onMouseMove(e) {
-        const rect = section.getBoundingClientRect();
-        const centerX = rect.left + rect.width * 0.5;
-        const centerY = rect.top + rect.height * 0.5;
-        // Normalized coordinates (-1 to 1)
-        mouseTargetX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width * 0.5)));
-        mouseTargetY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height * 0.5)));
-        isHovered = true;
-      }
-
-      function onMouseLeave() {
-        mouseTargetX = 0;
-        mouseTargetY = 0;
-        isHovered = false;
-      }
-
-      section.addEventListener('mousemove', onMouseMove, { passive: true });
-      section.addEventListener('mouseleave', onMouseLeave, { passive: true });
-
       function updatePhilosophyParallax() {
-        // Smooth lerp mouse coordinates
-        mouseCurrentX += (mouseTargetX - mouseCurrentX) * 0.08;
-        mouseCurrentY += (mouseTargetY - mouseCurrentY) * 0.08;
-
         const rect = section.getBoundingClientRect();
         const winH = window.innerHeight;
 
@@ -4232,39 +5040,39 @@
           const screenCenter = winH * 0.5;
           const scrollDiff = (sectionCenter - screenCenter) / winH; // -1 to 1
 
-          const now = performance.now() * 0.001;
-
-          cards.forEach((card, i) => {
+          cards.forEach((card) => {
             // If user is directly hovering on the card, keep hover scale clean
             if (card.matches(':hover')) return;
 
-            const speedY = parseFloat(card.getAttribute('data-speed-y')) || 0.18;
-            const speedX = parseFloat(card.getAttribute('data-speed-x')) || 0.12;
             const scrollFactor = parseFloat(card.getAttribute('data-scroll')) || 0.25;
 
             // Pronounced multi-speed scroll parallax: each card travels at a distinct rate on scroll
-            const scrollYOffset = scrollDiff * scrollFactor * -240;
+            // Zero movement when screen is frozen/still (strictly tied to scroll position changes)
+            const scrollYOffset = scrollDiff * scrollFactor * -180;
 
-            // Interactive mouse parallax depth offset
-            const mouseXOffset = mouseCurrentX * speedX * 36;
-            const mouseYOffset = mouseCurrentY * speedY * 28;
-
-            // Gentle organic ambient levitation drift
-            const idleDriftY = Math.sin(now * 1.2 + i * 1.4) * 3.2;
-            const idleDriftX = Math.cos(now * 0.9 + i * 1.1) * 2.2;
-
-            const totalX = mouseXOffset + idleDriftX;
-            const totalY = scrollYOffset + mouseYOffset + idleDriftY;
-
-            // Completely straight and upright (zero rotation / tilt)
-            card.style.transform = `translate3d(${totalX.toFixed(2)}px, ${totalY.toFixed(2)}px, 0)`;
+            // Completely straight and upright (zero rotation / tilt, zero movement on frozen screen)
+            card.style.transform = `translate3d(0, ${scrollYOffset.toFixed(2)}px, 0)`;
           });
         }
-
-        requestAnimationFrame(updatePhilosophyParallax);
       }
 
-      requestAnimationFrame(updatePhilosophyParallax);
+      // Update on scroll with RAF ticking - zero movement when screen is frozen
+      let philTicking = false;
+      function onScroll() {
+        if (!philTicking) {
+          requestAnimationFrame(() => {
+            updatePhilosophyParallax();
+            philTicking = false;
+          });
+          philTicking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+
+      // Initial placement
+      updatePhilosophyParallax();
     })();
 
     // 4. Reference-Matched Editorial Menu Scroll Showcase (Food -> Cocktails -> Dessert)
@@ -4284,11 +5092,15 @@
         if (phase === currentPhase) return;
         currentPhase = phase;
 
-        // Update Left Panel Category Background Color (Food: #E84243, Cocktail: #004F9D, Dessert: #FFAABD)
-        const phaseColors = ['#E84243', '#004F9D', '#FFAABD'];
+        // Update Left Panel Category Background (Subtle Brand Gradients)
+        const phaseGradients = [
+          'linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%)',
+          'linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%)',
+          'linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%)'
+        ];
         const leftPanel = document.getElementById('menuPanelEditorial');
-        if (leftPanel && phaseColors[phase]) {
-          leftPanel.style.backgroundColor = phaseColors[phase];
+        if (leftPanel && phaseGradients[phase]) {
+          leftPanel.style.background = phaseGradients[phase];
         }
 
         // Update Left Editorial Slides
@@ -4564,6 +5376,112 @@
         closeReservationModal();
       }
     });
+
+    // Press Mentions One-News-Per-Slide Carousel Controller
+    (function initMediaSlider() {
+      const track = document.getElementById('mediaSliderTrack');
+      const slides = document.querySelectorAll('.media-slide');
+      const dots = document.querySelectorAll('.media-dot');
+      const prevBtn = document.getElementById('mediaPrevBtn');
+      const nextBtn = document.getElementById('mediaNextBtn');
+      const container = document.getElementById('mediaSliderContainer');
+      if (!track || !slides.length) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoplayTimer = null;
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+
+        // Slide the track
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Update active classes for fade & scale
+        slides.forEach((s, i) => {
+          s.classList.toggle('is-active', i === currentIndex);
+        });
+
+        // Update dots
+        dots.forEach((d, i) => {
+          const isActive = i === currentIndex;
+          d.classList.toggle('active', isActive);
+          d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) {
+            goToSlide(idx);
+            resetAutoplay();
+          }
+        });
+      });
+
+      // Touch / Swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        pauseAutoplay();
+      }, { passive: true });
+
+      track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const threshold = 40;
+        if (touchEndX < touchStartX - threshold) {
+          nextSlide();
+        } else if (touchEndX > touchStartX + threshold) {
+          prevSlide();
+        }
+      }
+
+      // Autoplay with pause on hover
+      function startAutoplay() {
+        pauseAutoplay();
+        autoplayTimer = setInterval(nextSlide, 7000);
+      }
+
+      function pauseAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function resetAutoplay() {
+        pauseAutoplay();
+        startAutoplay();
+      }
+
+      if (container) {
+        container.addEventListener('mouseenter', pauseAutoplay);
+        container.addEventListener('mouseleave', startAutoplay);
+      }
+
+      startAutoplay();
+    })();
   </script>
 
   <!-- =========================================================
@@ -4663,7 +5581,7 @@
         <button type="button" class="full-menu-tab-btn active" data-tab="food" onclick="switchFullMenuTab('food')">Food</button>
         <button type="button" class="full-menu-tab-btn" data-tab="cocktails" onclick="switchFullMenuTab('cocktails')">Cocktails</button>
         <button type="button" class="full-menu-tab-btn" data-tab="dessert" onclick="switchFullMenuTab('dessert')">Dessert</button>
-        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & Sake</button>
+        <button type="button" class="full-menu-tab-btn" data-tab="drinks" onclick="switchFullMenuTab('drinks')">Wine & sake</button>
       </div>
 
       <!-- Menu Content Panes -->

@@ -1,0 +1,67 @@
+// @ts-nocheck
+"use client";
+
+export default function InstagramStrap() {
+  return (
+    <>
+      <section id="instagram" className="section-insta-strap" aria-label="Instagram Feed @namibombay">
+            {/* Full-Width Edge-to-Edge Image Row (Zero Borders, Zero Radius, 2px Gap as in Our Space Gallery) */}
+            <div className="insta-feed-grid" id="instaFeedGrid">
+              {/* Post 1: Listening Room & Bar Architecture */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Bar Counter &amp; Acoustic Architecture">
+                <img src="/assets/nami-bar-room.avif" alt="Bar Counter &amp; Acoustic Speakers at Nami" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+      
+              {/* Post 2: Signature Cocktails */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Signature Coupe Cocktail">
+                <img src="/assets/nami-coupe-cocktail.avif" alt="Signature Cocktail at Nami" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+      
+              {/* Post 3: Vinyl Archive Shelf */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Vinyl Record Shelves">
+                <img src="/assets/nami-erykah-vinyl.avif" alt="Vinyl Records &amp; Red Horn Speaker at Nami" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+      
+              {/* Post 4: Robata Culinary Plates */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Charcoal Grilled Robata">
+                <img src="/assets/nami-robata-skewer.avif" alt="Charcoal Grilled Robata at Nami" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+      
+              {/* Post 5: Spinning Turntable Decks */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Spinning Vinyl Turntables">
+                <img src="/assets/nami-turntable-hands.avif" alt="Turntable Selector Decks at Nami" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+      
+              {/* Post 6: Listening Room Evening Atmosphere */}
+              <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" className="insta-post-card" aria-label="Instagram post: Listening Room Evening Atmosphere">
+                <img src="/assets/nami-evening-crowd.avif" alt="Evening Gathering at Nami Bandra" className="insta-post-img" loading="lazy" />
+                <div className="insta-post-overlay">
+                  <img src="/assets/Instagram.svg" alt="Instagram" className="insta-overlay-icon" width="26" height="26" />
+                  <span className="insta-post-action">@namibombay ↗</span>
+                </div>
+              </a>
+            </div>
+          </section>
+    </>
+  );
+}

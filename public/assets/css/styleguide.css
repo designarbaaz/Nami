@@ -1,12 +1,13 @@
-:root {
-      --font-heading: "savate", sans-serif;
+
+    :root {
+      --font-heading: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Chivo', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg-black: #070707;
       --bg-surface: rgba(18, 18, 18, 0.82);
       --bg-surface-elevated: rgba(28, 28, 28, 0.9);
       --border-subtle: rgba(255, 255, 255, 0.1);
       --border-accent: rgba(232, 66, 67, 0.4);
-      --text-primary: #FFFFFF;
+      --text-primary: #c0c0c0;
       --text-secondary: #A8A8A8;
       --text-muted: #6E6E6E;
       
@@ -17,11 +18,11 @@
       --c-pink: #FFAABD;
       --c-blue: #004F9D;
 
-      /* Approved Brand Gradients */
-      --grad-primary: linear-gradient(135deg, #E84243 0%, #E65500 48%, #F48F24 100%);
-      --grad-resonance: linear-gradient(135deg, #004F9D 0%, #E84243 50%, #FFAABD 100%);
-      --grad-flare: linear-gradient(135deg, #F48F24 0%, #FFAABD 50%, #004F9D 100%);
-      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.15) 0%, rgba(230, 85, 0, 0.08) 40%, rgba(7, 7, 7, 0) 75%);
+      /* Approved Brand Gradients (Subtle Nocturnal Refinement) */
+      --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
+      --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
     * {
@@ -30,7 +31,7 @@
       padding: 0;
     }
 
-    /* Tactile Dark Background with Noise-texture.png */
+    /* Tactile Dark Background with noise-tile.png */
     body {
       background-color: var(--bg-black);
       color: var(--text-primary);
@@ -41,10 +42,10 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       
-      /* Official Noise-texture.png applied to body */
+      /* Official noise-tile.png applied to body */
       background-image: 
         var(--grad-nocturnal-glow),
-        url('/assets/Noise-texture.png');
+        url('/assets/noise-tile.png');
       background-repeat: no-repeat, repeat;
       background-position: center top, center top;
       background-size: 100% 900px, 100% auto;
@@ -59,7 +60,7 @@
       font-weight: 700;
     }
 
-    /* High-Res Viewport Noise Overlay using Noise-texture.png */
+    /* High-Res Viewport Noise Overlay using noise-tile.png */
     #noise-layer {
       position: fixed;
       top: 0;
@@ -68,7 +69,7 @@
       height: 100vh;
       pointer-events: none;
       z-index: 9999;
-      background-image: url('/assets/Noise-texture.png');
+      background-image: url('/assets/noise-tile.png');
       background-repeat: repeat;
       background-position: center top;
       background-size: 100% auto;
@@ -146,12 +147,12 @@
     }
 
     nav.header-nav a:hover {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .btn-reserve-header {
       background: var(--grad-primary);
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-weight: 700;
       font-size: 0.78rem;
       text-transform: uppercase;
@@ -282,7 +283,7 @@
     .control-switch.active {
       background: rgba(232, 66, 67, 0.2);
       border-color: var(--c-red);
-      color: #fff;
+      color: #c0c0c0;
     }
 
     /* Hero Banner */
@@ -524,7 +525,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: url('/assets/Noise-texture.png') repeat center top;
+      background: url('/assets/noise-tile.png') repeat center top;
       background-size: 100% auto;
       opacity: 1;
       mix-blend-mode: screen;
@@ -564,7 +565,7 @@
       font-weight: 700;
       font-size: 0.95rem;
       text-transform: uppercase;
-      color: #fff;
+      color: #c0c0c0;
       margin-bottom: 0.25rem;
     }
 
@@ -740,7 +741,7 @@
     }
 
     .typo-sample {
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     /* Interactive Type Tester */
@@ -767,7 +768,7 @@
       background: transparent;
       border: none;
       outline: none;
-      color: #FFFFFF;
+      color: #c0c0c0;
       font-family: 'Chivo', sans-serif;
       font-size: 2.5rem;
       line-height: 1.2;
@@ -978,14 +979,14 @@
     .menu-item-name {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .menu-item-price {
       font-family: 'Chivo', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #c0c0c0;
     }
 
     .menu-item-desc {
@@ -1068,7 +1069,7 @@
 
     .btn-reserve-full {
       background: var(--grad-primary);
-      color: #fff;
+      color: #c0c0c0;
       font-weight: 700;
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -1091,7 +1092,7 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-subtle);
-      color: #FFFFFF;
+      color: #c0c0c0;
       text-decoration: none;
       font-size: 0.82rem;
       font-weight: 500;
@@ -1136,3 +1137,4 @@
       .hero-banner { padding: 3rem 1.75rem; }
       .hero-headline { font-size: 2.2rem; }
     }
+  

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: absoluteUrl("/assets/hero-ref.jpg"),
+        url: absoluteUrl("/assets/hero-ref.avif"),
         width: 1200,
         height: 630,
         alt: "NAMI hi-fi listening room",

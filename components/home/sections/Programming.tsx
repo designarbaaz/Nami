@@ -1,4 +1,5 @@
 // @ts-nocheck
+"use client";
 
 export default function Programming() {
   return (
@@ -6,7 +7,7 @@ export default function Programming() {
       <section id="programming" className="event-calendar-section" aria-label="What’s On at Nami">
             {/* Background Media Wrap with Subtle Parallax */}
             <div className="event-parallax-media-wrap">
-              <img src="/assets/Event-bg.jpg" alt="Nami Acoustic Space & Vinyl Shelves" className="event-parallax-img" id="eventParallaxImg" loading="lazy" decoding="async" />
+              <img src="/assets/Event-bg.avif" alt="Nami Acoustic Space & Vinyl Shelves" className="event-parallax-img" id="eventParallaxImg" />
             </div>
             {/* Atmospheric film overlay */}
             <div className="event-parallax-overlay"></div>
@@ -15,7 +16,7 @@ export default function Programming() {
             <div className="event-calendar-container">
               {/* Section Heading */}
               <div className="cal-header-block">
-                <h2 className="section-heading" style={{margin: 0}}>What’s On at <span className="grad-accent">Nami</span></h2>
+                <h2 className="section-heading" style={{ margin: '0' }}><span className="grad-accent">What’s On at</span> Nami</h2>
               </div>
       
               {/* 7-Column Calendar Grid Wrapper */}
@@ -192,14 +193,14 @@ export default function Programming() {
                     <div className="cal-column-popup" id="calColumnPopup" aria-hidden="true">
                       <div className="col-popup-body">
                         <div className="col-popup-media">
-                          <img src="/assets/spin-gallery-1.jpg" alt="Event Poster" className="col-popup-img" id="colPopupImg" />
+                          <img src="/assets/spin-gallery-1.avif" alt="Event Poster" className="col-popup-img" id="colPopupImg" />
                           {/* Subtle top vignette for contrast over any image */}
                           <div className="col-popup-top-vignette"></div>
                           <div className="col-popup-img-grad"></div>
                           {/* Date & Close Button floating directly over the image (no noisy background) */}
                           <div className="col-popup-header">
                             <span className="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
-                            <button type="button" className="col-popup-close" onClick={(e) => { const event = e; (window as any).closeEventPopup?.() }} aria-label="Close event details">
+                            <button type="button" className="col-popup-close" onClick={(e) => { const event = e; closeEventPopup() }} aria-label="Close event details">
                               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -219,7 +220,7 @@ export default function Programming() {
                             Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
                           </p>
       
-                          <button type="button" className="btn-col-popup-book" id="colPopupBookBtn" onClick={(e) => { const event = e; (window as any).bookFromPopup?.() }}>
+                          <button type="button" className="btn-col-popup-book" id="colPopupBookBtn" onClick={(e) => { const event = e; bookFromPopup() }}>
                             <span>Buy Ticket</span>
                             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -235,6 +236,17 @@ export default function Programming() {
               {/* Mobile scroll swipe hint */}
               <div className="cal-scroll-hint" aria-hidden="true">
                 <span>← Swipe to explore full calendar →</span>
+              </div>
+      
+              {/* Explore More CTA */}
+              <div className="cal-explore-wrap">
+                <a href="/whats-on" className="btn-cal-explore">
+                  <span>Explore More</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="3" y1="8" x2="13" y2="8"></line>
+                    <polyline points="9 4 13 8 9 12"></polyline>
+                  </svg>
+                </a>
               </div>
             </div>
           </section>

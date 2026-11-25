@@ -122,12 +122,29 @@ import MySection from "@/components/common/MySection";
 
 | File | Block |
 |------|--------|
-| `Hero.tsx` | First fold |
-| `Philosophy.tsx` | Story + scatter + wave |
-| `Programming.tsx` | What’s On calendar |
+| `Hero.tsx` | First fold (Loader-banner video) |
+| `Philosophy.tsx` | Story + scatter + wave strap |
+| `Programming.tsx` | What’s On event list |
 | `MenuSection.tsx` | Food / cocktails / dessert |
-| `Space.tsx` | Gallery |
+| `Space.tsx` | Spin gallery preview |
+| `Press.tsx` | Media mentions slider |
+| `InstagramStrap.tsx` | Instagram grid |
 | `AudioWidget.tsx` | Now playing |
+
+## Multi-page routes (`app/(site)/`)
+
+Matches live static: https://nami.reputationindia.in/
+
+| Route | Legacy HTML | Notes |
+|-------|-------------|--------|
+| `/` | `index.html` | Canonical home — calendar, splash, vinyl-loop hero |
+| `/index-2` | `index-2.html` | Alternate home — event list, Loader-banner hero |
+| `/concept` | `concept.html` | |
+| `/whats-on` | `whats-on.html` | |
+| `/drinks-food` | `drinks-food.html` | |
+| `/our-space` | `our-space.html` | |
+
+**Fonts:** Google **Chivo** for `--font-heading` / `--font-body` (same as live). Typekit Savate remains loaded for styleguide docs only.
 
 ---
 

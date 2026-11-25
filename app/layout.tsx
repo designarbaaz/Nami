@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/assets/hero-ref.jpg",
+        url: "/assets/hero-ref.avif",
         width: 1200,
         height: 630,
         alt: "NAMI hi-fi listening room",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: ["/assets/hero-ref.jpg"],
+    images: ["/assets/hero-ref.avif"],
   },
   robots: {
     index: true,
@@ -83,7 +83,7 @@ export default function RootLayout({
     description: siteConfig.description,
     url: siteConfig.url,
     email: siteConfig.email,
-    image: absoluteUrl("/assets/hero-ref.jpg"),
+    image: absoluteUrl("/assets/hero-ref.avif"),
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.street,

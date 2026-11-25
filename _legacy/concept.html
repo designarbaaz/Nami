@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concept &amp; Philosophy · NAMI Hi-Fi Listening Room &amp; Robata Bar</title>
+  <meta name="description" content="Discover Nami's philosophy, brand pillars, custom 440Hz rotary audio architecture, and binchotan robata dining in Bandra West, Mumbai.">
+
+  <!-- Google Fonts: Chivo Only (True Ultra-Light 100 to Bold 900) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-black: #070707;
+      --bg-surface: #0E0E12;
+      --bg-card: rgba(18, 18, 22, 0.7);
+      --text-primary: #FFFFFF;
+      --text-secondary: #c0c0c0;
+      --text-muted: #888888;
+      --c-orange: #F58A27;
+      --c-red: #D93829;
+      --c-purple: #704489;
+      --c-blue: #2B4592;
+      --grad-primary: linear-gradient(135deg, #F58A27 0%, #D93829 35%, #704489 70%, #2B4592 100%);
+      --grad-flare: linear-gradient(135deg, #F58A27 0%, #D93829 45%, #704489 80%, #2B4592 100%);
+      --font-heading: 'Chivo', sans-serif;
+      --font-body: 'Chivo', sans-serif;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(245, 138, 39, 0.4);
+    }
+
+    /* ZERO LETTER-SPACING RULE ACROSS ALL ELEMENTS */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      letter-spacing: normal !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-black);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-secondary);
+      min-height: 100vh;
+      overflow-x: clip;
+      position: relative;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-heading,
+    .concept-hero-title,
+    .feature-edge-title,
+    .pillar-editorial-num {
+      font-family: var(--font-heading);
+      letter-spacing: normal !important;
+    }
+
+    /* Fixed Viewport Noise Overlay (Exact Match to Other Pages) */
+    #noise-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+      opacity: 0.95;
+      mix-blend-mode: screen;
+    }
+
+    /* Subtle Analog Tube Warmth Overlay */
+    #warmth-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(circle at 50% 50%, rgba(180, 95, 30, 0.05) 0%, rgba(0, 0, 0, 0.35) 90%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+    }
+
+    /* =========================================================
+       SUBTLE FADE-MOVE-UP ANIMATION FOR IMAGES
+       ========================================================= */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================
+       FIXED HEADER (EXACT 1:1 MATCH TO WHATS-ON)
+       ========================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 500;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    .header-left {
+      pointer-events: auto;
+    }
+
+    .brand-mark-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #c0c0c0;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .brand-mark-link.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .brand-mark-img {
+      height: clamp(28px, 2.4vw, 32px);
+      width: auto;
+      display: block;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .brand-mark-link:hover .brand-mark-img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    /* Right Side: Section Scroller Knobs + Wave Hamburger */
+    .header-nav-wrap {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      pointer-events: auto;
+    }
+
+    .section-scroller {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      gap: 0rem;
+    }
+
+    .scroller-node {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .scroller-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      padding: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .knob-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .knob-ticks { display: none !important; }
+
+    .knob-rotor {
+      transform-box: view-box;
+      transform-origin: 12px 12.2px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .knob-dial {
+      fill: rgba(14, 14, 14, 0.94);
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 0.95px;
+      transition: fill 0.25s ease, stroke 0.25s ease, filter 0.25s ease;
+    }
+
+    .knob-notch,
+    .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+      stroke-width: 0.45px;
+      transition: fill 0.25s ease, stroke 0.25s ease;
+    }
+
+    .knob-label {
+      position: relative;
+      z-index: 3;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      margin-top: 1px;
+      transition: color 0.25s ease;
+    }
+
+    /* Active Rotary Knob (Node C for Concept) */
+    .scroller-btn.active {
+      transform: scale(1.06);
+    }
+
+    .scroller-btn.active .knob-rotor {
+      transform: rotate(45deg);
+    }
+
+    .scroller-btn.active .knob-dial {
+      fill: var(--c-orange);
+      stroke: #FFFFFF;
+      filter: drop-shadow(0 0 10px rgba(244, 143, 36, 0.65));
+    }
+
+    .scroller-btn.active .knob-notch,
+    .scroller-btn.active .knob-notch-tip {
+      fill: #FFFFFF;
+      stroke: #FFFFFF;
+    }
+
+    .scroller-btn.active .knob-label {
+      color: #FFFFFF;
+    }
+
+    .scroller-btn.active:hover .knob-rotor {
+      transform: rotate(62deg);
+    }
+
+    /* Tooltip on hover */
+    .scroller-btn .tooltip {
+      position: absolute;
+      top: 52px;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #111111;
+      border: 1px solid var(--border-subtle);
+      color: #c0c0c0;
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    .scroller-btn:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Wave Hamburger Button */
+    .btn-wave-hamburger {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .btn-wave-hamburger:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-menu-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .btn-wave-hamburger:hover .btn-menu-icon {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    /* =========================================================
+       HAMBURGER FULLSCREEN OVERLAY DRAWER (SITE-WIDE MATCH)
+       ========================================================= */
+    #menuDrawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 6, 6, 0.96);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(2rem, 3.5vh, 3.5rem) clamp(2.5rem, 5vw, 5.5rem);
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    #menuDrawer.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-drawer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #c0c0c0;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-close-drawer:hover {
+      border-color: var(--c-red);
+      color: var(--c-red);
+      transform: rotate(90deg);
+    }
+
+    .drawer-middle {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr;
+      align-items: center;
+      gap: clamp(2rem, 5vw, 6rem);
+      margin: auto 0;
+      padding: 1.25rem 0;
+      width: 100%;
+    }
+
+    .drawer-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 2vh, 1.6rem);
+    }
+
+    .drawer-nav-item {
+      color: #c0c0c0;
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+      font-weight: 100 !important;
+      text-transform: capitalize;
+      text-decoration: none;
+      transition: transform 0.25s, color 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      cursor: pointer;
+    }
+
+    .drawer-nav-item:hover,
+    .drawer-nav-item.active {
+      color: var(--c-orange);
+      transform: translateX(12px);
+    }
+
+    .drawer-nav-num {
+      font-family: 'Chivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .drawer-image-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .drawer-image-card {
+      position: relative;
+      width: clamp(340px, 35vw, 560px);
+      max-height: calc(100vh - 200px);
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+      background: #111115;
+    }
+
+    .drawer-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(0.92) contrast(1.05);
+      border-radius: 0 !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    .drawer-preview-img.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .drawer-bottom-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      width: 100%;
+    }
+
+    .drawer-info-col h4 {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .drawer-info-col p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .drawer-middle { grid-template-columns: 1fr; }
+      .drawer-image-wrap { display: none; }
+    }
+
+    /* =========================================================
+       HERO SECTION (FIRST FOLD - CENTER ALIGNED WITH WAVE STRAP)
+       ========================================================= */
+    .concept-hero-fold {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: clamp(6.5rem, 14vh, 9rem);
+      box-sizing: border-box;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .concept-hero-fold::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('./assets/spin-gallery-1.jpg');
+      background-size: cover;
+      background-position: center center;
+      opacity: 0.24;
+      pointer-events: none;
+    }
+
+    .concept-hero-fold::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.55) 0%,
+        rgba(7, 7, 7, 0.35) 45%,
+        rgba(7, 7, 7, 0.90) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .concept-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 960px;
+      margin: auto auto;
+      padding: 0 clamp(1.5rem, 4vw, 3rem);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .concept-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: clamp(1.2rem, 2.5vh, 2rem);
+    }
+
+    .concept-breadcrumb a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .concept-breadcrumb a:hover {
+      color: #c0c0c0;
+    }
+
+    .concept-breadcrumb .crumb-sep {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .concept-breadcrumb .crumb-curr {
+      color: var(--c-orange);
+    }
+
+    .concept-hero-title {
+      font-size: clamp(3.2rem, 7vw, 6.2rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.05;
+      margin-bottom: clamp(1.25rem, 2.5vh, 1.85rem);
+      text-align: center;
+    }
+
+    .concept-hero-title .text-gradient {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .concept-hero-desc {
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 760px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* =========================================================
+       WAVE ANIMATION SECTION SEPARATOR (Exact Match to Homepage 3x Ribbon)
+       ========================================================= */
+    .wave-video-strap {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      height: clamp(80px, 11vh, 130px);
+      overflow: hidden;
+      background: var(--bg-black);
+      border: none;
+      display: block;
+      z-index: 5;
+    }
+
+    .wave-strap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
+      gap: 0;
+    }
+
+    .wave-strap-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-black);
+    }
+
+    .wave-strap-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .wave-strap-item:last-child::after {
+      display: none;
+    }
+
+    .wave-strap-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.92) contrast(1.12);
+      pointer-events: none;
+      display: block;
+    }
+
+    .wave-strap-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 7, 7, 0.55) 0%,
+        rgba(7, 7, 7, 0.12) 20%,
+        rgba(7, 7, 7, 0) 50%,
+        rgba(7, 7, 7, 0.12) 80%,
+        rgba(7, 7, 7, 0.55) 100%
+      );
+    }
+
+    /* =========================================================
+       SECTION: SIX BRAND PILLARS (PINNED HORIZONTAL SCROLL)
+       - 2.5 CARDS VISIBLE IN FIRST VIEW
+       - ENLARGED IMAGE SIZES
+       - ZERO BORDERS ON IMAGES
+       - NUMBERS FONT WEIGHT: 100 (LIGHTER)
+       - NO "SCROLL TO DISCOVER" / NO "FOUNDATIONS"
+       ========================================================= */
+    .pillars-pinned-container {
+      position: relative;
+      width: 100%;
+      height: 380vh;
+      background: transparent;
+    }
+
+    .pillars-sticky-viewport {
+      position: sticky;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 88px; /* Clear 76px fixed header */
+      padding-bottom: 74px; /* Clear floating audio & reserve buttons */
+      box-sizing: border-box;
+      background-color: var(--bg-black);
+      background-image: url('./assets/Noise-texture.png');
+      background-repeat: repeat;
+      background-position: center top;
+      background-size: 100% auto;
+      z-index: 15;
+    }
+
+    .pillars-top-bar {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 clamp(2rem, 4vw, 5rem);
+      width: 100%;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .pillars-section-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pillars-section-title {
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      color: #c0c0c0;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .pillars-section-title .text-gradient {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .pillars-track-window {
+      width: 100%;
+      overflow: hidden;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .pillars-horizontal-track {
+      display: flex;
+      align-items: center;
+      gap: clamp(2rem, 3.5vw, 4rem);
+      padding: 0 clamp(2rem, 4vw, 5rem);
+      will-change: transform;
+      height: 100%;
+      box-sizing: border-box;
+      transition: transform 0.05s linear;
+    }
+
+    /* 2.5 Cards visible in first view on desktop: width ~ 35.6vw */
+    .pillar-col-card {
+      flex: 0 0 clamp(360px, 35.6vw, 530px);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .pillar-col-card.stagger-high {
+      transform: translateY(-22px);
+    }
+
+    .pillar-col-card.stagger-low {
+      transform: translateY(22px);
+    }
+
+    /* Ultra-light font weight 100 for numbers */
+    .pillar-editorial-num {
+      font-family: var(--font-heading);
+      font-size: clamp(3.2rem, 5.2vw, 5.4rem);
+      font-weight: 100 !important;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 0.95;
+      margin-bottom: 0.65rem;
+      letter-spacing: normal !important;
+    }
+
+    /* Enlarged Image Frame - NO BORDERS */
+    .pillar-editorial-frame {
+      width: 100%;
+      height: clamp(300px, 36vh, 410px);
+      overflow: hidden;
+      background: #111115;
+      margin-bottom: 1.15rem;
+      border: none !important;
+      border-radius: 0;
+    }
+
+    .pillar-editorial-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.92) contrast(1.08);
+      transition: filter 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+      border: none !important;
+    }
+
+    .pillar-col-card:hover .pillar-editorial-img {
+      filter: brightness(1.05) contrast(1.12);
+      transform: scale(1.03);
+    }
+
+    .pillar-editorial-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .pillar-editorial-name {
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    .pillar-editorial-tagline {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .pillar-editorial-body {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* =========================================================
+       SECTION: WHAT WE SERVE (FULL-BLEED EDGE-TO-EDGE IMAGES)
+       NO TAGS, NO HAIRLINE TEXTS, NO CTAS
+       ========================================================= */
+    .fullbleed-features-section {
+      width: 100%;
+      padding: clamp(4rem, 8vh, 7rem) 0;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(5rem, 10vh, 8rem);
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .feature-edge-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: clamp(500px, 66vh, 760px);
+      box-sizing: border-box;
+    }
+
+    .feature-edge-row.image-left {
+      flex-direction: row;
+    }
+
+    .feature-edge-row.image-right {
+      flex-direction: row-reverse;
+    }
+
+    .feature-edge-media {
+      flex: 0 0 54vw;
+      width: 54vw;
+      height: clamp(500px, 66vh, 760px);
+      overflow: hidden;
+      position: relative;
+      background: #111115;
+      border: none !important;
+    }
+
+    .feature-edge-media img {
+      width: 100%;
+      height: 126%;
+      position: relative;
+      top: -13%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border: none !important;
+      filter: brightness(0.9) contrast(1.08);
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      transition: filter 0.4s ease;
+    }
+
+    .feature-edge-media:hover img {
+      filter: brightness(1.02) contrast(1.12);
+    }
+
+    .feature-edge-content {
+      flex: 1 1 auto;
+      padding: clamp(2.5rem, 6vw, 7rem) clamp(2rem, 5vw, 6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      max-width: 650px;
+    }
+
+    .feature-edge-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-edge-desc {
+      font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* =========================================================
+       SECTION: CLOSING CTA (No Background Gradient, No Button Glow)
+       ========================================================= */
+    .concept-closing-cta {
+      padding: clamp(5rem, 10vh, 8rem) clamp(1.5rem, 4vw, 3rem);
+      text-align: center;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .closing-title {
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .closing-desc {
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin-bottom: 2.25rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .closing-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .btn-cta-primary {
+      background: var(--grad-primary);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 1.05rem 2.25rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: transform 0.2s, filter 0.2s;
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: none !important;
+    }
+
+    /* =========================================================
+       EXACT FOOTER (MATCHES WHATS-ON & OUR-SPACE)
+       ========================================================= */
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 120px 2.5rem 0;
+      background: #070707;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    /* Ambient Brand Glow Aura (Nami Palette Only) */
+    .footer-glow-aura {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(ellipse 70% 65% at 50% 102%, rgba(232, 66, 67, 0.46) 0%, rgba(244, 143, 36, 0.32) 34%, rgba(0, 79, 157, 0.18) 68%, transparent 100%),
+        radial-gradient(circle at 50% 92%, rgba(255, 170, 189, 0.16) 0%, transparent 45%),
+        radial-gradient(ellipse 38% 28% at 50% 100%, rgba(230, 85, 0, 0.52) 0%, transparent 70%);
+      filter: blur(28px);
+      mix-blend-mode: screen;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-top-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.2fr 1fr;
+      gap: 3rem;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 320px;
+    }
+
+    .footer-tagline {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin: 0;
+      font-family: var(--font-body);
+    }
+
+    .btn-whatsapp-footer {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: #c0c0c0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      font-family: var(--font-body);
+    }
+
+    .btn-whatsapp-footer:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-btn-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .footer-col-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      display: block;
+      margin-bottom: 1.15rem;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-nav-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-nav-list a,
+    .footer-nav-list span {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.82);
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+      line-height: 1.4;
+    }
+
+    .footer-nav-list a:hover {
+      color: var(--c-orange);
+      transform: translateX(2px);
+    }
+
+    .footer-mid-bar {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto 1.8rem;
+      padding: 0;
+      border: none !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: clamp(0.68rem, 0.85vw, 0.74rem);
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .footer-vinyl-stage {
+      width: 100%;
+      height: clamp(180px, 24vw, 340px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+
+    .footer-vinyl-crop {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(360px, 48vw, 680px);
+      height: clamp(360px, 48vw, 680px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .footer-vinyl-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+      animation: spinFooterVinyl 9.33s linear infinite;
+      will-change: transform;
+      filter: drop-shadow(0 -15px 45px rgba(244, 143, 36, 0.22)) drop-shadow(0 25px 60px rgba(0, 0, 0, 0.95));
+    }
+
+    .footer-vinyl-glow {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 143, 36, 0.16) 0%, rgba(201, 114, 255, 0.05) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
+    @keyframes spinFooterVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* =========================================================
+       FIXED FLOATING AUDIO PLAYER & FLOATING RESERVATION BUTTON
+       ========================================================= */
+    .floating-audio-pill {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 14, 18, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 16px 8px 10px;
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-audio-toggle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #FFFFFF;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-audio-toggle:hover {
+      background: var(--c-orange);
+      transform: scale(1.08);
+    }
+
+    .audio-pill-track {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .audio-pill-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .audio-pill-artist {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    .audio-eq-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      margin-left: 4px;
+    }
+
+    .audio-eq-wave span {
+      width: 2px;
+      background: var(--c-orange);
+      border-radius: 1px;
+      animation: eqBounce 1.2s ease-in-out infinite alternate;
+    }
+
+    .audio-eq-wave span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+    .audio-eq-wave span:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+    .audio-eq-wave span:nth-child(3) { height: 4px; animation-delay: 0.2s; }
+    .audio-eq-wave span:nth-child(4) { height: 9px; animation-delay: 0.4s; }
+
+    @keyframes eqBounce {
+      0% { height: 3px; }
+      100% { height: 12px; }
+    }
+
+    .floating-reserve-pill {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--grad-primary);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(244, 143, 36, 0.4);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    .floating-reserve-pill:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 36px rgba(244, 143, 36, 0.6);
+    }
+
+    .reserve-pill-sep {
+      opacity: 0.45;
+      font-weight: 300;
+    }
+
+    .reserve-eat-brand {
+      font-weight: 800;
+      letter-spacing: normal !important;
+    }
+
+    /* =========================================================
+       RESERVATION MODAL
+       ========================================================= */
+    .reservation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reservation-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 4, 6, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .reservation-modal-panel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      background: #0B0B0E;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 2.25rem 2.25rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(244, 143, 36, 0.08);
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reservation-modal.is-open .reservation-modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .reservation-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .reserve-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .reserve-modal-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #c0c0c0;
+      line-height: 1.15;
+    }
+
+    .reserve-modal-close {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #c0c0c0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.05rem;
+      line-height: 1;
+      transition: all 0.2s;
+    }
+
+    .reserve-modal-close:hover {
+      border-color: var(--c-orange);
+      color: var(--c-orange);
+      background: rgba(244, 143, 36, 0.1);
+    }
+
+    .reserve-modal-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 1.6rem;
+    }
+
+    .reservation-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .res-input {
+      width: 100%;
+      background: #121216;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #c0c0c0;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      padding: 0.75rem 0.85rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .res-input:focus {
+      border-color: var(--c-orange);
+      background: #16161B;
+    }
+
+    .btn-confirm-reserve {
+      width: 100%;
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: var(--grad-flare);
+      color: #c0c0c0;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-confirm-reserve:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+    }
+
+    /* =========================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================= */
+    @media (max-width: 992px) {
+      .footer-top-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .site-header {
+        padding: 1.25rem 1.5rem;
+      }
+      .header-nav-wrap {
+        gap: 1rem;
+      }
+      .section-scroller {
+        gap: 0rem;
+      }
+      .scroller-btn {
+        width: 38px;
+        height: 38px;
+      }
+      .drawer-middle {
+        grid-template-columns: 1fr;
+      }
+      .drawer-image-wrap {
+        display: none;
+      }
+      .drawer-bottom-info {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+      }
+      .pillars-pinned-container {
+        height: auto !important;
+      }
+      .pillars-sticky-viewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 5.5rem 0 3rem 0;
+      }
+      .pillars-track-window {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 1.5rem;
+      }
+      .pillars-horizontal-track {
+        transform: none !important;
+        gap: 1.5rem;
+        padding: 0 1.5rem;
+      }
+      .pillar-col-card {
+        flex: 0 0 84vw;
+        scroll-snap-align: center;
+        transform: none !important;
+      }
+      .pillar-editorial-frame {
+        height: 48vh;
+      }
+      .feature-edge-row,
+      .feature-edge-row.image-left,
+      .feature-edge-row.image-right {
+        flex-direction: column !important;
+        min-height: auto;
+      }
+      .feature-edge-media {
+        width: 100vw !important;
+        flex: none;
+        height: 52vh;
+      }
+      .feature-edge-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 3rem 1.75rem;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .site-header {
+        padding: 1rem 1.15rem;
+      }
+      .brand-mark-img {
+        height: 22px;
+      }
+      .header-nav-wrap {
+        gap: 0.7rem;
+      }
+      .section-scroller {
+        gap: 0rem;
+      }
+      .scroller-btn {
+        width: 32px;
+        height: 32px;
+      }
+      .knob-label {
+        font-size: 0.7rem;
+      }
+      .btn-wave-hamburger {
+        width: 34px;
+        height: 34px;
+      }
+      .btn-menu-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+      .footer-mid-bar {
+        white-space: normal;
+        line-height: 1.6;
+        padding: 0 1rem;
+        font-size: 0.68rem;
+        margin: 0 auto 1.25rem;
+      }
+      .floating-audio-pill {
+        bottom: 14px;
+        left: 14px;
+        padding: 6px 10px 6px 8px;
+        gap: 8px;
+      }
+      .audio-pill-artist {
+        display: none;
+      }
+      .floating-reserve-pill {
+        bottom: 14px;
+        right: 14px;
+        padding: 8px 14px;
+        font-size: 0.76rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Noise Overlay -->
+  <div id="noise-layer" aria-hidden="true"></div>
+  <div id="warmth-layer" aria-hidden="true"></div>
+
+  <!-- =========================================================
+       FIXED HEADER (EXACT 1:1 MATCH TO WHATS-ON)
+       Node C Active (Concept)
+       ========================================================= -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index-2.html#hero" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
+        <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
+      </a>
+    </div>
+
+    <div class="header-nav-wrap">
+      <!-- Circular Page Scroller: Resor Rotary Mixer Knobs ( C - Active ) ( W ) ( F ) ( S ) -->
+      <nav class="section-scroller" aria-label="Section scroller">
+        <!-- Node C: Concept (Active) -->
+        <div class="scroller-node">
+          <a href="concept.html" class="scroller-btn active" data-section="philosophy" aria-label="Concept" aria-current="page">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">C</span>
+            <span class="tooltip">Concept</span>
+          </a>
+        </div>
+
+        <!-- Node W: What's On -->
+        <div class="scroller-node">
+          <a href="whats-on.html" class="scroller-btn" data-section="programming" aria-label="What’s on">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">W</span>
+            <span class="tooltip">What’s on</span>
+          </a>
+        </div>
+
+        <!-- Node F: Drinks & Food -->
+        <div class="scroller-node">
+          <a href="drinks-food.html" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">F</span>
+            <span class="tooltip">Drinks & Food</span>
+          </a>
+        </div>
+
+        <!-- Node S: Our Space -->
+        <div class="scroller-node">
+          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
+            <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
+              <g class="knob-rotor">
+                <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
+                <path class="knob-notch" d="M13.1,6.1c-.4-.1-.7-.1-1.1-.1s-.8,0-1.1,0l.3-2.4h1.5L13.1,6.1Z"/>
+                <rect class="knob-notch-tip" x="11.8" y="3.6" width=".4" height=".7"/>
+              </g>
+            </svg>
+            <span class="knob-label">S</span>
+            <span class="tooltip">Our Space</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Waveform Hamburger Menu Icon (Menu-io.svg) -->
+      <button class="btn-wave-hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMenuDrawer()">
+        <img src="./assets/Menu-io.svg" alt="Menu" class="btn-menu-icon">
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HAMBURGER FULLSCREEN OVERLAY DRAWER
+       ========================================================= -->
+  <div id="menuDrawer" role="dialog" aria-modal="true">
+    <div class="menu-drawer-top">
+      <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+    </div>
+
+    <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
+    <div class="drawer-middle">
+      <nav class="drawer-nav-links" id="drawerNavLinks">
+        <a href="concept.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgConcept" data-tag="CONCEPT · 01" data-sub="We Compose Nights">
+          <span class="drawer-nav-num">01</span> Concept
+        </a>
+        <a href="whats-on.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgProgramming" data-tag="SCHEDULE · 02" data-sub="Weekly Programming">
+          <span class="drawer-nav-num">02</span> What’s On
+        </a>
+        <a href="drinks-food.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgMenu" data-tag="RESONANCE · 03" data-sub="Robata & Libations">
+          <span class="drawer-nav-num">03</span> Drinks & Food
+        </a>
+        <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
+          <span class="drawer-nav-num">04</span> Our Space
+        </a>
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">05</span> Reservation
+        </a>
+      </nav>
+
+      <!-- Right Side Visual Showcase Inside Hamburger Menu (Enlarged, Zero Radius, Zero Outline) -->
+      <div class="drawer-image-wrap">
+        <div class="drawer-image-card">
+          <img src="./assets/nami-dj-bar.jpg" alt="NAMI Listening Room Atmosphere" class="drawer-preview-img" id="drawerImgDefault">
+          <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img active" id="drawerImgConcept">
+          <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
+          <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Bottom: Opening Hours, Coordinates, Community, Instagram -->
+    <div class="drawer-bottom-info">
+      <div class="drawer-info-col">
+        <h4>Hours</h4>
+        <p>Wed – Sun · 7 PM – Late<br>Listening Sessions: 20:30 Onwards</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Location</h4>
+        <p>Bandra West, Mumbai,<br>Maharashtra 400050</p>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Community</h4>
+        <a href="https://chat.whatsapp.com/" target="_blank" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+          <span>Join WhatsApp Group →</span>
+        </a>
+      </div>
+      <div class="drawer-info-col">
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer" style="color: #c0c0c0; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.45rem;">
+          <img src="./assets/Instagram.svg" alt="Instagram" width="16" height="16" style="display: block; flex-shrink: 0;" onerror="this.onerror=null; this.src='../assets/Instagram.svg'">
+          <span>@namibombay</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+  <main id="mainContent">
+
+    <!-- 1. HERO FOLD (CENTER ALIGNED + WAVE STRAP) -->
+    <section class="concept-hero-fold">
+      <div class="concept-hero-content">
+        <nav class="concept-breadcrumb" aria-label="Breadcrumb">
+          <a href="index-2.html">Home</a>
+          <span class="crumb-sep">/</span>
+          <span class="crumb-curr">Concept</span>
+        </nav>
+
+        <h1 class="concept-hero-title">
+          A Sensory <span class="text-gradient">Provocateur</span>
+        </h1>
+
+        <p class="concept-hero-desc">
+          Part listening room, part bar, part dining experience, part cultural gathering.
+          Nami exists on its own acoustic and culinary frequency in Bandra West, Mumbai
+          — where analog sound, Japanese robata gastronomy, and nocturnal hospitality converge.
+        </p>
+      </div>
+
+      <!-- 3X REPEATING WAVE VIDEO STRAP SEPARATOR (Exact Match to Homepage) -->
+      <div class="wave-video-strap" aria-hidden="true">
+        <div class="wave-strap-grid">
+          <div class="wave-strap-item">
+            <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+              <source src="./assets/wave-anim.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="wave-strap-item">
+            <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+              <source src="./assets/wave-anim.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="wave-strap-item">
+            <video class="wave-strap-media" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disablepictureinpicture preload="auto">
+              <source src="./assets/wave-anim.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="wave-strap-overlay"></div>
+      </div>
+    </section>
+
+    <!-- 2. SIX BRAND PILLARS (PINNED HORIZONTAL SCROLL)
+         - 2.5 cards visible in first view
+         - Enlarged images
+         - Zero borders on images
+         - Number font weight 100
+         - No "SCROLL TO DISCOVER" / No "FOUNDATIONS"
+         ========================================================= -->
+    <section class="pillars-pinned-container" id="pillarsPinnedContainer">
+      <div class="pillars-sticky-viewport" id="pillarsStickyViewport">
+        <!-- Pinned Top Header (Minimal: Title Only) -->
+        <div class="pillars-top-bar">
+          <div class="pillars-section-meta">
+            <h2 class="pillars-section-title">Six Brand <span class="text-gradient">Pillars</span></h2>
+          </div>
+        </div>
+
+        <!-- Horizontal Track Window -->
+        <div class="pillars-track-window">
+          <div class="pillars-horizontal-track" id="pillarsTrack">
+
+            <!-- 01. CURIOUS (Stagger High) -->
+            <article class="pillar-col-card stagger-high">
+              <span class="pillar-editorial-num">01</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/nami-erykah-vinyl.jpg" alt="Pillar 01: Curious" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Curious</h3>
+                <span class="pillar-editorial-tagline">Curious, not conventional</span>
+                <p class="pillar-editorial-body">
+                  Nami is always exploring. We look for unexpected combinations in sound, flavour, people, imagery, and experience — fascinated by what happens when seemingly distinct creative worlds meet.
+                </p>
+              </div>
+            </article>
+
+            <!-- 02. SENSUAL (Stagger Low) -->
+            <article class="pillar-col-card stagger-low">
+              <span class="pillar-editorial-num">02</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/nami-coupe-cocktail.jpg" alt="Pillar 02: Sensual" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Sensual</h3>
+                <span class="pillar-editorial-tagline">Sensual, not seductive</span>
+                <p class="pillar-editorial-body">
+                  Nami communicates through the senses. Texture, colour, sound, taste, light, and movement are equally essential. A tactile world you experience deeply rather than simply observe.
+                </p>
+              </div>
+            </article>
+
+            <!-- 03. ELECTRIC (Stagger High) -->
+            <article class="pillar-col-card stagger-high">
+              <span class="pillar-editorial-num">03</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/nami-turntable-hands.jpg" alt="Pillar 03: Electric" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Electric</h3>
+                <span class="pillar-editorial-tagline">Electric, not chaotic</span>
+                <p class="pillar-editorial-body">
+                  An underlying pulse animates Nami after dark. Warm analog waveforms, rotary frequencies, and artist selector programming cultivate a living, dynamic nocturnal momentum.
+                </p>
+              </div>
+            </article>
+
+            <!-- 04. SOPHISTICATED (Stagger Low) -->
+            <article class="pillar-col-card stagger-low">
+              <span class="pillar-editorial-num">04</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/nami-carafe-pour.jpg" alt="Pillar 04: Sophisticated" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Sophisticated</h3>
+                <span class="pillar-editorial-tagline">Sophisticated, not precious</span>
+                <p class="pillar-editorial-body">
+                  There is meticulous craft behind every experimentation. Considered robata cooking, architectural acoustic dampening, and refined minimalism that understands quality without needing to proclaim it.
+                </p>
+              </div>
+            </article>
+
+            <!-- 05. PLAYFUL (Stagger High) -->
+            <article class="pillar-col-card stagger-high">
+              <span class="pillar-editorial-num">05</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/Event-bg1.jpg" alt="Pillar 05: Playful" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Playful</h3>
+                <span class="pillar-editorial-tagline">Playful, not childish</span>
+                <p class="pillar-editorial-body">
+                  We don’t take ourselves too seriously. Unexpected flavor harmonies, surreal audio flourishes, and playful acoustic nods give Nami an enduring sense of lightness and discovery.
+                </p>
+              </div>
+            </article>
+
+            <!-- 06. INCLUSIVE (Stagger Low) -->
+            <article class="pillar-col-card stagger-low">
+              <span class="pillar-editorial-num">06</span>
+              <div class="pillar-editorial-frame reveal-on-scroll">
+                <img src="./assets/nami-evening-crowd.jpg" alt="Pillar 06: Inclusive" class="pillar-editorial-img" loading="lazy">
+              </div>
+              <div class="pillar-editorial-info">
+                <h3 class="pillar-editorial-name">Inclusive</h3>
+                <span class="pillar-editorial-tagline">Exclusive taste, inclusive spirit</span>
+                <p class="pillar-editorial-body">
+                  At our core, Nami is built around community. Selectors, diners, artists, and nocturnal wanderers are not merely patrons; they actively become part of our shared cultural frequency.
+                </p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WHAT WE SERVE (FULL-BLEED EDGE-TO-EDGE IMAGES)
+         - NO TAGS, NO HAIRLINE TEXTS, NO CTAS
+         ========================================================= -->
+    <section class="fullbleed-features-section">
+
+      <!-- Feature 1: Sound Architecture (Image touches Left Edge, Content Right) -->
+      <div class="feature-edge-row image-left">
+        <div class="feature-edge-media reveal-on-scroll">
+          <img src="./assets/nami-horn-speaker.jpg" alt="440Hz Rotary Sound Architecture &amp; Tokyo Archives" loading="eager">
+        </div>
+        <div class="feature-edge-content">
+          <h3 class="feature-edge-title">440Hz Rotary Sound &amp; Tokyo Archives</h3>
+          <p class="feature-edge-desc">
+            Engineered around custom wooden horn loudspeakers, precision rotary mixers, and discrete analog vacuum tube amplification. Our sessions take inspiration from Tokyo’s legendary jazz kissaten culture — where music is played with devotion, fidelity, and unhurried nuance.
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature 2: Robata & Clarified Libations (Content Left, Image touches Right Edge) -->
+      <div class="feature-edge-row image-right">
+        <div class="feature-edge-media reveal-on-scroll">
+          <img src="./assets/nami-robata-skewer.jpg" alt="Binchotan Charcoal Robata &amp; Clarified Highballs" loading="eager">
+        </div>
+        <div class="feature-edge-content">
+          <h3 class="feature-edge-title">Binchotan Charcoal &amp; Clarified Highballs</h3>
+          <p class="feature-edge-desc">
+            An open robata hearth cooking over high-heat binchotan charcoal alongside a pristine raw bar. From aged hamachi crudo with kombu oil to charred koji-glazed root vegetables and charcoal-seared skewers, our culinary program is sound-mapped to the rhythms of the evening.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 4. CLOSING RESERVATION CTA (VIEW PROGRAMMING REMOVED) -->
+    <section class="concept-closing-cta">
+      <h2 class="closing-title">Enter The Frequency</h2>
+      <p class="closing-desc">
+        Reservations are recommended for listening counter sessions and robata dining.
+        Walk-ins welcomed for late-night vinyl sessions and highballs.
+      </p>
+      <div class="closing-actions">
+        <button type="button" class="btn-cta-primary" onclick="openReservationModal(event)">
+          <span>Reserve Dining &amp; Listening</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       EXACT FOOTER (MATCHES WHATS-ON & OUR-SPACE)
+       ========================================================= -->
+  <footer class="site-footer" id="siteFooter">
+    <!-- Brand Gradient Nocturnal Atmosphere Aura (Nami Palette Only) -->
+    <div class="footer-glow-aura" aria-hidden="true"></div>
+
+    <div class="footer-inner">
+      <!-- Top Row: Editorial Nav Columns -->
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Tagline -->
+        <div class="footer-meta-col">
+          <p class="footer-tagline">
+            A sensory provocateur in sound, dining, and nocturnal culture.<br>
+            Part listening room, part bar, part cultural gathering.
+          </p>
+          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+            <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
+            <span>Join WhatsApp Community →</span>
+          </a>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">NAVIGATE</span>
+          <ul class="footer-nav-list">
+            <li><a href="concept.html">About</a></li>
+            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
+            <li><a href="our-space.html">Our space</a></li>
+            <li><a href="index-2.html#press">In the news</a></li>
+            <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Hours & Address -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">HOURS &amp; ADDRESS</span>
+          <ul class="footer-nav-list">
+            <li><span>Wed – Sun · 7pm – late</span></li>
+            <li><span>Sessions: 8:30pm onwards</span></li>
+            <li><span>Bandra West, Mumbai</span></li>
+            <li><a href="mailto:experience@nami.in">experience@nami.in</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Connect & Group -->
+        <div class="footer-links-col">
+          <span class="footer-col-label">CONNECT</span>
+          <ul class="footer-nav-list">
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
+      <div class="footer-mid-bar">
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+      </div>
+
+      <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
+      <div class="footer-vinyl-stage" aria-hidden="true">
+        <div class="footer-vinyl-crop">
+          <img src="./assets/Vinyl.svg" alt="" class="footer-vinyl-img">
+          <div class="footer-vinyl-glow"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       FIXED FLOATING AUDIO PLAYER & FLOATING RESERVATION BUTTON
+       ========================================================= -->
+  <aside class="floating-audio-pill" aria-label="Audio player">
+    <button class="btn-audio-toggle" id="audioToggleBtn" onclick="toggleAudio()" aria-label="Play or pause audio">
+      <svg id="playIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+      </svg>
+      <svg id="pauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+        <rect x="6" y="4" width="4" height="16"></rect>
+        <rect x="14" y="4" width="4" height="16"></rect>
+      </svg>
+    </button>
+    <div class="audio-pill-track">
+      <span class="audio-pill-title">On &amp; On</span>
+      <span class="audio-pill-artist">Erykah Badu</span>
+    </div>
+    <div class="audio-eq-wave" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </aside>
+
+  <audio id="globalAudio" loop preload="none">
+    <source src="./assets/Short-video-2-min.mp4" type="audio/mp4">
+  </audio>
+
+  <a href="javascript:void(0)" class="floating-reserve-pill" onclick="openReservationModal(event)" aria-label="Open Reservation Modal">
+    <span>Reservation</span>
+    <span class="reserve-pill-sep">|</span>
+    <span class="reserve-eat-brand">eat</span>
+  </a>
+
+  <!-- =========================================================
+       RESERVATION MODAL
+       ========================================================= -->
+  <div class="reservation-modal" id="reservationModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="reservation-modal-backdrop" onclick="closeReservationModal()"></div>
+    <div class="reservation-modal-panel">
+      <div class="reservation-modal-header">
+        <div>
+          <span class="reserve-eyebrow">RESERVATION · EAT APP</span>
+          <h3 class="reserve-modal-title">Book Experience</h3>
+        </div>
+        <button type="button" class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+      </div>
+      <p class="reserve-modal-desc">
+        Select your date, party size, and session. We will instantly redirect you to our Eat App booking portal.
+      </p>
+
+      <form class="reservation-form" onsubmit="handleReserveSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">Date</label>
+            <input type="date" id="resDate" class="res-input" required>
+          </div>
+          <div class="form-group">
+            <label for="resGuests">Guests</label>
+            <select id="resGuests" class="res-input">
+              <option value="1">1 Guest</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6+ Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resTime">Session</label>
+            <select id="resTime" class="res-input">
+              <option value="19:00">19:00 · Early Listening</option>
+              <option value="20:30" selected>20:30 · Prime Listening</option>
+              <option value="22:30">22:30 · Late Vinyl Session</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resSeating">Seating</label>
+            <select id="resSeating" class="res-input">
+              <option value="counter" selected>Hi-Fi Counter</option>
+              <option value="dining">Robata Dining</option>
+              <option value="booth">Acoustic Booth</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirm-reserve">
+          <span>Find Table via Eat App ↗</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       SCRIPTS: HORIZONTAL SCROLL ENGINE, REVEALS, AUDIO, MODALS
+       ========================================================= -->
+  <script>
+    // 1. Hamburger Drawer Toggle
+    function toggleMenuDrawer() {
+      const drawer = document.getElementById('menuDrawer');
+      if (drawer) {
+        drawer.classList.toggle('open');
+      }
+    }
+
+    // 2. Drawer Hover Preview Image Swap
+    (function initDrawerPreviews() {
+      const navLinks = document.getElementById('drawerNavLinks');
+      const activeImg = document.getElementById('drawerImgConcept');
+      const items = document.querySelectorAll('.drawer-nav-item[data-target-img]');
+      const allImgs = document.querySelectorAll('.drawer-preview-img');
+      if (!navLinks || !items.length || !allImgs.length) return;
+
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const targetId = item.getAttribute('data-target-img');
+          const targetImg = document.getElementById(targetId);
+          if (targetImg) {
+            allImgs.forEach(img => img.classList.remove('active'));
+            targetImg.classList.add('active');
+          }
+        });
+      });
+
+      navLinks.addEventListener('mouseleave', () => {
+        allImgs.forEach(img => img.classList.remove('active'));
+        if (activeImg) activeImg.classList.add('active');
+      });
+    })();
+
+    // 3. Pinned Horizontal Scroll Engine for Six Brand Pillars
+    (function initHorizontalPillarsScroll() {
+      const container = document.getElementById('pillarsPinnedContainer');
+      const track = document.getElementById('pillarsTrack');
+      if (!container || !track) return;
+
+      let ticking = false;
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updatePillarsTranslate();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      function updatePillarsTranslate() {
+        if (window.innerWidth <= 860) {
+          track.style.transform = 'none';
+          return;
+        }
+
+        const rect = container.getBoundingClientRect();
+        const totalScroll = container.offsetHeight - window.innerHeight;
+        if (totalScroll <= 0) return;
+
+        // Progress clamp 0..1
+        const scrollPassed = -rect.top;
+        const progress = Math.min(Math.max(scrollPassed / totalScroll, 0), 1);
+
+        // Maximum translation needed to show all 6 cards
+        const maxScroll = track.scrollWidth - window.innerWidth;
+        if (maxScroll > 0) {
+          const translateX = progress * maxScroll;
+          track.style.transform = `translateX(-${translateX}px)`;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      updatePillarsTranslate();
+    })();
+
+    // 4. Subtle Fade-Move-Up Animation for Images (IntersectionObserver)
+    (function initImageRevealAnimation() {
+      const targets = document.querySelectorAll('.reveal-on-scroll');
+      if (!targets.length) return;
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        targets.forEach(t => observer.observe(t));
+      } else {
+        targets.forEach(t => t.classList.add('is-revealed'));
+      }
+    })();
+
+    // 4b. Zig-Zag Feature Image Parallax on Scroll
+    (function initZigZagParallax() {
+      const rows = Array.from(document.querySelectorAll('.feature-edge-row'));
+      if (!rows.length) return;
+
+      let ticking = false;
+
+      function updateParallax() {
+        const winHeight = window.innerHeight;
+        const screenCenter = winHeight / 2;
+
+        rows.forEach(row => {
+          const media = row.querySelector('.feature-edge-media');
+          const img = row.querySelector('.feature-edge-media img');
+          if (!media || !img) return;
+
+          const rect = media.getBoundingClientRect();
+          if (rect.bottom > -100 && rect.top < winHeight + 100) {
+            const mediaCenter = rect.top + rect.height / 2;
+            const offset = (mediaCenter - screenCenter) * -0.14;
+            const clamped = Math.max(-68, Math.min(68, offset));
+            img.style.transform = `translate3d(0, ${clamped.toFixed(1)}px, 0)`;
+          }
+        });
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      updateParallax();
+    })();
+
+    // 5. Reservation Modal Handlers
+    function openReservationModal(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const dateInput = document.getElementById('resDate');
+      if (dateInput && !dateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+      }
+    }
+
+    function closeReservationModal() {
+      const modal = document.getElementById('reservationModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function handleReserveSubmit(e) {
+      e.preventDefault();
+      const date = document.getElementById('resDate').value;
+      const guests = document.getElementById('resGuests').value;
+      const time = document.getElementById('resTime').value;
+      const seating = document.getElementById('resSeating').value;
+      const targetUrl = `https://eat.nami.in/reserve?date=${encodeURIComponent(date)}&guests=${encodeURIComponent(guests)}&time=${encodeURIComponent(time)}&seating=${encodeURIComponent(seating)}`;
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      closeReservationModal();
+    }
+
+    // 6. Audio Player Logic
+    function toggleAudio() {
+      const audio = document.getElementById('globalAudio');
+      const playIcon = document.getElementById('playIcon');
+      const pauseIcon = document.getElementById('pauseIcon');
+      if (!audio) return;
+
+      if (audio.paused) {
+        audio.play().then(() => {
+          if (playIcon) playIcon.style.display = 'none';
+          if (pauseIcon) pauseIcon.style.display = 'block';
+        }).catch(() => {});
+      } else {
+        audio.pause();
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+      }
+    }
+
+    // Synchronize wave-video-strap playback
+    (function initWaveVideoSync() {
+      const videos = document.querySelectorAll('.wave-strap-media');
+      if (videos.length <= 1) return;
+      const master = videos[0];
+      const slaves = Array.from(videos).slice(1);
+      master.addEventListener('timeupdate', () => {
+        slaves.forEach(s => {
+          if (Math.abs(s.currentTime - master.currentTime) > 0.1) {
+            try { s.currentTime = master.currentTime; } catch (e) {}
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,18 +1,26 @@
-# Legacy HTML (design source)
+# NAMI — legacy static HTML (design reference)
 
-Drop updated static HTML + assets here from the design handoff.
+Synced from the design package / https://nami.reputationindia.in/  
+**Do not upload this folder to production.**
 
-Current source mirrored from `Documents/projectdata/nami/Nami`:
+| File | Next.js route |
+|------|----------------|
+| **`index.html`** | **`/`** (canonical home — calendar + splash) |
+| `index-2.html` | `/index-2` (alternate list home) |
+| `concept.html` | `/concept` |
+| `whats-on.html` | `/whats-on` |
+| `drinks-food.html` | `/drinks-food` |
+| `our-space.html` | `/our-space` |
+| `styleguide.html` | `/styleguide` |
 
-- `index.html` — homepage
-- `styleguide.html` — style guide
-- `assets/` — media referenced by those files
+Font: **Chivo** (Google Fonts) for heading + body.
 
-## Port into Next.js
+After updating HTML here:
 
-1. Copy matching markup into `components/common/` or `components/home/sections/…`
-2. Add styles to `public/assets/css/custom.css`
-3. Add behaviour to `public/assets/js/custom.js`
-4. Update event data in `content/home.ts` if needed
+```bash
+node scripts/rebuild-from-index.mjs
+node scripts/html-to-tsx.mjs
+node scripts/fix-jsx-comments.mjs
+```
 
-See `DEVELOPERS.md`.
+Then review `components/` and keep `Header.tsx` pathname-aware (generator skips overwriting it).

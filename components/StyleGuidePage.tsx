@@ -216,8 +216,8 @@ export default function StyleGuidePage() {
           <section id="hero" className="hero-banner">
             <div className="hero-wave-canvas"></div>
       
-            {/* Vector Wave Asset from ./assets/Vector.png */}
-            <img src="/assets/Vector.png" alt="Nami Vector Wave" className="hero-vector-art" onError={(e) => { const event = e; this.style.display='none' }} />
+            {/* Vector Wave Asset from ./assets/Vector.avif */}
+            <img src="/assets/Vector.avif" alt="Nami Vector Wave" className="hero-vector-art" onError={(e) => { const event = e; this.style.display='none' }} />
 
             <div className="hero-content">
               {/* Official Main-logo.svg in Hero */}
@@ -799,7 +799,7 @@ export default function StyleGuidePage() {
 
               {/* Mockup 1: Resonance Menu Card */}
               <div className="menu-card-preview">
-                <img src="/assets/Vector.png" alt="Wave Gradient Accent" className="menu-card-wave-bg" onError={(e) => { const event = e; this.style.display='none' }} />
+                <img src="/assets/Vector.avif" alt="Wave Gradient Accent" className="menu-card-wave-bg" onError={(e) => { const event = e; this.style.display='none' }} />
 
                 <div className="menu-header">
                   <div>

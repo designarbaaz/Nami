@@ -6,15 +6,12 @@ import Philosophy from "./sections/Philosophy";
 import Programming from "./sections/Programming";
 import MenuSection from "./sections/MenuSection";
 import Space from "./sections/Space";
+import Press from "./sections/Press";
+import InstagramStrap from "./sections/InstagramStrap";
 
 /**
- * Homepage sections only.
- * Header / Footer / Overlays / Modals are global via SiteShell.
- *
- * Customize:
- *   public/assets/css/custom.css
- *   public/assets/js/custom.js
- *   content/home.ts
+ * Canonical homepage from index.html (matches https://nami.reputationindia.in/).
+ * Alternate list variant: /index-2 (index-2.html).
  */
 export default function HomePage() {
   return (
@@ -27,6 +24,8 @@ export default function HomePage() {
         <Programming />
         <MenuSection />
         <Space />
+        <Press />
+        <InstagramStrap />
       </main>
     </>
   );
