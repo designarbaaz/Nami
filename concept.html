@@ -6,6 +6,9 @@
   <title>Concept &amp; Philosophy · NAMI Hi-Fi Listening Room &amp; Robata Bar</title>
   <meta name="description" content="Discover Nami's philosophy, brand pillars, custom 440Hz rotary audio architecture, and binchotan robata dining in Bandra West, Mumbai.">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
   <!-- Google Fonts: Chivo Only (True Ultra-Light 100 to Bold 900) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1380,7 +1383,20 @@
       color: rgba(255, 255, 255, 0.45);
       white-space: nowrap;
       box-sizing: border-box;
-      pointer-events: none;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     .footer-vinyl-stage {
@@ -1528,6 +1544,8 @@
       background: var(--grad-velvet);
       color: #FFFFFF;
       text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0;
       padding: 10px 22px;
       border-radius: 999px;
       font-size: 0.82rem;
@@ -1836,6 +1854,9 @@
         grid-template-columns: 1fr;
         gap: 1.75rem;
       }
+      footer.site-footer {
+        padding: 4.5rem 1.5rem 0;
+      }
       .footer-mid-bar {
         white-space: normal;
         line-height: 1.6;
@@ -1873,7 +1894,7 @@
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -2291,7 +2312,7 @@
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
-          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-footer">
             <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
             <span>Join WhatsApp Community →</span>
           </a>
@@ -2301,11 +2322,10 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
             <li><a href="our-space.html">Our Spaces</a></li>
-            <li><a href="index-2.html#press">In the news</a></li>
             <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
@@ -2326,16 +2346,16 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
-            <li><a href="whats-on.html">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
@@ -2618,13 +2638,19 @@
 
     function handleReserveSubmit(e) {
       e.preventDefault();
-      const date = document.getElementById('resDate').value;
-      const guests = document.getElementById('resGuests').value;
-      const time = document.getElementById('resTime').value;
-      const seating = document.getElementById('resSeating').value;
-      const targetUrl = `https://eat.nami.in/reserve?date=${encodeURIComponent(date)}&guests=${encodeURIComponent(guests)}&time=${encodeURIComponent(time)}&seating=${encodeURIComponent(seating)}`;
-      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const time = document.getElementById('resTime')?.value || '';
+      const seating = document.getElementById('resSeating')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        date,
+        guests,
+        time,
+        seating
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 6. Audio Player Logic

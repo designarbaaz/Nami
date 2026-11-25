@@ -1877,7 +1877,7 @@
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -2357,7 +2357,7 @@
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
-          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-footer">
             <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon">
             <span>Join WhatsApp Community →</span>
           </a>
@@ -2388,9 +2388,9 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
             <li><a href="whats-on.html#programming">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
@@ -2584,8 +2584,21 @@
 
     function handleReservationSubmit(e) {
       e.preventDefault();
-      showToast('Reservation Request Received. We will confirm via WhatsApp within 2 hours.');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const session = document.getElementById('resSession')?.value || '';
+      const zone = document.getElementById('resZone')?.value || '';
+      const name = document.getElementById('resName')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        name,
+        date,
+        guests,
+        time: session,
+        seating: zone
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 2B. Private Space Contact Modal Handlers
@@ -2613,8 +2626,17 @@
 
     function handleContactSubmit(e) {
       e.preventDefault();
-      showToast('Private event inquiry received. Our team will reach out within 24 hours.');
+      const name = document.getElementById('contactName')?.value || '';
+      const date = document.getElementById('contactDate')?.value || '';
+      const occasion = document.getElementById('contactType')?.value || '';
       closeContactModal();
+      const params = new URLSearchParams({
+        type: 'private',
+        name,
+        date,
+        occasion
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 3. Toast Utility

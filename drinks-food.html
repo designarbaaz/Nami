@@ -896,6 +896,8 @@
       width: 100%;
       max-width: 1240px;
       margin: 0 auto 1.8rem;
+      padding: 0;
+      border: none !important;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -903,7 +905,21 @@
       font-size: clamp(0.68rem, 0.85vw, 0.74rem);
       color: rgba(255, 255, 255, 0.45);
       white-space: nowrap;
-      pointer-events: none;
+      box-sizing: border-box;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     .footer-vinyl-stage {
@@ -1247,7 +1263,7 @@
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -1502,7 +1518,7 @@
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
-          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-footer">
             <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon">
             <span>Join WhatsApp Community →</span>
           </a>
@@ -1511,11 +1527,10 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
             <li><a href="our-space.html">Our Spaces</a></li>
-            <li><a href="index-2.html#press">In the news</a></li>
             <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
@@ -1534,15 +1549,15 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
-            <li><a href="whats-on.html">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <div class="footer-vinyl-stage" aria-hidden="true">
@@ -1747,8 +1762,21 @@
 
     function handleReservationSubmit(e) {
       e.preventDefault();
-      showToast('Reservation Request Received. We will confirm via WhatsApp within 2 hours.');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const session = document.getElementById('resSession')?.value || '';
+      const zone = document.getElementById('resZone')?.value || '';
+      const name = document.getElementById('resName')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        name,
+        date,
+        guests,
+        time: session,
+        seating: zone
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     function showToast(msg) {

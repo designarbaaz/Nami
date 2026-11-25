@@ -1501,7 +1501,7 @@
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -2094,17 +2094,14 @@
     // 3. Enquiry Form Handler
     function handleEnquirySubmit(e) {
       e.preventDefault();
-      const form = document.getElementById('enquiryForm');
-      const confirmBox = document.getElementById('enquirySuccess');
-      const firstName = (document.getElementById('enqFirstName')?.value || '').trim() || 'there';
+      const firstName = (document.getElementById('enqFirstName')?.value || '').trim();
       const topic = document.getElementById('enqTopic')?.value || 'your enquiry';
-
-      if (confirmBox) {
-        confirmBox.textContent = `Thank you, ${firstName}. Your enquiry regarding ${topic} has been received — our team at Mansionz One will reach back within 24 hours.`;
-        confirmBox.classList.add('is-visible');
-      }
-      showToast('Enquiry sent. Our Bandra team will reach out shortly.');
-      if (form) form.reset();
+      const params = new URLSearchParams({
+        type: 'enquiry',
+        name: firstName,
+        topic
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 4. Reservation Modal Handlers
@@ -2132,8 +2129,21 @@
 
     function handleReservationSubmit(e) {
       e.preventDefault();
-      showToast('Reservation Request Received. We will confirm via WhatsApp within 2 hours.');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const session = document.getElementById('resSession')?.value || '';
+      const zone = document.getElementById('resZone')?.value || '';
+      const name = document.getElementById('resName')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        name,
+        date,
+        guests,
+        time: session,
+        seating: zone
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 5. Toast Utility
