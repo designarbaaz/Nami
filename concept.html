@@ -1064,15 +1064,6 @@
       align-items: center;
     }
 
-    .font-section-eyebrow {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--c-orange);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 1rem;
-    }
-
     .font-section-title {
       font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 700;
@@ -1099,49 +1090,22 @@
     }
 
     .font-platform-pills {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem clamp(0.75rem, 1.5vw, 1.25rem);
-      margin-top: 2rem;
+      display: none;
     }
 
     .font-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 1rem;
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      color: #d0d0d0;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
-    }
-
-    .font-pill:hover {
-      border-color: rgba(244, 143, 36, 0.4);
-      background: rgba(255, 255, 255, 0.06);
-      color: #FFFFFF;
+      display: none;
     }
 
     .font-pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--c-orange);
-      display: inline-block;
-      flex-shrink: 0;
+      display: none;
     }
 
     .font-controls-bar {
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 1.25rem;
       margin-bottom: 1.5rem;
@@ -1150,72 +1114,58 @@
     }
 
     .font-specimen-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.84rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .font-meta-count {
-      color: #FFFFFF;
-      font-weight: 600;
-    }
-
-    .font-meta-sep {
-      color: rgba(255, 255, 255, 0.25);
-    }
-
-    .font-meta-sub {
-      color: var(--text-secondary);
-      font-weight: 300;
+      display: none;
     }
 
     .font-toggle-group {
       display: inline-flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 999px;
-      padding: 4px;
-      gap: 4px;
+      gap: clamp(1.5rem, 3.5vw, 3rem);
+      padding: 0;
+      background: transparent;
+      border: none;
     }
 
     .font-toggle-btn {
       background: transparent;
       border: none;
-      color: rgba(255, 255, 255, 0.6);
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 0.55rem 1.15rem;
-      border-radius: 999px;
+      border-bottom: 3px solid transparent;
+      color: #777777;
+      font-family: var(--font-heading);
+      font-size: clamp(18px, 2.2vw, 30px);
+      font-weight: 400;
+      padding: 0 0 8px 0;
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: normal;
+      line-height: 1.2;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      display: inline-block;
     }
 
     .font-toggle-btn:hover {
-      color: #FFFFFF;
-      background: rgba(255, 255, 255, 0.06);
+      color: #c0c0c0;
+      background: transparent;
     }
 
     .font-toggle-btn.active {
-      background: #FFFFFF;
-      color: #070707;
+      color: #FFFFFF;
       font-weight: 700;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      border-bottom: 3px solid #FFFFFF;
+      background: transparent;
+      box-shadow: none;
     }
 
     .font-specimen-card {
       width: 100%;
-      background: radial-gradient(ellipse at 50% 12%, rgba(35, 30, 36, 0.35) 0%, rgba(10, 10, 14, 0.85) 85%), #09090C;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: clamp(1.25rem, 3vw, 2.5rem);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: clamp(0.5rem, 1.5vw, 1rem) 0;
       box-sizing: border-box;
       position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-      overflow: hidden;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .font-specimen-scroll {
@@ -1242,60 +1192,24 @@
 
     .font-specimen-img {
       width: 100%;
-      max-width: 1160px;
+      max-width: 100%;
       min-width: 760px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
 
-    .font-specimen-card-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.55);
-    }
-
-    .font-specimen-footnote {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .foot-label {
-      color: var(--c-orange);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 0.72rem;
-    }
-
-    .foot-detail {
-      color: var(--text-secondary);
-      font-weight: 300;
-    }
-
-    .font-scroll-hint {
-      display: none;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.04em;
-    }
+    .font-specimen-card-foot { display: none; }
+    .font-specimen-footnote { display: none; }
+    .foot-label { display: none; }
+    .foot-detail { display: none; }
+    .font-scroll-hint { display: none; }
 
     @media (max-width: 900px) {
       .font-controls-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .font-scroll-hint {
-        display: block;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -1311,13 +1225,10 @@
         min-width: 660px;
       }
       .font-toggle-group {
-        width: 100%;
+        gap: 2rem;
       }
       .font-toggle-btn {
-        flex: 1;
-        text-align: center;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.76rem;
+        font-size: clamp(16px, 5vw, 22px);
       }
     }
 
@@ -2324,47 +2235,20 @@
       <div class="font-section-container">
         <!-- Section Header -->
         <div class="font-section-header">
-          <span class="font-section-eyebrow">BESPOKE BRAND IDENTITY · ACOUSTIC TYPOGRAPHY</span>
           <h2 class="font-section-title">The Nami <span class="text-gradient">Waveform Typeface</span></h2>
           <p class="font-section-desc">
-            Nami exists on its own acoustic frequency. To articulate this nocturnal identity, we created a bespoke phonetic typeface where each letterform is sculpted from analog sound waves, harmonic oscillations, and Japanese wave (波) geometries. Applied cohesively across our social media platforms, campaign advertising, spatial wayfinding, vinyl sleeves, and printed menus, the typeface defines the sensory cadence of the Nami experience.
+            Each letterform is sculpted from analog sound waves, harmonic oscillations, and Japanese wave geometries — applied across social media, campaign advertising, spatial wayfinding, and printed menus.
           </p>
-
-          <!-- Cross-Platform Brand Application Badges -->
-          <div class="font-platform-pills" aria-label="Brand application touchpoints">
-            <div class="font-pill">
-              <span class="font-pill-dot" aria-hidden="true"></span>
-              <span>Social Media &amp; Digital Content</span>
-            </div>
-            <div class="font-pill">
-              <span class="font-pill-dot" aria-hidden="true"></span>
-              <span>Campaign &amp; Print Advertising</span>
-            </div>
-            <div class="font-pill">
-              <span class="font-pill-dot" aria-hidden="true"></span>
-              <span>Spatial Signage &amp; Listening Room</span>
-            </div>
-            <div class="font-pill">
-              <span class="font-pill-dot" aria-hidden="true"></span>
-              <span>Vinyl Records &amp; Dining Menus</span>
-            </div>
-          </div>
         </div>
 
-        <!-- Specimen View Controls (Small Letters vs Big Letters) -->
+        <!-- Specimen View Controls (Lowercase vs Uppercase) -->
         <div class="font-controls-bar">
-          <div class="font-specimen-meta">
-            <span class="font-meta-count">A — Z Character System</span>
-            <span class="font-meta-sep">/</span>
-            <span class="font-meta-sub">26 Acoustic Phonetic Waveforms</span>
-          </div>
-
           <div class="font-toggle-group" role="tablist" aria-label="Character set selection">
             <button type="button" class="font-toggle-btn active" id="btnSpecimenSmall" role="tab" aria-selected="true" aria-controls="panelSpecimenSmall" onclick="switchSpecimen('small')">
-              <span>Small Letters (Lowercase)</span>
+              <span>Lowercase</span>
             </button>
             <button type="button" class="font-toggle-btn" id="btnSpecimenBig" role="tab" aria-selected="false" aria-controls="panelSpecimenBig" onclick="switchSpecimen('big')">
-              <span>Big Letters (Uppercase)</span>
+              <span>Uppercase</span>
             </button>
           </div>
         </div>
@@ -2373,20 +2257,10 @@
         <div class="font-specimen-card reveal-on-scroll">
           <div class="font-specimen-scroll" id="fontSpecimenScroll">
             <div class="font-specimen-pane active" id="panelSpecimenSmall" role="tabpanel" aria-labelledby="btnSpecimenSmall">
-              <img src="./assets/Small-letters.svg" alt="Nami Custom Typeface — Lowercase / Small Letters Character Set" class="font-specimen-img" loading="lazy">
+              <img src="./assets/Small-letters.svg" alt="Nami Custom Typeface — Lowercase Character Set" class="font-specimen-img" loading="lazy">
             </div>
             <div class="font-specimen-pane" id="panelSpecimenBig" role="tabpanel" aria-labelledby="btnSpecimenBig">
-              <img src="./assets/Big-letters.svg" alt="Nami Custom Typeface — Uppercase / Big Letters Character Set" class="font-specimen-img" loading="lazy">
-            </div>
-          </div>
-
-          <div class="font-specimen-card-foot">
-            <div class="font-specimen-footnote">
-              <span class="foot-label">Character Logic</span>
-              <span class="foot-detail">Each glyph corresponds to phonetic frequency oscillations (A–Z) designed exclusively for Nami Bombay.</span>
-            </div>
-            <div class="font-scroll-hint" aria-hidden="true">
-              <span>← Scroll to inspect characters →</span>
+              <img src="./assets/Big-letters.svg" alt="Nami Custom Typeface — Uppercase Character Set" class="font-specimen-img" loading="lazy">
             </div>
           </div>
         </div>
