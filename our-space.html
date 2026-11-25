@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Space — NAMI Hi-Fi Listening Room, Robata &amp; Bar, Mumbai</title>
+  <title>Our Spaces — NAMI Hi-Fi Listening Room, Robata &amp; Bar, Mumbai</title>
   <meta name="description" content="Explore the sensory architecture of NAMI: 440Hz custom horn acoustics, Tokyo jazz kissa vinyl archives, artisanal robata cuisine, and nocturnal craft libations.">
 
   <!-- Favicon -->
@@ -37,6 +37,8 @@
       /* Approved Atmospheric Frequency (Subtle) Gradients */
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-velvet: linear-gradient(114deg, #080C18 0%, #0E4B8E 32%, #8C2D52 64%, #D66824 90%, #0A2B5E 100%);
+      --grad-rosefold: linear-gradient(118deg, #0047AB 0%, #111318 28%, #D98A9C 56%, #C2434A 78%, #0A5CBF 100%);
     }
 
     * {
@@ -580,7 +582,7 @@
     }
 
     .gallery-page-title .text-gradient {
-      background: var(--grad-primary);
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -836,8 +838,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.8rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-velvet);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
@@ -846,18 +848,18 @@
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
       text-decoration: none;
-      border: none;
-      cursor: default;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      cursor: pointer;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .floating-reserve-cta:hover {
       transform: translateY(-2px) scale(1.03);
       filter: brightness(1.12);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+      box-shadow: none;
     }
 
     .reserve-cta-divider {
@@ -1040,8 +1042,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
@@ -1050,15 +1052,15 @@
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
       border: none;
-      cursor: default;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      cursor: pointer;
+      box-shadow: none;
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-confirm-reserve:hover {
       filter: brightness(1.12);
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+      box-shadow: none;
     }
 
     /* Toast Notification */
@@ -1435,7 +1437,7 @@
 
         <!-- Node S: Our Space (Active) -->
         <div class="scroller-node">
-          <a href="our-space.html" class="scroller-btn active" data-section="space" aria-label="Our Space" aria-current="page">
+          <a href="our-space.html" class="scroller-btn active" data-section="space" aria-label="Our Spaces" aria-current="page">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
@@ -1444,7 +1446,7 @@
               </g>
             </svg>
             <span class="knob-label">S</span>
-            <span class="tooltip">Our Space</span>
+            <span class="tooltip">Our Spaces</span>
           </a>
         </div>
       </nav>
@@ -1478,7 +1480,7 @@
           <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="our-space.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Space
+          <span class="drawer-nav-num">04</span> Our Spaces
         </a>
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
           <span class="drawer-nav-num">05</span> Reservation
@@ -1492,7 +1494,7 @@
           <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img active" id="drawerImgSpace">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img active" id="drawerImgSpace">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -1572,10 +1574,10 @@
       <nav class="gallery-breadcrumb" aria-label="Breadcrumb">
         <a href="index-2.html">HOME</a>
         <span class="gallery-breadcrumb-sep">/</span>
-        <span class="gallery-breadcrumb-active">OUR SPACE</span>
+        <span class="gallery-breadcrumb-active">OUR SPACES</span>
       </nav>
 
-      <h1 class="gallery-page-title">Our <span class="text-gradient">Space</span></h1>
+      <h1 class="gallery-page-title">Our <span class="text-gradient">Spaces</span></h1>
       <p class="gallery-page-desc">
         A sanctuary of analog acoustic engineering, Japanese robata gastronomy, bespoke libations, and nocturnal listening culture. Explore our custom rotary audio architecture, vinyl archives, dining rooms, and atmospheric bar.
       </p>
@@ -1586,10 +1588,10 @@
           All
         </button>
         <button class="gallery-filter-pill" data-filter="interiors" role="tab" aria-selected="false" onclick="filterGallery('interiors')">
-          Interiors &amp; Space
+          Interiors
         </button>
         <button class="gallery-filter-pill" data-filter="music" role="tab" aria-selected="false" onclick="filterGallery('music')">
-          Music &amp; Sound
+          Sound Setup
         </button>
         <button class="gallery-filter-pill" data-filter="drinks-food" role="tab" aria-selected="false" onclick="filterGallery('drinks-food')">
           Drinks &amp; Food
@@ -1750,7 +1752,7 @@
             <li><a href="concept.html">About</a></li>
             <li><a href="whats-on.html">What’s on</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
-            <li><a href="our-space.html">Our space</a></li>
+            <li><a href="our-space.html">Our Spaces</a></li>
             <li><a href="index-2.html#press">In the news</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
@@ -1805,7 +1807,7 @@
       <div class="reservation-modal-header">
         <div>
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
-          <h3 class="reserve-modal-title">Table <span class="grad-accent" style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
+          <h3 class="reserve-modal-title">Table <span class="grad-accent" style="background: var(--grad-rosefold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
         </div>
         <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
       </div>
@@ -2146,5 +2148,6 @@
       }
     }
   </script>
+  <script src="./assets/nami-velvet-buttons.js"></script>
 </body>
 </html>

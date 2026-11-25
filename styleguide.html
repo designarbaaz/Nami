@@ -35,6 +35,21 @@
       --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
       --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
+
+      /* Layered Atmospheric Mesh Gradients (Pure CSS + Analog Grain Ready) */
+      --grad-mesh-ember:
+        radial-gradient(64% 74% at 14% 34%, rgba(138, 48, 40, 0.92) 0%, rgba(104, 42, 27, 0.56) 38%, rgba(7, 7, 7, 0) 76%),
+        radial-gradient(54% 62% at 38% 72%, rgba(124, 54, 30, 0.64) 0%, rgba(64, 24, 18, 0.34) 44%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(46% 42% at 86% 92%, rgba(122, 58, 30, 0.52) 0%, rgba(45, 20, 14, 0.22) 48%, rgba(7, 7, 7, 0) 76%),
+        linear-gradient(128deg, #1E0D0B 0%, #090707 52%, #070707 100%);
+      --grad-mesh-tube:
+        radial-gradient(68% 68% at 18% 42%, rgba(182, 88, 26, 0.86) 0%, rgba(120, 44, 24, 0.46) 45%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(48% 58% at 72% 84%, rgba(145, 58, 30, 0.45) 0%, rgba(7, 7, 7, 0) 72%),
+        linear-gradient(135deg, #170C08 0%, #070707 68%);
+      --grad-mesh-cobalt:
+        radial-gradient(66% 66% at 18% 78%, rgba(10, 84, 172, 0.84) 0%, rgba(8, 67, 127, 0.42) 45%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(52% 55% at 52% 28%, rgba(152, 54, 78, 0.44) 0%, rgba(7, 7, 7, 0) 70%),
+        linear-gradient(140deg, #060912 0%, #070707 75%);
     }
 
     * {
@@ -710,6 +725,520 @@
       top: 6px;
       font-size: 0.65rem;
       color: var(--c-pink);
+    }
+
+    /* =========================================================================
+       04.A / 04.B ATMOSPHERIC MESH + WEBGL LIQUID GRADIENT VARIATIONS
+       ========================================================================= */
+    .grad-subblock {
+      margin-top: 56px;
+      padding-top: 44px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .grad-subhead {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grad-subhead-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 8px;
+    }
+
+    .grad-subhead h3 {
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .grad-subhead p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .mesh-preview {
+      position: relative;
+      height: 210px;
+      background-color: #070707;
+      overflow: hidden;
+    }
+
+    .mesh-grain-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"),
+        url('./assets/Noise-texture.png');
+      background-size: 180px 180px, 240px 240px;
+      mix-blend-mode: overlay;
+      opacity: 0.34;
+    }
+
+    .grad-ref-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(7, 7, 7, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Liquid Controls Bar */
+    .liquid-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .liquid-controls-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .liquid-toggle-btn,
+    .liquid-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .liquid-toggle-btn:hover,
+    .liquid-action-btn:hover {
+      border-color: rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .liquid-toggle-btn.is-active {
+      border-color: rgba(217, 119, 24, 0.55);
+      background: rgba(217, 119, 24, 0.14);
+      color: #FFD1A3;
+    }
+
+    .liquid-toggle-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #777777;
+    }
+
+    .liquid-toggle-btn.is-active .liquid-toggle-dot {
+      background: #E87D20;
+      box-shadow: 0 0 8px #E87D20;
+    }
+
+    .liquid-slider-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .liquid-slider-item input[type="range"] {
+      width: 110px;
+      accent-color: #D97718;
+      cursor: pointer;
+    }
+
+    .liquid-slider-val {
+      min-width: 34px;
+      color: #FFFFFF;
+      text-align: right;
+    }
+
+    /* Liquid Cards */
+    .liquid-gradients-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 1040px) {
+      .liquid-gradients-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .liquid-gradients-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .liquid-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .liquid-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .liquid-card.is-active {
+      border-color: rgba(217, 119, 24, 0.72);
+      box-shadow: 0 0 0 1px rgba(217, 119, 24, 0.35), 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .liquid-preview-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #070707;
+      overflow: hidden;
+    }
+
+    .liquid-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .liquid-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(7, 7, 7, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #B4B4B4;
+      pointer-events: none;
+    }
+
+    .liquid-card.is-active .liquid-badge {
+      border-color: rgba(217, 119, 24, 0.6);
+      color: #FFD1A3;
+      background: rgba(24, 12, 4, 0.84);
+    }
+
+    .liquid-card-meta {
+      padding: 16px 18px 18px;
+    }
+
+    .liquid-card-title {
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .liquid-card-desc {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .liquid-swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .liquid-swatch-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .liquid-swatch-label {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Live Component Application Lab */
+    .liquid-app-lab {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .liquid-app-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .liquid-app-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+
+    .liquid-app-active-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #FFD1A3;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(217, 119, 24, 0.12);
+      border: 1px solid rgba(217, 119, 24, 0.38);
+    }
+
+    .liquid-app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 820px) {
+      .liquid-app-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .liquid-app-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .liquid-app-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .app-stage {
+      position: relative;
+      height: 240px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #070707;
+    }
+
+    .app-backdrop-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .app-backdrop-overlay {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 0.15) 0%, rgba(7, 7, 7, 0.72) 100%);
+    }
+
+    .app-backdrop-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .app-backdrop-headline {
+      font-size: 1.55rem;
+      line-height: 1.12;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+
+    .app-backdrop-sub {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.76);
+      margin-top: 6px;
+    }
+
+    .app-cta-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background:
+        radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(7, 7, 7, 0) 70%),
+        #0A0A0B;
+      padding: 24px;
+    }
+
+    .app-cta-pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      white-space: nowrap;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      background-color: #1A120E;
+      background-size: 160% 160%;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    }
+
+    .app-cta-divider {
+      opacity: 0.6;
+      font-weight: 300;
+    }
+
+    .app-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .app-text-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: #070707;
+    }
+
+    .app-display-text {
+      font-size: clamp(2rem, 3.6vw, 2.9rem);
+      font-weight: 700;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background-size: cover;
+      background-position: center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .app-text-caption {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+    }
+
+    .app-poster-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      background:
+        radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.035) 0%, rgba(7, 7, 7, 0) 75%),
+        #070707;
+    }
+
+    .app-poster-frame {
+      position: relative;
+      height: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      background: #080808;
+    }
+
+    .app-poster-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(1) contrast(1.26) brightness(0.92);
+    }
+
+    .app-poster-tint {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      mix-blend-mode: hard-light;
+      opacity: 0.88;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(0, 0, 0, 0.94) 64%, #000 100%);
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(0, 0, 0, 0.94) 64%, #000 100%);
     }
 
     /* Typography Table */
@@ -1515,6 +2044,237 @@ body {
         </div>
 
       </div>
+
+        <!-- 04.A Atmospheric Pure CSS Mesh + Film Grain -->
+        <div class="grad-subblock" id="gradientsMeshBlock">
+          <div class="grad-subhead">
+            <div>
+              <span class="grad-subhead-eyebrow">04.A / Atmospheric CSS Mesh + Film Grain</span>
+              <h3>Low-Key Section Backdrops (Zero GPU Cost)</h3>
+              <p>Layered off-center radial light clouds over deep obsidian <code>#070707</code> topped with a tileable analog silver-halide grain pass (Ref 01 look). Click any CSS snippet below to copy both background layers.</p>
+            </div>
+          </div>
+
+          <div class="gradients-grid">
+            <!-- Mesh 1: Deep Ember Vinyl -->
+            <div class="gradient-card">
+              <div class="gradient-preview mesh-preview" style="background: var(--grad-mesh-ember);">
+                <div class="mesh-grain-layer"></div>
+                <span class="grad-ref-tag">Ref 01 Match</span>
+              </div>
+              <div class="gradient-info">
+                <div class="gradient-name">Deep Ember Vinyl (Ref 01)</div>
+                <div class="gradient-desc">Smoky burgundy &amp; copper glow bleeding diagonally from the left edge into dark espresso obsidian.</div>
+                <div class="gradient-code" onclick="copyToClipboard('background: var(--grad-mesh-ember); /* pair with .mesh-grain-layer overlay */', 'Deep Ember Vinyl CSS copied!')">background: var(--grad-mesh-ember);</div>
+              </div>
+            </div>
+
+            <!-- Mesh 2: Amber Tube Warmth -->
+            <div class="gradient-card">
+              <div class="gradient-preview mesh-preview" style="background: var(--grad-mesh-tube);">
+                <div class="mesh-grain-layer"></div>
+                <span class="grad-ref-tag">Vacuum Tube</span>
+              </div>
+              <div class="gradient-info">
+                <div class="gradient-name">Amber Tube Warmth</div>
+                <div class="gradient-desc">Warm 300B triode amp glow — burnt orange &amp; smoked umber for hero or listening-room dividers.</div>
+                <div class="gradient-code" onclick="copyToClipboard('background: var(--grad-mesh-tube); /* pair with .mesh-grain-layer overlay */', 'Amber Tube Warmth CSS copied!')">background: var(--grad-mesh-tube);</div>
+              </div>
+            </div>
+
+            <!-- Mesh 3: Midnight Acoustic Cobalt -->
+            <div class="gradient-card">
+              <div class="gradient-preview mesh-preview" style="background: var(--grad-mesh-cobalt);">
+                <div class="mesh-grain-layer"></div>
+                <span class="grad-ref-tag">After Dark</span>
+              </div>
+              <div class="gradient-info">
+                <div class="gradient-name">Midnight Acoustic Cobalt</div>
+                <div class="gradient-desc">Deep sound-system sapphire &amp; muted rose whisper for late-night program &amp; calendar backdrops.</div>
+                <div class="gradient-code" onclick="copyToClipboard('background: var(--grad-mesh-cobalt); /* pair with .mesh-grain-layer overlay */', 'Midnight Acoustic Cobalt CSS copied!')">background: var(--grad-mesh-cobalt);</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04.B WebGL Liquid Fold Gradients + Live Component Application Lab -->
+        <div class="grad-subblock" id="gradientsLiquidBlock">
+          <div class="grad-subhead">
+            <div>
+              <span class="grad-subhead-eyebrow">04.B / WebGL Liquid Ribbon Shaders + Analog Grain</span>
+              <h3>Diagonal Folded Wave Gradients &amp; Application Lab</h3>
+              <p>Single-context WebGL fragment shader rendering warped diagonal color ribbons &amp; optical film grain (Ref 01–03 aesthetics). Select any card to audition it across full-bleed backdrops, Reservation CTAs, headlines, and B&amp;W event posters.</p>
+            </div>
+          </div>
+
+          <div class="liquid-controls-bar">
+            <div class="liquid-controls-group">
+              <button type="button" class="liquid-toggle-btn is-active" id="liquidMotionBtn" aria-pressed="true">
+                <span class="liquid-toggle-dot"></span>
+                <span id="liquidMotionText">Motion: Drift (Active)</span>
+              </button>
+
+              <label class="liquid-slider-item" for="liquidGrainSlider">
+                <span>Grain</span>
+                <input type="range" id="liquidGrainSlider" min="0.00" max="0.35" step="0.01" value="0.18">
+                <span class="liquid-slider-val" id="liquidGrainVal">0.18</span>
+              </label>
+
+              <label class="liquid-slider-item" for="liquidWarpSlider">
+                <span>Fold Warp</span>
+                <input type="range" id="liquidWarpSlider" min="0.30" max="2.20" step="0.05" value="1.15">
+                <span class="liquid-slider-val" id="liquidWarpVal">1.15</span>
+              </label>
+            </div>
+
+            <div class="liquid-controls-group">
+              <button type="button" class="liquid-action-btn" id="copyActivePresetBtn">Copy Preset JSON</button>
+              <button type="button" class="liquid-action-btn" id="downloadPresetPngBtn">Download 1600×900 PNG</button>
+            </div>
+          </div>
+
+          <!-- 4 Interactive Preset Cards -->
+          <div class="liquid-gradients-grid" id="liquidCardsGrid">
+            <!-- Preset 1: Rose Fold (Ref 02) -->
+            <div class="liquid-card is-active" data-preset="rosefold" tabindex="0">
+              <div class="liquid-preview-wrap">
+                <canvas class="liquid-canvas" width="520" height="320" data-canvas-preset="rosefold"></canvas>
+                <span class="liquid-badge">Ref 02 Match</span>
+              </div>
+              <div class="liquid-card-meta">
+                <div class="liquid-card-title">Midnight Rose Fold</div>
+                <div class="liquid-card-desc">Cobalt blue, blush rose, coral crimson &amp; dark crease ribbons.</div>
+                <div class="liquid-swatches">
+                  <span class="liquid-swatch-dot" style="background:#0047AB;"></span>
+                  <span class="liquid-swatch-dot" style="background:#111318;"></span>
+                  <span class="liquid-swatch-dot" style="background:#D98A9C;"></span>
+                  <span class="liquid-swatch-dot" style="background:#C2434A;"></span>
+                  <span class="liquid-swatch-dot" style="background:#0A5CBF;"></span>
+                  <span class="liquid-swatch-label">Click to preview</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 2: Solar Flare (Ref 03) -->
+            <div class="liquid-card" data-preset="solarflare" tabindex="0">
+              <div class="liquid-preview-wrap">
+                <canvas class="liquid-canvas" width="520" height="320" data-canvas-preset="solarflare"></canvas>
+                <span class="liquid-badge">Ref 03 Match</span>
+              </div>
+              <div class="liquid-card-meta">
+                <div class="liquid-card-title">Solar Vinyl Flare</div>
+                <div class="liquid-card-desc">Tangerine gold &amp; scarlet folds wrapping an electric cobalt pocket.</div>
+                <div class="liquid-swatches">
+                  <span class="liquid-swatch-dot" style="background:#121011;"></span>
+                  <span class="liquid-swatch-dot" style="background:#F08A18;"></span>
+                  <span class="liquid-swatch-dot" style="background:#BF2024;"></span>
+                  <span class="liquid-swatch-dot" style="background:#E65314;"></span>
+                  <span class="liquid-swatch-dot" style="background:#095EBA;"></span>
+                  <span class="liquid-swatch-label">Click to preview</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 3: Smoky Crimson Drift (Ref 01) -->
+            <div class="liquid-card" data-preset="ember" tabindex="0">
+              <div class="liquid-preview-wrap">
+                <canvas class="liquid-canvas" width="520" height="320" data-canvas-preset="ember"></canvas>
+                <span class="liquid-badge">Ref 01 Match</span>
+              </div>
+              <div class="liquid-card-meta">
+                <div class="liquid-card-title">Smoky Crimson Drift</div>
+                <div class="liquid-card-desc">Low-key terracotta rust &amp; espresso shadows with soft analog diffusion.</div>
+                <div class="liquid-swatches">
+                  <span class="liquid-swatch-dot" style="background:#7A2B26;"></span>
+                  <span class="liquid-swatch-dot" style="background:#8C3D24;"></span>
+                  <span class="liquid-swatch-dot" style="background:#461A16;"></span>
+                  <span class="liquid-swatch-dot" style="background:#170A09;"></span>
+                  <span class="liquid-swatch-dot" style="background:#070707;"></span>
+                  <span class="liquid-swatch-label">Click to preview</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 4: Velvet Nightwave -->
+            <div class="liquid-card" data-preset="velvetwave" tabindex="0">
+              <div class="liquid-preview-wrap">
+                <canvas class="liquid-canvas" width="520" height="320" data-canvas-preset="velvetwave"></canvas>
+                <span class="liquid-badge">Nami Custom</span>
+              </div>
+              <div class="liquid-card-meta">
+                <div class="liquid-card-title">Velvet Nightwave</div>
+                <div class="liquid-card-desc">Obsidian indigo, sapphire depth, plum magenta &amp; burnt amber accents.</div>
+                <div class="liquid-swatches">
+                  <span class="liquid-swatch-dot" style="background:#080C18;"></span>
+                  <span class="liquid-swatch-dot" style="background:#0E4B8E;"></span>
+                  <span class="liquid-swatch-dot" style="background:#8C2D52;"></span>
+                  <span class="liquid-swatch-dot" style="background:#D66824;"></span>
+                  <span class="liquid-swatch-dot" style="background:#0A2B5E;"></span>
+                  <span class="liquid-swatch-label">Click to preview</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live 4-Panel Component Application Lab -->
+          <div class="liquid-app-lab">
+            <div class="liquid-app-header">
+              <div class="liquid-app-title">Live Component Application Lab</div>
+              <div class="liquid-app-active-pill" id="activePresetLabel">Active Preset: Midnight Rose Fold</div>
+            </div>
+
+            <div class="liquid-app-grid">
+              <!-- Panel 1: Section Backdrop -->
+              <div class="liquid-app-panel">
+                <div class="liquid-app-label">01 / Section &amp; Hero Backdrop Plate</div>
+                <div class="app-stage">
+                  <canvas class="app-backdrop-canvas" id="appStageBackdrop" width="640" height="360"></canvas>
+                  <div class="app-backdrop-overlay">
+                    <div class="app-backdrop-kicker">NOVEMBER PROGRAMMING · ROTARY SOUND</div>
+                    <div>
+                      <div class="app-backdrop-headline">Midnight Listening Sessions</div>
+                      <div class="app-backdrop-sub">Vinyl-only selections through bespoke horn enclosures</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Panel 2: Reservation CTA Pill -->
+              <div class="liquid-app-panel">
+                <div class="liquid-app-label">02 / Textured Reservation CTA &amp; Secondary Pill</div>
+                <div class="app-stage app-cta-stage">
+                  <span class="app-cta-pill" id="appStageCta">
+                    <span>Reservation</span>
+                    <span class="app-cta-divider">|</span>
+                    <span style="font-weight:700; letter-spacing:0.02em;">eat</span>
+                  </span>
+                  <span class="app-cta-outline">Explore Monthly Calendar &rarr;</span>
+                </div>
+              </div>
+
+              <!-- Panel 3: Display Typography Clipped Text -->
+              <div class="liquid-app-panel">
+                <div class="liquid-app-label">03 / Display Headline (<code>background-clip: text</code>)</div>
+                <div class="app-stage app-text-stage">
+                  <div class="app-display-text" id="appStageText">SONIC<br>PROVOCATION</div>
+                  <div class="app-text-caption">NAMI LISTENING BAR · BENGALURU</div>
+                </div>
+              </div>
+
+              <!-- Panel 4: Event Poster Monochrome + Ribbon Projection -->
+              <div class="liquid-app-panel">
+                <div class="liquid-app-label">04 / B&amp;W Artist Portrait + Ribbon Projection (Ref 02/03 Effect)</div>
+                <div class="app-stage app-poster-stage">
+                  <div class="app-poster-frame">
+                    <img class="app-poster-img" src="./assets/Event-4.jpg" alt="Nami B&amp;W selector portrait sample">
+                    <div class="app-poster-tint" id="appStagePosterTint"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
     </section>
 
     <!-- SECTION: TYPOGRAPHY -->
@@ -2061,6 +2821,411 @@ body {
       `;
       container.appendChild(cell);
     });
+
+    /* =========================================================================
+       04.B WEBGL LIQUID FOLD GRADIENTS + APPLICATION LAB
+       ========================================================================= */
+    const LIQUID_PRESETS = {
+      rosefold: {
+        name: "Midnight Rose Fold",
+        angle: -0.52,
+        pocketX: 0.78,
+        pocketY: 0.78,
+        pocketRadius: 0.56,
+        colors: ["#0047AB", "#111318", "#D98A9C", "#C2434A", "#0A5CBF"]
+      },
+      solarflare: {
+        name: "Solar Vinyl Flare",
+        angle: -0.46,
+        pocketX: 0.52,
+        pocketY: 0.80,
+        pocketRadius: 0.44,
+        colors: ["#121011", "#F08A18", "#BF2024", "#E65314", "#095EBA"]
+      },
+      ember: {
+        name: "Smoky Crimson Drift",
+        angle: -0.62,
+        pocketX: 0.18,
+        pocketY: 0.36,
+        pocketRadius: 0.62,
+        colors: ["#7A2B26", "#8C3D24", "#461A16", "#170A09", "#070707"]
+      },
+      velvetwave: {
+        name: "Velvet Nightwave",
+        angle: 0.42,
+        pocketX: 0.72,
+        pocketY: 0.28,
+        pocketRadius: 0.52,
+        colors: ["#080C18", "#0E4B8E", "#8C2D52", "#D66824", "#0A2B5E"]
+      }
+    };
+
+    (function initNamiLiquidGradients() {
+      const block = document.getElementById("gradientsLiquidBlock");
+      if (!block) return;
+
+      const motionBtn = document.getElementById("liquidMotionBtn");
+      const motionText = document.getElementById("liquidMotionText");
+      const grainSlider = document.getElementById("liquidGrainSlider");
+      const grainVal = document.getElementById("liquidGrainVal");
+      const warpSlider = document.getElementById("liquidWarpSlider");
+      const warpVal = document.getElementById("liquidWarpVal");
+      const activePresetLabel = document.getElementById("activePresetLabel");
+      const copyBtn = document.getElementById("copyActivePresetBtn");
+      const downloadBtn = document.getElementById("downloadPresetPngBtn");
+
+      const stageBackdrop = document.getElementById("appStageBackdrop");
+      const stageCta = document.getElementById("appStageCta");
+      const stageText = document.getElementById("appStageText");
+      const stagePosterTint = document.getElementById("appStagePosterTint");
+      const cardEls = Array.from(document.querySelectorAll(".liquid-card"));
+      const previewCanvases = Array.from(document.querySelectorAll(".liquid-canvas"));
+
+      const state = {
+        activeKey: "rosefold",
+        motion: true,
+        grain: 0.18,
+        warp: 1.15,
+        time: 1.4,
+        lastSyncMs: 0
+      };
+
+      function hexToVec3(hex) {
+        const clean = hex.replace("#", "");
+        return [
+          parseInt(clean.slice(0, 2), 16) / 255,
+          parseInt(clean.slice(2, 4), 16) / 255,
+          parseInt(clean.slice(4, 6), 16) / 255
+        ];
+      }
+
+      /* Single shared offscreen WebGL canvas to stay well under browser context limits */
+      const W = 520;
+      const H = 320;
+      const glCanvas = document.createElement("canvas");
+      glCanvas.width = W;
+      glCanvas.height = H;
+      const gl = glCanvas.getContext("webgl", { preserveDrawingBuffer: true, antialias: true })
+        || glCanvas.getContext("experimental-webgl", { preserveDrawingBuffer: true, antialias: true });
+
+      let glProgram = null;
+      let uniforms = {};
+
+      if (gl) {
+        const vertSrc = `
+          attribute vec2 aPos;
+          varying vec2 vUv;
+          void main() {
+            vUv = aPos * 0.5 + 0.5;
+            gl_Position = vec4(aPos, 0.0, 1.0);
+          }
+        `;
+        const fragSrc = `
+          precision highp float;
+          varying vec2 vUv;
+          uniform float uTime;
+          uniform float uGrain;
+          uniform float uWarp;
+          uniform float uAngle;
+          uniform float uPocketX;
+          uniform float uPocketY;
+          uniform float uPocketRadius;
+          uniform vec2 uResolution;
+          uniform vec3 uC0;
+          uniform vec3 uC1;
+          uniform vec3 uC2;
+          uniform vec3 uC3;
+          uniform vec3 uC4;
+
+          float hash12(vec2 p) {
+            vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+            p3 += dot(p3, p3.yzx + 33.33);
+            return fract((p3.x + p3.y) * p3.z);
+          }
+
+          float vnoise(vec2 p) {
+            vec2 i = floor(p);
+            vec2 f = fract(p);
+            vec2 u = f * f * (3.0 - 2.0 * f);
+            float a = hash12(i);
+            float b = hash12(i + vec2(1.0, 0.0));
+            float c = hash12(i + vec2(0.0, 1.0));
+            float d = hash12(i + vec2(1.0, 1.0));
+            return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+          }
+
+          void main() {
+            float aspect = uResolution.x / max(uResolution.y, 1.0);
+            vec2 p = vUv - 0.5;
+            p.x *= aspect;
+
+            float cs = cos(uAngle);
+            float sn = sin(uAngle);
+            vec2 r = vec2(p.x * cs - p.y * sn, p.x * sn + p.y * cs);
+
+            float n1 = vnoise(p * 2.1 + vec2(uTime * 0.07, -uTime * 0.05));
+            float n2 = vnoise(p * 4.6 + vec2(-uTime * 0.06, uTime * 0.08));
+
+            float wave = sin(r.y * (4.6 + uWarp * 1.4) + (n1 - 0.5) * (2.6 * uWarp) + sin(r.x * 2.4 - uTime * 0.14) * 0.95);
+            float ribbonCoord = clamp(0.5 + (r.y * 0.58) + wave * 0.24 + (n2 - 0.5) * 0.18 * uWarp, 0.0, 1.0);
+
+            vec3 col = mix(uC0, uC1, smoothstep(0.04, 0.34, ribbonCoord));
+            col = mix(col, uC2, smoothstep(0.30, 0.62, ribbonCoord));
+            col = mix(col, uC3, smoothstep(0.58, 0.92, ribbonCoord));
+
+            vec2 dp = (vUv - vec2(uPocketX, uPocketY)) + (vec2(n1, n2) - 0.5) * (0.16 * uWarp);
+            dp.x *= 0.85;
+            dp.y *= 1.25;
+            float pocketMask = 1.0 - smoothstep(uPocketRadius * 0.42, uPocketRadius, length(dp));
+            col = mix(col, uC4, clamp(pocketMask * 0.92, 0.0, 1.0));
+
+            /* Fine monochromatic silver-halide analog grain */
+            vec2 fineCoord = gl_FragCoord.xy + vec2(floor(mod(uTime * 4.0, 19.0)), 0.0);
+            float gFine = hash12(fineCoord) - 0.5;
+            float gCoarse = hash12(floor(fineCoord * 0.58)) - 0.5;
+            float grain = (gFine * 0.68 + gCoarse * 0.32) * (uGrain * 1.15);
+            col += vec3(grain);
+
+            /* Subtle edge vignette for archival print weight */
+            float vig = smoothstep(0.95, 0.24, length(vUv - 0.5));
+            col *= mix(0.76, 1.0, vig);
+
+            gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+          }
+        `;
+
+        function compile(type, src) {
+          const s = gl.createShader(type);
+          gl.shaderSource(s, src);
+          gl.compileShader(s);
+          if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.warn("Shader compile failed:", gl.getShaderInfoLog(s));
+            return null;
+          }
+          return s;
+        }
+
+        const vs = compile(gl.VERTEX_SHADER, vertSrc);
+        const fs = compile(gl.FRAGMENT_SHADER, fragSrc);
+        if (vs && fs) {
+          glProgram = gl.createProgram();
+          gl.attachShader(glProgram, vs);
+          gl.attachShader(glProgram, fs);
+          gl.linkProgram(glProgram);
+          if (gl.getProgramParameter(glProgram, gl.LINK_STATUS)) {
+            gl.useProgram(glProgram);
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+            const aPos = gl.getAttribLocation(glProgram, "aPos");
+            gl.enableVertexAttribArray(aPos);
+            gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+            ["uTime", "uGrain", "uWarp", "uAngle", "uPocketX", "uPocketY", "uPocketRadius", "uResolution", "uC0", "uC1", "uC2", "uC3", "uC4"]
+              .forEach(name => { uniforms[name] = gl.getUniformLocation(glProgram, name); });
+          } else {
+            glProgram = null;
+          }
+        }
+      }
+
+      /* Deterministic 2D canvas fallback if WebGL is unavailable */
+      function renderFallback2D(targetCanvas, preset) {
+        const ctx = targetCanvas.getContext("2d");
+        if (!ctx) return;
+        const w = targetCanvas.width;
+        const h = targetCanvas.height;
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0.0, preset.colors[0]);
+        grad.addColorStop(0.32, preset.colors[1]);
+        grad.addColorStop(0.62, preset.colors[2]);
+        grad.addColorStop(1.0, preset.colors[3]);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        const pocket = ctx.createRadialGradient(
+          preset.pocketX * w,
+          preset.pocketY * h,
+          0,
+          preset.pocketX * w,
+          preset.pocketY * h,
+          preset.pocketRadius * Math.max(w, h)
+        );
+        pocket.addColorStop(0, preset.colors[4]);
+        pocket.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = pocket;
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      function drawPresetToOffscreen(presetKey, phaseOffset) {
+        const preset = LIQUID_PRESETS[presetKey];
+        if (!preset) return;
+        if (!gl || !glProgram) return;
+
+        gl.viewport(0, 0, W, H);
+        gl.useProgram(glProgram);
+        gl.uniform1f(uniforms.uTime, state.time + phaseOffset);
+        gl.uniform1f(uniforms.uGrain, state.grain);
+        gl.uniform1f(uniforms.uWarp, state.warp);
+        gl.uniform1f(uniforms.uAngle, preset.angle);
+        gl.uniform1f(uniforms.uPocketX, preset.pocketX);
+        gl.uniform1f(uniforms.uPocketY, preset.pocketY);
+        gl.uniform1f(uniforms.uPocketRadius, preset.pocketRadius);
+        gl.uniform2f(uniforms.uResolution, W, H);
+        gl.uniform3fv(uniforms.uC0, hexToVec3(preset.colors[0]));
+        gl.uniform3fv(uniforms.uC1, hexToVec3(preset.colors[1]));
+        gl.uniform3fv(uniforms.uC2, hexToVec3(preset.colors[2]));
+        gl.uniform3fv(uniforms.uC3, hexToVec3(preset.colors[3]));
+        gl.uniform3fv(uniforms.uC4, hexToVec3(preset.colors[4]));
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+
+      function syncApplicationsFromGl(nowMs) {
+        const useGl = Boolean(gl && glProgram);
+        if (!useGl && stageBackdrop) {
+          renderFallback2D(stageBackdrop, LIQUID_PRESETS[state.activeKey]);
+        }
+        /* Throttle dataURL updates for DOM elements to ~6fps while keeping canvases smooth */
+        if (nowMs - state.lastSyncMs < 160 && nowMs !== 0) return;
+        state.lastSyncMs = nowMs || performance.now();
+        try {
+          const srcCanvas = useGl ? glCanvas : stageBackdrop;
+          if (!srcCanvas) return;
+          const dataUrl = srcCanvas.toDataURL("image/png");
+          if (stageCta) stageCta.style.backgroundImage = `linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.22)), url("${dataUrl}")`;
+          if (stageText) stageText.style.backgroundImage = `url("${dataUrl}")`;
+          if (stagePosterTint) stagePosterTint.style.backgroundImage = `url("${dataUrl}")`;
+        } catch (err) {
+          /* Ignore security/draw errors if canvas tainted */
+        }
+      }
+
+      function renderAll(forceSync) {
+        previewCanvases.forEach((canvasEl, idx) => {
+          const key = canvasEl.dataset.canvasPreset;
+          const preset = LIQUID_PRESETS[key];
+          if (!preset) return;
+          if (gl && glProgram) {
+            drawPresetToOffscreen(key, idx * 2.1);
+            const ctx = canvasEl.getContext("2d");
+            if (ctx) ctx.drawImage(glCanvas, 0, 0, canvasEl.width, canvasEl.height);
+          } else {
+            renderFallback2D(canvasEl, preset);
+          }
+        });
+
+        /* Draw active preset to Application Lab Backdrop + DOM synced surfaces */
+        const activePreset = LIQUID_PRESETS[state.activeKey];
+        if (activePreset && stageBackdrop) {
+          if (gl && glProgram) {
+            drawPresetToOffscreen(state.activeKey, 0);
+            const bCtx = stageBackdrop.getContext("2d");
+            if (bCtx) bCtx.drawImage(glCanvas, 0, 0, stageBackdrop.width, stageBackdrop.height);
+            syncApplicationsFromGl(forceSync ? 0 : performance.now());
+          } else {
+            renderFallback2D(stageBackdrop, activePreset);
+          }
+        }
+      }
+
+      function selectPreset(key) {
+        if (!LIQUID_PRESETS[key]) return;
+        state.activeKey = key;
+        cardEls.forEach(c => c.classList.toggle("is-active", c.dataset.preset === key));
+        if (activePresetLabel) {
+          activePresetLabel.textContent = `Active Preset: ${LIQUID_PRESETS[key].name}`;
+        }
+        renderAll(true);
+      }
+
+      cardEls.forEach(card => {
+        card.addEventListener("click", () => selectPreset(card.dataset.preset));
+        card.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            selectPreset(card.dataset.preset);
+          }
+        });
+      });
+
+      if (motionBtn) {
+        motionBtn.addEventListener("click", () => {
+          state.motion = !state.motion;
+          motionBtn.classList.toggle("is-active", state.motion);
+          motionBtn.setAttribute("aria-pressed", String(state.motion));
+          if (motionText) {
+            motionText.textContent = state.motion ? "Motion: Drift (Active)" : "Motion: Static Grain";
+          }
+          renderAll(true);
+        });
+      }
+
+      if (grainSlider) {
+        grainSlider.addEventListener("input", () => {
+          state.grain = parseFloat(grainSlider.value);
+          if (grainVal) grainVal.textContent = state.grain.toFixed(2);
+          renderAll(true);
+        });
+      }
+
+      if (warpSlider) {
+        warpSlider.addEventListener("input", () => {
+          state.warp = parseFloat(warpSlider.value);
+          if (warpVal) warpVal.textContent = state.warp.toFixed(2);
+          renderAll(true);
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          const p = LIQUID_PRESETS[state.activeKey];
+          const payload = JSON.stringify({
+            id: state.activeKey,
+            name: p.name,
+            colors: p.colors,
+            angle: p.angle,
+            grain: Number(state.grain.toFixed(2)),
+            warp: Number(state.warp.toFixed(2)),
+            motion: state.motion
+          }, null, 2);
+          copyToClipboard(payload, `${p.name} config copied!`);
+        });
+      }
+
+      if (downloadBtn) {
+        downloadBtn.addEventListener("click", () => {
+          const exportCanvas = document.createElement("canvas");
+          exportCanvas.width = 1600;
+          exportCanvas.height = 900;
+          const exCtx = exportCanvas.getContext("2d");
+          if (gl && glProgram) {
+            drawPresetToOffscreen(state.activeKey, 0);
+            exCtx.drawImage(glCanvas, 0, 0, 1600, 900);
+          } else {
+            renderFallback2D(exportCanvas, LIQUID_PRESETS[state.activeKey]);
+          }
+          const a = document.createElement("a");
+          a.href = exportCanvas.toDataURL("image/png");
+          a.download = `nami-${state.activeKey}-1600x900.png`;
+          a.click();
+          showToast(`Exported nami-${state.activeKey}-1600x900.png`);
+        });
+      }
+
+      /* Initial paint + gentle animation loop */
+      renderAll(true);
+      let lastFrame = performance.now();
+      function tick(now) {
+        const dt = Math.min((now - lastFrame) / 1000, 0.1);
+        lastFrame = now;
+        if (state.motion) {
+          state.time += dt * 0.45;
+          renderAll(false);
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
   </script>
 </body>
 </html>

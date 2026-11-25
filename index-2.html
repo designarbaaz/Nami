@@ -34,6 +34,8 @@
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
       --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-velvet: linear-gradient(114deg, #080C18 0%, #0E4B8E 32%, #8C2D52 64%, #D66824 90%, #0A2B5E 100%);
+      --grad-rosefold: linear-gradient(118deg, #0047AB 0%, #111318 28%, #D98A9C 56%, #C2434A 78%, #0A5CBF 100%);
       --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
@@ -828,8 +830,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.8rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-velvet);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
@@ -838,18 +840,18 @@
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
       text-decoration: none;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       cursor: pointer;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .floating-reserve-cta:hover {
       transform: translateY(-2px) scale(1.03);
       filter: brightness(1.12);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+      box-shadow: none;
     }
 
     .reserve-cta-divider {
@@ -1029,8 +1031,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
@@ -1040,14 +1042,14 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-confirm-reserve:hover {
       filter: brightness(1.12);
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1102,9 +1104,11 @@
     }
 
     .section-heading span.grad-accent,
-    .philosophy-minimal-title span.grad-accent {
-      background: var(--grad-primary);
+    .philosophy-minimal-title span.grad-accent,
+    .reserve-modal-title span.grad-accent {
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
@@ -1244,8 +1248,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -1256,15 +1260,15 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
+      box-shadow: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-our-story:hover {
-      background: var(--grad-flare);
+      background: var(--grad-rosefold);
       filter: brightness(1.12);
       transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1590,8 +1594,8 @@
       gap: 0.75rem;
       padding: 0.85rem 2.4rem;
       border-radius: 999px;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body, 'Chivo', sans-serif);
       font-size: 0.92rem;
       font-weight: 700;
@@ -1599,16 +1603,16 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
-      box-shadow: none !important;
+      box-shadow: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-event-explore:hover {
-      background: var(--grad-flare);
+      background: var(--grad-rosefold);
       filter: brightness(1.12);
       transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
-      color: #c0c0c0;
+      box-shadow: none;
+      color: #FFFFFF;
     }
 
     .btn-event-explore svg {
@@ -2175,8 +2179,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
@@ -2186,14 +2190,14 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
-      transition: filter 0.2s, transform 0.2s;
+      box-shadow: none;
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-reserve-from-menu:hover {
       filter: brightness(1.1);
       transform: translateY(-1px) scale(1.02);
-      box-shadow: none !important;
+      box-shadow: none;
     }
 
     /* Mobile Breakpoints */
@@ -2829,7 +2833,20 @@
       letter-spacing: 0.12em;
       white-space: nowrap;
       box-sizing: border-box;
-      pointer-events: none;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     /* Bottom Rotating Half-Vinyl Record (Vinyl.svg) - Touching Footer End, 3x Speed */
@@ -3113,7 +3130,7 @@
 
         <!-- Node S: Space -->
         <div class="scroller-node">
-          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
+          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Spaces">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3123,7 +3140,7 @@
               </g>
             </svg>
             <span class="knob-label">S</span>
-            <span class="tooltip">Our Space</span>
+            <span class="tooltip">Our Spaces</span>
           </a>
         </div>
       </nav>
@@ -3157,7 +3174,7 @@
           <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Space
+          <span class="drawer-nav-num">04</span> Our Spaces
         </a>
         <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
           <span class="drawer-nav-num">05</span> Reservation
@@ -3171,7 +3188,7 @@
           <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img" id="drawerImgSpace">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -3534,7 +3551,7 @@
     <!-- 04. OUR SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
     <section id="space" class="space-section">
       <div class="space-header-row">
-        <h2 class="section-heading">Our <span class="grad-accent">Space</span></h2>
+        <h2 class="section-heading">Our <span class="grad-accent">Spaces</span></h2>
         <p class="section-body" style="margin-bottom: 0;">
           An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
         </p>
@@ -3780,11 +3797,10 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
-            <li><a href="our-space.html">Our space</a></li>
-            <li><a href="#press">In the news</a></li>
+            <li><a href="our-space.html">Our Spaces</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -3813,7 +3829,7 @@
 
       <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
@@ -4383,13 +4399,11 @@
         pauseIcon.style.display = 'block';
         eqBars.classList.add('playing');
         startSyntheticWarmAudio();
-        showToast('Now Playing: On & On — Erykah Badu');
       } else {
         playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
         eqBars.classList.remove('playing');
         stopSyntheticWarmAudio();
-        showToast('Playback Paused');
       }
     }
 
@@ -4904,5 +4918,6 @@
       </div>
     </div>
   </div>
+  <script src="./assets/nami-velvet-buttons.js"></script>
 </body>
 </html>
