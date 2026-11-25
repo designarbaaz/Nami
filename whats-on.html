@@ -1685,7 +1685,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border-radius: 0;
+      border-radius: 50%;
       font-size: 1.05rem;
       transition: all 0.2s;
     }
@@ -1942,7 +1942,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <div class="drawer-middle">
@@ -2188,10 +2190,7 @@
                     <div class="col-popup-header">
                       <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
                       <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <line x1="18" y1="6" x2="6" y2="18"></line>
-                          <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
+                        <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
                       </button>
                     </div>
                   </div>
@@ -2241,15 +2240,11 @@
 
         <div class="prev-carousel-stage">
           <button type="button" class="prev-nav-arrow prev" id="prevCarouselPrev" aria-label="Previous events">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="10 13 5 8 10 3"></polyline>
-            </svg>
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="16" height="16" class="nav-arrow-img">
           </button>
 
           <button type="button" class="prev-nav-arrow next" id="prevCarouselNext" aria-label="Next events">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 3 11 8 6 13"></polyline>
-            </svg>
+            <img src="./assets/Arrow-right.svg" alt="Next" width="16" height="16" class="nav-arrow-img">
           </button>
 
           <div class="prev-events-carousel-viewport" id="prevEventsViewport">
@@ -2413,7 +2408,9 @@
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
           <h3 class="reserve-modal-title">Table <span style="background: var(--grad-rosefold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
         </div>
-        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <p class="reserve-modal-desc">
@@ -2471,10 +2468,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -2491,7 +2485,9 @@
           <span class="reserve-eyebrow">PRIVATE EVENTS &amp; BUYOUTS</span>
           <h3 class="reserve-modal-title">Book Private <span style="background: var(--grad-rosefold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Space</span></h3>
         </div>
-        <button class="reserve-modal-close" onclick="closeContactModal()" aria-label="Close contact form">✕</button>
+        <button class="reserve-modal-close" onclick="closeContactModal()" aria-label="Close contact form">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <p class="reserve-modal-desc">
@@ -2533,10 +2529,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>SEND INQUIRY</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>

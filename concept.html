@@ -1629,6 +1629,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      border-radius: 50%;
       font-size: 1.05rem;
       line-height: 1;
       transition: all 0.2s;
@@ -1949,7 +1950,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
@@ -2383,7 +2386,9 @@
           <span class="reserve-eyebrow">RESERVATION · EAT APP</span>
           <h3 class="reserve-modal-title">Book Experience</h3>
         </div>
-        <button type="button" class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button type="button" class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
       <p class="reserve-modal-desc">
         Select your date, party size, and session. We will instantly redirect you to our Eat App booking portal.

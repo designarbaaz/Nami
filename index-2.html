@@ -958,7 +958,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border-radius: 0;
+      border-radius: 50%;
       font-size: 1.05rem;
       line-height: 1;
       transition: all 0.2s;
@@ -2521,32 +2521,33 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
       margin-top: clamp(2.5rem, 4vh, 3.5rem);
     }
 
     .media-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: transparent;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      width: 22px;
+      height: 22px;
+      background: url("./assets/Nav-Default.svg") center center / contain no-repeat;
+      border: none;
+      border-radius: 0;
       cursor: pointer;
       padding: 0;
       outline: none;
-      transition: all 0.28s ease;
+      opacity: 0.55;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .media-dot:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-      transform: scale(1.15);
+      opacity: 0.85;
+      transform: scale(1.08);
     }
 
     .media-dot.active {
-      background: var(--c-orange);
-      border-color: var(--c-orange);
-      transform: scale(1.25);
-      box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);
+      background: url("./assets/Nav-Active.svg") center center / contain no-repeat;
+      opacity: 1;
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 8px rgba(244, 143, 36, 0.45));
     }
 
     @media (max-width: 768px) {
@@ -3156,7 +3157,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
@@ -3240,7 +3243,7 @@
 
     <!-- Scroll down indicator with custom wave arrow -->
     <a href="#philosophy" class="hero-scroll-cue" aria-label="Scroll to explore">
-      <img src="./assets/down-arrow-flat.svg" alt="Scroll Down" class="cue-wave-arrow">
+      <img src="./assets/Arrow-down.svg" alt="Scroll Down" class="cue-wave-arrow">
     </a>
   </section>
 
@@ -3387,7 +3390,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</span>
           </div>
           <span class="event-list-time"><strong>Wed · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
         <!-- EV-2 -->
@@ -3397,7 +3400,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Mogasu: Japanese Soul Archives &amp; Sake Tasting</span>
           </div>
           <span class="event-list-time"><strong>Thu · 18:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
         <!-- EV-3 -->
@@ -3407,7 +3410,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Yousuke Yukimatsu: Avant-Garde Analog Bass</span>
           </div>
           <span class="event-list-time"><strong>Fri · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
         <!-- EV-4 -->
@@ -3417,7 +3420,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Occa: Hypnotic Rotary Sound &amp; Deep Minimal</span>
           </div>
           <span class="event-list-time"><strong>Sat · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
         <!-- EV-5 -->
@@ -3427,7 +3430,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves</span>
           </div>
           <span class="event-list-time"><strong>Sun · 19:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
         <!-- EV-6 -->
@@ -3437,7 +3440,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves</span>
           </div>
           <span class="event-list-time"><strong>Wed · 21:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="16" height="16"></span>
         </div>
 
       </div>
@@ -3446,10 +3449,7 @@
       <div class="event-list-action">
         <a href="whats-on.html" class="btn-event-explore" aria-label="Explore More Sessions">
           <span>Explore More</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
         </a>
       </div>
 
@@ -3609,15 +3609,11 @@
           
           <!-- Navigation Arrows (Left / Right) -->
           <button class="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="10 13 5 8 10 3"></polyline>
-            </svg>
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="16" height="16" class="nav-arrow-img">
           </button>
 
           <button class="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 3 11 8 6 13"></polyline>
-            </svg>
+            <img src="./assets/Arrow-right.svg" alt="Next" width="16" height="16" class="nav-arrow-img">
           </button>
 
           <!-- Viewport -->
@@ -4638,7 +4634,9 @@
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
           <h3 class="reserve-modal-title">Table <span class="grad-accent">Reservation</span></h3>
         </div>
-        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <p class="reserve-modal-desc">
@@ -4696,10 +4694,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="15" height="15" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -4716,7 +4711,9 @@
           <span class="full-menu-eyebrow">THE RESONANCE MENU</span>
           <h3 class="full-menu-title">NAMI · BANDRA WEST</h3>
         </div>
-        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">✕</button>
+        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">
+          <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <!-- Category Tabs -->
