@@ -44,7 +44,8 @@
     ".btn-col-popup-book",
     ".btn-reserve-from-menu",
     ".btn-cta-primary",
-    ".btn-private-cta"
+    ".btn-private-cta",
+    ".btn-enquiry-submit"
   ].join(", ");
 
   const HEADING_SELECTOR = [
@@ -57,7 +58,8 @@
     ".menu-page-title .text-gradient",
     ".gallery-page-title .text-gradient",
     ".event-list-title .text-gradient",
-    ".previous-events-heading .grad-text"
+    ".previous-events-heading .grad-text",
+    ".faq-display-title .text-gradient"
   ].join(", ");
 
   function injectStyles() {

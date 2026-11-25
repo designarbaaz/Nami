@@ -534,7 +534,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url('./assets/spin-gallery-1.jpg');
+      background-image: url('./assets/nami-evening-crowd.jpg');
       background-size: cover;
       background-position: center center;
       opacity: 0.24;
@@ -621,6 +621,7 @@
       font-weight: 300;
       max-width: 760px;
       text-align: center;
+      text-wrap: balance;
       margin: 0 auto;
     }
 
@@ -849,7 +850,7 @@
       font-family: var(--font-heading);
       font-size: clamp(1.35rem, 1.9vw, 1.75rem);
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--text-secondary);
       line-height: 1.2;
     }
 
@@ -989,24 +990,47 @@
     }
 
     .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
       background: var(--grad-rosefold);
       color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
-      text-transform: uppercase;
-      padding: 1.05rem 2.25rem;
+      padding: 0.82rem 1.75rem 0.82rem 1.85rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       box-shadow: none;
-      transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .btn-cta-primary:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.03);
       filter: brightness(1.12);
       box-shadow: none;
+    }
+
+    .btn-cta-primary > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-cta-primary .reserve-cta-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.38);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .btn-cta-primary .reserve-eat-logo {
+      height: 16px;
+      width: auto;
+      display: block;
+      object-fit: contain;
     }
 
     /* =========================================================
@@ -1746,8 +1770,11 @@
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Spaces
         </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
-          <span class="drawer-nav-num">05</span> Reservation
+        <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
+          <span class="drawer-nav-num">05</span> FAQs
+        </a>
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 06" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">06</span> Reservation
         </a>
       </nav>
 
@@ -1759,6 +1786,7 @@
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -1811,8 +1839,8 @@
 
         <p class="concept-hero-desc">
           Part listening room, part bar, part dining experience, part cultural gathering.
-          Nami exists on its own acoustic and culinary frequency in Bandra West, Mumbai
-          — where analog sound, Japanese robata gastronomy, and nocturnal hospitality converge.
+          Nami exists on its own acoustic and culinary frequency in Bandra&nbsp;West, Mumbai
+          — where analog sound, Japanese robata gastronomy, and nocturnal hospitality&nbsp;converge.
         </p>
       </div>
 
@@ -1995,8 +2023,10 @@
         Walk-ins welcomed for late-night vinyl sessions and highballs.
       </p>
       <div class="closing-actions">
-        <button type="button" class="btn-cta-primary" onclick="openReservationModal(event)">
-          <span>Reserve Dining &amp; Listening</span>
+        <button type="button" class="btn-cta-primary" onclick="openReservationModal(event)" aria-label="Make a Reservation">
+          <span>Reservation</span>
+          <span class="reserve-cta-divider" aria-hidden="true"></span>
+          <img src="./assets/Eat_App_Logo.webp" alt="Eat App" class="reserve-eat-logo">
         </button>
       </div>
     </section>
@@ -2034,6 +2064,7 @@
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
             <li><a href="our-space.html">Our Spaces</a></li>
             <li><a href="index-2.html#press">In the news</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>

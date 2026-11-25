@@ -1980,16 +1980,15 @@
       background: #070707;
     }
 
-    /* LEFT PANE: 50% Width Category-Themed Canvas (Subtle Nocturnal Gradients) */
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Gradient Artwork Backdrops) */
     .menu-panel-editorial {
-      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat;
+      color: #FFFFFF;
       position: relative;
       height: 100vh;
       width: 100%;
       overflow: hidden;
       box-sizing: border-box;
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
       transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2012,32 +2011,34 @@
       box-sizing: border-box;
     }
 
-    /* Category Specific Background Subtle Gradients */
+    /* Category Specific Background Artwork (Food -> Cocktails -> Dessert) */
     .menu-editorial-slide[data-phase="0"] {
-      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
     .menu-editorial-slide[data-phase="1"] {
-      background: linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Moody-Crimson-gradient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
     .menu-editorial-slide[data-phase="2"] {
-      background: linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Atmospheric-gradient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-title {
-      color: #c0c0c0;
+    .menu-editorial-slide .menu-ed-title {
+      color: #FFFFFF;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
-      color: #c0c0c0;
+    .menu-editorial-slide .menu-ed-item-name {
+      color: #FFFFFF;
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
-      color: rgba(255, 255, 255, 0.75);
+    .menu-editorial-slide .menu-ed-item-desc {
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
     }
 
     .menu-editorial-slide.active {
@@ -2151,17 +2152,17 @@
       box-shadow: none !important;
     }
 
-    /* Phase 2 (Dessert): Light Background & Black Copy -> Solid Black Button with White Text */
+    /* Phase 2 (Dessert on Velvet Nightwave): Crisp White Button matching Food & Cocktails */
     .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
-      background: #000000;
-      color: #c0c0c0;
-      border: 1px solid rgba(0, 0, 0, 0.25);
+      background: #FFFFFF;
+      color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
-      background: #FFFFFF;
-      color: #000000;
-      border-color: #FFFFFF;
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
       transform: translateY(-2px) scale(1.03);
       box-shadow: none !important;
     }
@@ -2460,7 +2461,6 @@
       }
       .menu-panel-editorial {
         width: 100%;
-        border-right: none;
       }
       .menu-editorial-slide {
         padding: clamp(3.2rem, 5vh, 4.2rem) 1.5rem 2rem;
@@ -3497,8 +3497,11 @@
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Spaces
         </a>
-        <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
-          <span class="drawer-nav-num">05</span> Reservation
+        <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
+          <span class="drawer-nav-num">05</span> FAQs
+        </a>
+        <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 06" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">06</span> Reservation
         </a>
       </nav>
 
@@ -3510,6 +3513,7 @@
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -4403,6 +4407,7 @@
             <li><a href="#programming">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
             <li><a href="our-space.html">Our Spaces</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -5109,11 +5114,11 @@
         if (phase === currentPhase) return;
         currentPhase = phase;
 
-        // Update Left Panel Category Background (Subtle Brand Gradients)
+        // Update Left Panel Category Background (Smoky Cobalt -> Moody Crimson -> Atmospheric)
         const phaseGradients = [
-          'linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%)',
-          'linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%)',
-          'linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%)'
+          "#070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat",
+          "#070707 url('./assets/Moody-Crimson-gradient.png') center / cover no-repeat",
+          "#070707 url('./assets/Atmospheric-gradient.png') center / cover no-repeat"
         ];
         const leftPanel = document.getElementById('menuPanelEditorial');
         if (leftPanel && phaseGradients[phase]) {
