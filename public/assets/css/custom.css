@@ -4941,9 +4941,13 @@
         min-height: auto;
       }
       .feature-edge-media {
-        width: 100vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
         flex: none;
         height: auto;
+        left: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
       }
       .sound-carousel-viewport {
         height: 46vh;
@@ -9676,5 +9680,429 @@
       }
     }
 
-    /* =========================================================
-       
+/* =========================================================
+   GLOBAL RESPONSIVE HARDENING (wins over duplicated page blocks)
+   ========================================================= */
+
+/* Modals: scroll safely on short phones / landscape */
+.reservation-modal.is-open,
+.full-menu-modal.open {
+  align-items: flex-start;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reservation-modal-panel,
+.full-menu-panel {
+  margin: auto;
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Kill 100vw full-bleed overflow that clips content on mobile */
+@media (max-width: 860px) {
+  .wave-video-strap,
+  .pillars-sticky-viewport,
+  .feature-edge-media,
+  .event-calendar-section,
+  .menu-editorial-scroll-track,
+  .hero-bg-media,
+  .splash-stage,
+  .spin-gallery-fullbleed,
+  #noise-layer,
+  #warmth-layer,
+  #menuDrawer {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #noise-layer,
+  #warmth-layer {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .spin-gallery-fullbleed {
+    position: relative !important;
+    left: auto !important;
+  }
+
+  .wave-video-strap {
+    position: relative;
+  }
+
+  /* Menu sticky showcase: single column; keep sticky pin working */
+  .menu-editorial-scroll-track {
+    height: 280vh !important;
+    overflow: visible !important;
+  }
+
+  .menu-sticky-stage {
+    position: sticky !important;
+    top: 0 !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .menu-panel-hero {
+    display: none !important;
+  }
+
+  .menu-panel-editorial {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Don't add section-block padding onto the tall pinned menu track */
+  .section-block.menu-editorial-scroll-track {
+    padding: 0 !important;
+  }
+
+  .hero-entrance {
+    min-height: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .hero-bg-media,
+  .event-parallax-img,
+  .event-parallax-media-wrap {
+    max-width: 100% !important;
+    width: 100% !important;
+    left: 0 !important;
+  }
+
+  .footer-vinyl-glow,
+  .footer-vinyl-crop,
+  .footer-vinyl-img {
+    max-width: 100vw;
+  }
+
+  .footer-vinyl-stage {
+    overflow: hidden !important;
+  }
+
+  /* Hide wave tile seams on narrow screens */
+  .wave-strap-item::after {
+    display: none !important;
+  }
+
+  .wave-strap-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .wave-strap-item:nth-child(n + 2) {
+    display: none !important;
+  }
+
+  .pillars-top-bar {
+    padding: 0 1.25rem !important;
+    box-sizing: border-box;
+  }
+
+  .pillars-section-title {
+    font-size: clamp(1.55rem, 7.2vw, 2.15rem) !important;
+    padding-right: 0.25rem;
+  }
+
+  .pillars-horizontal-track {
+    padding: 0 1.25rem !important;
+  }
+
+  .pillar-col-card {
+    flex: 0 0 min(84vw, 320px) !important;
+  }
+
+  .footer-meta-col {
+    max-width: 100% !important;
+  }
+
+  .footer-tagline {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  .footer-inner,
+  .page-wrap,
+  .event-calendar-container,
+  .faq-section,
+  .contact-section {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Calendar: restore original swipeable grid (min-width + hint) — not squeezed 7-col */
+@media (max-width: 768px) {
+  .cal-grid-table {
+    min-width: 780px !important;
+    width: auto !important;
+  }
+
+  .cal-scroll-hint {
+    display: block !important;
+  }
+
+  .cal-cell {
+    min-height: 108px;
+    padding: 0.65rem 0.5rem !important;
+  }
+
+  .cal-cell-num {
+    font-size: 1.1rem !important;
+  }
+
+  .cal-event-artist {
+    font-size: 0.95rem !important;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .cal-event-meta {
+    font-size: 0.68rem !important;
+    display: block;
+  }
+
+  .cal-badge {
+    white-space: nowrap;
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    overflow-wrap: normal;
+  }
+}
+
+@media (max-width: 600px) {
+  .reservation-modal,
+  .full-menu-modal {
+    padding: 0.75rem;
+  }
+
+  .reservation-modal-panel,
+  .full-menu-panel {
+    max-height: calc(100dvh - 1.5rem);
+    padding: 1.35rem 1.15rem 1.25rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .site-footer {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+/* Header / filter tap targets on phones */
+@media (max-width: 650px) {
+  .scroller-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .btn-wave-hamburger {
+    width: 42px;
+    height: 42px;
+  }
+  .gallery-filter-pill,
+  .sidebar-nav-item {
+    min-height: 40px;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+}
+
+/* Prevent horizontal bleed WITHOUT breaking position:sticky
+   (overflow-x on html makes sticky fail → blank 280vh menu track) */
+html {
+  overflow-x: visible;
+}
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Mobile: section spacing = 60px (all pages) */
+@media (max-width: 860px) {
+  .section-block:not(.menu-editorial-scroll-track) {
+    padding: 60px 0 !important;
+  }
+
+  .space-section {
+    padding: 60px 0 0 !important;
+  }
+
+  .space-header-row,
+  .space-header-block {
+    margin-bottom: 60px !important;
+  }
+
+  .space-fine-rule {
+    margin-bottom: 60px !important;
+  }
+
+  .section-media-mentions {
+    padding: 60px 0 !important;
+  }
+
+  .previous-events-section {
+    padding: 60px 1rem !important;
+  }
+
+  .previous-events-header {
+    margin-bottom: 60px !important;
+  }
+
+  /* ---------- Mobile: Concept banner = 100vh ---------- */
+  .concept-hero-fold {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    justify-content: space-between !important;
+    padding-top: 88px !important;
+    gap: 0;
+  }
+
+  .concept-hero-content {
+    margin: auto auto !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* ---------- Home What’s On section: keep 60px spacing ---------- */
+  .event-calendar-section {
+    min-height: 0 !important;
+    padding: 60px 1rem !important;
+    justify-content: flex-start !important;
+  }
+
+  .event-calendar-section .cal-header-block {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 1.25rem !important;
+    padding: 0 0.5rem;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box;
+  }
+
+  /* Dedicated What’s On page only — extra top clearance under fixed nav */
+  .event-calendar-section:has(.header-breadcrumb) {
+    padding: 10.5rem 1rem 60px !important;
+  }
+
+  .event-calendar-section:has(.header-breadcrumb) .cal-header-block {
+    margin: 0 0 2rem !important;
+  }
+
+  .menu-page-hero {
+    min-height: 0 !important;
+    padding-top: 10.5rem !important;
+    padding-bottom: 2rem !important;
+    box-sizing: border-box;
+  }
+
+  .gallery-page-wrap {
+    padding-top: 10.5rem !important;
+    padding-bottom: 60px !important;
+  }
+
+  .gallery-header-section {
+    min-height: 0 !important;
+    margin-bottom: 60px !important;
+    padding: 0 1.25rem 2rem !important;
+    box-sizing: border-box;
+  }
+
+  .faq-section {
+    padding: 10.5rem 1.25rem 60px !important;
+  }
+
+  .faq-section > .header-breadcrumb {
+    position: static;
+    padding-top: 0;
+    margin-bottom: 1.35rem;
+  }
+
+  .faq-hero-header {
+    min-height: 0 !important;
+    margin-bottom: 60px !important;
+  }
+
+  .wave-video-strap {
+    height: 64px !important;
+    margin-top: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .pillars-sticky-viewport {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 60px 0 !important;
+  }
+
+  .pillars-pinned-container {
+    height: auto !important;
+  }
+
+  .pillars-track-window {
+    padding-bottom: 0 !important;
+  }
+
+  /* Concept Our Sounds: keep media full-width, no 100vw bleed */
+  .feature-edge-media {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .event-parallax-media-wrap,
+  .event-parallax-img {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .event-calendar-section {
+    overflow: hidden !important;
+  }
+
+  .fullbleed-features-section {
+    padding: 60px 0 !important;
+    gap: 60px !important;
+  }
+
+  .sounds-section-header {
+    margin-bottom: 0 !important;
+  }
+
+  .concept-font-section {
+    padding: 60px 1.25rem !important;
+  }
+
+  .font-section-header {
+    margin-bottom: 60px !important;
+  }
+
+  .contact-section {
+    padding: 60px 1.25rem !important;
+  }
+
+  .thank-you-page {
+    padding: 88px 1.25rem 60px !important;
+  }
+
+  footer.site-footer {
+    padding-top: 60px !important;
+  }
+}
