@@ -34,7 +34,11 @@
 
       /* Approved Atmospheric Frequency (Subtle) Gradients */
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-velvet: linear-gradient(114deg, #080C18 0%, #0E4B8E 32%, #8C2D52 64%, #D66824 90%, #0A2B5E 100%);
+      --grad-rosefold: linear-gradient(118deg, #0047AB 0%, #111318 28%, #D98A9C 56%, #C2434A 78%, #0A5CBF 100%);
+      --border-accent: rgba(232, 66, 67, 0.45);
     }
 
     /* ZERO LETTER-SPACING RULE ACROSS ALL ELEMENTS */
@@ -584,25 +588,27 @@
       align-items: center;
       justify-content: center;
       gap: 0.8rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-velvet);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       cursor: pointer;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .floating-reserve-cta:hover {
       transform: translateY(-2px) scale(1.03);
       filter: brightness(1.12);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+      box-shadow: none;
     }
 
     .reserve-cta-divider {
@@ -621,11 +627,7 @@
     }
 
     /* =========================================================
-       01. WHAT’S ON SECTION (Carried forward from index-2.html)
-       - Weight 100 inside event table
-       - Darkness filter retained on Event-bg.jpg
-       - Atmospheric Frequency gradient on "What's On at" + Nami in #c0c0c0
-       - Zero water-vibration on hover preview poster
+       01. WHAT’S ON MONTHLY CALENDAR (Mirrors index.html)
        ========================================================= */
     .page-wrap {
       margin-top: 0;
@@ -635,21 +637,27 @@
       z-index: 10;
     }
 
-    .event-list-section {
-      position: relative;
-      padding-top: clamp(8.5rem, 15vh, 11.5rem);
-      padding-bottom: 120px;
-      background: #070707;
-      overflow: hidden;
+    .event-calendar-section {
       width: 100%;
+      position: relative;
+      margin: 0;
+      min-height: 85vh;
+      padding: clamp(8.5rem, 15vh, 11.5rem) 1.5rem 100px;
+      overflow: hidden;
+      background: #070707;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
     }
 
     .event-parallax-media-wrap {
       position: absolute;
-      top: 0;
+      top: -20%;
       left: 0;
       width: 100%;
-      height: 140%;
+      height: 145%;
       overflow: hidden;
       z-index: 1;
       pointer-events: none;
@@ -659,12 +667,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
+      filter: brightness(0.65) contrast(1.08);
       will-change: transform;
       pointer-events: none;
       display: block;
       transform: translate3d(0, 0, 0) scale(1.06);
-      filter: brightness(0.42) contrast(1.10);
     }
 
     .event-parallax-overlay {
@@ -675,23 +683,40 @@
       background: linear-gradient(
         180deg,
         rgba(7, 7, 7, 0.90) 0%,
-        rgba(7, 7, 7, 0.78) 20%,
-        rgba(7, 7, 7, 0.78) 80%,
-        rgba(7, 7, 7, 0.96) 100%
+        rgba(0, 0, 0, 0.76) 18%,
+        rgba(0, 0, 0, 0.76) 82%,
+        rgba(7, 7, 7, 0.94) 100%
       );
     }
 
-    .event-list-header {
+    .event-calendar-container {
       position: relative;
       z-index: 3;
-      text-align: center;
-      max-width: 780px;
-      margin: 0 auto 3.5rem;
-      padding: 0 1.5rem;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      text-align: center;
+    }
+
+    .cal-header-block {
+      max-width: 780px;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cal-month-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      text-align: center;
+      margin: 0 0 1.25rem;
+      line-height: 1.2;
     }
 
     .header-breadcrumb {
@@ -702,32 +727,32 @@
       margin-bottom: 1.25rem;
       font-family: var(--font-body);
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
     }
 
     .header-breadcrumb .breadcrumb-link {
-      color: rgba(255, 255, 255, 0.48);
+      color: rgba(255, 255, 255, 0.52);
       text-decoration: none;
       transition: color 0.2s ease;
     }
 
-    .header-breadcrumb .breadcrumb-link:hover { color: var(--c-orange); }
+    .header-breadcrumb .breadcrumb-link:hover { color: #FFFFFF; }
     .header-breadcrumb .breadcrumb-sep { color: rgba(255, 255, 255, 0.28); font-weight: 400; }
-    .header-breadcrumb .breadcrumb-active { color: #c0c0c0; }
+    .header-breadcrumb .breadcrumb-active { color: #FFFFFF; }
 
     .event-list-title {
       font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
       font-weight: 700;
-      line-height: 1.15;
-      color: #c0c0c0;
+      line-height: 1.08;
+      color: #FFFFFF;
       margin: 0 0 1rem;
       text-align: center;
     }
 
     .event-list-title .text-gradient {
-      background: var(--grad-primary);
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -745,183 +770,422 @@
       text-align: center;
     }
 
-    /* Full-width Edge-to-Edge Table matching index-2.html */
-    .event-list-table {
-      position: relative;
-      z-index: 3;
+    .cal-grid-scroll-wrap {
       width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
     }
 
-    .event-list-table,
-    .event-list-table * {
-      font-weight: 100 !important;
-    }
-
-    .event-list-table::before {
-      content: '';
-      display: block;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.09);
+    .cal-grid-table {
+      min-width: 860px;
       width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(10, 10, 10, 0.25);
     }
 
-    .event-list-row {
+    .cal-dow-row {
       display: grid;
-      grid-template-columns: auto 1fr auto 48px;
-      align-items: center;
-      gap: 0 4rem;
-      padding-top: 2.25rem;
-      padding-bottom: 2.25rem;
-      padding-left: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
-      padding-right: max(clamp(2rem, 5vw, 5rem), calc((100% - 1240px) / 2 + clamp(2rem, 5vw, 5rem)));
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .cal-dow-col {
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 1.15rem 0.6rem;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #c0c0c0;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      user-select: none;
+    }
+
+    .cal-dow-col:last-child {
+      border-right: none;
+    }
+
+    .cal-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
       position: relative;
-      cursor: pointer;
-      transition: background 0.2s ease;
+      width: 100%;
+    }
+
+    .cal-cell {
+      min-width: 0;
+      position: relative;
+      min-height: clamp(140px, 16vh, 168px);
+      padding: 1.15rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255, 255, 255, 0.38);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+      background: transparent;
+      transition: background 0.22s ease, transform 0.22s ease;
       text-decoration: none;
+      color: #c0c0c0;
+      box-sizing: border-box;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .cal-cell:nth-child(7n) { border-right: none; }
+    .cal-cell:nth-child(n+29) { border-bottom: none; }
+
+    .cal-cell:not(.has-event):not(.is-empty):hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cal-cell-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .cal-cell-num {
+      font-family: var(--font-body);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #c0c0c0;
+      line-height: 1;
+    }
+
+    .cal-cell:not(.has-event) .cal-cell-num { opacity: 0.95; }
+
+    .cal-cell.has-event {
+      background: var(--grad-primary);
+      cursor: pointer;
+      z-index: 2;
+      transition: filter 0.22s ease, transform 0.22s ease;
+    }
+
+    .cal-cell.has-event.grad-variant-primary { background: var(--grad-primary) !important; }
+    .cal-cell.has-event.grad-variant-resonance { background: var(--grad-resonance) !important; }
+    .cal-cell.has-event.grad-variant-flare {
+      background: linear-gradient(135deg, #08437F 0%, #03254C 50%, #021426 100%) !important;
+    }
+
+    .cal-cell.has-event:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      z-index: 5;
+    }
+
+    .cal-cell.has-event.is-headline {
+      outline: 1.5px solid rgba(255, 255, 255, 0.9);
+      outline-offset: -2px;
+    }
+
+    .cal-badge {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.45);
+      border: none;
+      color: #c0c0c0;
+      padding: 3px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .badge-headline {
+      background: rgba(255, 255, 255, 0.28);
       color: #c0c0c0;
     }
 
-    .event-list-row::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .event-list-row:hover {
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .event-row-date {
-      font: 100 clamp(1.6rem, 3vw, 2.4rem)/1 'Chivo', sans-serif;
-      font-weight: 100 !important;
-      color: rgba(255, 255, 255, 0.85);
-      white-space: nowrap;
-    }
-
-    .event-row-center {
+    .cal-event-body {
+      margin-top: 0.85rem;
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
+      flex-direction: column;
+      gap: 0.3rem;
       min-width: 0;
     }
 
-    .event-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--c-orange, #DC7918);
-      flex-shrink: 0;
-      display: inline-block;
-    }
-
-    .event-row-title {
-      font: 100 clamp(1.1rem, 2.2vw, 2rem)/1.25 'Chivo', sans-serif;
-      font-weight: 100 !important;
+    .cal-event-artist {
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      font-weight: 700;
       color: #c0c0c0;
+      line-height: 1.15;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .cal-event-meta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.95);
       line-height: 1.25;
-      margin: 0;
-      transition: color 0.2s ease;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
-    .event-list-row:hover .event-row-title {
-      color: var(--c-orange, #DC7918);
+    .cal-cell.is-empty {
+      background: transparent;
+      pointer-events: none;
     }
 
-    .event-row-time {
-      font: 100 clamp(0.85rem, 1.2vw, 0.95rem)/1 'Chivo', sans-serif;
-      font-weight: 100 !important;
-      color: rgba(255, 255, 255, 0.75);
-      white-space: nowrap;
-      text-align: right;
+    .cal-scroll-hint {
+      display: none;
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
     }
 
-    .event-row-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    /* Calendar Block-Aligned Expanded Event Card */
+    .cal-column-popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      background: #0B0B0B;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .cal-column-popup.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .col-popup-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 1.15rem;
+      border-bottom: none !important;
+      background: transparent !important;
+      pointer-events: none;
+    }
+
+    .col-popup-date {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--c-orange);
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
+      pointer-events: auto;
+    }
+
+    .col-popup-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50% !important;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #c0c0c0;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 1rem;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      justify-self: center;
+      cursor: pointer;
       flex-shrink: 0;
-      background: transparent;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+      padding: 0;
+      pointer-events: auto;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
-    .event-list-row:hover .event-row-btn {
-      border-color: var(--c-orange, #DC7918);
-      color: var(--c-orange, #DC7918);
-      background: rgba(220, 121, 24, 0.08);
+    .col-popup-close:hover {
+      background: var(--c-red);
+      border-color: var(--c-red);
+      transform: scale(1.05);
     }
 
-    /* Floating Hover Poster Preview (Clean drop shadow, NO water vibration) */
-    .event-poster-preview-wrap {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: clamp(165px, 14vw, 215px);
-      aspect-ratio: 3 / 4;
-      border-radius: 0 !important;
-      border: none !important;
-      overflow: visible;
-      opacity: 0;
-      visibility: hidden;
-      transform: translate3d(0, 0, 0) scale(0.96);
-      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
-      z-index: 9999;
-      box-shadow: none !important;
-      background: transparent;
-      will-change: transform, opacity;
+    .col-popup-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(244, 143, 36, 0.4) transparent;
     }
 
-    .event-poster-preview-wrap.is-active {
-      opacity: 1;
-      visibility: visible;
-      transform: translate3d(0, 0, 0) scale(1);
+    .col-popup-body::-webkit-scrollbar { width: 4px; }
+    .col-popup-body::-webkit-scrollbar-thumb { background: rgba(244, 143, 36, 0.4); }
+
+    .col-popup-media {
+      position: relative;
+      width: 100%;
+      height: 155px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000000;
     }
 
-    .event-poster-img {
+    .col-popup-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
+      filter: contrast(1.06) brightness(0.95);
       display: block;
-      border-radius: 0 !important;
-      border: none !important;
-      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
-      will-change: transform;
+      transition: transform 0.3s ease;
+    }
+
+    .col-popup-media:hover .col-popup-img { transform: scale(1.02); }
+
+    .col-popup-top-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.32) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .col-popup-img-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 11, 0.85) 88%, #0B0B0B 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .col-popup-info {
+      padding: 0.95rem 1.15rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: left;
+    }
+
+    .col-popup-badge-wrap { margin-bottom: 0.4rem; }
+
+    .col-popup-hz {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 800;
+      color: #c0c0c0;
+      background: var(--grad-primary);
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .col-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #c0c0c0;
+      line-height: 1.16;
+      margin: 0 0 0.3rem;
+    }
+
+    .col-popup-genre {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--c-orange);
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .col-popup-desc {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.48;
+      margin: 0 0 1rem;
+    }
+
+    .btn-col-popup-book {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none;
+      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+      margin-top: auto;
+    }
+
+    .btn-col-popup-book:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: none;
+    }
+
+    .cal-cell.is-active-event {
+      outline: 2px solid #FFFFFF !important;
+      outline-offset: -2px;
     }
 
     /* =========================================================
-       02. PREVIOUS EVENTS SECTION
-       - 3 Previous Events in large open-box format
-       - Poster image in Black & White
-       - NO border, NO border-radius, NO shadow on boxes
-       - Event title + Date and Time
+       02. PREVIOUS EVENTS CAROUSEL
+       - Width aligned to Monthly Calendar (1180px)
+       - Centered heading + Left/Right arrows matching Home In the News
+       - Open-box format: B&W poster, title, date/time (no border/radius/shadow)
        ========================================================= */
     .previous-events-section {
-      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      padding: clamp(5rem, 10vh, 7.5rem) 1.5rem;
       background: #070707;
       position: relative;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .previous-events-container {
-      max-width: 1240px;
+      width: 100%;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 0 clamp(2rem, 5vw, 5rem);
+      padding: 0;
+      position: relative;
     }
 
     .previous-events-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      margin-bottom: clamp(3rem, 6vh, 4.5rem);
+      margin-bottom: clamp(2.5rem, 5vh, 3.5rem);
     }
 
     .previous-events-heading {
@@ -933,22 +1197,93 @@
     }
 
     .previous-events-heading .grad-text {
-      background: var(--grad-primary);
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       display: inline-block;
     }
 
-    .prev-events-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(2rem, 3.5vw, 3.5rem);
-      align-items: start;
+    .prev-carousel-stage {
+      position: relative;
+      width: 100%;
     }
 
-    /* Large Open Box: Strictly NO border, NO border-radius, NO shadow, NO enclosed background */
+    .prev-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(18, 18, 18, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 5;
+      padding: 0;
+      outline: none;
+    }
+
+    .prev-nav-arrow .nav-arrow-img,
+    .prev-nav-arrow img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .prev-nav-arrow:hover:not(:disabled) {
+      border-color: var(--c-orange);
+      color: #FFFFFF;
+      background: rgba(244, 143, 36, 0.14);
+      box-shadow: 0 0 14px rgba(244, 143, 36, 0.3);
+    }
+
+    .prev-nav-arrow:disabled {
+      opacity: 0.28;
+      cursor: default;
+    }
+
+    .prev-nav-arrow.prev {
+      left: -62px;
+    }
+
+    .prev-nav-arrow.next {
+      right: -62px;
+    }
+
+    @media (max-width: 1340px) {
+      .prev-nav-arrow.prev { left: 12px; }
+      .prev-nav-arrow.next { right: 12px; }
+    }
+
+    .prev-events-carousel-viewport {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      width: 100%;
+    }
+
+    .prev-events-carousel-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .prev-events-track {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Large Open Box: Strictly NO border, NO border-radius, NO shadow */
     .prev-event-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       background: transparent;
@@ -982,7 +1317,7 @@
 
     .prev-event-title {
       font-family: var(--font-heading);
-      font-size: clamp(1.3rem, 1.85vw, 1.65rem);
+      font-size: clamp(1.2rem, 1.65vw, 1.5rem);
       font-weight: 100 !important;
       color: #c0c0c0;
       line-height: 1.3;
@@ -995,6 +1330,94 @@
       font-weight: 100 !important;
       color: rgba(255, 255, 255, 0.55);
       line-height: 1.4;
+    }
+
+    /* =========================================================
+       03. PRIVATE SPACE BOOKING BANNER (CENTERED, ZERO MARGIN ABOVE FOOTER)
+       ========================================================= */
+    .private-space-banner {
+      position: relative;
+      width: 100%;
+      min-height: clamp(460px, 60vh, 600px);
+      margin: 0 !important;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #070707;
+    }
+
+    .private-space-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      filter: brightness(0.60) contrast(1.08);
+      pointer-events: none;
+    }
+
+    .private-space-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, rgba(7, 7, 7, 0.72) 0%, rgba(7, 7, 7, 0.86) 100%),
+        linear-gradient(180deg, rgba(7, 7, 7, 0.65) 0%, transparent 25%, transparent 72%, rgba(7, 7, 7, 0.78) 100%);
+    }
+
+    .private-space-inner {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: clamp(4rem, 8vh, 5.5rem) clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2.25rem;
+    }
+
+    .private-space-desc {
+      font-family: var(--font-body);
+      font-size: clamp(1.35rem, 2.35vw, 2.15rem);
+      line-height: 1.44;
+      font-weight: 300;
+      color: #c0c0c0;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .btn-private-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      padding: 0.85rem 2.1rem;
+      border-radius: 999px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: none;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-private-cta:hover {
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.12);
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1060,9 +1483,11 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
@@ -1113,6 +1538,8 @@
       width: 100%;
       max-width: 1240px;
       margin: 0 auto 1.8rem;
+      padding: 0;
+      border: none !important;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1120,7 +1547,21 @@
       font-size: clamp(0.68rem, 0.85vw, 0.74rem);
       color: rgba(255, 255, 255, 0.45);
       white-space: nowrap;
-      pointer-events: none;
+      box-sizing: border-box;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     .footer-vinyl-stage {
@@ -1269,7 +1710,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border-radius: 0;
+      border-radius: 50%;
       font-size: 1.05rem;
       transition: all 0.2s;
     }
@@ -1338,24 +1779,25 @@
       align-items: center;
       justify-content: center;
       gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-confirm-reserve:hover {
       filter: brightness(1.12);
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1363,22 +1805,27 @@
        ========================================================= */
     @media (max-width: 992px) {
       .footer-top-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-      .prev-events-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+      .prev-event-card { flex: 0 0 calc((100% - 24px) / 2); }
     }
 
     @media (max-width: 768px) {
-      .event-list-row {
-        grid-template-columns: auto 1fr 36px;
-        gap: 0 1.25rem;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
-      .event-row-center { gap: 0.75rem; }
-      .event-row-time,
-      .event-row-btn { display: none; }
-      .event-poster-preview-wrap { display: none; }
+      .event-calendar-section { padding: clamp(6.5rem, 12vh, 8.5rem) 1rem 64px; }
+      .previous-events-section { padding: clamp(3.5rem, 6vh, 5rem) 1rem; }
+      .prev-nav-arrow { display: none; }
+      .private-space-desc { font-size: 1.25rem; line-height: 1.45; }
+      .cal-scroll-hint { display: block; }
+      .cal-grid-table { min-width: 780px; }
+      .cal-cell { min-height: 108px; padding: 0.65rem 0.5rem; }
+      .cal-cell-num { font-size: 1.1rem; }
+      .cal-event-artist { font-size: 0.95rem; }
+      .cal-event-meta { font-size: 0.68rem; }
+      .col-popup-media { height: 130px; }
+      .col-popup-header { padding: 0.65rem 0.85rem; }
+      .col-popup-info { padding: 0.75rem 0.85rem 0.85rem; }
+      .col-popup-title { font-size: 1.15rem; }
+      .col-popup-genre { font-size: 0.72rem; margin-bottom: 0.5rem; }
+      .col-popup-desc { font-size: 0.74rem; line-height: 1.4; margin-bottom: 0.75rem; }
+      .btn-col-popup-book { font-size: 0.78rem; padding: 0.72rem 1.35rem; min-height: 42px; }
     }
 
     @media (max-width: 650px) {
@@ -1416,7 +1863,8 @@
     }
 
     @media (max-width: 600px) {
-      .prev-events-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .prev-event-card { flex: 0 0 84%; }
+      .private-space-banner { min-height: 400px; }
       .footer-top-grid { grid-template-columns: 1fr; gap: 1.75rem; }
       .footer-mid-bar {
         white-space: normal;
@@ -1434,17 +1882,12 @@
   <div id="noise-layer" aria-hidden="true"></div>
   <div id="warmth-layer" aria-hidden="true"></div>
 
-  <!-- Floating Hover Poster Preview (Zero Border, Zero Radius, No Water Vibration) -->
-  <div class="event-poster-preview-wrap" id="eventPosterPreview" aria-hidden="true">
-    <img src="./assets/Event-1.jpg" alt="Event Poster Preview" class="event-poster-img" id="eventPosterImg">
-  </div>
-
   <!-- =========================================================
        FIXED TOP NAVIGATION & ROTARY SECTION SCROLLER (Knob W Active)
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -1525,7 +1968,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <div class="drawer-middle">
@@ -1542,8 +1987,11 @@
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
+        <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs">
+          <span class="drawer-nav-num">05</span> FAQs
+        </a>
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation">
-          <span class="drawer-nav-num">05</span> Reservation
+          <span class="drawer-nav-num">06</span> Reservation
         </a>
       </nav>
 
@@ -1554,6 +2002,7 @@
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -1625,99 +2074,186 @@
   <main class="page-wrap">
 
     <!-- =========================================================
-         01. WHAT’S ON AT NAMI (Consistent with index-2.html)
+         01. WHAT’S ON MONTHLY CALENDAR (Similar to index.html)
          ========================================================= -->
-    <section id="programming" class="event-list-section" aria-label="What's On at Nami">
+    <section id="programming" class="event-calendar-section" aria-label="What’s On at Nami">
 
-      <!-- Background Media Wrap with Subtle Parallax & Darkness Filter -->
       <div class="event-parallax-media-wrap">
         <img src="./assets/Event-bg.jpg" alt="Nami Acoustic Space &amp; Vinyl Shelves" class="event-parallax-img" id="eventParallaxImg">
       </div>
       <div class="event-parallax-overlay"></div>
 
-      <!-- Centered Header -->
-      <header class="event-list-header">
-        <nav class="header-breadcrumb" aria-label="Breadcrumb">
-          <a href="index-2.html" class="breadcrumb-link">HOME</a>
-          <span class="breadcrumb-sep">/</span>
-          <span class="breadcrumb-active">WHAT’S ON</span>
-        </nav>
-        <h1 class="event-list-title"><span class="text-gradient">What’s On at</span> Nami</h1>
-        <p class="event-list-subhead">Curated vinyl archives, selector sessions &amp; Tokyo listening room culture.</p>
-      </header>
+      <div class="event-calendar-container">
+        <header class="cal-header-block">
+          <nav class="header-breadcrumb" aria-label="Breadcrumb">
+            <a href="index-2.html" class="breadcrumb-link">HOME</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-active">WHAT’S ON</span>
+          </nav>
+          <h1 class="event-list-title"><span class="text-gradient">What’s On at</span> Nami</h1>
+          <p class="event-list-subhead">Curated vinyl archives, selector sessions &amp; Tokyo listening room culture.</p>
+        </header>
 
-      <!-- Full-Width Edge-to-Edge Event Schedule Table -->
-      <div class="event-list-table">
+        <h2 class="cal-month-heading">December 2026</h2>
 
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl on 06/09">
-          <span class="event-row-date">06/09</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</h2>
+        <div class="cal-grid-scroll-wrap">
+          <div class="cal-grid-table">
+            <div class="cal-dow-row">
+              <div class="cal-dow-col">MON</div>
+              <div class="cal-dow-col">TUE</div>
+              <div class="cal-dow-col">WED</div>
+              <div class="cal-dow-col">THU</div>
+              <div class="cal-dow-col">FRI</div>
+              <div class="cal-dow-col">SAT</div>
+              <div class="cal-dow-col">SUN</div>
+            </div>
+
+            <div class="cal-days-grid" id="calDaysGrid">
+              <!-- ROW 1: Days 1 to 7 -->
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">1</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">2</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">3</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">4</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">5</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">6</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">7</span></div></div>
+
+              <!-- ROW 2: Days 8 to 14 -->
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">8</span></div></div>
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Dec 9: Atushi Maeda">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">9</span>
+                  <span class="cal-badge">440 Hz</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Atushi Maeda</div>
+                  <div class="cal-event-meta">20:30 · Ambient &amp; Jazz</div>
+                </div>
+              </a>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">10</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">11</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">12</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">13</span></div></div>
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Dec 14: Mogasu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">14</span>
+                  <span class="cal-badge">Warm Freq</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Mogasu</div>
+                  <div class="cal-event-meta">18:00 · Vinyl Soul</div>
+                </div>
+              </a>
+
+              <!-- ROW 3: Days 15 to 21 -->
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">15</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">16</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">17</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">18</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">19</span></div></div>
+              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Dec 20: Yousuke Yukimatsu">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">20</span>
+                  <span class="cal-badge badge-headline">3968 Hz Special</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Yousuke Yukimatsu</div>
+                  <div class="cal-event-meta">20:30 · Avant-Garde &amp; Bass</div>
+                </div>
+              </a>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">21</span></div></div>
+
+              <!-- ROW 4: Days 22 to 28 -->
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">22</span></div></div>
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Dec 23: Occa">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">23</span>
+                  <span class="cal-badge">Resonant</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Occa</div>
+                  <div class="cal-event-meta">20:30 · Hypnotic Sound</div>
+                </div>
+              </a>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">24</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">25</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">26</span></div></div>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">27</span></div></div>
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Dec 28: Suze Ijo">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">28</span>
+                  <span class="cal-badge">Electric</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Suze Ijo</div>
+                  <div class="cal-event-meta">19:00 · Afro-Cuban Beats</div>
+                </div>
+              </a>
+
+              <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Dec 29: Sunju Hargun">
+                <div class="cal-cell-top">
+                  <span class="cal-cell-num">29</span>
+                  <span class="cal-badge">Nocturnal</span>
+                </div>
+                <div class="cal-event-body">
+                  <div class="cal-event-artist">Sunju Hargun</div>
+                  <div class="cal-event-meta">19:00 · Bangkok Club Set</div>
+                </div>
+              </a>
+              <div class="cal-cell"><div class="cal-cell-top"><span class="cal-cell-num">30</span></div></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+              <div class="cal-cell is-empty" aria-hidden="true"></div>
+
+              <!-- In-Place Expanded Event Popup Card -->
+              <div class="cal-column-popup" id="calColumnPopup" aria-hidden="true">
+                <div class="col-popup-body">
+                  <div class="col-popup-media">
+                    <img src="./assets/nami-turntable-hands.jpg" alt="Event Poster" class="col-popup-img" id="colPopupImg">
+                    <div class="col-popup-top-vignette"></div>
+                    <div class="col-popup-img-grad"></div>
+                    <div class="col-popup-header">
+                      <span class="col-popup-date" id="colPopupDate">TUE · DEC 09</span>
+                      <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
+                        <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-popup-info">
+                    <div class="col-popup-badge-wrap">
+                      <span class="col-popup-hz" id="colPopupHz">440 Hz Root</span>
+                    </div>
+                    <h4 class="col-popup-title" id="colPopupTitle">Atushi Maeda</h4>
+                    <div class="col-popup-genre" id="colPopupGenre">Japanese Ambient · Spiritual Jazz · 20:30 (Doors 19:00)</div>
+                    <p class="col-popup-desc" id="colPopupDesc">
+                      Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.
+                    </p>
+                    <button type="button" class="btn-col-popup-book" id="colPopupBookBtn" onclick="bookFromPopup(event)">
+                      <span>Reserve Spot</span>
+                      <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle; filter: brightness(0) invert(1);">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <span class="event-row-time">Wed · 20:30</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
+        </div>
 
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Mogasu: Japanese Soul Archives &amp; Sake Tasting on 12/09">
-          <span class="event-row-date">12/09</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Mogasu: Japanese Soul Archives &amp; Sake Tasting</h2>
-          </div>
-          <span class="event-row-time">Thu · 18:00</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
-
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Yousuke Yukimatsu: Avant-Garde Analog Bass on 18/09">
-          <span class="event-row-date">18/09</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Yousuke Yukimatsu: Avant-Garde Analog Bass</h2>
-          </div>
-          <span class="event-row-time">Fri · 20:30</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
-
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-1.jpg" aria-label="Occa: Hypnotic Rotary Sound &amp; Deep Minimal on 24/09">
-          <span class="event-row-date">24/09</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Occa: Hypnotic Rotary Sound &amp; Deep Minimal</h2>
-          </div>
-          <span class="event-row-time">Sat · 20:30</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
-
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-2.jpg" aria-label="Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves on 02/10">
-          <span class="event-row-date">02/10</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves</h2>
-          </div>
-          <span class="event-row-time">Sun · 19:00</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
-
-        <a href="javascript:void(0)" class="event-list-row" onclick="openReservationModal(event)" data-poster="./assets/Event-3.jpg" aria-label="Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves on 08/10">
-          <span class="event-row-date">08/10</span>
-          <div class="event-row-center">
-            <span class="event-status-dot"></span>
-            <h2 class="event-row-title">Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves</h2>
-          </div>
-          <span class="event-row-time">Wed · 21:00</span>
-          <span class="event-row-btn" aria-hidden="true">→</span>
-        </a>
-
+        <div class="cal-scroll-hint" aria-hidden="true">
+          <span>← Swipe to explore full calendar →</span>
+        </div>
       </div>
 
     </section>
 
     <!-- =========================================================
-         02. PREVIOUS EVENTS SECTION
-         - 3 Previous Events in large open-box format
-         - B&W Poster image, event title, date & time
-         - No border, no border-radius, no shadow
+         02. PREVIOUS EVENTS CAROUSEL
+         - Aligned with calendar 1180px width, centered heading, left/right arrows
+         - Open-box format (NO border, border-radius, or shadow)
          ========================================================= -->
     <section class="previous-events-section" id="previous-events" aria-label="Previous Events at Nami">
       <div class="previous-events-container">
@@ -1728,36 +2264,93 @@
           </h2>
         </header>
 
-        <div class="prev-events-grid">
+        <div class="prev-carousel-stage">
+          <button type="button" class="prev-nav-arrow prev" id="prevCarouselPrev" aria-label="Previous events">
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="22" height="22" class="nav-arrow-img">
+          </button>
 
-          <!-- Previous Event 1 -->
-          <article class="prev-event-card">
-            <div class="prev-event-poster">
-              <img src="./assets/Event-1.jpg" alt="Roycin: After Dark" class="prev-event-poster-img" loading="lazy">
+          <button type="button" class="prev-nav-arrow next" id="prevCarouselNext" aria-label="Next events">
+            <img src="./assets/Arrow-right.svg" alt="Next" width="22" height="22" class="nav-arrow-img">
+          </button>
+
+          <div class="prev-events-carousel-viewport" id="prevEventsViewport">
+            <div class="prev-events-track" id="prevEventsTrack">
+
+              <!-- Previous Event 1 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/Event-1.jpg" alt="Roycin: After Dark" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Roycin: After Dark — Analog Frequency Session</h3>
+                <p class="prev-event-datetime">20 Nov 2026 · 21:00</p>
+              </article>
+
+              <!-- Previous Event 2 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/Event-4.jpg" alt="Hamza Rahimtula: After Hours" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Hamza Rahimtula: After Hours — Indo-Acid Rotary Hi-Fi</h3>
+                <p class="prev-event-datetime">14 Nov 2026 · 21:00</p>
+              </article>
+
+              <!-- Previous Event 3 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/Event-3.jpg" alt="Sindhi Curry: After Hours" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Sindhi Curry: After Hours — Tokyo Vinyl Archive</h3>
+                <p class="prev-event-datetime">07 Nov 2026 · 21:00</p>
+              </article>
+
+              <!-- Previous Event 4 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/Event-2.jpg" alt="Kohra: Subterranean Harmonics" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Kohra: Subterranean Harmonics &amp; Vinyl Ritual</h3>
+                <p class="prev-event-datetime">31 Oct 2026 · 21:00</p>
+              </article>
+
+              <!-- Previous Event 5 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/nami-dj-bar.jpg" alt="Zokhuma: Analog Jazz Kissa" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Zokhuma: Analog Jazz Kissa &amp; Deep Disco</h3>
+                <p class="prev-event-datetime">24 Oct 2026 · 20:30</p>
+              </article>
+
+              <!-- Previous Event 6 -->
+              <article class="prev-event-card">
+                <div class="prev-event-poster">
+                  <img src="./assets/nami-guest-table.jpg" alt="Priyanjana: Late Night Turntable Sessions" class="prev-event-poster-img" loading="lazy">
+                </div>
+                <h3 class="prev-event-title">Priyanjana: Late Night Turntable Sessions</h3>
+                <p class="prev-event-datetime">17 Oct 2026 · 21:00</p>
+              </article>
+
             </div>
-            <h3 class="prev-event-title">Roycin: After Dark — Analog Frequency Session</h3>
-            <p class="prev-event-datetime">20 Nov 2026 · 21:00</p>
-          </article>
-
-          <!-- Previous Event 2 -->
-          <article class="prev-event-card">
-            <div class="prev-event-poster">
-              <img src="./assets/Event-4.jpg" alt="Hamza Rahimtula: After Hours" class="prev-event-poster-img" loading="lazy">
-            </div>
-            <h3 class="prev-event-title">Hamza Rahimtula: After Hours — Indo-Acid Rotary Hi-Fi</h3>
-            <p class="prev-event-datetime">14 Nov 2026 · 21:00</p>
-          </article>
-
-          <!-- Previous Event 3 -->
-          <article class="prev-event-card">
-            <div class="prev-event-poster">
-              <img src="./assets/Event-3.jpg" alt="Sindhi Curry: After Hours" class="prev-event-poster-img" loading="lazy">
-            </div>
-            <h3 class="prev-event-title">Sindhi Curry: After Hours — Tokyo Vinyl Archive</h3>
-            <p class="prev-event-datetime">07 Nov 2026 · 21:00</p>
-          </article>
-
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         03. BOOK YOUR PRIVATE SPACE (CENTERED, ZERO MARGIN ABOVE FOOTER)
+         ========================================================= -->
+    <section class="private-space-banner" id="private-events" aria-label="Book Your Private Space at Nami">
+      <img src="./assets/nami-bar-room.jpg" alt="Nami Listening Bar &amp; Acoustic Room for Private Events" class="private-space-bg" loading="lazy">
+      <div class="private-space-overlay" aria-hidden="true"></div>
+
+      <div class="private-space-inner">
+        <p class="private-space-desc">
+          Host an intimate celebration, vinyl listening session, or full-venue buyout crafted around our custom 440Hz sound system, Japanese robata dining, and bespoke cocktail menus in Bandra West.
+        </p>
+        <a href="#contactModal" class="btn-private-cta" onclick="openContactModal(event)">
+          <span>Inquire For Private Booking</span>
+          <span>→</span>
+        </a>
       </div>
     </section>
 
@@ -1776,7 +2369,7 @@
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
-          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-footer">
             <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon">
             <span>Join WhatsApp Community →</span>
           </a>
@@ -1785,11 +2378,11 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
-            <li><a href="our-space.html">Our space</a></li>
-            <li><a href="index-2.html#press">In the news</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -1807,15 +2400,15 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
-            <li><a href="whats-on.html">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <div class="footer-vinyl-stage" aria-hidden="true">
@@ -1839,9 +2432,11 @@
       <div class="reservation-modal-header">
         <div>
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
-          <h3 class="reserve-modal-title">Table <span style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
+          <h3 class="reserve-modal-title">Table <span style="background: var(--grad-rosefold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reservation</span></h3>
         </div>
-        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <p class="reserve-modal-desc">
@@ -1899,10 +2494,68 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PRIVATE SPACE CONTACT / INQUIRY MODAL DIALOG
+       ========================================================= -->
+  <div id="contactModal" class="reservation-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="reservation-modal-backdrop" onclick="closeContactModal()"></div>
+    <div class="reservation-modal-panel">
+      <div class="reservation-modal-header">
+        <div>
+          <span class="reserve-eyebrow">PRIVATE EVENTS &amp; BUYOUTS</span>
+          <h3 class="reserve-modal-title">Book Private <span style="background: var(--grad-rosefold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Space</span></h3>
+        </div>
+        <button class="reserve-modal-close" onclick="closeContactModal()" aria-label="Close contact form">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
+      </div>
+
+      <p class="reserve-modal-desc">
+        Planning a private gathering, album launch, or full-venue celebration? Share your event details below and our team will get in touch.
+      </p>
+
+      <form id="contactInquiryForm" class="reservation-form" onsubmit="handleContactSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactName">NAME</label>
+            <input type="text" id="contactName" placeholder="Your full name" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">EMAIL OR PHONE</label>
+            <input type="text" id="contactEmail" placeholder="you@domain.com / +91" required class="res-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactDate">PREFERRED DATE</label>
+            <input type="date" id="contactDate" required class="res-input">
+          </div>
+          <div class="form-group">
+            <label for="contactType">OCCASION</label>
+            <select id="contactType" required class="res-input">
+              <option value="Private Celebration">Private Celebration</option>
+              <option value="Full Venue Buyout">Full Venue Buyout</option>
+              <option value="Album Launch / Listening Session">Album Launch / Listening Session</option>
+              <option value="Brand / Corporate Gathering">Brand / Corporate Gathering</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactNotes">EVENT DETAILS &amp; GUEST COUNT</label>
+          <textarea id="contactNotes" rows="3" placeholder="Tell us your estimated guest count, music preferences, and format..." class="res-input" style="resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="btn-confirm-reserve">
+          <span>SEND INQUIRY</span>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -1943,8 +2596,59 @@
 
     function handleReservationSubmit(e) {
       e.preventDefault();
-      showToast('Reservation Request Received. We will confirm via WhatsApp within 2 hours.');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const session = document.getElementById('resSession')?.value || '';
+      const zone = document.getElementById('resZone')?.value || '';
+      const name = document.getElementById('resName')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        name,
+        date,
+        guests,
+        time: session,
+        seating: zone
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
+    }
+
+    // 2B. Private Space Contact Modal Handlers
+    function openContactModal(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const dateInput = document.getElementById('contactDate');
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName')?.value || '';
+      const date = document.getElementById('contactDate')?.value || '';
+      const occasion = document.getElementById('contactType')?.value || '';
+      closeContactModal();
+      const params = new URLSearchParams({
+        type: 'private',
+        name,
+        date,
+        occasion
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 3. Toast Utility
@@ -1979,73 +2683,253 @@
       onScroll();
     })();
 
-    // 5. Event List Hover Poster Preview (Clean drop shadow, NO water vibration)
-    (function initEventListHover() {
-      const rows = document.querySelectorAll('.event-list-row[data-poster]');
-      const preview = document.getElementById('eventPosterPreview');
-      const previewImg = document.getElementById('eventPosterImg');
-      if (!rows.length || !preview || !previewImg) return;
+    // 5. Monthly Calendar Events Data & Interactive Popup
+    const EVENTS_DATA = {
+      '9': {
+        dateNum: '09',
+        dateTag: 'TUE · DEC 09',
+        hzTag: '440 Hz Root',
+        artist: 'Atushi Maeda',
+        genre: 'Japanese Ambient · Spiritual Jazz',
+        timing: '20:30 (Doors 19:00)',
+        poster: './assets/nami-turntable-hands.jpg',
+        desc: 'Tokyo selector Atushi Maeda spins rare Japanese spiritual jazz, intimate environmental ambient, and early experimental Japanese synth pressings exclusively through our custom horn-loaded acoustic system.',
+        dateStr: '2026-02-09'
+      },
+      '14': {
+        dateNum: '14',
+        dateTag: 'SUN · DEC 14',
+        hzTag: 'Warm Frequencies',
+        artist: 'Mogasu',
+        genre: 'Vintage Soul · Rare Groove',
+        timing: '18:00 Onwards',
+        poster: './assets/nami-erykah-vinyl.jpg',
+        desc: 'A Valentine’s rare vinyl journey through vintage American soul, slow-tempo Jamaican lovers rock, and warm disco ballads curated exclusively on original analog pressings.',
+        dateStr: '2026-02-14'
+      },
+      '20': {
+        dateNum: '20',
+        dateTag: 'SAT · DEC 20',
+        hzTag: '3968 Hz Special · Headline',
+        artist: 'Yousuke Yukimatsu',
+        genre: 'Tokyo Avant-Garde & Bass',
+        timing: '20:30 Onwards',
+        poster: './assets/nami-horn-speaker.jpg',
+        desc: 'Tokyo underground legend Yousuke Yukimatsu delivers an extreme contrast performance — seamlessly bridging ambient classical minimalism with crushing sub-bass frequencies and breakcore intensity.',
+        dateStr: '2026-02-20'
+      },
+      '23': {
+        dateNum: '23',
+        dateTag: 'TUE · DEC 23',
+        hzTag: 'Resonant Node',
+        artist: 'Occa',
+        genre: 'Hypnotic Soundscapes & Ambient',
+        timing: '20:30 Onwards',
+        poster: './assets/nami-resor-mixer.jpg',
+        desc: 'Sapporo sonic architect Occa explores deep psychedelic rhythms, subterranean sub-harmonics, and meditative ambient soundscapes designed for total physical acoustic immersion.',
+        dateStr: '2026-02-23'
+      },
+      '28': {
+        dateNum: '28',
+        dateTag: 'SUN · DEC 28',
+        hzTag: 'Electric Pulse',
+        artist: 'Suze Ijo',
+        genre: 'Afro-Cuban Beats & Deep House',
+        timing: '19:00 Onwards',
+        poster: './assets/nami-selector-booth.jpg',
+        desc: 'Rotterdam selector Suze Ijo brings infectious rhythms, Afro-Cuban percussions, and uplifting house gems woven seamlessly through vintage tube amplification.',
+        dateStr: '2026-02-28'
+      },
+      '29': {
+        dateNum: '29',
+        dateTag: 'MON · DEC 29',
+        hzTag: 'Nocturnal Set',
+        artist: 'Sunju Hargun',
+        genre: 'Cosmic Techno & Asian Synth',
+        timing: '19:00 Onwards',
+        poster: './assets/nami-evening-crowd.jpg',
+        desc: 'A rare leap-year nocturnal selector set by Bangkok electronic producer Sunju Hargun, exploring psychedelic Asian synth, ritualistic dub, and late-night cosmic techno.',
+        dateStr: '2026-02-29'
+      }
+    };
 
-      let mouseX = 0;
-      let mouseY = 0;
-      let curX = 0;
-      let curY = 0;
-      let isHovered = false;
-      let animId = null;
+    let activePopupEvent = null;
+    let activePopupDayKey = null;
 
-      function renderLoop() {
-        if (!isHovered && Math.abs(curX - mouseX) < 0.1 && Math.abs(curY - mouseY) < 0.1) {
-          animId = null;
-          return;
-        }
+    function positionEventPopup(dayKey, targetCell) {
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      if (!grid || !popup || !targetCell) return;
 
-        curX += (mouseX - curX) * 0.14;
-        curY += (mouseY - curY) * 0.14;
-        preview.style.transform = `translate3d(${curX}px, ${curY}px, 0) ${isHovered ? 'scale(1)' : 'scale(0.94)'}`;
-        animId = requestAnimationFrame(renderLoop);
+      const totalCols = 7;
+      const totalRows = 5;
+      const colSpan = 2;
+      const rowSpan = 3;
+      const cells = Array.from(grid.querySelectorAll('.cal-cell'));
+      const cellIndex = cells.indexOf(targetCell);
+
+      let colIndex = 0;
+      let rowIndex = 0;
+      if (cellIndex !== -1) {
+        colIndex = cellIndex % totalCols;
+        rowIndex = Math.floor(cellIndex / totalCols);
+      } else {
+        colIndex = Math.round(targetCell.offsetLeft / targetCell.offsetWidth);
+        rowIndex = Math.round(targetCell.offsetTop / targetCell.offsetHeight);
       }
 
-      function updateTarget(e) {
-        const pWidth = preview.offsetWidth || 320;
-        const pHeight = preview.offsetHeight || 426;
+      let startCol = Math.max(0, Math.min(totalCols - colSpan, colIndex));
+      let startRow = Math.max(0, Math.min(totalRows - rowSpan, rowIndex));
 
-        let targetX = e.clientX + 32;
-        let targetY = e.clientY - (pHeight / 2);
+      const topLeftCell = cells[startRow * totalCols + startCol];
+      const bottomRightCell = cells[(startRow + rowSpan - 1) * totalCols + (startCol + colSpan - 1)];
 
-        if (targetX + pWidth > window.innerWidth - 24) {
-          targetX = e.clientX - pWidth - 32;
-        }
-
-        targetY = Math.max(20, Math.min(window.innerHeight - pHeight - 20, targetY));
-
-        mouseX = targetX;
-        mouseY = targetY;
-
-        if (!animId) {
-          animId = requestAnimationFrame(renderLoop);
-        }
+      let left, top, width, height;
+      if (topLeftCell && bottomRightCell) {
+        left = topLeftCell.offsetLeft;
+        top = topLeftCell.offsetTop;
+        width = (bottomRightCell.offsetLeft + bottomRightCell.offsetWidth) - left;
+        height = (bottomRightCell.offsetTop + bottomRightCell.offsetHeight) - top;
+      } else {
+        left = startCol * targetCell.offsetWidth;
+        top = startRow * targetCell.offsetHeight;
+        width = colSpan * targetCell.offsetWidth;
+        height = rowSpan * targetCell.offsetHeight;
       }
 
-      rows.forEach(function(row) {
-        row.addEventListener('mouseenter', function(e) {
-          const posterUrl = row.dataset.poster;
-          if (previewImg.getAttribute('src') !== posterUrl) {
-            previewImg.src = posterUrl;
-          }
-          isHovered = true;
-          preview.classList.add('is-active');
-          updateTarget(e);
-        });
+      popup.style.left = left + 'px';
+      popup.style.top = top + 'px';
+      popup.style.width = width + 'px';
+      popup.style.height = height + 'px';
 
-        row.addEventListener('mousemove', function(e) {
-          updateTarget(e);
-        });
+      const scrollWrap = document.querySelector('.cal-grid-scroll-wrap');
+      if (scrollWrap) {
+        const wrapLeft = scrollWrap.scrollLeft;
+        const wrapWidth = scrollWrap.clientWidth;
+        if (left < wrapLeft) {
+          scrollWrap.scrollTo({ left: Math.max(0, left - 16), behavior: 'smooth' });
+        } else if (left + width > wrapLeft + wrapWidth) {
+          scrollWrap.scrollTo({ left: left + width - wrapWidth + 16, behavior: 'smooth' });
+        }
+      }
+    }
 
-        row.addEventListener('mouseleave', function() {
-          isHovered = false;
-          preview.classList.remove('is-active');
-        });
+    function openEventPopup(dayKey, evt) {
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      const ev = EVENTS_DATA[dayKey];
+      if (!ev) return;
+
+      activePopupEvent = ev;
+      activePopupDayKey = dayKey;
+
+      const grid = document.getElementById('calDaysGrid');
+      const popup = document.getElementById('calColumnPopup');
+      if (!grid || !popup) return;
+
+      grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+      const targetCell = (evt && evt.currentTarget?.closest('.cal-cell')) || grid.querySelector(`[data-day="${dayKey}"]`);
+      if (targetCell) targetCell.classList.add('is-active-event');
+
+      const dateEl = document.getElementById('colPopupDate');
+      const imgEl = document.getElementById('colPopupImg');
+      const hzEl = document.getElementById('colPopupHz');
+      const titleEl = document.getElementById('colPopupTitle');
+      const genreEl = document.getElementById('colPopupGenre');
+      const descEl = document.getElementById('colPopupDesc');
+
+      if (dateEl) dateEl.textContent = ev.dateTag;
+      if (imgEl) { imgEl.src = ev.poster; imgEl.alt = ev.artist; }
+      if (hzEl) hzEl.textContent = ev.hzTag;
+      if (titleEl) titleEl.textContent = ev.artist;
+      if (genreEl) genreEl.textContent = ev.genre + (ev.timing ? ' · ' + ev.timing : '');
+      if (descEl) descEl.textContent = ev.desc;
+
+      positionEventPopup(dayKey, targetCell);
+      popup.classList.add('open');
+      popup.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeEventPopup() {
+      const popup = document.getElementById('calColumnPopup');
+      if (popup) {
+        popup.classList.remove('open');
+        popup.setAttribute('aria-hidden', 'true');
+      }
+      const grid = document.getElementById('calDaysGrid');
+      if (grid) {
+        grid.querySelectorAll('.cal-cell.is-active-event').forEach(c => c.classList.remove('is-active-event'));
+      }
+      activePopupEvent = null;
+      activePopupDayKey = null;
+    }
+
+    function bookFromPopup(evt) {
+      const selectedDate = activePopupEvent ? activePopupEvent.dateStr : null;
+      closeEventPopup();
+      openReservationModal(evt);
+      const dateInput = document.getElementById('resDate');
+      if (dateInput && selectedDate) dateInput.value = selectedDate;
+    }
+
+    document.addEventListener('click', function(e) {
+      const popup = document.getElementById('calColumnPopup');
+      if (!popup || !popup.classList.contains('open')) return;
+      if (popup.contains(e.target) || e.target.closest('.has-event')) return;
+      closeEventPopup();
+    });
+
+    (function randomizeCalendarGradients() {
+      const variants = ['grad-variant-primary', 'grad-variant-resonance', 'grad-variant-flare'];
+      const eventCells = Array.from(document.querySelectorAll('.cal-cell.has-event'));
+      if (!eventCells.length) return;
+      const pool = [];
+      while (pool.length < eventCells.length) pool.push(...variants);
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      eventCells.forEach((cell, idx) => {
+        variants.forEach(v => cell.classList.remove(v));
+        cell.classList.add(pool[idx]);
       });
+    })();
+
+    window.addEventListener('resize', () => {
+      if (!activePopupDayKey) return;
+      const targetCell = document.querySelector(`.cal-cell.has-event[data-day="${activePopupDayKey}"]`);
+      if (targetCell) positionEventPopup(activePopupDayKey, targetCell);
+    });
+
+    // 5B. Previous Events Carousel Controls
+    (function initPrevEventsCarousel() {
+      const viewport = document.getElementById('prevEventsViewport');
+      const track = document.getElementById('prevEventsTrack');
+      const prevBtn = document.getElementById('prevCarouselPrev');
+      const nextBtn = document.getElementById('prevCarouselNext');
+      if (!viewport || !track || !prevBtn || !nextBtn) return;
+
+      function updateNavState() {
+        const maxScroll = viewport.scrollWidth - viewport.clientWidth - 4;
+        prevBtn.disabled = viewport.scrollLeft <= 4;
+        nextBtn.disabled = viewport.scrollLeft >= maxScroll;
+      }
+
+      function scrollByCard(dir) {
+        const card = track.querySelector('.prev-event-card');
+        if (!card) return;
+        const gap = parseFloat(getComputedStyle(track).gap) || 28;
+        const step = card.offsetWidth + gap;
+        viewport.scrollBy({ left: dir * step, behavior: 'smooth' });
+      }
+
+      prevBtn.addEventListener('click', () => scrollByCard(-1));
+      nextBtn.addEventListener('click', () => scrollByCard(1));
+      viewport.addEventListener('scroll', updateNavState, { passive: true });
+      window.addEventListener('resize', updateNavState);
+      updateNavState();
     })();
 
     // 6. Drawer Hover Image Preview Swap
@@ -2143,10 +3027,13 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeReservationModal();
+        closeContactModal();
+        closeEventPopup();
         const drawer = document.getElementById('menuDrawer');
         if (drawer && drawer.classList.contains('open')) toggleMenuDrawer();
       }
     });
   </script>
+  <script src="./assets/nami-velvet-buttons.js"></script>
 </body>
 </html>

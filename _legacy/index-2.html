@@ -34,6 +34,8 @@
       --grad-primary: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
       --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
+      --grad-velvet: linear-gradient(114deg, #080C18 0%, #0E4B8E 32%, #8C2D52 64%, #D66824 90%, #0A2B5E 100%);
+      --grad-rosefold: linear-gradient(118deg, #0047AB 0%, #111318 28%, #D98A9C 56%, #C2434A 78%, #0A5CBF 100%);
       --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
     }
 
@@ -695,7 +697,7 @@
     }
 
     .cue-wave-arrow {
-      width: 22px;
+      width: 28px;
       height: auto;
       display: block;
       animation: bounceWave 2s infinite ease-in-out;
@@ -828,28 +830,28 @@
       align-items: center;
       justify-content: center;
       gap: 0.8rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-velvet);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
       letter-spacing: 0;
-      text-transform: none;
+      text-transform: uppercase;
       padding: 0.75rem 1.65rem 0.75rem 1.75rem;
       border-radius: 999px;
       text-decoration: none;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       cursor: pointer;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .floating-reserve-cta:hover {
       transform: translateY(-2px) scale(1.03);
       filter: brightness(1.12);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 6px 28px rgba(244, 143, 36, 0.5);
+      box-shadow: none;
     }
 
     .reserve-cta-divider {
@@ -956,7 +958,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border-radius: 0;
+      border-radius: 50%;
       font-size: 1.05rem;
       line-height: 1;
       transition: all 0.2s;
@@ -1029,25 +1031,25 @@
       align-items: center;
       justify-content: center;
       gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-confirm-reserve:hover {
       filter: brightness(1.12);
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1102,9 +1104,11 @@
     }
 
     .section-heading span.grad-accent,
-    .philosophy-minimal-title span.grad-accent {
-      background: var(--grad-primary);
+    .philosophy-minimal-title span.grad-accent,
+    .reserve-modal-title span.grad-accent {
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
@@ -1244,27 +1248,27 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       padding: 0.8rem 2.25rem;
       border-radius: 999px;
       text-decoration: none;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
+      box-shadow: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-our-story:hover {
-      background: var(--grad-flare);
+      background: var(--grad-rosefold);
       filter: brightness(1.12);
       transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1297,7 +1301,6 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: var(--bg-black);
     }
 
     .wave-strap-item::after {
@@ -1321,7 +1324,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(0.92) contrast(1.12);
       pointer-events: none;
       display: block;
     }
@@ -1567,6 +1569,12 @@
       flex-shrink: 0;
     }
 
+    .event-list-arrow img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
     .event-list-row:hover .event-list-arrow {
       border-color: var(--c-orange, #DC7918);
       color: var(--c-orange, #DC7918);
@@ -1590,25 +1598,26 @@
       gap: 0.75rem;
       padding: 0.85rem 2.4rem;
       border-radius: 999px;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body, 'Chivo', sans-serif);
       font-size: 0.92rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0;
+      text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
       border: none;
-      box-shadow: none !important;
+      box-shadow: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-event-explore:hover {
-      background: var(--grad-flare);
+      background: var(--grad-rosefold);
       filter: brightness(1.12);
       transform: translateY(-2px) scale(1.04);
-      box-shadow: none !important;
-      color: #c0c0c0;
+      box-shadow: none;
+      color: #FFFFFF;
     }
 
     .btn-event-explore svg {
@@ -1726,16 +1735,15 @@
       background: #070707;
     }
 
-    /* LEFT PANE: 50% Width Category-Themed Canvas (Subtle Nocturnal Gradients) */
+    /* LEFT PANE: 50% Width Category-Themed Canvas (Gradient Artwork Backdrops) */
     .menu-panel-editorial {
-      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat;
+      color: #FFFFFF;
       position: relative;
       height: 100vh;
       width: 100%;
       overflow: hidden;
       box-sizing: border-box;
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
       transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1758,32 +1766,34 @@
       box-sizing: border-box;
     }
 
-    /* Category Specific Background Subtle Gradients */
+    /* Category Specific Background Artwork (Food -> Cocktails -> Dessert) */
     .menu-editorial-slide[data-phase="0"] {
-      background: linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
     .menu-editorial-slide[data-phase="1"] {
-      background: linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Moody-Crimson-gradient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
     .menu-editorial-slide[data-phase="2"] {
-      background: linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%);
-      color: #c0c0c0;
+      background: #070707 url('./assets/Atmospheric-gradient.png') center / cover no-repeat;
+      color: #FFFFFF;
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-title {
-      color: #c0c0c0;
+    .menu-editorial-slide .menu-ed-title {
+      color: #FFFFFF;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-name {
-      color: #c0c0c0;
+    .menu-editorial-slide .menu-ed-item-name {
+      color: #FFFFFF;
     }
 
-    .menu-editorial-slide[data-phase="2"] .menu-ed-item-desc {
-      color: rgba(255, 255, 255, 0.75);
+    .menu-editorial-slide .menu-ed-item-desc {
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
     }
 
     .menu-editorial-slide.active {
@@ -1879,7 +1889,7 @@
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.8rem 2.2rem;
       border-radius: 999px;
@@ -1897,17 +1907,17 @@
       box-shadow: none !important;
     }
 
-    /* Phase 2 (Dessert): Light Background & Black Copy -> Solid Black Button with White Text */
+    /* Phase 2 (Dessert on Velvet Nightwave): Crisp White Button matching Food & Cocktails */
     .menu-editorial-slide[data-phase="2"] .btn-menu-view-full {
-      background: #000000;
-      color: #c0c0c0;
-      border: 1px solid rgba(0, 0, 0, 0.25);
+      background: #FFFFFF;
+      color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .menu-editorial-slide[data-phase="2"] .btn-menu-view-full:hover {
-      background: #FFFFFF;
-      color: #000000;
-      border-color: #FFFFFF;
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
       transform: translateY(-2px) scale(1.03);
       box-shadow: none !important;
     }
@@ -2061,13 +2071,13 @@
     .full-menu-tab-btn {
       background: none;
       border: none;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 1.35vw, 20px);
+      font-weight: 300;
+      letter-spacing: 0;
       text-transform: none;
       color: rgba(255, 255, 255, 0.5);
-      padding: 1rem 0;
+      padding: 0.75rem 0 6px;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: color 0.2s, border-color 0.2s;
@@ -2075,12 +2085,13 @@
     }
 
     .full-menu-tab-btn:hover {
-      color: #c0c0c0;
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .full-menu-tab-btn.active {
-      color: var(--c-orange);
-      border-bottom-color: var(--c-orange);
+      color: #FFFFFF;
+      font-weight: 300;
+      border-bottom-color: #FFFFFF;
     }
 
     /* Modal Tab Content Area */
@@ -2175,25 +2186,25 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       padding: 0.8rem 2rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
-      transition: filter 0.2s, transform 0.2s;
+      box-shadow: none;
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-reserve-from-menu:hover {
       filter: brightness(1.1);
       transform: translateY(-1px) scale(1.02);
-      box-shadow: none !important;
+      box-shadow: none;
     }
 
     /* Mobile Breakpoints */
@@ -2206,7 +2217,6 @@
       }
       .menu-panel-editorial {
         width: 100%;
-        border-right: none;
       }
       .menu-editorial-slide {
         padding: clamp(3.2rem, 5vh, 4.2rem) 1.5rem 2rem;
@@ -2448,7 +2458,7 @@
     .media-card-cta {
       font-family: var(--font-heading);
       font-size: 0.76rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.58);
@@ -2464,6 +2474,8 @@
     }
 
     .media-cta-arrow {
+      width: 14px;
+      height: 14px;
       transition: transform 0.25s ease;
       color: inherit;
     }
@@ -2499,6 +2511,13 @@
       outline: none;
     }
 
+    .media-nav-arrow .nav-arrow-img,
+    .media-nav-arrow img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
     .media-nav-arrow:hover {
       border-color: var(--c-orange);
       color: #c0c0c0;
@@ -2519,32 +2538,33 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
       margin-top: clamp(2.5rem, 4vh, 3.5rem);
     }
 
     .media-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: transparent;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      width: 22px;
+      height: 22px;
+      background: url("./assets/Nav-Default.svg") center center / contain no-repeat;
+      border: none;
+      border-radius: 0;
       cursor: pointer;
       padding: 0;
       outline: none;
-      transition: all 0.28s ease;
+      opacity: 0.55;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .media-dot:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-      transform: scale(1.15);
+      opacity: 0.85;
+      transform: scale(1.08);
     }
 
     .media-dot.active {
-      background: var(--c-orange);
-      border-color: var(--c-orange);
-      transform: scale(1.25);
-      box-shadow: 0 0 10px rgba(244, 143, 36, 0.5);
+      background: url("./assets/Nav-Active.svg") center center / contain no-repeat;
+      opacity: 1;
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 8px rgba(244, 143, 36, 0.45));
     }
 
     @media (max-width: 768px) {
@@ -2747,9 +2767,11 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
@@ -2829,7 +2851,20 @@
       letter-spacing: 0.12em;
       white-space: nowrap;
       box-sizing: border-box;
-      pointer-events: none;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     /* Bottom Rotating Half-Vinyl Record (Vinyl.svg) - Touching Footer End, 3x Speed */
@@ -3059,11 +3094,11 @@
     </div>
 
     <div class="header-nav-wrap">
-      <!-- Circular Page Scroller: Resor Rotary Mixer Knobs ( C ) ( W ) ( F ) ( S ) -->
-      <nav class="section-scroller" aria-label="Section scroller">
+      <!-- Circular Navigation Knobs: Resor Rotary Mixer Knobs ( C ) ( W ) ( F ) ( S ) -->
+      <nav class="section-scroller" aria-label="Primary navigation">
         <!-- Node C: Concept -->
         <div class="scroller-node">
-          <a href="#philosophy" class="scroller-btn" data-section="philosophy" aria-label="Concept">
+          <a href="concept.html" class="scroller-btn" data-section="philosophy" aria-label="Concept">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               <!-- Static Graduation Ticks (Mixer Faceplate Scale) -->
               
@@ -3081,7 +3116,7 @@
 
         <!-- Node W: What's On -->
         <div class="scroller-node">
-          <a href="#programming" class="scroller-btn" data-section="programming" aria-label="What’s on">
+          <a href="whats-on.html" class="scroller-btn" data-section="programming" aria-label="What’s on">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3097,7 +3132,7 @@
 
         <!-- Node F: Drinks & Food -->
         <div class="scroller-node">
-          <a href="#menu" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
+          <a href="drinks-food.html" class="scroller-btn" data-section="menu" aria-label="Drinks & Food">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3141,7 +3176,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
@@ -3159,8 +3196,11 @@
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="#reservation" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
-          <span class="drawer-nav-num">05</span> Reservation
+        <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
+          <span class="drawer-nav-num">05</span> FAQs
+        </a>
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 06" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">06</span> Reservation
         </a>
       </nav>
 
@@ -3172,6 +3212,7 @@
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -3221,7 +3262,7 @@
 
     <!-- Scroll down indicator with custom wave arrow -->
     <a href="#philosophy" class="hero-scroll-cue" aria-label="Scroll to explore">
-      <img src="./assets/down-arrow-flat.svg" alt="Scroll Down" class="cue-wave-arrow">
+      <img src="./assets/Arrow-down.svg" alt="Scroll Down" class="cue-wave-arrow">
     </a>
   </section>
 
@@ -3316,7 +3357,7 @@
           It is curious, expressive and slightly unconventional. It does not simply serve food, drinks or music — it creates an environment where these things collide, overlap and influence one another.
         </p>
 
-        <a href="#space" class="btn-our-story">OUR STORY</a>
+        <a href="concept.html" class="btn-our-story">OUR STORY</a>
       </div>
     </section>
 
@@ -3368,7 +3409,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</span>
           </div>
           <span class="event-list-time"><strong>Wed · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
         <!-- EV-2 -->
@@ -3378,7 +3419,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Mogasu: Japanese Soul Archives &amp; Sake Tasting</span>
           </div>
           <span class="event-list-time"><strong>Thu · 18:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
         <!-- EV-3 -->
@@ -3388,7 +3429,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Yousuke Yukimatsu: Avant-Garde Analog Bass</span>
           </div>
           <span class="event-list-time"><strong>Fri · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
         <!-- EV-4 -->
@@ -3398,7 +3439,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Occa: Hypnotic Rotary Sound &amp; Deep Minimal</span>
           </div>
           <span class="event-list-time"><strong>Sat · 20:30</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
         <!-- EV-5 -->
@@ -3408,7 +3449,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves</span>
           </div>
           <span class="event-list-time"><strong>Sun · 19:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
         <!-- EV-6 -->
@@ -3418,7 +3459,7 @@
             <span class="event-list-title"><span class="event-list-dot"></span>Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves</span>
           </div>
           <span class="event-list-time"><strong>Wed · 21:00</strong></span>
-          <span class="event-list-arrow" aria-hidden="true">→</span>
+          <span class="event-list-arrow" aria-hidden="true"><img src="./assets/Arrow-right.svg" alt="" width="22" height="22"></span>
         </div>
 
       </div>
@@ -3427,10 +3468,7 @@
       <div class="event-list-action">
         <a href="whats-on.html" class="btn-event-explore" aria-label="Explore More Sessions">
           <span>Explore More</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </a>
       </div>
 
@@ -3464,7 +3502,7 @@
             <div class="menu-ed-bottom">
               <p class="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('food')">
-                VIEW FULL MENU →
+                VIEW FULL MENU
               </button>
             </div>
           </div>
@@ -3482,7 +3520,7 @@
             <div class="menu-ed-bottom">
               <p class="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('cocktails')">
-                VIEW FULL MENU →
+                VIEW FULL MENU
               </button>
             </div>
           </div>
@@ -3500,7 +3538,7 @@
             <div class="menu-ed-bottom">
               <p class="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
               <button type="button" class="btn-menu-view-full" onclick="openFullMenuModal('dessert')">
-                VIEW FULL MENU →
+                VIEW FULL MENU
               </button>
             </div>
           </div>
@@ -3590,15 +3628,11 @@
           
           <!-- Navigation Arrows (Left / Right) -->
           <button class="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="10 13 5 8 10 3"></polyline>
-            </svg>
+            <img src="./assets/Arrow-left.svg" alt="Previous" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <button class="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 3 11 8 6 13"></polyline>
-            </svg>
+            <img src="./assets/Arrow-right.svg" alt="Next" width="22" height="22" class="nav-arrow-img">
           </button>
 
           <!-- Viewport -->
@@ -3623,7 +3657,7 @@
                 <div class="media-card-action">
                   <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on The Economic Times">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -3648,7 +3682,7 @@
                 <div class="media-card-action">
                   <a href="https://www.businesstoday.in/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Business Today">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -3672,7 +3706,7 @@
                 <div class="media-card-action">
                   <a href="https://lifestyle.livemint.com/" target="_blank" rel="noopener noreferrer" class="media-card-cta" aria-label="Read full article on Mint Lounge">
                     <span>Read Full Article</span>
-                    <svg class="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                    <svg class="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                   </a>
                 </div>
               </article>
@@ -3780,11 +3814,11 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
-            <li><a href="our-space.html">Our space</a></li>
-            <li><a href="#press">In the news</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -3804,16 +3838,16 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
-            <li><a href="#programming">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
@@ -4087,48 +4121,8 @@
         }
       }
 
-      // ScrollSpy for Top-Right Nav (First-Fold / Hero: ZERO active nodes; Concept is active only from Section 2)
-      let currentSection = '';
-
-      const hero = document.getElementById('hero');
-      const heroRect = hero ? hero.getBoundingClientRect() : null;
-      // When hero is still occupying the main viewport, no section is active
-      const inFirstFold = heroRect ? (heroRect.bottom > winHeight * 0.45) : (scrollY < winHeight * 0.5);
-
-      if (!inFirstFold) {
-        // Focal trigger line: 40% down from viewport top
-        const focalLine = winHeight * 0.40;
-
-        for (let i = 0; i < sections.length; i++) {
-          const id = sections[i];
-          const el = document.getElementById(id);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= focalLine && rect.bottom > focalLine) {
-            currentSection = id;
-            break;
-          }
-        }
-
-        // If scrolled past space into footer, retain 'space' active
-        if (!currentSection && scrollY > winHeight) {
-          const spaceEl = document.getElementById('space');
-          if (spaceEl) {
-            const spaceRect = spaceEl.getBoundingClientRect();
-            if (spaceRect.top < winHeight) {
-              currentSection = 'space';
-            }
-          }
-        }
-      }
-
-      scrollerButtons.forEach(btn => {
-        if (currentSection && btn.getAttribute('data-section') === currentSection) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
+      // Top-right mixer knobs link directly to internal pages (no in-page ScrollSpy state toggling)
+      scrollerButtons.forEach(btn => btn.classList.remove('active'));
 
       // Main brand mark is permanently visible
       if (brandMark) {
@@ -4218,11 +4212,11 @@
         if (phase === currentPhase) return;
         currentPhase = phase;
 
-        // Update Left Panel Category Background (Subtle Brand Gradients)
+        // Update Left Panel Category Background (Smoky Cobalt -> Moody Crimson -> Atmospheric)
         const phaseGradients = [
-          'linear-gradient(145deg, #7A1C1D 0%, #4D0E11 50%, #290709 100%)',
-          'linear-gradient(145deg, #0A4378 0%, #04264A 50%, #021426 100%)',
-          'linear-gradient(145deg, #6E2D44 0%, #421424 50%, #240813 100%)'
+          "#070707 url('./assets/Smoky-Cobalt-graddient.png') center / cover no-repeat",
+          "#070707 url('./assets/Moody-Crimson-gradient.png') center / cover no-repeat",
+          "#070707 url('./assets/Atmospheric-gradient.png') center / cover no-repeat"
         ];
         const leftPanel = document.getElementById('menuPanelEditorial');
         if (leftPanel && phaseGradients[phase]) {
@@ -4383,13 +4377,11 @@
         pauseIcon.style.display = 'block';
         eqBars.classList.add('playing');
         startSyntheticWarmAudio();
-        showToast('Now Playing: On & On — Erykah Badu');
       } else {
         playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
         eqBars.classList.remove('playing');
         stopSyntheticWarmAudio();
-        showToast('Playback Paused');
       }
     }
 
@@ -4490,11 +4482,21 @@
 
     function handleReservationSubmit(e) {
       e.preventDefault();
-      const date = document.getElementById('resDate').value;
-      const guests = document.getElementById('resGuests').value;
-      const name = document.getElementById('resName').value;
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const session = document.getElementById('resSession')?.value || '';
+      const zone = document.getElementById('resZone')?.value || '';
+      const name = document.getElementById('resName')?.value || '';
       closeReservationModal();
-      showToast(`Reservation confirmed for ${name || 'you'} (${guests} guests) on ${date}! Confirmation sent.`);
+      const params = new URLSearchParams({
+        type: 'reservation',
+        name,
+        date,
+        guests,
+        time: session,
+        seating: zone
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     document.addEventListener('keydown', (e) => {
@@ -4621,7 +4623,9 @@
           <span class="reserve-eyebrow">RESERVE A TABLE</span>
           <h3 class="reserve-modal-title">Table <span class="grad-accent">Reservation</span></h3>
         </div>
-        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <p class="reserve-modal-desc">
@@ -4679,10 +4683,7 @@
 
         <button type="submit" class="btn-confirm-reserve">
           <span>CONFIRM RESERVATION</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -4699,7 +4700,9 @@
           <span class="full-menu-eyebrow">THE RESONANCE MENU</span>
           <h3 class="full-menu-title">NAMI · BANDRA WEST</h3>
         </div>
-        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">✕</button>
+        <button type="button" class="full-menu-close" onclick="closeFullMenuModal()" aria-label="Close menu">
+          <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+        </button>
       </div>
 
       <!-- Category Tabs -->
@@ -4904,5 +4907,6 @@
       </div>
     </div>
   </div>
+  <script src="./assets/nami-velvet-buttons.js"></script>
 </body>
 </html>

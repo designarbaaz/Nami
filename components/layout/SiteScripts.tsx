@@ -10,35 +10,51 @@ declare global {
     initNamiSite?: () => void;
     initNamiPageFeatures?: () => void;
     cleanupNamiPageFeatures?: () => void;
+    initVelvetButtons?: () => void;
+    NamiVelvet?: { init?: () => void };
   }
 }
 
 /**
- * Loads /assets/js/custom.js and re-runs page feature inits on every route change.
- * (DOMContentLoaded only fires once — Next client navigations need an explicit re-init.)
+ * Loads custom.js + velvet CTAs; re-runs page feature inits on every route change.
  */
 export default function SiteScripts() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Defer one frame so new page DOM is committed
-    const id = window.requestAnimationFrame(() => {
-      window.initNamiPageFeatures?.();
-    });
+    let cancelled = false;
+    let attempts = 0;
+    const run = () => {
+      if (cancelled) return;
+      if (typeof window.initNamiPageFeatures === "function") {
+        window.initNamiPageFeatures();
+        return;
+      }
+      // custom.js may still be loading on first paint
+      if (attempts++ < 20) window.setTimeout(run, 50);
+    };
+    const id = window.requestAnimationFrame(run);
     return () => {
+      cancelled = true;
       window.cancelAnimationFrame(id);
       window.cleanupNamiPageFeatures?.();
     };
   }, [pathname]);
 
   return (
-    <Script
-      src="/assets/js/custom.js"
-      strategy="afterInteractive"
-      onLoad={() => {
-        window.initNamiSite?.();
-        window.initNamiPageFeatures?.();
-      }}
-    />
+    <>
+      <Script
+        src="/assets/js/nami-velvet-buttons.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="/assets/js/custom.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          window.initNamiSite?.();
+          window.initNamiPageFeatures?.();
+        }}
+      />
+    </>
   );
 }

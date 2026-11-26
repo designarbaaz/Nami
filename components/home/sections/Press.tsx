@@ -12,15 +12,11 @@ export default function Press() {
                 
                 {/* Navigation Arrows (Left / Right) */}
                 <button className="media-nav-arrow prev" id="mediaPrevBtn" aria-label="Previous article">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="10 13 5 8 10 3"></polyline>
-                  </svg>
+                  <img src="/assets/Arrow-left.svg" alt="Previous" width="22" height="22" className="nav-arrow-img" />
                 </button>
       
                 <button className="media-nav-arrow next" id="mediaNextBtn" aria-label="Next article">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="6 3 11 8 6 13"></polyline>
-                  </svg>
+                  <img src="/assets/Arrow-right.svg" alt="Next" width="22" height="22" className="nav-arrow-img" />
                 </button>
       
                 {/* Viewport */}
@@ -45,7 +41,7 @@ export default function Press() {
                       <div className="media-card-action">
                         <a href="https://economictimes.indiatimes.com/" target="_blank" rel="noopener noreferrer" className="media-card-cta" aria-label="Read full article on The Economic Times">
                           <span>Read Full Article</span>
-                          <svg className="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                          <svg className="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                         </a>
                       </div>
                     </article>
@@ -70,7 +66,7 @@ export default function Press() {
                       <div className="media-card-action">
                         <a href="https://www.businesstoday.in/" target="_blank" rel="noopener noreferrer" className="media-card-cta" aria-label="Read full article on Business Today">
                           <span>Read Full Article</span>
-                          <svg className="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                          <svg className="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                         </a>
                       </div>
                     </article>
@@ -94,7 +90,7 @@ export default function Press() {
                       <div className="media-card-action">
                         <a href="https://lifestyle.livemint.com/" target="_blank" rel="noopener noreferrer" className="media-card-cta" aria-label="Read full article on Mint Lounge">
                           <span>Read Full Article</span>
-                          <svg className="media-cta-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
+                          <svg className="media-cta-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"/></svg>
                         </a>
                       </div>
                     </article>

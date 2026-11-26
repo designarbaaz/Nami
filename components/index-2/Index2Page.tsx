@@ -1,6 +1,5 @@
 "use client";
 
-import AudioWidget from "@/components/home/sections/AudioWidget";
 import Philosophy from "@/components/home/sections/Philosophy";
 import MenuSection from "@/components/home/sections/MenuSection";
 import Space from "@/components/home/sections/Space";
@@ -12,12 +11,12 @@ import EventListProgramming from "./sections/EventListProgramming";
 /**
  * Alternate homepage from index-2.html (event list, Loader-banner hero, no splash).
  * Canonical home is `/` from index.html.
+ * Audio widget lives in SiteShell (all pages).
  */
 export default function Index2Page() {
   return (
     <>
       <Index2Hero />
-      <AudioWidget />
 
       <main className="page-wrap">
         <Philosophy />

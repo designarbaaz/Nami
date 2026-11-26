@@ -50,23 +50,23 @@ export default function Philosophy() {
                 It is curious, expressive and slightly unconventional. It does not simply serve food, drinks or music — it creates an environment where these things collide, overlap and influence one another.
               </p>
       
-              <a href="/#space" className="btn-our-story">OUR STORY</a>
+              <a href="/concept" className="btn-our-story">OUR STORY</a>
             </div>
           </section>
       <div className="wave-video-strap" aria-hidden="true">
             <div className="wave-strap-grid">
               <div className="wave-strap-item">
-                <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                   <source src="/assets/wave-anim.mp4" type="video/mp4" />
                 </video>
               </div>
               <div className="wave-strap-item">
-                <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                   <source src="/assets/wave-anim.mp4" type="video/mp4" />
                 </video>
               </div>
               <div className="wave-strap-item">
-                <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                   <source src="/assets/wave-anim.mp4" type="video/mp4" />
                 </video>
               </div>

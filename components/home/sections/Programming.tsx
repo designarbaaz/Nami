@@ -19,6 +19,8 @@ export default function Programming() {
                 <h2 className="section-heading" style={{ margin: '0' }}><span className="grad-accent">What’s On at</span> Nami</h2>
               </div>
       
+              <h3 className="cal-month-heading">December 2026</h3>
+      
               {/* 7-Column Calendar Grid Wrapper */}
               <div className="cal-grid-scroll-wrap">
                 <div className="cal-grid-table">
@@ -63,7 +65,7 @@ export default function Programming() {
                       <div className="cal-cell-top"><span className="cal-cell-num">8</span></div>
                     </div>
                     {/* Event Day 9: Atushi Maeda (Column 2) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event grad-variant-primary" data-day="9" onClick={(e) => { const event = e; (window as any).openEventPopup?.('9', event) }} aria-label="Feb 9: Atushi Maeda">
+                    <a href="#" className="cal-cell has-event grad-variant-primary" data-day="9" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('9', e) }} aria-label="Dec 9: Atushi Maeda">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">9</span>
                         <span className="cal-badge">440 Hz</span>
@@ -86,7 +88,7 @@ export default function Programming() {
                       <div className="cal-cell-top"><span className="cal-cell-num">13</span></div>
                     </div>
                     {/* Event Day 14: Mogasu (Column 7) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event grad-variant-resonance" data-day="14" onClick={(e) => { const event = e; (window as any).openEventPopup?.('14', event) }} aria-label="Feb 14: Mogasu">
+                    <a href="#" className="cal-cell has-event grad-variant-resonance" data-day="14" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('14', e) }} aria-label="Dec 14: Mogasu">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">14</span>
                         <span className="cal-badge">Warm Freq</span>
@@ -114,7 +116,7 @@ export default function Programming() {
                       <div className="cal-cell-top"><span className="cal-cell-num">19</span></div>
                     </div>
                     {/* Event Day 20: Yousuke Yukimatsu (Headline - Column 6) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event is-headline grad-variant-flare" data-day="20" onClick={(e) => { const event = e; (window as any).openEventPopup?.('20', event) }} aria-label="Feb 20: Yousuke Yukimatsu">
+                    <a href="#" className="cal-cell has-event is-headline grad-variant-flare" data-day="20" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('20', e) }} aria-label="Dec 20: Yousuke Yukimatsu">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">20</span>
                         <span className="cal-badge badge-headline">3968 Hz Special</span>
@@ -133,7 +135,7 @@ export default function Programming() {
                       <div className="cal-cell-top"><span className="cal-cell-num">22</span></div>
                     </div>
                     {/* Event Day 23: Occa (Column 2) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event grad-variant-resonance" data-day="23" onClick={(e) => { const event = e; (window as any).openEventPopup?.('23', event) }} aria-label="Feb 23: Occa">
+                    <a href="#" className="cal-cell has-event grad-variant-resonance" data-day="23" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('23', e) }} aria-label="Dec 23: Occa">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">23</span>
                         <span className="cal-badge">Resonant</span>
@@ -156,7 +158,7 @@ export default function Programming() {
                       <div className="cal-cell-top"><span className="cal-cell-num">27</span></div>
                     </div>
                     {/* Event Day 28: Suze Ijo (Column 7) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event grad-variant-primary" data-day="28" onClick={(e) => { const event = e; (window as any).openEventPopup?.('28', event) }} aria-label="Feb 28: Suze Ijo">
+                    <a href="#" className="cal-cell has-event grad-variant-primary" data-day="28" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('28', e) }} aria-label="Dec 28: Suze Ijo">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">28</span>
                         <span className="cal-badge">Electric</span>
@@ -169,7 +171,7 @@ export default function Programming() {
       
                     {/* ROW 5: Days 29 to 30 + 5 empty cells */}
                     {/* Event Day 29: Sunju Hargun (Column 1) */}
-                    <a href="javascript:void(0)" className="cal-cell has-event grad-variant-flare" data-day="29" onClick={(e) => { const event = e; (window as any).openEventPopup?.('29', event) }} aria-label="Feb 29: Sunju Hargun">
+                    <a href="#" className="cal-cell has-event grad-variant-flare" data-day="29" onClick={(e) => { e.preventDefault(); (window as any).openEventPopup?.('29', e) }} aria-label="Dec 29: Sunju Hargun">
                       <div className="cal-cell-top">
                         <span className="cal-cell-num">29</span>
                         <span className="cal-badge">Nocturnal</span>
@@ -199,12 +201,9 @@ export default function Programming() {
                           <div className="col-popup-img-grad"></div>
                           {/* Date & Close Button floating directly over the image (no noisy background) */}
                           <div className="col-popup-header">
-                            <span className="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                            <span className="col-popup-date" id="colPopupDate">TUE · DEC 09</span>
                             <button type="button" className="col-popup-close" onClick={(e) => { const event = e; closeEventPopup() }} aria-label="Close event details">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                              </svg>
+                              <img src="/assets/close.svg" alt="Close" width="14" height="14" style={{ display: 'block', pointerEvents: 'none' }} />
                             </button>
                           </div>
                         </div>
@@ -221,10 +220,8 @@ export default function Programming() {
                           </p>
       
                           <button type="button" className="btn-col-popup-book" id="colPopupBookBtn" onClick={(e) => { const event = e; bookFromPopup() }}>
-                            <span>Buy Ticket</span>
-                            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
+                            <span>Reserve Spot</span>
+                            <img src="/assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style={{ display: 'inline-block', verticalAlign: 'middle', filter: 'brightness(0) invert(1)' }} />
                           </button>
                         </div>
                       </div>
@@ -242,10 +239,7 @@ export default function Programming() {
               <div className="cal-explore-wrap">
                 <a href="/whats-on" className="btn-cal-explore">
                   <span>Explore More</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="3" y1="8" x2="13" y2="8"></line>
-                    <polyline points="9 4 13 8 9 12"></polyline>
-                  </svg>
+                  <img src="/assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style={{ display: 'inline-block', verticalAlign: 'middle' }} />
                 </a>
               </div>
             </div>

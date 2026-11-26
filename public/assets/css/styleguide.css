@@ -23,6 +23,21 @@
       --grad-resonance: linear-gradient(135deg, #033E78 0%, #BA3233 50%, #BD6276 100%);
       --grad-flare: linear-gradient(135deg, #D97718 0%, #BA5066 50%, #08437F 100%);
       --grad-nocturnal-glow: radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.10) 0%, rgba(230, 85, 0, 0.05) 42%, rgba(7, 7, 7, 0) 80%);
+
+      /* Layered Atmospheric Mesh Gradients (Pure CSS + Analog Grain Ready) */
+      --grad-mesh-ember:
+        radial-gradient(64% 74% at 14% 34%, rgba(138, 48, 40, 0.92) 0%, rgba(104, 42, 27, 0.56) 38%, rgba(7, 7, 7, 0) 76%),
+        radial-gradient(54% 62% at 38% 72%, rgba(124, 54, 30, 0.64) 0%, rgba(64, 24, 18, 0.34) 44%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(46% 42% at 86% 92%, rgba(122, 58, 30, 0.52) 0%, rgba(45, 20, 14, 0.22) 48%, rgba(7, 7, 7, 0) 76%),
+        linear-gradient(128deg, #1E0D0B 0%, #090707 52%, #070707 100%);
+      --grad-mesh-tube:
+        radial-gradient(68% 68% at 18% 42%, rgba(182, 88, 26, 0.86) 0%, rgba(120, 44, 24, 0.46) 45%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(48% 58% at 72% 84%, rgba(145, 58, 30, 0.45) 0%, rgba(7, 7, 7, 0) 72%),
+        linear-gradient(135deg, #170C08 0%, #070707 68%);
+      --grad-mesh-cobalt:
+        radial-gradient(66% 66% at 18% 78%, rgba(10, 84, 172, 0.84) 0%, rgba(8, 67, 127, 0.42) 45%, rgba(7, 7, 7, 0) 78%),
+        radial-gradient(52% 55% at 52% 28%, rgba(152, 54, 78, 0.44) 0%, rgba(7, 7, 7, 0) 70%),
+        linear-gradient(140deg, #060912 0%, #070707 75%);
     }
 
     * {
@@ -698,6 +713,520 @@
       top: 6px;
       font-size: 0.65rem;
       color: var(--c-pink);
+    }
+
+    /* =========================================================================
+       04.A / 04.B ATMOSPHERIC MESH + WEBGL LIQUID GRADIENT VARIATIONS
+       ========================================================================= */
+    .grad-subblock {
+      margin-top: 56px;
+      padding-top: 44px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .grad-subhead {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grad-subhead-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 8px;
+    }
+
+    .grad-subhead h3 {
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .grad-subhead p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .mesh-preview {
+      position: relative;
+      height: 210px;
+      background-color: #070707;
+      overflow: hidden;
+    }
+
+    .mesh-grain-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"),
+        url('/assets/noise-tile.png');
+      background-size: 180px 180px, 240px 240px;
+      mix-blend-mode: overlay;
+      opacity: 0.34;
+    }
+
+    .grad-ref-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(7, 7, 7, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Liquid Controls Bar */
+    .liquid-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .liquid-controls-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .liquid-toggle-btn,
+    .liquid-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .liquid-toggle-btn:hover,
+    .liquid-action-btn:hover {
+      border-color: rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .liquid-toggle-btn.is-active {
+      border-color: rgba(217, 119, 24, 0.55);
+      background: rgba(217, 119, 24, 0.14);
+      color: #FFD1A3;
+    }
+
+    .liquid-toggle-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #777777;
+    }
+
+    .liquid-toggle-btn.is-active .liquid-toggle-dot {
+      background: #E87D20;
+      box-shadow: 0 0 8px #E87D20;
+    }
+
+    .liquid-slider-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .liquid-slider-item input[type="range"] {
+      width: 110px;
+      accent-color: #D97718;
+      cursor: pointer;
+    }
+
+    .liquid-slider-val {
+      min-width: 34px;
+      color: #FFFFFF;
+      text-align: right;
+    }
+
+    /* Liquid Cards */
+    .liquid-gradients-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 1040px) {
+      .liquid-gradients-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .liquid-gradients-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .liquid-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .liquid-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .liquid-card.is-active {
+      border-color: rgba(217, 119, 24, 0.72);
+      box-shadow: 0 0 0 1px rgba(217, 119, 24, 0.35), 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .liquid-preview-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #070707;
+      overflow: hidden;
+    }
+
+    .liquid-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .liquid-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(7, 7, 7, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #B4B4B4;
+      pointer-events: none;
+    }
+
+    .liquid-card.is-active .liquid-badge {
+      border-color: rgba(217, 119, 24, 0.6);
+      color: #FFD1A3;
+      background: rgba(24, 12, 4, 0.84);
+    }
+
+    .liquid-card-meta {
+      padding: 16px 18px 18px;
+    }
+
+    .liquid-card-title {
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .liquid-card-desc {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .liquid-swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .liquid-swatch-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .liquid-swatch-label {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Live Component Application Lab */
+    .liquid-app-lab {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .liquid-app-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .liquid-app-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+
+    .liquid-app-active-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #FFD1A3;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(217, 119, 24, 0.12);
+      border: 1px solid rgba(217, 119, 24, 0.38);
+    }
+
+    .liquid-app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 820px) {
+      .liquid-app-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .liquid-app-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .liquid-app-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .app-stage {
+      position: relative;
+      height: 240px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #070707;
+    }
+
+    .app-backdrop-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .app-backdrop-overlay {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 0.15) 0%, rgba(7, 7, 7, 0.72) 100%);
+    }
+
+    .app-backdrop-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .app-backdrop-headline {
+      font-size: 1.55rem;
+      line-height: 1.12;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+
+    .app-backdrop-sub {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.76);
+      margin-top: 6px;
+    }
+
+    .app-cta-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background:
+        radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(7, 7, 7, 0) 70%),
+        #0A0A0B;
+      padding: 24px;
+    }
+
+    .app-cta-pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      white-space: nowrap;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      background-color: #1A120E;
+      background-size: 160% 160%;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    }
+
+    .app-cta-divider {
+      opacity: 0.6;
+      font-weight: 300;
+    }
+
+    .app-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .app-text-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: #070707;
+    }
+
+    .app-display-text {
+      font-size: clamp(2rem, 3.6vw, 2.9rem);
+      font-weight: 700;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background-size: cover;
+      background-position: center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .app-text-caption {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+    }
+
+    .app-poster-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      background:
+        radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.035) 0%, rgba(7, 7, 7, 0) 75%),
+        #070707;
+    }
+
+    .app-poster-frame {
+      position: relative;
+      height: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      background: #080808;
+    }
+
+    .app-poster-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(1) contrast(1.26) brightness(0.92);
+    }
+
+    .app-poster-tint {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      mix-blend-mode: hard-light;
+      opacity: 0.88;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(0, 0, 0, 0.94) 64%, #000 100%);
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(0, 0, 0, 0.94) 64%, #000 100%);
     }
 
     /* Typography Table */

@@ -21,8 +21,8 @@ export default function ConceptPage() {
       
               <p className="concept-hero-desc">
                 Part listening room, part bar, part dining experience, part cultural gathering.
-                Nami exists on its own acoustic and culinary frequency in Bandra West, Mumbai
-                — where analog sound, Japanese robata gastronomy, and nocturnal hospitality converge.
+                Nami exists on its own acoustic and culinary frequency in Bandra&nbsp;West, Mumbai
+                — where analog sound, Japanese robata gastronomy, and nocturnal hospitality&nbsp;converge.
               </p>
             </div>
       
@@ -30,17 +30,17 @@ export default function ConceptPage() {
             <div className="wave-video-strap" aria-hidden="true">
               <div className="wave-strap-grid">
                 <div className="wave-strap-item">
-                  <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                  <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                     <source src="/assets/wave-anim.mp4" type="video/mp4" />
                   </video>
                 </div>
                 <div className="wave-strap-item">
-                  <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                  <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                     <source src="/assets/wave-anim.mp4" type="video/mp4" />
                   </video>
                 </div>
                 <div className="wave-strap-item">
-                  <video className="wave-strap-media" autoPlay muted loop playsInline disablePictureInPicture preload="auto">
+                  <video className="wave-strap-media" autoPlay muted loop playsInline playsInline disablePictureInPicture preload="auto">
                     <source src="/assets/wave-anim.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -167,30 +167,51 @@ export default function ConceptPage() {
           {/* 3. WHAT WE SERVE (FULL-BLEED EDGE-TO-EDGE IMAGES)
                - NO TAGS, NO HAIRLINE TEXTS, NO CTAS
                ========================================================= */}
-          <section className="fullbleed-features-section">
+          <section className="fullbleed-features-section" aria-label="Our Sounds">
       
-            {/* Feature 1: Sound Architecture (Image touches Left Edge, Content Right) */}
+            <header className="sounds-section-header">
+              <h2 className="sounds-section-heading">Our <span className="text-gradient">Sounds</span></h2>
+              <p className="sounds-section-subhead">Precision analog acoustics, bespoke wooden horn loudspeakers, and deep Tokyo listening room heritage.</p>
+            </header>
+      
+            {/* Our Sounds: Left Horizontal Image Carousel + Right Editorial Copy */}
             <div className="feature-edge-row image-left">
-              <div className="feature-edge-media reveal-on-scroll">
-                <img src="/assets/nami-horn-speaker.avif" alt="440Hz Rotary Sound Architecture &amp; Tokyo Archives" loading="eager" />
+              <div className="feature-edge-media">
+                <div className="sound-carousel" id="soundCarousel" tabIndex={0} aria-roledescription="carousel" aria-label="Our Sounds Gallery">
+                  <div className="sound-carousel-viewport" id="soundCarouselViewport">
+                    <button type="button" className="sound-carousel-arrow prev" id="soundCarouselPrev" aria-label="Previous sound photo">
+                      <img src="/assets/Arrow-left.svg" alt="" width="20" height="20" />
+                    </button>
+                    <div className="sound-carousel-track" id="soundCarouselTrack">
+                      <div className="sound-carousel-slide">
+                        <img src="/assets/nami-horn-speaker.avif" alt="Custom wooden horn loudspeakers at Nami" loading="eager" />
+                      </div>
+                      <div className="sound-carousel-slide">
+                        <img src="/assets/nami-resor-mixer.avif" alt="Precision rotary mixer and analog tube controls" loading="lazy" />
+                      </div>
+                      <div className="sound-carousel-slide">
+                        <img src="/assets/nami-turntable-hands.avif" alt="Selector cueing vinyl records on analog turntable" loading="lazy" />
+                      </div>
+                      <div className="sound-carousel-slide">
+                        <img src="/assets/nami-selector-booth.avif" alt="Tokyo kissaten-inspired selector booth at Nami" style={{ objectPosition: 'center 24%' }} loading="lazy" />
+                      </div>
+                    </div>
+                    <button type="button" className="sound-carousel-arrow next" id="soundCarouselNext" aria-label="Next sound photo">
+                      <img src="/assets/Arrow-right.svg" alt="" width="20" height="20" />
+                    </button>
+                  </div>
+                  <div className="sound-carousel-dots" id="soundCarouselDots" role="tablist" aria-label="Sound photos pagination">
+                    <button type="button" className="sound-carousel-dot active" data-slide="0" aria-label="Slide 1" aria-selected="true"></button>
+                    <button type="button" className="sound-carousel-dot" data-slide="1" aria-label="Slide 2" aria-selected="false"></button>
+                    <button type="button" className="sound-carousel-dot" data-slide="2" aria-label="Slide 3" aria-selected="false"></button>
+                    <button type="button" className="sound-carousel-dot" data-slide="3" aria-label="Slide 4" aria-selected="false"></button>
+                  </div>
+                </div>
               </div>
               <div className="feature-edge-content">
                 <h3 className="feature-edge-title">440Hz Rotary Sound &amp; Tokyo Archives</h3>
                 <p className="feature-edge-desc">
                   Engineered around custom wooden horn loudspeakers, precision rotary mixers, and discrete analog vacuum tube amplification. Our sessions take inspiration from Tokyo’s legendary jazz kissaten culture — where music is played with devotion, fidelity, and unhurried nuance.
-                </p>
-              </div>
-            </div>
-      
-            {/* Feature 2: Robata & Clarified Libations (Content Left, Image touches Right Edge) */}
-            <div className="feature-edge-row image-right">
-              <div className="feature-edge-media reveal-on-scroll">
-                <img src="/assets/nami-robata-skewer.avif" alt="Binchotan Charcoal Robata &amp; Clarified Highballs" loading="eager" />
-              </div>
-              <div className="feature-edge-content">
-                <h3 className="feature-edge-title">Binchotan Charcoal &amp; Clarified Highballs</h3>
-                <p className="feature-edge-desc">
-                  An open robata hearth cooking over high-heat binchotan charcoal alongside a pristine raw bar. From aged hamachi crudo with kombu oil to charred koji-glazed root vegetables and charcoal-seared skewers, our culinary program is sound-mapped to the rhythms of the evening.
                 </p>
               </div>
             </div>
@@ -205,9 +226,48 @@ export default function ConceptPage() {
               Walk-ins welcomed for late-night vinyl sessions and highballs.
             </p>
             <div className="closing-actions">
-              <button type="button" className="btn-cta-primary" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
-                <span>Reserve Dining &amp; Listening</span>
+              <button type="button" className="btn-cta-primary" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }} aria-label="Make a Reservation">
+                <span>Reservation</span>
+                <span className="reserve-cta-divider" aria-hidden="true"></span>
+                <img src="/assets/Eat_App_Logo.webp" alt="Eat App" className="reserve-eat-logo" />
               </button>
+            </div>
+          </section>
+      
+          {/* 5. BESPOKE CUSTOM TYPOGRAPHY SPECIMEN SECTION */}
+          <section className="concept-font-section" id="brand-font" aria-label="Bespoke Custom Font Specimen">
+            <div className="font-section-container">
+              {/* Section Header */}
+              <div className="font-section-header">
+                <h2 className="font-section-title">The Nami <span className="text-gradient">Waveform Typeface</span></h2>
+                <p className="font-section-desc">
+                  Each letterform is sculpted from analog sound waves, harmonic oscillations, and Japanese wave geometries — applied across social media, campaign advertising, spatial wayfinding, and printed menus.
+                </p>
+              </div>
+      
+              {/* Specimen View controls (Lowercase vs Uppercase) */}
+              <div className="font-controls-bar">
+                <div className="font-toggle-group" role="tablist" aria-label="Character set selection">
+                  <button type="button" className="font-toggle-btn active" id="btnSpecimenSmall" role="tab" aria-selected="true" aria-controls="panelSpecimenSmall" onClick={(e) => { const event = e; (window as any).switchSpecimen?.('small') }}>
+                    <span>Lowercase</span>
+                  </button>
+                  <button type="button" className="font-toggle-btn" id="btnSpecimenBig" role="tab" aria-selected="false" aria-controls="panelSpecimenBig" onClick={(e) => { const event = e; (window as any).switchSpecimen?.('big') }}>
+                    <span>Uppercase</span>
+                  </button>
+                </div>
+              </div>
+      
+              {/* Specimen Grid Display Canvas (Hairline Grid from SVG) */}
+              <div className="font-specimen-card reveal-on-scroll">
+                <div className="font-specimen-scroll" id="fontSpecimenScroll">
+                  <div className="font-specimen-pane active" id="panelSpecimenSmall" role="tabpanel" aria-labelledby="btnSpecimenSmall">
+                    <img src="/assets/Small-letters.svg" alt="Nami Custom Typeface — Lowercase Character Set" className="font-specimen-img" loading="lazy" />
+                  </div>
+                  <div className="font-specimen-pane" id="panelSpecimenBig" role="tabpanel" aria-labelledby="btnSpecimenBig">
+                    <img src="/assets/Big-letters.svg" alt="Nami Custom Typeface — Uppercase Character Set" className="font-specimen-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
       

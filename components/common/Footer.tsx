@@ -29,12 +29,12 @@ export default function Footer() {
               <div className="footer-links-col">
                 <span className="footer-col-label">NAVIGATE</span>
                 <ul className="footer-nav-list">
-                  <li><a href="/concept">About</a></li>
-                  <li><a href="/#programming">What’s on</a></li>
+                  <li><a href="/concept">Concept</a></li>
+                  <li><a href="/whats-on">What’s On</a></li>
                   <li><a href="/drinks-food">Drinks & Food</a></li>
-                  <li><a href="/our-space">Our space</a></li>
-                  <li><a href="/#press">In the news</a></li>
-                  <li><a href="javascript:void(0)" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>Reservation</a></li>
+                  <li><a href="/our-space">Our Space</a></li>
+                  <li><a href="/faqs">FAQs</a></li>
+                  <li><a href="#reservation" onClick={(e) => { e.preventDefault(); (window as any).openReservationModal?.(e); }}>Reservation</a></li>
                 </ul>
               </div>
       
@@ -44,7 +44,16 @@ export default function Footer() {
                 <ul className="footer-nav-list">
                   <li><span>Wed – Sun · 7pm – late</span></li>
                   <li><span>Sessions: 8:30pm onwards</span></li>
-                  <li><span>Bandra West, Mumbai</span></li>
+                  <li>
+                    <a
+                      href="https://www.google.com/maps?cid=16846005869033154503"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      15th Fl, Mansionz One, Linking Rd ↗
+                    </a>
+                  </li>
+                  <li><a href="tel:+912248900440">+91 22 4890 0440</a></li>
                   <li><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
                 </ul>
               </div>
@@ -53,16 +62,16 @@ export default function Footer() {
               <div className="footer-links-col">
                 <span className="footer-col-label">CONNECT</span>
                 <ul className="footer-nav-list">
-                  <li><a href={siteConfig.social.instagram} target="_blank">Instagram (@namibombay)</a></li>
-                  <li><a href="/#programming">Resident advisor</a></li>
-                  <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+                  <li><a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+                  <li><a href="/whats-on#programming">Resident advisor</a></li>
+                  <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
                 </ul>
               </div>
             </div>
       
             {/* Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) */}
             <div className="footer-mid-bar">
-              <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+              <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
             </div>
       
             {/* Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation */}

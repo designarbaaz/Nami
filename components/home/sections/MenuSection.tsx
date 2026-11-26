@@ -25,7 +25,7 @@ export default function MenuSection() {
                   <div className="menu-ed-bottom">
                     <p className="menu-ed-item-desc">Charred binchotan skewers, sashimi dressed with aged ponzu, and umami-rich shared plates.</p>
                     <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('food') }}>
-                      VIEW FULL MENU →
+                      VIEW FULL MENU
                     </button>
                   </div>
                 </div>
@@ -43,7 +43,7 @@ export default function MenuSection() {
                   <div className="menu-ed-bottom">
                     <p className="menu-ed-item-desc">Japanese whisky, toasted hojicha tea, and cold-pressed citrus balanced like an equalizer curve.</p>
                     <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('cocktails') }}>
-                      VIEW FULL MENU →
+                      VIEW FULL MENU
                     </button>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ export default function MenuSection() {
                   <div className="menu-ed-bottom">
                     <p className="menu-ed-item-desc">Caramelized white miso, crisp citrus curd, and genmaicha foam crafted for nocturnal indulgence.</p>
                     <button type="button" className="btn-menu-view-full" onClick={(e) => { const event = e; (window as any).openFullMenuModal?.('dessert') }}>
-                      VIEW FULL MENU →
+                      VIEW FULL MENU
                     </button>
                   </div>
                 </div>

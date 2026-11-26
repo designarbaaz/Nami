@@ -14,6 +14,9 @@ const ROUTE_MAP = [
   ["whats-on.html", "/whats-on"],
   ["drinks-food.html", "/drinks-food"],
   ["our-space.html", "/our-space"],
+  ["faqs.html", "/faqs"],
+  ["thank-you.html", "/thank-you"],
+  ["404.html", "/"],
   ["index-2.html", "/"],
   ["index.html", "/"],
   ["styleguide.html", "/styleguide"],
@@ -39,6 +42,12 @@ function htmlToJsx(html) {
   // Strip onerror handlers
   s = s.replace(/\s+onerror="[^"]*"/gi, "");
 
+  // React blocks javascript: URLs — map reservation triggers to hash
+  s = s.replace(
+    /href=["']javascript:void\(0\)["']/gi,
+    'href="#reservation"'
+  );
+
   // Comments stay
 
   // class → className, for → htmlFor
@@ -58,7 +67,7 @@ function htmlToJsx(html) {
         disablepictureinpicture: "disablePictureInPicture",
         controls: "controls",
         checked: "defaultChecked",
-        selected: "defaultSelected",
+        selected: "selected",
         disabled: "disabled",
         readonly: "readOnly",
         required: "required",
@@ -112,24 +121,51 @@ function htmlToJsx(html) {
     "radiogroup",
     "spellcheck",
   ];
+  const attrCamel = {
+    tabindex: "tabIndex",
+    colspan: "colSpan",
+    rowspan: "rowSpan",
+    charset: "charSet",
+    crossorigin: "crossOrigin",
+    datetime: "dateTime",
+    formaction: "formAction",
+    formenctype: "formEncType",
+    formmethod: "formMethod",
+    formnovalidate: "formNoValidate",
+    formtarget: "formTarget",
+    hreflang: "hrefLang",
+    inputmode: "inputMode",
+    maxlength: "maxLength",
+    minlength: "minLength",
+    radiogroup: "radioGroup",
+    spellcheck: "spellCheck",
+  };
   for (const a of svgAttrs) {
-    const camel = a.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+    const camel =
+      attrCamel[a] || a.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
     s = s.replace(new RegExp(`\\s${a}=`, "gi"), ` ${camel}=`);
   }
 
-  // onclick="..." → onClick={(e) => { ... }}
-  s = s.replace(/\sonclick="([^"]*)"/gi, (_, code) => {
+  // onclick / onsubmit → React handlers
+  const winFns =
+    "toggleMenuDrawer|openReservationModal|closeReservationModal|openEventPopup|openFullMenuModal|filterGallery|showToast|openContactModal|closeContactModal|handleContactSubmit|handleEnquirySubmit|handleReservationSubmit|switchSpecimen";
+  function toHandler(attr, code) {
     let body = code
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
-    // Prefix bare function calls with window
     body = body.replace(
-      /\b(toggleMenuDrawer|openReservationModal|closeReservationModal|openEventPopup|openFullMenuModal|filterGallery|showToast)\s*\(/g,
+      new RegExp(`\\b(${winFns})\\s*\\(`, "g"),
       "(window as any).$1?.("
     );
-    return ` onClick={(e) => { const event = e; ${body} }}`;
-  });
+    return ` ${attr}={(e) => { const event = e; ${body} }}`;
+  }
+  s = s.replace(/\sonclick="([^"]*)"/gi, (_, code) =>
+    toHandler("onClick", code)
+  );
+  s = s.replace(/\sonsubmit="([^"]*)"/gi, (_, code) =>
+    toHandler("onSubmit", code)
+  );
 
   // inline style="a: b; c: d" → style={{ a: 'b', c: 'd' }}
   s = s.replace(/\sstyle="([^"]*)"/gi, (_, css) => {
@@ -294,15 +330,33 @@ const pages = [
   ["whats-on", "WhatsOnPage", "whats-on.main.html"],
   ["drinks-food", "DrinksFoodPage", "drinks-food.main.html"],
   ["our-space", "OurSpacePage", "our-space.main.html"],
+  ["faqs", "FaqsPage", "faqs.main.html"],
+  ["thank-you", "ThankYouPage", "thank-you.main.html"],
 ];
 
 for (const [dir, name, file] of pages) {
   const html = fs.readFileSync(path.join(snip, file), "utf8");
   let jsx = htmlToJsx(html.trim());
+  // Drop nested site chrome if a page main accidentally includes it
+  jsx = jsx.replace(/<header className="site-header">[\s\S]*?<\/header>/gi, "");
+  jsx = jsx.replace(/<div id="menuDrawer"[\s\S]*?(?=<main|<section|<div className="(?:thank|error|page))/gi, "");
   write(
     `components/${dir}/${name}.tsx`,
     wrapComponent(name, jsx)
   );
+}
+
+// 404 / not-found content component (used by app/not-found.tsx)
+{
+  const file = path.join(snip, "404.main.html");
+  if (fs.existsSync(file)) {
+    let jsx = htmlToJsx(fs.readFileSync(file, "utf8").trim());
+    jsx = jsx.replace(/<header className="site-header">[\s\S]*?<\/header>/gi, "");
+    write(
+      "components/not-found/NotFoundPage.tsx",
+      wrapComponent("NotFoundPage", jsx)
+    );
+  }
 }
 
 console.log("done");

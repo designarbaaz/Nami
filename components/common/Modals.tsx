@@ -18,7 +18,9 @@ export default function Modals() {
                 <span className="reserve-eyebrow">RESERVE A TABLE</span>
                 <h3 className="reserve-modal-title">Table <span className="grad-accent">Reservation</span></h3>
               </div>
-              <button className="reserve-modal-close" onClick={(e) => { const event = e; (window as any).closeReservationModal?.() }} aria-label="Close modal">✕</button>
+              <button className="reserve-modal-close" onClick={(e) => { const event = e; (window as any).closeReservationModal?.() }} aria-label="Close modal">
+                <img src="/assets/close.svg" alt="Close" width={14} height={14} style={{ display: "block", pointerEvents: "none" }} />
+              </button>
             </div>
       
             <p className="reserve-modal-desc">
@@ -302,6 +304,121 @@ export default function Modals() {
             </div>
           </div>
         </div>
+
+      <div id="contactModal" className="reservation-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div
+          className="reservation-modal-backdrop"
+          onClick={() => (window as any).closeContactModal?.()}
+        />
+        <div className="reservation-modal-panel">
+          <div className="reservation-modal-header">
+            <div>
+              <span className="reserve-eyebrow">PRIVATE EVENTS &amp; BUYOUTS</span>
+              <h3 className="reserve-modal-title">
+                Book Private{" "}
+                <span className="grad-accent">Space</span>
+              </h3>
+            </div>
+            <button
+              className="reserve-modal-close"
+              onClick={() => (window as any).closeContactModal?.()}
+              aria-label="Close contact form"
+            >
+              <img
+                src="/assets/close.svg"
+                alt="Close"
+                width={14}
+                height={14}
+                style={{ display: "block", pointerEvents: "none" }}
+              />
+            </button>
+          </div>
+
+          <p className="reserve-modal-desc">
+            Planning a private gathering, album launch, or full-venue celebration?
+            Share your event details below and our team will get in touch.
+          </p>
+
+          <form
+            id="contactInquiryForm"
+            className="reservation-form"
+            onSubmit={(e) => {
+              (window as any).handleContactSubmit?.(e);
+            }}
+          >
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="contactName">NAME</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  placeholder="Your full name"
+                  required
+                  className="res-input"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactEmail">EMAIL OR PHONE</label>
+                <input
+                  type="text"
+                  id="contactEmail"
+                  placeholder="you@domain.com / +91"
+                  required
+                  className="res-input"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="contactDate">PREFERRED DATE</label>
+                <input type="date" id="contactDate" required className="res-input" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactType">OCCASION</label>
+                <select
+                  id="contactType"
+                  required
+                  className="res-input"
+                  defaultValue="Private Celebration"
+                >
+                  <option value="Private Celebration">Private Celebration</option>
+                  <option value="Full Venue Buyout">Full Venue Buyout</option>
+                  <option value="Album Launch / Listening Session">
+                    Album Launch / Listening Session
+                  </option>
+                  <option value="Brand / Corporate Gathering">
+                    Brand / Corporate Gathering
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="contactNotes">EVENT DETAILS &amp; GUEST COUNT</label>
+              <textarea
+                id="contactNotes"
+                rows={3}
+                placeholder="Tell us your estimated guest count, music preferences, and format..."
+                className="res-input"
+                style={{ resize: "vertical" }}
+              />
+            </div>
+
+            <button type="submit" className="btn-confirm-reserve">
+              <span>SEND INQUIRY</span>
+              <img
+                src="/assets/Arrow-right.svg"
+                alt=""
+                aria-hidden="true"
+                width={18}
+                height={18}
+                style={{ display: "inline-block", verticalAlign: "middle" }}
+              />
+            </button>
+          </form>
+        </div>
+      </div>
     </>
   );
 }

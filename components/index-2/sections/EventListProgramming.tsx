@@ -23,63 +23,63 @@ export default function EventListProgramming() {
             <div className="event-list-table">
       
               {/* EV-1 */}
-              <div className="event-list-row" data-poster="/assets/Event-1.avif" role="button" tabindex="0" aria-label="Reserve for Atushi Maeda" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-1.avif" role="button" tabIndex={0} aria-label="Reserve for Atushi Maeda" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">06/09</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Atushi Maeda: Tokyo Jazz Kissa &amp; Spiritual Vinyl</span>
                 </div>
                 <span className="event-list-time"><strong>Wed · 20:30</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
               {/* EV-2 */}
-              <div className="event-list-row" data-poster="/assets/Event-2.avif" role="button" tabindex="0" aria-label="Reserve for Mogasu" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-2.avif" role="button" tabIndex={0} aria-label="Reserve for Mogasu" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">12/09</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Mogasu: Japanese Soul Archives &amp; Sake Tasting</span>
                 </div>
                 <span className="event-list-time"><strong>Thu · 18:00</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
               {/* EV-3 */}
-              <div className="event-list-row" data-poster="/assets/Event-3.avif" role="button" tabindex="0" aria-label="Reserve for Yousuke Yukimatsu" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-3.avif" role="button" tabIndex={0} aria-label="Reserve for Yousuke Yukimatsu" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">18/09</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Yousuke Yukimatsu: Avant-Garde Analog Bass</span>
                 </div>
                 <span className="event-list-time"><strong>Fri · 20:30</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
               {/* EV-4 */}
-              <div className="event-list-row" data-poster="/assets/Event-1.avif" role="button" tabindex="0" aria-label="Reserve for Occa" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-1.avif" role="button" tabIndex={0} aria-label="Reserve for Occa" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">24/09</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Occa: Hypnotic Rotary Sound &amp; Deep Minimal</span>
                 </div>
                 <span className="event-list-time"><strong>Sat · 20:30</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
               {/* EV-5 */}
-              <div className="event-list-row" data-poster="/assets/Event-2.avif" role="button" tabindex="0" aria-label="Reserve for Suze Ijo" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-2.avif" role="button" tabIndex={0} aria-label="Reserve for Suze Ijo" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">02/10</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Suze Ijo: Afro-Cuban Frequencies &amp; Acid Tube Waves</span>
                 </div>
                 <span className="event-list-time"><strong>Sun · 19:00</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
               {/* EV-6 */}
-              <div className="event-list-row" data-poster="/assets/Event-3.avif" role="button" tabindex="0" aria-label="Reserve for Sunju Hargun" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
+              <div className="event-list-row" data-poster="/assets/Event-3.avif" role="button" tabIndex={0} aria-label="Reserve for Sunju Hargun" onClick={(e) => { const event = e; (window as any).openReservationModal?.(event) }}>
                 <span className="event-list-date">08/10</span>
                 <div className="event-list-info">
                   <span className="event-list-title"><span className="event-list-dot"></span>Sunju Hargun: Bangkok Hi-Fi Night &amp; Deep Waves</span>
                 </div>
                 <span className="event-list-time"><strong>Wed · 21:00</strong></span>
-                <span className="event-list-arrow" aria-hidden="true">→</span>
+                <span className="event-list-arrow" aria-hidden="true"><img src="/assets/Arrow-right.svg" alt="" width="22" height="22" /></span>
               </div>
       
             </div>
@@ -88,16 +88,13 @@ export default function EventListProgramming() {
             <div className="event-list-action">
               <a href="/whats-on" className="btn-event-explore" aria-label="Explore More Sessions">
                 <span>Explore More</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
+                <img src="/assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style={{ display: 'inline-block', verticalAlign: 'middle' }} />
               </a>
             </div>
       
           </section>
             <div className="event-poster-preview-wrap" id="eventPosterPreview" aria-hidden="true">
-              <img className="event-poster-img" id="eventPosterImg" src="" alt="" />
+              <img className="event-poster-img" id="eventPosterImg" alt="" />
             </div>
     </>
   );

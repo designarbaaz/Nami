@@ -25,10 +25,10 @@ export default function OurSpacePage() {
                 All
               </button>
               <button className="gallery-filter-pill" data-filter="interiors" role="tab" aria-selected="false" onClick={(e) => { const event = e; (window as any).filterGallery?.('interiors') }}>
-                Interiors &amp; Space
+                Interiors
               </button>
               <button className="gallery-filter-pill" data-filter="music" role="tab" aria-selected="false" onClick={(e) => { const event = e; (window as any).filterGallery?.('music') }}>
-                Music &amp; Sound
+                Sound Setup
               </button>
               <button className="gallery-filter-pill" data-filter="drinks-food" role="tab" aria-selected="false" onClick={(e) => { const event = e; (window as any).filterGallery?.('drinks-food') }}>
                 Drinks &amp; Food

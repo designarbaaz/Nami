@@ -6,6 +6,9 @@
   <title>Concept &amp; Philosophy · NAMI Hi-Fi Listening Room &amp; Robata Bar</title>
   <meta name="description" content="Discover Nami's philosophy, brand pillars, custom 440Hz rotary audio architecture, and binchotan robata dining in Bandra West, Mumbai.">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
   <!-- Google Fonts: Chivo Only (True Ultra-Light 100 to Bold 900) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +28,8 @@
       --c-blue: #2B4592;
       --grad-primary: linear-gradient(135deg, #F58A27 0%, #D93829 35%, #704489 70%, #2B4592 100%);
       --grad-flare: linear-gradient(135deg, #F58A27 0%, #D93829 45%, #704489 80%, #2B4592 100%);
+      --grad-velvet: linear-gradient(114deg, #080C18 0%, #0E4B8E 32%, #8C2D52 64%, #D66824 90%, #0A2B5E 100%);
+      --grad-rosefold: linear-gradient(118deg, #0047AB 0%, #111318 28%, #D98A9C 56%, #C2434A 78%, #0A5CBF 100%);
       --font-heading: 'Chivo', sans-serif;
       --font-body: 'Chivo', sans-serif;
       --border-subtle: rgba(255, 255, 255, 0.08);
@@ -532,7 +537,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url('./assets/spin-gallery-1.jpg');
+      background-image: url('./assets/nami-evening-crowd.jpg');
       background-size: cover;
       background-position: center center;
       opacity: 0.24;
@@ -570,42 +575,45 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      font-size: 0.76rem;
-      font-weight: 700;
+      gap: 0.65rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
       text-transform: uppercase;
       margin-bottom: clamp(1.2rem, 2.5vh, 2rem);
     }
 
     .concept-breadcrumb a {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.52);
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .concept-breadcrumb a:hover {
-      color: #c0c0c0;
+      color: #FFFFFF;
     }
 
     .concept-breadcrumb .crumb-sep {
-      color: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.28);
+      font-weight: 400;
     }
 
     .concept-breadcrumb .crumb-curr {
-      color: var(--c-orange);
+      color: #FFFFFF;
     }
 
     .concept-hero-title {
-      font-size: clamp(3.2rem, 7vw, 6.2rem);
+      font-family: var(--font-heading);
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
       font-weight: 700;
       color: #FFFFFF;
-      line-height: 1.05;
+      line-height: 1.08;
       margin-bottom: clamp(1.25rem, 2.5vh, 1.85rem);
       text-align: center;
     }
 
     .concept-hero-title .text-gradient {
-      background: var(--grad-primary);
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -619,6 +627,7 @@
       font-weight: 300;
       max-width: 760px;
       text-align: center;
+      text-wrap: balance;
       margin: 0 auto;
     }
 
@@ -653,7 +662,6 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: var(--bg-black);
     }
 
     .wave-strap-item::after {
@@ -677,7 +685,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(0.92) contrast(1.12);
       pointer-events: none;
       display: block;
     }
@@ -756,7 +763,7 @@
     }
 
     .pillars-section-title .text-gradient {
-      background: var(--grad-primary);
+      background: var(--grad-rosefold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -847,7 +854,7 @@
       font-family: var(--font-heading);
       font-size: clamp(1.35rem, 1.9vw, 1.75rem);
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--text-secondary);
       line-height: 1.2;
     }
 
@@ -875,16 +882,53 @@
       padding: clamp(4rem, 8vh, 7rem) 0;
       display: flex;
       flex-direction: column;
-      gap: clamp(5rem, 10vh, 8rem);
-      overflow: hidden;
+      gap: clamp(3rem, 6vh, 4.5rem);
+      overflow-x: clip;
       background: transparent;
+    }
+
+    .sounds-section-header {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sounds-section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+
+    .sounds-section-heading .text-gradient {
+      background: var(--grad-rosefold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .sounds-section-subhead {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 620px;
+      margin: 0 auto;
+      text-wrap: balance;
     }
 
     .feature-edge-row {
       display: flex;
       align-items: center;
       width: 100%;
-      min-height: clamp(500px, 66vh, 760px);
       box-sizing: border-box;
     }
 
@@ -892,42 +936,126 @@
       flex-direction: row;
     }
 
-    .feature-edge-row.image-right {
-      flex-direction: row-reverse;
-    }
-
     .feature-edge-media {
       flex: 0 0 54vw;
       width: 54vw;
-      height: clamp(500px, 66vh, 760px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: transparent;
+      border: none !important;
+    }
+
+    .sound-carousel {
+      width: 100%;
+      position: relative;
+    }
+
+    .sound-carousel-viewport {
+      width: 100%;
+      height: clamp(380px, 60vh, 620px);
       overflow: hidden;
       position: relative;
       background: #111115;
       border: none !important;
     }
 
-    .feature-edge-media img {
+    .sound-carousel-track {
+      display: flex;
       width: 100%;
-      height: 126%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .sound-carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       position: relative;
-      top: -13%;
+    }
+
+    .sound-carousel-slide img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
       border: none !important;
-      filter: brightness(0.9) contrast(1.08);
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
-      transition: filter 0.4s ease;
+      filter: brightness(0.94) contrast(1.06);
     }
 
-    .feature-edge-media:hover img {
-      filter: brightness(1.02) contrast(1.12);
+    .sound-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(12, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 6;
+      padding: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .sound-carousel-arrow img {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    .sound-carousel-arrow.prev { left: 1.25rem; }
+    .sound-carousel-arrow.next { right: 1.25rem; }
+
+    .sound-carousel-arrow:hover {
+      background: rgba(244, 143, 36, 0.2);
+      border-color: var(--c-orange);
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .sound-carousel-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .sound-carousel-dot {
+      width: 22px;
+      height: 22px;
+      background: url("./assets/Nav-Default.svg") center center / contain no-repeat;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0.55;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .sound-carousel-dot:hover {
+      opacity: 0.85;
+      transform: scale(1.08);
+    }
+
+    .sound-carousel-dot.active {
+      background: url("./assets/Nav-Active.svg") center center / contain no-repeat;
+      opacity: 1;
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 8px rgba(244, 143, 36, 0.45));
     }
 
     .feature-edge-content {
       flex: 1 1 auto;
-      padding: clamp(2.5rem, 6vw, 7rem) clamp(2rem, 5vw, 6rem);
+      padding: clamp(2.5rem, 5vw, 5.5rem) clamp(2rem, 5vw, 6rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -936,7 +1064,8 @@
     }
 
     .feature-edge-title {
-      font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 3.8vw, 3.6rem);
       font-weight: 700;
       color: #FFFFFF;
       line-height: 1.12;
@@ -987,24 +1116,248 @@
     }
 
     .btn-cta-primary {
-      background: var(--grad-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: var(--grad-rosefold);
       color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.88rem;
       font-weight: 700;
+      letter-spacing: 0;
       text-transform: uppercase;
-      padding: 1.05rem 2.25rem;
+      padding: 0.82rem 1.75rem 0.82rem 1.85rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: none !important;
-      transition: transform 0.2s, filter 0.2s;
+      box-shadow: none;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .btn-cta-primary:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      box-shadow: none !important;
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.12);
+      box-shadow: none;
+    }
+
+    .btn-cta-primary > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-cta-primary .reserve-cta-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.38);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .btn-cta-primary .reserve-eat-logo {
+      height: 16px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* =========================================================
+       SECTION: BESPOKE CUSTOM FONT SPECIMEN (ACOUSTIC TYPOGRAPHY)
+       ========================================================= */
+    .concept-font-section {
+      position: relative;
+      padding: clamp(5rem, 9vh, 7.5rem) clamp(1.5rem, 4vw, 3rem) clamp(6rem, 11vh, 9rem);
+      background: transparent;
+      width: 100%;
+      box-sizing: border-box;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .font-section-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .font-section-header {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .font-section-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .font-section-title .text-gradient {
+      background: var(--grad-rosefold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .font-section-desc {
+      font-size: clamp(1rem, 1.2vw, 1.12rem);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+      text-wrap: balance;
+      margin: 0 auto;
+    }
+
+    .font-platform-pills {
+      display: none;
+    }
+
+    .font-pill {
+      display: none;
+    }
+
+    .font-pill-dot {
+      display: none;
+    }
+
+    .font-controls-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding: 0 0.25rem;
+      box-sizing: border-box;
+    }
+
+    .font-specimen-meta {
+      display: none;
+    }
+
+    .font-toggle-group {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(1.5rem, 3.5vw, 3rem);
+      padding: 0;
+      background: transparent;
+      border: none;
+    }
+
+    .font-toggle-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(255, 255, 255, 0.5);
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 1.35vw, 20px);
+      font-weight: 300;
+      padding: 0 0 6px 0;
+      border-radius: 0;
+      cursor: pointer;
+      letter-spacing: normal;
+      line-height: 1.2;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      display: inline-block;
+    }
+
+    .font-toggle-btn:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: transparent;
+    }
+
+    .font-toggle-btn.active {
+      color: #FFFFFF;
+      font-weight: 300;
+      border-bottom: 2px solid #FFFFFF;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .font-specimen-card {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: clamp(0.5rem, 1.5vw, 1rem) 0;
+      box-sizing: border-box;
+      position: relative;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .font-specimen-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      display: block;
+    }
+
+    .font-specimen-pane {
+      display: none;
+      width: 100%;
+    }
+
+    .font-specimen-pane.active {
+      display: block;
+      animation: fontFadeIn 0.35s ease forwards;
+    }
+
+    @keyframes fontFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .font-specimen-img {
+      width: 100%;
+      max-width: 100%;
+      min-width: 760px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .font-specimen-card-foot { display: none; }
+    .font-specimen-footnote { display: none; }
+    .foot-label { display: none; }
+    .foot-detail { display: none; }
+    .font-scroll-hint { display: none; }
+
+    @media (max-width: 900px) {
+      .font-controls-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .concept-font-section {
+        padding: 4rem 1.25rem 5.5rem;
+      }
+      .font-specimen-card {
+        padding: 1.25rem 0.75rem;
+        border-radius: 14px;
+      }
+      .font-specimen-img {
+        min-width: 660px;
+      }
+      .font-toggle-group {
+        gap: 2rem;
+      }
+      .font-toggle-btn {
+        font-size: 16px;
+      }
     }
 
     /* =========================================================
@@ -1074,9 +1427,11 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
       padding: 0.75rem 1.4rem;
       border-radius: 999px;
       text-decoration: none;
@@ -1153,7 +1508,20 @@
       color: rgba(255, 255, 255, 0.45);
       white-space: nowrap;
       box-sizing: border-box;
-      pointer-events: none;
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-mid-bar a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mid-bar a:hover {
+      color: var(--c-orange);
     }
 
     .footer-vinyl-stage {
@@ -1298,22 +1666,24 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: var(--grad-primary);
+      background: var(--grad-velvet);
       color: #FFFFFF;
       text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0;
       padding: 10px 22px;
       border-radius: 999px;
       font-size: 0.82rem;
       font-weight: 700;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       cursor: pointer;
-      box-shadow: 0 10px 28px rgba(244, 143, 36, 0.4);
+      box-shadow: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
     }
 
     .floating-reserve-pill:hover {
       transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 14px 36px rgba(244, 143, 36, 0.6);
+      box-shadow: none;
     }
 
     .reserve-pill-sep {
@@ -1406,6 +1776,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      border-radius: 50%;
       font-size: 1.05rem;
       line-height: 1;
       transition: all 0.2s;
@@ -1475,24 +1846,25 @@
       align-items: center;
       justify-content: center;
       gap: 0.65rem;
-      background: var(--grad-flare);
-      color: #c0c0c0;
+      background: var(--grad-rosefold);
+      color: #FFFFFF;
       font-family: var(--font-body);
       font-size: 0.86rem;
       font-weight: 700;
+      letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.95rem 1.6rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(244, 143, 36, 0.35);
+      box-shadow: none;
       transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-confirm-reserve:hover {
       filter: brightness(1.12);
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(244, 143, 36, 0.55);
+      box-shadow: none;
     }
 
     /* =========================================================
@@ -1566,12 +1938,22 @@
       .feature-edge-media {
         width: 100vw !important;
         flex: none;
-        height: 52vh;
+        height: auto;
       }
+      .sound-carousel-viewport {
+        height: 46vh;
+        min-height: 300px;
+      }
+      .sound-carousel-arrow {
+        width: 38px;
+        height: 38px;
+      }
+      .sound-carousel-arrow.prev { left: 0.75rem; }
+      .sound-carousel-arrow.next { right: 0.75rem; }
       .feature-edge-content {
         width: 100%;
         max-width: 100%;
-        padding: 3rem 1.75rem;
+        padding: 2.25rem 1.5rem 0;
       }
     }
 
@@ -1606,6 +1988,9 @@
       .footer-top-grid {
         grid-template-columns: 1fr;
         gap: 1.75rem;
+      }
+      footer.site-footer {
+        padding: 4.5rem 1.5rem 0;
       }
       .footer-mid-bar {
         white-space: normal;
@@ -1644,7 +2029,7 @@
        ========================================================= -->
   <header class="site-header">
     <div class="header-left">
-      <a href="index-2.html#hero" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
+      <a href="index-2.html" class="brand-mark-link visible" id="headerBrandMark" aria-label="NAMI Home">
         <img src="./assets/Main-logo.svg" alt="NAMI" class="brand-mark-img">
       </a>
     </div>
@@ -1726,7 +2111,9 @@
   <div id="menuDrawer" role="dialog" aria-modal="true">
     <div class="menu-drawer-top">
       <img src="./assets/Main-logo.svg" alt="NAMI" style="height: 28px; width: auto;">
-      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">✕</button>
+      <button class="btn-close-drawer" onclick="toggleMenuDrawer()" aria-label="Close menu">
+        <img src="./assets/close.svg" alt="Close" width="16" height="16" style="display:block; pointer-events:none;">
+      </button>
     </div>
 
     <!-- Drawer Middle: Nav Links (Left) + Editorial Showcase Image (Right) -->
@@ -1744,8 +2131,11 @@
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
           <span class="drawer-nav-num">04</span> Our Space
         </a>
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 05" data-sub="Table & Listening Sessions">
-          <span class="drawer-nav-num">05</span> Reservation
+        <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
+          <span class="drawer-nav-num">05</span> FAQs
+        </a>
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="toggleMenuDrawer(); openReservationModal(event);" data-target-img="drawerImgReservation" data-tag="RESERVATION · 06" data-sub="Table & Listening Sessions">
+          <span class="drawer-nav-num">06</span> Reservation
         </a>
       </nav>
 
@@ -1757,6 +2147,7 @@
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
           <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
       </div>
@@ -1809,8 +2200,8 @@
 
         <p class="concept-hero-desc">
           Part listening room, part bar, part dining experience, part cultural gathering.
-          Nami exists on its own acoustic and culinary frequency in Bandra West, Mumbai
-          — where analog sound, Japanese robata gastronomy, and nocturnal hospitality converge.
+          Nami exists on its own acoustic and culinary frequency in Bandra&nbsp;West, Mumbai
+          — where analog sound, Japanese robata gastronomy, and nocturnal hospitality&nbsp;converge.
         </p>
       </div>
 
@@ -1955,30 +2346,51 @@
     <!-- 3. WHAT WE SERVE (FULL-BLEED EDGE-TO-EDGE IMAGES)
          - NO TAGS, NO HAIRLINE TEXTS, NO CTAS
          ========================================================= -->
-    <section class="fullbleed-features-section">
+    <section class="fullbleed-features-section" aria-label="Our Sounds">
 
-      <!-- Feature 1: Sound Architecture (Image touches Left Edge, Content Right) -->
+      <header class="sounds-section-header">
+        <h2 class="sounds-section-heading">Our <span class="text-gradient">Sounds</span></h2>
+        <p class="sounds-section-subhead">Precision analog acoustics, bespoke wooden horn loudspeakers, and deep Tokyo listening room heritage.</p>
+      </header>
+
+      <!-- Our Sounds: Left Horizontal Image Carousel + Right Editorial Copy -->
       <div class="feature-edge-row image-left">
-        <div class="feature-edge-media reveal-on-scroll">
-          <img src="./assets/nami-horn-speaker.jpg" alt="440Hz Rotary Sound Architecture &amp; Tokyo Archives" loading="eager">
+        <div class="feature-edge-media">
+          <div class="sound-carousel" id="soundCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Our Sounds Gallery">
+            <div class="sound-carousel-viewport" id="soundCarouselViewport">
+              <button type="button" class="sound-carousel-arrow prev" id="soundCarouselPrev" aria-label="Previous sound photo">
+                <img src="./assets/Arrow-left.svg" alt="" width="20" height="20">
+              </button>
+              <div class="sound-carousel-track" id="soundCarouselTrack">
+                <div class="sound-carousel-slide">
+                  <img src="./assets/nami-horn-speaker.jpg" alt="Custom wooden horn loudspeakers at Nami" loading="eager">
+                </div>
+                <div class="sound-carousel-slide">
+                  <img src="./assets/nami-resor-mixer.jpg" alt="Precision rotary mixer and analog tube controls" loading="lazy">
+                </div>
+                <div class="sound-carousel-slide">
+                  <img src="./assets/nami-turntable-hands.jpg" alt="Selector cueing vinyl records on analog turntable" loading="lazy">
+                </div>
+                <div class="sound-carousel-slide">
+                  <img src="./assets/nami-selector-booth.jpg" alt="Tokyo kissaten-inspired selector booth at Nami" style="object-position: center 24%;" loading="lazy">
+                </div>
+              </div>
+              <button type="button" class="sound-carousel-arrow next" id="soundCarouselNext" aria-label="Next sound photo">
+                <img src="./assets/Arrow-right.svg" alt="" width="20" height="20">
+              </button>
+            </div>
+            <div class="sound-carousel-dots" id="soundCarouselDots" role="tablist" aria-label="Sound photos pagination">
+              <button type="button" class="sound-carousel-dot active" data-slide="0" aria-label="Slide 1" aria-selected="true"></button>
+              <button type="button" class="sound-carousel-dot" data-slide="1" aria-label="Slide 2" aria-selected="false"></button>
+              <button type="button" class="sound-carousel-dot" data-slide="2" aria-label="Slide 3" aria-selected="false"></button>
+              <button type="button" class="sound-carousel-dot" data-slide="3" aria-label="Slide 4" aria-selected="false"></button>
+            </div>
+          </div>
         </div>
         <div class="feature-edge-content">
           <h3 class="feature-edge-title">440Hz Rotary Sound &amp; Tokyo Archives</h3>
           <p class="feature-edge-desc">
             Engineered around custom wooden horn loudspeakers, precision rotary mixers, and discrete analog vacuum tube amplification. Our sessions take inspiration from Tokyo’s legendary jazz kissaten culture — where music is played with devotion, fidelity, and unhurried nuance.
-          </p>
-        </div>
-      </div>
-
-      <!-- Feature 2: Robata & Clarified Libations (Content Left, Image touches Right Edge) -->
-      <div class="feature-edge-row image-right">
-        <div class="feature-edge-media reveal-on-scroll">
-          <img src="./assets/nami-robata-skewer.jpg" alt="Binchotan Charcoal Robata &amp; Clarified Highballs" loading="eager">
-        </div>
-        <div class="feature-edge-content">
-          <h3 class="feature-edge-title">Binchotan Charcoal &amp; Clarified Highballs</h3>
-          <p class="feature-edge-desc">
-            An open robata hearth cooking over high-heat binchotan charcoal alongside a pristine raw bar. From aged hamachi crudo with kombu oil to charred koji-glazed root vegetables and charcoal-seared skewers, our culinary program is sound-mapped to the rhythms of the evening.
           </p>
         </div>
       </div>
@@ -1993,9 +2405,48 @@
         Walk-ins welcomed for late-night vinyl sessions and highballs.
       </p>
       <div class="closing-actions">
-        <button type="button" class="btn-cta-primary" onclick="openReservationModal(event)">
-          <span>Reserve Dining &amp; Listening</span>
+        <button type="button" class="btn-cta-primary" onclick="openReservationModal(event)" aria-label="Make a Reservation">
+          <span>Reservation</span>
+          <span class="reserve-cta-divider" aria-hidden="true"></span>
+          <img src="./assets/Eat_App_Logo.webp" alt="Eat App" class="reserve-eat-logo">
         </button>
+      </div>
+    </section>
+
+    <!-- 5. BESPOKE CUSTOM TYPOGRAPHY SPECIMEN SECTION -->
+    <section class="concept-font-section" id="brand-font" aria-label="Bespoke Custom Font Specimen">
+      <div class="font-section-container">
+        <!-- Section Header -->
+        <div class="font-section-header">
+          <h2 class="font-section-title">The Nami <span class="text-gradient">Waveform Typeface</span></h2>
+          <p class="font-section-desc">
+            Each letterform is sculpted from analog sound waves, harmonic oscillations, and Japanese wave geometries — applied across social media, campaign advertising, spatial wayfinding, and printed menus.
+          </p>
+        </div>
+
+        <!-- Specimen View Controls (Lowercase vs Uppercase) -->
+        <div class="font-controls-bar">
+          <div class="font-toggle-group" role="tablist" aria-label="Character set selection">
+            <button type="button" class="font-toggle-btn active" id="btnSpecimenSmall" role="tab" aria-selected="true" aria-controls="panelSpecimenSmall" onclick="switchSpecimen('small')">
+              <span>Lowercase</span>
+            </button>
+            <button type="button" class="font-toggle-btn" id="btnSpecimenBig" role="tab" aria-selected="false" aria-controls="panelSpecimenBig" onclick="switchSpecimen('big')">
+              <span>Uppercase</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Specimen Grid Display Canvas (Hairline Grid from SVG) -->
+        <div class="font-specimen-card reveal-on-scroll">
+          <div class="font-specimen-scroll" id="fontSpecimenScroll">
+            <div class="font-specimen-pane active" id="panelSpecimenSmall" role="tabpanel" aria-labelledby="btnSpecimenSmall">
+              <img src="./assets/Small-letters.svg" alt="Nami Custom Typeface — Lowercase Character Set" class="font-specimen-img" loading="lazy">
+            </div>
+            <div class="font-specimen-pane" id="panelSpecimenBig" role="tabpanel" aria-labelledby="btnSpecimenBig">
+              <img src="./assets/Big-letters.svg" alt="Nami Custom Typeface — Uppercase Character Set" class="font-specimen-img" loading="lazy">
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2017,7 +2468,7 @@
             A sensory provocateur in sound, dining, and nocturnal culture.<br>
             Part listening room, part bar, part cultural gathering.
           </p>
-          <a href="https://chat.whatsapp.com/" target="_blank" class="btn-whatsapp-footer">
+          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-footer">
             <img src="./assets/Whatsapp.svg" alt="WhatsApp" width="18" height="18" class="whatsapp-btn-icon" onerror="this.onerror=null; this.src='../assets/Whatsapp.svg'">
             <span>Join WhatsApp Community →</span>
           </a>
@@ -2027,11 +2478,11 @@
         <div class="footer-links-col">
           <span class="footer-col-label">NAVIGATE</span>
           <ul class="footer-nav-list">
-            <li><a href="concept.html">About</a></li>
-            <li><a href="whats-on.html">What’s on</a></li>
+            <li><a href="concept.html">Concept</a></li>
+            <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
-            <li><a href="our-space.html">Our space</a></li>
-            <li><a href="index-2.html#press">In the news</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
         </div>
@@ -2051,16 +2502,16 @@
         <div class="footer-links-col">
           <span class="footer-col-label">CONNECT</span>
           <ul class="footer-nav-list">
-            <li><a href="https://www.instagram.com/namibombay/" target="_blank">Instagram (@namibombay)</a></li>
-            <li><a href="whats-on.html">Resident advisor</a></li>
-            <li><a href="https://abnah.com/" target="_blank">Abnah group ↗</a></li>
+            <li><a href="https://www.instagram.com/namibombay/" target="_blank" rel="noopener noreferrer">Instagram (@namibombay)</a></li>
+            <li><a href="whats-on.html#programming">Resident advisor</a></li>
+            <li><a href="https://abnah.com/" target="_blank" rel="noopener noreferrer">Abnah group ↗</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Centered Copyright & Credits Text (Directly Above Vinyl, Zero Border) -->
       <div class="footer-mid-bar">
-        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · SENSORY PROVOCATION</span>
+        <span>© 2026 NAMI HI-FI. ALL RIGHTS RESERVED. BANDRA WEST, MUMBAI · DESIGNED BY <a href="https://repindia.com/" target="_blank" rel="noopener noreferrer">REPINDIA</a></span>
       </div>
 
       <!-- Half Vinyl Record (Vinyl.svg) - Touching Footer End, Smooth 3x Speed Rotation -->
@@ -2116,7 +2567,9 @@
           <span class="reserve-eyebrow">RESERVATION · EAT APP</span>
           <h3 class="reserve-modal-title">Book Experience</h3>
         </div>
-        <button type="button" class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">✕</button>
+        <button type="button" class="reserve-modal-close" onclick="closeReservationModal()" aria-label="Close modal">
+          <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
+        </button>
       </div>
       <p class="reserve-modal-desc">
         Select your date, party size, and session. We will instantly redirect you to our Eat App booking portal.
@@ -2161,7 +2614,8 @@
         </div>
 
         <button type="submit" class="btn-confirm-reserve">
-          <span>Find Table via Eat App ↗</span>
+          <span>CONFIRM RESERVATION</span>
+          <img src="./assets/Arrow-right.svg" alt="" aria-hidden="true" width="18" height="18" style="display:inline-block; vertical-align:middle;">
         </button>
       </form>
     </div>
@@ -2273,45 +2727,55 @@
       }
     })();
 
-    // 4b. Zig-Zag Feature Image Parallax on Scroll
-    (function initZigZagParallax() {
-      const rows = Array.from(document.querySelectorAll('.feature-edge-row'));
-      if (!rows.length) return;
+    // 4b. Our Sounds Horizontal Carousel
+    (function initSoundCarousel() {
+      const carousel = document.getElementById('soundCarousel');
+      const track = document.getElementById('soundCarouselTrack');
+      const prevBtn = document.getElementById('soundCarouselPrev');
+      const nextBtn = document.getElementById('soundCarouselNext');
+      const dots = Array.from(document.querySelectorAll('#soundCarouselDots .sound-carousel-dot'));
+      const viewport = document.getElementById('soundCarouselViewport');
+      if (!carousel || !track || !dots.length) return;
 
-      let ticking = false;
+      const totalSlides = dots.length;
+      let currentIndex = 0;
 
-      function updateParallax() {
-        const winHeight = window.innerHeight;
-        const screenCenter = winHeight / 2;
-
-        rows.forEach(row => {
-          const media = row.querySelector('.feature-edge-media');
-          const img = row.querySelector('.feature-edge-media img');
-          if (!media || !img) return;
-
-          const rect = media.getBoundingClientRect();
-          if (rect.bottom > -100 && rect.top < winHeight + 100) {
-            const mediaCenter = rect.top + rect.height / 2;
-            const offset = (mediaCenter - screenCenter) * -0.14;
-            const clamped = Math.max(-68, Math.min(68, offset));
-            img.style.transform = `translate3d(0, ${clamped.toFixed(1)}px, 0)`;
-          }
+      function goToSlide(index) {
+        currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, i) => {
+          const isActive = i === currentIndex;
+          dot.classList.toggle('active', isActive);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
       }
 
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateParallax();
-            ticking = false;
-          });
-          ticking = true;
-        }
+      if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => goToSlide(idx));
+      });
+
+      carousel.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlide(currentIndex - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide(currentIndex + 1); }
+      });
+
+      if (viewport) {
+        let touchStartX = 0;
+        viewport.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        viewport.addEventListener('touchend', (e) => {
+          const deltaX = e.changedTouches[0].screenX - touchStartX;
+          if (Math.abs(deltaX) > 40) {
+            goToSlide(deltaX > 0 ? currentIndex - 1 : currentIndex + 1);
+          }
+        }, { passive: true });
       }
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      updateParallax();
+      goToSlide(0);
     })();
 
     // 5. Reservation Modal Handlers
@@ -2340,13 +2804,19 @@
 
     function handleReserveSubmit(e) {
       e.preventDefault();
-      const date = document.getElementById('resDate').value;
-      const guests = document.getElementById('resGuests').value;
-      const time = document.getElementById('resTime').value;
-      const seating = document.getElementById('resSeating').value;
-      const targetUrl = `https://eat.nami.in/reserve?date=${encodeURIComponent(date)}&guests=${encodeURIComponent(guests)}&time=${encodeURIComponent(time)}&seating=${encodeURIComponent(seating)}`;
-      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      const date = document.getElementById('resDate')?.value || '';
+      const guests = document.getElementById('resGuests')?.value || '';
+      const time = document.getElementById('resTime')?.value || '';
+      const seating = document.getElementById('resSeating')?.value || '';
       closeReservationModal();
+      const params = new URLSearchParams({
+        type: 'reservation',
+        date,
+        guests,
+        time,
+        seating
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
     }
 
     // 6. Audio Player Logic
@@ -2382,6 +2852,31 @@
         });
       });
     })();
+
+    // 7. Custom Font Specimen Switcher (Small / Big Letters)
+    function switchSpecimen(type) {
+      const pSmall = document.getElementById('panelSpecimenSmall');
+      const pBig = document.getElementById('panelSpecimenBig');
+      const bSmall = document.getElementById('btnSpecimenSmall');
+      const bBig = document.getElementById('btnSpecimenBig');
+      if (!pSmall || !pBig || !bSmall || !bBig) return;
+      if (type === 'big') {
+        pSmall.classList.remove('active');
+        pBig.classList.add('active');
+        bSmall.classList.remove('active');
+        bSmall.setAttribute('aria-selected', 'false');
+        bBig.classList.add('active');
+        bBig.setAttribute('aria-selected', 'true');
+      } else {
+        pBig.classList.remove('active');
+        pSmall.classList.add('active');
+        bBig.classList.remove('active');
+        bBig.setAttribute('aria-selected', 'false');
+        bSmall.classList.add('active');
+        bSmall.setAttribute('aria-selected', 'true');
+      }
+    }
   </script>
+  <script src="./assets/nami-velvet-buttons.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site";
 
@@ -35,18 +36,31 @@ export default function Header() {
   const onWhatsOn = pathname.startsWith("/whats-on");
   const onDrinks = pathname.startsWith("/drinks-food");
   const onSpace = pathname.startsWith("/our-space");
+  const onFaqs = pathname.startsWith("/faqs");
 
-  // Home keeps in-page anchors for C/W/F; subpages use routes (matches index-2 + page HTML).
+  // Home keeps in-page anchors for C/W/F; subpages use routes.
   const hrefConcept = isHome ? "/#philosophy" : "/concept";
   const hrefWhatsOn = isHome ? "/#programming" : "/whats-on";
   const hrefDrinks = isHome ? "/#menu" : "/drinks-food";
   const hrefSpace = "/our-space";
 
+  // Inner pages: keep logo visible even if home scroll handler re-runs.
+  useEffect(() => {
+    const brand = document.getElementById("headerBrandMark");
+    if (!brand) return;
+    if (!isHome) brand.classList.add("visible");
+  }, [isHome, pathname]);
+
   return (
     <>
       <header className="site-header">
         <div className="header-left">
-          <a href="/" className="brand-mark-link" id="headerBrandMark" aria-label="NAMI Home">
+          <a
+            href="/"
+            className={isHome ? "brand-mark-link" : "brand-mark-link visible"}
+            id="headerBrandMark"
+            aria-label="NAMI Home"
+          >
             <img src="/assets/Main-logo.svg" alt="NAMI" className="brand-mark-img" />
           </a>
         </div>
@@ -131,7 +145,13 @@ export default function Header() {
             onClick={() => (window as any).toggleMenuDrawer?.()}
             aria-label="Close menu"
           >
-            ✕
+            <img
+              src="/assets/close.svg"
+              alt="Close"
+              width={16}
+              height={16}
+              style={{ display: "block", pointerEvents: "none" }}
+            />
           </button>
         </div>
 
@@ -178,17 +198,28 @@ export default function Header() {
               <span className="drawer-nav-num">04</span> Our Space
             </a>
             <a
-              href="/#reservation"
+              href="/faqs"
+              className={drawerClass(onFaqs)}
+              onClick={() => (window as any).toggleMenuDrawer?.()}
+              data-target-img="drawerImgFaqs"
+              data-tag="INFO · 05"
+              data-sub="FAQs"
+            >
+              <span className="drawer-nav-num">05</span> FAQs
+            </a>
+            <a
+              href="#reservation"
               className="drawer-nav-item"
               onClick={(e) => {
+                e.preventDefault();
                 (window as any).toggleMenuDrawer?.();
                 (window as any).openReservationModal?.(e);
               }}
               data-target-img="drawerImgReservation"
-              data-tag="RESERVATION · 05"
+              data-tag="RESERVATION · 06"
               data-sub="Table & Listening Sessions"
             >
-              <span className="drawer-nav-num">05</span> Reservation
+              <span className="drawer-nav-num">06</span> Reservation
             </a>
           </nav>
 
@@ -235,6 +266,14 @@ export default function Header() {
                 decoding="async"
               />
               <img
+                src="/assets/nami-bar-room.avif"
+                alt="FAQs & Contact"
+                className="drawer-preview-img"
+                id="drawerImgFaqs"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
                 src="/assets/nami-guest-table.avif"
                 alt="Reservation"
                 className="drawer-preview-img"
@@ -242,15 +281,6 @@ export default function Header() {
                 loading="lazy"
                 decoding="async"
               />
-
-              <div className="drawer-image-caption">
-                <span className="drawer-caption-tag" id="drawerCaptionTag">
-                  NAMI HI-FI
-                </span>
-                <span className="drawer-caption-sub" id="drawerCaptionSub">
-                  Listening Room & Dining
-                </span>
-              </div>
             </div>
           </div>
         </div>
@@ -267,9 +297,9 @@ export default function Header() {
           <div className="drawer-info-col">
             <h4>Location</h4>
             <p>
-              Bandra West, Mumbai,
+              15th Floor, Mansionz One, Linking Rd,
               <br />
-              Maharashtra 400050
+              Bandra West, Mumbai 400050
             </p>
           </div>
           <div className="drawer-info-col">

@@ -25,7 +25,7 @@ export default function StyleGuidePage() {
           }, 2200);
         }
 
-        // Live Controls for Noise-texture.png
+        // Live Controls for noise-tile.png
         function updateNoiseTexture(val) {
           const layer = document.getElementById('noise-layer');
           layer.style.opacity = val / 100;
@@ -155,7 +155,7 @@ export default function StyleGuidePage() {
 
   return (
     <>
-      {/* High-Res Viewport Noise Layer using Noise-texture.png */}
+      {/* High-Res Viewport Noise Layer using noise-tile.png */}
         <div id="noise-layer"></div>
 
         {/* Warm Sepia Tone Analog Overlay */}
@@ -325,7 +325,7 @@ export default function StyleGuidePage() {
             <div className="section-eyebrow">Tactile Foundation · 02</div>
             <h2 className="section-title">Background Noise Texture</h2>
             <p className="section-desc">
-              Coated with the official <strong>Noise-texture.png</strong> (2268 × 7239 px) asset, providing genuine analog vinyl grain across the dark nocturnal canvas.
+              Coated with the official <strong>noise-tile.png</strong> (2268 × 7239 px) asset, providing genuine analog vinyl grain across the dark nocturnal canvas.
             </p>
 
             <div className="texture-spotlight-box">
@@ -333,7 +333,7 @@ export default function StyleGuidePage() {
                 <div className="texture-spec-sample" id="specSample"></div>
                 <div>
                   <div style={{fontFamily: '\'Chivo\', sans-serif', fontSize: '0.72rem', color: 'var(--c-orange)', marginBottom: '0.4rem'}}>OFFICIAL ASSET SPEC</div>
-                  <div style={{fontSize: '1.35rem', fontWeight: 700}}>Noise-texture.png</div>
+                  <div style={{fontSize: '1.35rem', fontWeight: 700}}>noise-tile.png</div>
                 </div>
                 <div style={{fontFamily: '\'Chivo\', sans-serif', fontSize: '0.75rem', color: 'var(--text-secondary)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.75rem'}}>
                   Resolution: 2268 × 7239 px · Format: 8-bit RGBA PNG
@@ -346,12 +346,12 @@ export default function StyleGuidePage() {
                   Applied both to the root <code>body</code> background and as a fixed viewport overlay with <code>mix-blend-mode: screen</code> to deliver uninterrupted grain texture from the top to bottom of the page.
                 </p>
                 <div className="texture-code-block">
-{`/* Applied Noise-texture.png on Dark Canvas */
+{`/* Applied noise-tile.png on Dark Canvas */
       body {
         background-color: #070707;
         background-image: 
           radial-gradient(circle at 50% 0%, rgba(232, 66, 67, 0.15), transparent 75%),
-          url('/assets/Noise-texture.png');
+          url('/assets/noise-tile.png');
         background-repeat: no-repeat, repeat;
         background-position: center top, center top;
         background-size: 100% 900px, 100% auto;
@@ -361,7 +361,7 @@ export default function StyleGuidePage() {
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background: url('/assets/Noise-texture.png') repeat center top;
+        background: url('/assets/noise-tile.png') repeat center top;
         background-size: 100% auto;
         mix-blend-mode: screen;
       }`}
