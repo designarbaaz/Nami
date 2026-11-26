@@ -1416,7 +1416,17 @@
     /* Calendar Header Block */
     .cal-header-block {
       max-width: 780px;
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cal-month-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      text-align: center;
+      margin: 0 0 1.25rem;
+      line-height: 1.2;
     }
 
     /* 7-Column Calendar Grid Wrapper */
@@ -2316,13 +2326,13 @@
     .full-menu-tab-btn {
       background: none;
       border: none;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 1.35vw, 20px);
+      font-weight: 300;
       letter-spacing: 0;
-      text-transform: uppercase;
+      text-transform: none;
       color: rgba(255, 255, 255, 0.5);
-      padding: 1rem 0;
+      padding: 0.75rem 0 6px;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: color 0.2s, border-color 0.2s;
@@ -2330,12 +2340,13 @@
     }
 
     .full-menu-tab-btn:hover {
-      color: #c0c0c0;
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .full-menu-tab-btn.active {
-      color: var(--c-orange);
-      border-bottom-color: var(--c-orange);
+      color: #FFFFFF;
+      font-weight: 300;
+      border-bottom-color: #FFFFFF;
     }
 
     /* Modal Tab Content Area */
@@ -2702,7 +2713,7 @@
     .media-card-cta {
       font-family: var(--font-heading);
       font-size: 0.76rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.58);
@@ -3011,9 +3022,9 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.75rem 1.4rem;
@@ -3463,7 +3474,7 @@
 
         <!-- Node S: Space -->
         <div class="scroller-node">
-          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Spaces">
+          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3473,7 +3484,7 @@
               </g>
             </svg>
             <span class="knob-label">S</span>
-            <span class="tooltip">Our Spaces</span>
+            <span class="tooltip">Our Space</span>
           </a>
         </div>
       </nav>
@@ -3509,7 +3520,7 @@
           <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Spaces
+          <span class="drawer-nav-num">04</span> Our Space
         </a>
         <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
           <span class="drawer-nav-num">05</span> FAQs
@@ -3526,7 +3537,7 @@
           <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
           <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
@@ -3847,6 +3858,8 @@
           <h2 class="section-heading" style="margin: 0;"><span class="grad-accent">What’s On at</span> Nami</h2>
         </div>
 
+        <h3 class="cal-month-heading">December 2026</h3>
+
         <!-- 7-Column Calendar Grid Wrapper -->
         <div class="cal-grid-scroll-wrap">
           <div class="cal-grid-table">
@@ -3891,7 +3904,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">8</span></div>
               </div>
               <!-- Event Day 9: Atushi Maeda (Column 2) -->
-              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Feb 9: Atushi Maeda">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="9" onclick="openEventPopup('9', event)" aria-label="Dec 9: Atushi Maeda">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">9</span>
                   <span class="cal-badge">440 Hz</span>
@@ -3914,7 +3927,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">13</span></div>
               </div>
               <!-- Event Day 14: Mogasu (Column 7) -->
-              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Feb 14: Mogasu">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="14" onclick="openEventPopup('14', event)" aria-label="Dec 14: Mogasu">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">14</span>
                   <span class="cal-badge">Warm Freq</span>
@@ -3942,7 +3955,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">19</span></div>
               </div>
               <!-- Event Day 20: Yousuke Yukimatsu (Headline - Column 6) -->
-              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Feb 20: Yousuke Yukimatsu">
+              <a href="javascript:void(0)" class="cal-cell has-event is-headline grad-variant-flare" data-day="20" onclick="openEventPopup('20', event)" aria-label="Dec 20: Yousuke Yukimatsu">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">20</span>
                   <span class="cal-badge badge-headline">3968 Hz Special</span>
@@ -3961,7 +3974,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">22</span></div>
               </div>
               <!-- Event Day 23: Occa (Column 2) -->
-              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Feb 23: Occa">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-resonance" data-day="23" onclick="openEventPopup('23', event)" aria-label="Dec 23: Occa">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">23</span>
                   <span class="cal-badge">Resonant</span>
@@ -3984,7 +3997,7 @@
                 <div class="cal-cell-top"><span class="cal-cell-num">27</span></div>
               </div>
               <!-- Event Day 28: Suze Ijo (Column 7) -->
-              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Feb 28: Suze Ijo">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-primary" data-day="28" onclick="openEventPopup('28', event)" aria-label="Dec 28: Suze Ijo">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">28</span>
                   <span class="cal-badge">Electric</span>
@@ -3997,7 +4010,7 @@
 
               <!-- ROW 5: Days 29 to 30 + 5 empty cells -->
               <!-- Event Day 29: Sunju Hargun (Column 1) -->
-              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Feb 29: Sunju Hargun">
+              <a href="javascript:void(0)" class="cal-cell has-event grad-variant-flare" data-day="29" onclick="openEventPopup('29', event)" aria-label="Dec 29: Sunju Hargun">
                 <div class="cal-cell-top">
                   <span class="cal-cell-num">29</span>
                   <span class="cal-badge">Nocturnal</span>
@@ -4027,7 +4040,7 @@
                     <div class="col-popup-img-grad"></div>
                     <!-- Date & Close Button floating directly over the image (no noisy background) -->
                     <div class="col-popup-header">
-                      <span class="col-popup-date" id="colPopupDate">TUE · FEB 09</span>
+                      <span class="col-popup-date" id="colPopupDate">TUE · DEC 09</span>
                       <button type="button" class="col-popup-close" onclick="closeEventPopup()" aria-label="Close event details">
                         <img src="./assets/close.svg" alt="Close" width="14" height="14" style="display:block; pointer-events:none;">
                       </button>
@@ -4163,7 +4176,7 @@
     <!-- 04. OUR SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
     <section id="space" class="space-section">
       <div class="space-header-row">
-        <h2 class="section-heading">Our <span class="grad-accent">Spaces</span></h2>
+        <h2 class="section-heading">Our <span class="grad-accent">Space</span></h2>
         <p class="section-body" style="margin-bottom: 0;">
           An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
         </p>
@@ -4408,7 +4421,7 @@
             <li><a href="concept.html">Concept</a></li>
             <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
-            <li><a href="our-space.html">Our Spaces</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
             <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
@@ -4600,7 +4613,7 @@
     const EVENTS_DATA = {
       '9': {
         dateNum: '09',
-        dateTag: 'TUE · FEB 09',
+        dateTag: 'TUE · DEC 09',
         hzTag: '440 Hz Root',
         artist: 'Atushi Maeda',
         title: 'Atushi Maeda · Ambient & Jazz',
@@ -4612,7 +4625,7 @@
       },
       '14': {
         dateNum: '14',
-        dateTag: 'SUN · FEB 14',
+        dateTag: 'SUN · DEC 14',
         hzTag: 'Warm Frequencies',
         artist: 'Mogasu',
         title: 'Mogasu · Vinyl Soul & Rare Groove',
@@ -4624,7 +4637,7 @@
       },
       '20': {
         dateNum: '20',
-        dateTag: 'SAT · FEB 20',
+        dateTag: 'SAT · DEC 20',
         hzTag: '3968 Hz Special · Headline',
         artist: 'Yousuke Yukimatsu',
         title: 'Yousuke Yukimatsu · Avant-Garde & Deep Bass',
@@ -4636,7 +4649,7 @@
       },
       '23': {
         dateNum: '23',
-        dateTag: 'TUE · FEB 23',
+        dateTag: 'TUE · DEC 23',
         hzTag: 'Resonant Node',
         artist: 'Occa',
         title: 'Occa · Deep Hypnotic Soundscapes',
@@ -4648,7 +4661,7 @@
       },
       '28': {
         dateNum: '28',
-        dateTag: 'SUN · FEB 28',
+        dateTag: 'SUN · DEC 28',
         hzTag: 'Electric Pulse',
         artist: 'Suze Ijo',
         title: 'Suze Ijo · Afro-Cuban & Electronic',
@@ -4660,7 +4673,7 @@
       },
       '29': {
         dateNum: '29',
-        dateTag: 'MON · FEB 29',
+        dateTag: 'MON · DEC 29',
         hzTag: 'Nocturnal Set',
         artist: 'Sunju Hargun',
         title: 'Sunju Hargun · Bangkok Nightclub Selector',

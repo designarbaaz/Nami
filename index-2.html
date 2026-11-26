@@ -2071,13 +2071,13 @@
     .full-menu-tab-btn {
       background: none;
       border: none;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 1.35vw, 20px);
+      font-weight: 300;
       letter-spacing: 0;
-      text-transform: uppercase;
+      text-transform: none;
       color: rgba(255, 255, 255, 0.5);
-      padding: 1rem 0;
+      padding: 0.75rem 0 6px;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: color 0.2s, border-color 0.2s;
@@ -2085,12 +2085,13 @@
     }
 
     .full-menu-tab-btn:hover {
-      color: #c0c0c0;
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .full-menu-tab-btn.active {
-      color: var(--c-orange);
-      border-bottom-color: var(--c-orange);
+      color: #FFFFFF;
+      font-weight: 300;
+      border-bottom-color: #FFFFFF;
     }
 
     /* Modal Tab Content Area */
@@ -2457,7 +2458,7 @@
     .media-card-cta {
       font-family: var(--font-heading);
       font-size: 0.76rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.58);
@@ -2766,9 +2767,9 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.75rem 1.4rem;
@@ -3147,7 +3148,7 @@
 
         <!-- Node S: Space -->
         <div class="scroller-node">
-          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Spaces">
+          <a href="our-space.html" class="scroller-btn" data-section="space" aria-label="Our Space">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               
               <g class="knob-rotor">
@@ -3157,7 +3158,7 @@
               </g>
             </svg>
             <span class="knob-label">S</span>
-            <span class="tooltip">Our Spaces</span>
+            <span class="tooltip">Our Space</span>
           </a>
         </div>
       </nav>
@@ -3193,7 +3194,7 @@
           <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="our-space.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Spaces
+          <span class="drawer-nav-num">04</span> Our Space
         </a>
         <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
           <span class="drawer-nav-num">05</span> FAQs
@@ -3210,7 +3211,7 @@
           <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food & Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img" id="drawerImgSpace">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img" id="drawerImgSpace">
           <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
@@ -3571,7 +3572,7 @@
     <!-- 04. OUR SPACE & SOUND SETUP (Spin Bar Style Full-Bleed Reference) -->
     <section id="space" class="space-section">
       <div class="space-header-row">
-        <h2 class="section-heading">Our <span class="grad-accent">Spaces</span></h2>
+        <h2 class="section-heading">Our <span class="grad-accent">Space</span></h2>
         <p class="section-body" style="margin-bottom: 0;">
           An intimate sanctuary where sound, flavour and nocturnal culture collide on their own frequency.
         </p>
@@ -3816,7 +3817,7 @@
             <li><a href="concept.html">Concept</a></li>
             <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks & Food</a></li>
-            <li><a href="our-space.html">Our Spaces</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
             <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>

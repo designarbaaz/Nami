@@ -45,7 +45,9 @@
     ".btn-reserve-from-menu",
     ".btn-cta-primary",
     ".btn-private-cta",
-    ".btn-enquiry-submit"
+    ".btn-enquiry-submit",
+    ".btn-ty-primary",
+    ".btn-go-back"
   ].join(", ");
 
   const HEADING_SELECTOR = [
@@ -60,7 +62,10 @@
     ".gallery-page-title .text-gradient",
     ".event-list-title .text-gradient",
     ".previous-events-heading .grad-text",
-    ".faq-display-title .text-gradient"
+    ".faq-display-title .text-gradient",
+    ".sounds-section-heading .text-gradient",
+    ".error-center-msg .text-gradient",
+    ".ty-display-title .grad-accent"
   ].join(", ");
 
   function injectStyles() {

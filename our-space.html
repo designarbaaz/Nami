@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Spaces — NAMI Hi-Fi Listening Room, Robata &amp; Bar, Mumbai</title>
+  <title>Our Space — NAMI Hi-Fi Listening Room, Robata &amp; Bar, Mumbai</title>
   <meta name="description" content="Explore the sensory architecture of NAMI: 440Hz custom horn acoustics, Tokyo jazz kissa vinyl archives, artisanal robata cuisine, and nocturnal craft libations.">
 
   <!-- Favicon -->
@@ -544,39 +544,41 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
       letter-spacing: normal !important;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.52);
       margin-bottom: 1.25rem;
     }
 
     .gallery-breadcrumb a {
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.52);
       text-decoration: none;
       transition: color 0.2s ease;
       letter-spacing: normal !important;
     }
 
     .gallery-breadcrumb a:hover {
-      color: var(--c-orange);
+      color: #FFFFFF;
     }
 
     .gallery-breadcrumb-sep {
-      color: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.28);
+      font-weight: 400;
     }
 
     .gallery-breadcrumb-active {
-      color: var(--c-orange);
+      color: #FFFFFF;
     }
 
     .gallery-page-title {
       font-family: var(--font-heading);
-      font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
       font-weight: 700;
-      color: #c0c0c0;
-      line-height: 1.1;
+      color: #FFFFFF;
+      line-height: 1.08;
       margin-bottom: 1.1rem;
       letter-spacing: normal !important;
     }
@@ -616,32 +618,32 @@
       border-radius: 0 !important;
       box-shadow: none !important;
       outline: none !important;
-      color: #777777;
+      color: rgba(255, 255, 255, 0.5);
       font-family: var(--font-heading);
-      font-size: clamp(18px, 2.2vw, 30px);
-      font-weight: 400;
+      font-size: clamp(16px, 1.35vw, 20px);
+      font-weight: 300;
       letter-spacing: normal !important;
       text-transform: none;
-      padding: 0 0 8px 0;
-      cursor: default;
-      border-bottom: 3px solid transparent !important;
+      padding: 0 0 6px 0;
+      cursor: pointer;
+      border-bottom: 2px solid transparent !important;
       transition: color 0.2s ease, border-color 0.2s ease;
       line-height: 1.2;
       display: inline-block;
     }
 
     .gallery-filter-pill:hover {
-      color: #c0c0c0;
+      color: rgba(255, 255, 255, 0.85);
       background: transparent !important;
       transform: none !important;
       box-shadow: none !important;
     }
 
-    /* Active state: bold underline, without underline for inactive */
+    /* Active state: thin weight matching inactive, highlighted in white + thin white underline */
     .gallery-filter-pill.active {
-      color: #ffffff !important;
-      font-weight: 700 !important;
-      border-bottom: 3px solid #ffffff !important;
+      color: #FFFFFF !important;
+      font-weight: 300 !important;
+      border-bottom: 2px solid #FFFFFF !important;
       background: transparent !important;
       box-shadow: none !important;
     }
@@ -1155,9 +1157,9 @@
       gap: 0.6rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
-      color: #c0c0c0;
+      color: #FFFFFF;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
       padding: 0.75rem 1.4rem;
@@ -1332,8 +1334,9 @@
         gap: 1.25rem;
       }
       .gallery-filter-pill {
-        font-size: 19px !important;
-        padding-bottom: 4px !important;
+        font-size: 16px !important;
+        font-weight: 300 !important;
+        padding-bottom: 6px !important;
       }
 
       .now-playing-widget {
@@ -1452,7 +1455,7 @@
 
         <!-- Node S: Our Space (Active) -->
         <div class="scroller-node">
-          <a href="our-space.html" class="scroller-btn active" data-section="space" aria-label="Our Spaces" aria-current="page">
+          <a href="our-space.html" class="scroller-btn active" data-section="space" aria-label="Our Space" aria-current="page">
             <svg class="knob-svg" viewBox="0 0 24 23.5" aria-hidden="true">
               <g class="knob-rotor">
                 <path class="knob-dial" d="M18.3,12.2c0,3.5-2.8,6.3-6.3,6.3s-6.3-2.8-6.3-6.3,2.1-5.4,4.9-6.1c0,0,.2,0,.3,0,.4-.1.7-.2,1.1-.2s.7,0,1.1.1c.1,0,.2,0,.3.1C16.2,6.8,18.3,9.3,18.3,12.2Z"/>
@@ -1461,7 +1464,7 @@
               </g>
             </svg>
             <span class="knob-label">S</span>
-            <span class="tooltip">Our Spaces</span>
+            <span class="tooltip">Our Space</span>
           </a>
         </div>
       </nav>
@@ -1497,7 +1500,7 @@
           <span class="drawer-nav-num">03</span> Drinks & Food
         </a>
         <a href="our-space.html" class="drawer-nav-item active" onclick="toggleMenuDrawer()" data-target-img="drawerImgSpace" data-tag="ACOUSTICS · 04" data-sub="440Hz Sound Architecture">
-          <span class="drawer-nav-num">04</span> Our Spaces
+          <span class="drawer-nav-num">04</span> Our Space
         </a>
         <a href="faqs.html" class="drawer-nav-item" onclick="toggleMenuDrawer()" data-target-img="drawerImgFaqs" data-tag="INFO · 05" data-sub="FAQs">
           <span class="drawer-nav-num">05</span> FAQs
@@ -1514,7 +1517,7 @@
           <img src="./assets/nami-erykah-vinyl.jpg" alt="Concept" class="drawer-preview-img" id="drawerImgConcept">
           <img src="./assets/nami-selector-booth.jpg" alt="What’s On" class="drawer-preview-img" id="drawerImgProgramming">
           <img src="./assets/nami-negroni-horn.jpg" alt="Food &amp; Drinks" class="drawer-preview-img" id="drawerImgMenu">
-          <img src="./assets/nami-resor-mixer.jpg" alt="Our Spaces" class="drawer-preview-img active" id="drawerImgSpace">
+          <img src="./assets/nami-resor-mixer.jpg" alt="Our Space" class="drawer-preview-img active" id="drawerImgSpace">
           <img src="./assets/nami-bar-room.jpg" alt="FAQs &amp; Contact" class="drawer-preview-img" id="drawerImgFaqs">
           <img src="./assets/nami-guest-table.jpg" alt="Reservation" class="drawer-preview-img" id="drawerImgReservation">
         </div>
@@ -1595,10 +1598,10 @@
       <nav class="gallery-breadcrumb" aria-label="Breadcrumb">
         <a href="index-2.html">HOME</a>
         <span class="gallery-breadcrumb-sep">/</span>
-        <span class="gallery-breadcrumb-active">OUR SPACES</span>
+        <span class="gallery-breadcrumb-active">OUR SPACE</span>
       </nav>
 
-      <h1 class="gallery-page-title">Our <span class="text-gradient">Spaces</span></h1>
+      <h1 class="gallery-page-title">Our <span class="text-gradient">Space</span></h1>
       <p class="gallery-page-desc">
         A sanctuary of analog acoustic engineering, Japanese robata gastronomy, bespoke libations, and nocturnal listening culture. Explore our custom rotary audio architecture, vinyl archives, dining rooms, and atmospheric bar.
       </p>
@@ -1773,7 +1776,7 @@
             <li><a href="concept.html">Concept</a></li>
             <li><a href="whats-on.html">What’s On</a></li>
             <li><a href="drinks-food.html">Drinks &amp; Food</a></li>
-            <li><a href="our-space.html">Our Spaces</a></li>
+            <li><a href="our-space.html">Our Space</a></li>
             <li><a href="faqs.html">FAQs</a></li>
             <li><a href="javascript:void(0)" onclick="openReservationModal(event)">Reservation</a></li>
           </ul>
